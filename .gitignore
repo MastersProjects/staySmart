@@ -63,3 +63,12 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# IDEs and editors
+/.idea/codeStyles
+/.idea/inspectionProfiles
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/staySmart.iml
+/.idea/vcs.xml
+/.idea/workspace.xml
