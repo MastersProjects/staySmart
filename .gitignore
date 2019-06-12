@@ -65,10 +65,4 @@ node_modules/
 .env
 
 # IDEs and editors
-/.idea/codeStyles
-/.idea/inspectionProfiles
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/staySmart.iml
-/.idea/vcs.xml
-/.idea/workspace.xml
+.idea/**

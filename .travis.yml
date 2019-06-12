@@ -4,12 +4,32 @@ node_js:
 install:
   - npm ci --prefix web
   - npm ci --prefix functions
-script:
-  - npm run build.prod --prefix web
-deploy:
-  provider: firebase
-  skip_cleanup: true
-  token:
-    secure: $FIREBASE_TOKEN
-notifications:
-  slack: $SLACK_NOTIFICATION
+jobs:
+  include:
+    - stage: DEV
+      script:
+        - npm run prebuild --prefix web
+        - npm run build.dev --prefix web
+      deploy:
+        - provider: firebase
+          skip_cleanup: true
+          token:
+            secure: $FIREBASE_TOKEN
+          on:
+            all_branches: true
+            condition: $TRAVIS_BRANCH =~ -release|master$
+    - stage: PROD
+      if: tag IS present
+      script:
+        - npm run prebuild --prefix web
+        - npm run build.prod --prefix web
+      deploy:
+        - provider: firebase
+          skip_cleanup: true
+          token:
+            secure: $FIREBASE_TOKEN
+          project: "staysmart-57b5a"
+          on:
+            tags: true
+            all_branches: true
+            condition: $TRAVIS_BRANCH =~ -release$
