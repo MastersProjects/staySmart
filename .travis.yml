@@ -7,6 +7,7 @@ install:
 jobs:
   include:
     - stage: DEV
+      if: branch = "master"
       script:
         - npm run prebuild --prefix web
         - npm run build.dev --prefix web
@@ -15,9 +16,7 @@ jobs:
           skip_cleanup: true
           token:
             secure: $FIREBASE_TOKEN
-          on:
-            all_branches: true
-            condition: $TRAVIS_BRANCH =~ -release|master$
+          message: $TRAVIS_COMMIT 
     - stage: PROD
       if: tag IS present
       script:
@@ -29,7 +28,6 @@ jobs:
           token:
             secure: $FIREBASE_TOKEN
           project: "staysmart-57b5a"
+          message: $TRAVIS_TAG $TRAVIS_COMMIT
           on:
             tags: true
-            all_branches: true
-            condition: $TRAVIS_BRANCH =~ -release$
