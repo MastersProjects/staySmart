@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark custom-navbar">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="staysmart">
     <img src="assets/img/logo.png" width="32" height="32" class="d-inline-block align-top" alt="stay smart logo">
     stay smart
   </a>
@@ -11,7 +11,7 @@
   <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="suchen/suchen.html">Nachhilfe suchen</a>
+        <a class="nav-link" href="anfragen">Nachhilfe suchen</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="anbieten/anbieten.html">Nachhilfe anbieten</a>
@@ -29,16 +29,8 @@
     </div>
   </div>
 </nav>
-<div class="jumbotron img-jumbo text-white">
-  <div class="container">
-    <h1 class="display-4">Willkommen auf stay smart!</h1>
-    <p class="lead">Die simple Nachhilfvermittlung für alle Klassenstufen</p>
-    <hr class="my-4">
-    <p>Nachhilfelherer suchen?</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Anfrage erstllen</a>
-    </p>
-  </div>
+<div class="jumbotron img-jumbo text-white" [style.background-image]="'url(assets/img/' + banner.image + ')'">
+  <div class="container" [innerHTML]="banner.html"></div>
 </div>
 <div class="container">
   <router-outlet></router-outlet>

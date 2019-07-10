@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment';
 })
 export class MainLayoutComponent implements OnInit {
   version = environment.version;
-  
+  banner = {"image": "background.jpg", "html": "<h1>Stay Smart</h1>"}
+
   constructor() { }
 
   ngOnInit() {
   }
-
 }
