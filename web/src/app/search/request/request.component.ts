@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MainLayoutComponent } from 'src/app/general/main-layout/main-layout.component';
 import { RequestForm } from 'src/shared/model/requestForm';
+import { Observable, of } from 'rxjs';
+import { LocationService } from 'src/shared/clients/location.service';
+import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-request',
@@ -8,7 +11,7 @@ import { RequestForm } from 'src/shared/model/requestForm';
   styleUrls: ['./request.component.scss']
 })
 export class RequestComponent implements OnInit {
-  constructor(private mainLayoutComponent: MainLayoutComponent) { }
+  constructor(private mainLayoutComponent: MainLayoutComponent, private locationService: LocationService) { }
 
   /* Variables for stepper */
   steps: HTMLCollectionOf<Element>;
@@ -20,6 +23,10 @@ export class RequestComponent implements OnInit {
   model: RequestForm = new RequestForm();
   grades = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynmaic not static
   subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynmaic not static
+
+  /* Variables location search */
+  searching = false;
+  searchFailed = false;
 
   ngOnInit() {
     this.mainLayoutComponent.banner = { "image": "anfragen_unscharf.png", "html": "<h1 class='display-4'>Anfrage erstellen</h1>" };
@@ -80,5 +87,25 @@ export class RequestComponent implements OnInit {
     else 
       console.log("Error in Form")
   }
+
+  searchLocation = (text: Observable<string>) =>
+    text.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>
+        this.locationService.searchLocation(term).pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            console.log("Search failed")
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
+
+    locationFormatter = (result: any) => result.attrs.label.replace(/<[^>]*>/g, '');
+    locationFomratterForm = (result: any) => result.attrs.label = result.attrs.label.replace(/<[^>]*>/g, '');
 
 }

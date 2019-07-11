@@ -5,7 +5,7 @@ export class RequestForm {
     phone: string;
     subject: string;
     grade: string;
-    location: string;
+    location: any;
     time: string;
     budget: number;
     problem: string;
