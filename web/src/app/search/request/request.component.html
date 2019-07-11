@@ -11,95 +11,97 @@
             <br>Alle unsere Anbieter lernen wir in einem persönlichen Gespräch kennen.
             <br><br>Den maximalen Preis kannst du festlegen. Folglich suchen wir nach einem Anbietenden der unter
             deiner Preisgrenze liegt. Aktuell liegen die Preise der Anbieter/innen zwischen 20 und 50 Franken pro
-            Lektion.<br>Unser Vermittlungsservice ist vollkommen kostenlos!</p><hr>
+            Lektion.<br>Unser Vermittlungsservice ist vollkommen kostenlos!</p>
+        <hr>
     </div>
 </div>
 <div class="row mt-md-4 mt-3">
     <div class="col-12 col-md-10 offset-md-1">
-        <div class="formStep" id="f1">
-            <div class="form-row">
-                <div class="form-group col-lg-6">
-                    <label for="firstname">Vorname</label>
-                    <input id="firstname" name="firstname" type="text" class="form-control">
-                </div>
-                <div class="form-group col-lg-6">
-                    <label for="name">Name</label>
-                    <input id="name" name="name" type="text" class="form-control">
-                </div>
-                <div class="form-group col-lg-6">
-                    <label for="mail">Email</label>
-                    <input id="mail" name="mail" type="text" class="form-control">
-                </div>
-                <div class="form-group col-lg-6">
-                    <label for="phone">Mobiltelefon</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">+41</div>
+        <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+            <div class="formStep" id="f1">
+                <div class="form-row">
+                    <div class="form-group col-lg-6">
+                        <label for="firstname">Vorname</label>
+                        <input id="firstname" #firstname="ngModel" name="firstname" type="text" class="form-control" required
+                            [(ngModel)]="model.firstname">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="name">Name</label>
+                        <input id="name" #name="ngModel" name="name" type="text" class="form-control" required [(ngModel)]="model.name">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="mail">Email</label>
+                        <input id="mail" name="mail" #mail="ngModel" type="text" class="form-control" required email [(ngModel)]="model.mail">
+                        <small *ngIf="mail.invalid && mail.value" id="phonehelp" class="form-text text-danger">Keine gültige Email eingegeben</small>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="phone">Mobiltelefon</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">+41</div>
+                            </div>
+                            <input id="phone" name="phone" type="text" class="form-control" required pattern="\d{9}"
+                                [(ngModel)]="model.phone" #phone="ngModel">
                         </div>
-                        <input id="phone" name="phone" type="text" class="form-control">
+                        <small *ngIf="phone.invalid && phone.value" id="phonehelp" class="form-text text-danger">Die Telefonnummer ohne führende 0 eingeben</small>
+                    </div>
+                    <div class="form-group col-12">
+                        <button name="next1" type="button" (click)="nextStep()" [disabled]="firstname.invalid || name.invalid || mail.invalid || phone.invalid"
+                            class="btn btn-primary float-right custom-btn-blue">Weiter</button>
                     </div>
                 </div>
-                <div class="form-group col-12">
-                    <button name="submit" type="submit" (click)="nextStep()"
-                        class="btn btn-primary float-right custom-btn-blue">Weiter</button>
+            </div>
+            <div class="formStep" id="f2" style="display:none">
+                <div class="form-row">
+                    <div class="form-group col-lg-6">
+                        <label for="lecture">Fach</label>
+                        <select class="form-control" name="fach" id="lecture" size="6" [(ngModel)]="model.subject" required #lecture="ngModel">
+                            <option *ngFor="let sub of subjects" [ngValue]="sub">{{sub}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="class">Klasse</label>
+                        <select class="form-control" name="grade" id="class" size="6" [(ngModel)]="model.grade" required #grade="ngModel">
+                            <option *ngFor="let grade of grades" [ngValue]="grade">{{grade}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <button name="prev1" type="button" (click)="prevStep()"
+                            class="btn btn-primary float-left custom-btn-blue">Zurück</button>
+                        <button name="next2" type="button" (click)="nextStep()"
+                            class="btn btn-primary float-right custom-btn-blue" [disabled]="grade.invalid || lecture.invalid">Weiter</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="formStep" id="f2" style="display:none">
-            <div class="form-row">
-                <div class="form-group col-lg-6">
-                    <label for="lecture">Fach</label>
-                    <select class="form-control" id="lecture" size="4">
-                        <option>Mathematik</option>
-                        <option>Deutsch</option>
-                        <option>Englisch</option>
-                        <option>Französisch</option>
-                        <option>Physik</option>
-                    </select>
-                </div>
-                <div class="form-group col-lg-6">
-                    <label for="class">Klasse</label>
-                    <select class="form-control" id="class" size="4">
-                        <option>1. - 3. Klasse</option>
-                        <option>4. - 6. Klasse</option>
-                        <option>Sekundarstufe</option>
-                        <option>Gymnasium</option>
-                        <option>Gymnasium Vorbereitung</option>
-                    </select>
-                </div>
-                <div class="form-group col-12">
-                    <button name="submit" type="submit" (click)="prevStep()"
-                        class="btn btn-primary float-left custom-btn-blue">Zurück</button>
-                    <button name="submit" type="submit" (click)="nextStep()"
-                        class="btn btn-primary float-right custom-btn-blue">Weiter</button>
+            <div class="formStep" id="f3" style="display:none">
+                <div class="form-row">
+                    <div class="form-group col-lg-6">
+                        <label for="location">Ort</label>
+                        <input id="location" #location="ngModel" name="location" type="text" class="form-control" [(ngModel)]="model.location" required>
+                        <!--https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=stäfa&type=locations&origins=gg25 request to this url for validation-->
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="time">Zeitpunkt</label>
+                        <input id="time" name="time" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="range">Budget maximal</label>
+                        <input type="range" name="budget" #budget="ngModel" class="custom-range" min="0" max="20" id="range" [(ngModel)]="model.budget" required>
+                        <small class="form-text text-muted" *ngIf="model.budget">Aktuelles Budget: {{model.budget * 5}}.-</small>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="problem">Problem</label>
+                        <textarea class="form-control" name="problem" #problem="ngModel" id="problem" rows="3" required minlength="20" [(ngModel)]="model.problem"></textarea>
+                    </div>
+                    <div class="form-group col-12">
+                        <button name="prev2" type="button" (click)="prevStep()"
+                            class="btn btn-primary float-left custom-btn-blue">Zurück</button>
+                        <!-- add missing validation -->
+                        <button type="submit" name="submit" class="btn btn-primary float-right custom-btn-blue" [disabled]="budget.invalid || problem.invalid">Absenden</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="formStep" id="f3" style="display:none">
-            <div class="form-row">
-                <div class="form-group col-lg-6">
-                    <label for="location">Ort</label>
-                    <input id="location" name="location" type="text" class="form-control">
-                </div>
-                <div class="form-group col-lg-6">
-                    <label for="time">Zeitpunkt</label>
-                    <input id="time" name="time" type="text" class="form-control">
-                </div>
-                <div class="form-group col-lg-6">
-                    <label for="range">Budget maximal 20 - 100.-</label>
-                    <input type="range" class="custom-range" min="0" max="8" id="range">
-                </div>
-                <div class="form-group col-lg-6">
-                    <label for="problem">Problem</label>
-                    <textarea class="form-control" id="problem" rows="3"></textarea>
-                </div>
-                <div class="form-group col-12">
-                    <button name="submit" type="submit" (click)="prevStep()"
-                        class="btn btn-primary float-left custom-btn-blue">Zurück</button>
-                    <a href="abgeschlossen.html" class="btn btn-primary float-right custom-btn-blue">Absenden</a>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 <div class="row mb-md-4">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Banner } from 'src/shared/model/banner';
 
 @Component({
   selector: 'app-main-layout',
@@ -8,10 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class MainLayoutComponent implements OnInit {
   version = environment.version;
-  banner = {"image": "background.jpg", "html": "<h1>Stay Smart</h1>"}
+  banner: Banner;
 
   constructor() { }
 
   ngOnInit() {
+    this.banner = {"image": "background.jpg", "html": "<h1>Stay Smart</h1>"}
   }
 }
