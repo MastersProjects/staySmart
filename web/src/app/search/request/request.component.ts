@@ -1,9 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { MainLayoutComponent } from 'src/app/general/main-layout/main-layout.component';
-import { RequestForm } from 'src/shared/model/requestForm';
-import { Observable, of } from 'rxjs';
-import { LocationService } from 'src/shared/clients/location.service';
-import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {RequestForm} from 'src/shared/model/requestForm';
+import {Observable, of} from 'rxjs';
+import {LocationService} from 'src/shared/clients/location.service';
+import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-request',
@@ -11,7 +10,7 @@ import {catchError, debounceTime, distinctUntilChanged, map, tap, switchMap} fro
   styleUrls: ['./request.component.scss']
 })
 export class RequestComponent implements OnInit {
-  constructor(private mainLayoutComponent: MainLayoutComponent, private locationService: LocationService) { }
+  constructor(/*private mainLayoutComponent: MainLayoutComponent,*/ private locationService: LocationService) { }
 
   /* Variables for stepper */
   steps: HTMLCollectionOf<Element>;
@@ -29,7 +28,7 @@ export class RequestComponent implements OnInit {
   searchFailed = false;
 
   ngOnInit() {
-    this.mainLayoutComponent.banner = { "image": "anfragen_unscharf.png", "html": "<h1 class='display-4'>Anfrage erstellen</h1>" };
+    // this.mainLayoutComponent.banner = { "image": "anfragen_unscharf.png", "html": "<h1 class='display-4'>Anfrage erstellen</h1>" };
     this.steps = document.getElementsByClassName('step');
     this.progressBars = document.getElementsByClassName('progress');
   }

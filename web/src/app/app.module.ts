@@ -1,22 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HomeComponent} from './home/home.component';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MainLayoutComponent } from './general/main-layout/main-layout.component';
-import { RequestComponent } from './search/request/request.component';
-import { HttpClientModule } from '@angular/common/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {RequestComponent} from './search/request/request.component';
+import {HttpClientModule} from '@angular/common/http';
+import {BannerComponent} from './general/banner/banner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MainLayoutComponent,
-    RequestComponent
+    RequestComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,
@@ -28,4 +28,5 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
