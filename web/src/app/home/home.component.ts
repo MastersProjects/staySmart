@@ -7,10 +7,10 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(/* private mainLayoutComponent: MainLayoutComponent */) { }
+  constructor() {
+  }
 
   ngOnInit() {
-    // this.mainLayoutComponent.banner = {"image": "background.jpg", "html": "<h1 class='display-4'>Willkommen auf stay smart!</h1><p class='lead'>Die simple Nachhilfvermittlung für alle Klassenstufen</p><hr class='my-4'><p>Nachhilfelherer suchen?</p><p class='lead'><a class='btn btn-primary btn-lg' href='anfragen' role='button'>Anfrage erstllen</a></p>"}
   }
 
 }

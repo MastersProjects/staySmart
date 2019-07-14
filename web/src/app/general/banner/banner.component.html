@@ -1,3 +1,19 @@
-<div class="jumbotron img-jumbo text-white" [style.background-image]="'url(assets/img/' + banner.image + ')'">
-  <div class="container" [innerHTML]="banner.html"></div>
+<div *ngIf="route === '/staysmart'" class="jumbotron img-jumbo text-white"
+     [style.background-image]="'url(assets/img/background.jpg)'">
+  <div class="container">
+    <h1 class='display-4'>Willkommen auf stay smart!</h1>
+    <p class='lead'>Die simple Nachhilfvermittlung für alle Klassenstufen</p>
+    <hr class='my-4'>
+    <p>Nachhilfelherer suchen?</p>
+    <p class='lead'>
+      <a class='btn btn-primary btn-lg' routerLink='anfragen' role='button'>Anfrage erstllen</a>
+    </p>
+  </div>
+</div>
+
+<div *ngIf="route === '/anfragen'" class="jumbotron img-jumbo text-white"
+     [style.background-image]="'url(assets/img/anfragen_unscharf.png)'">
+  <div class="container">
+    <h1 class='display-4'>Anfrage erstellen</h1>
+  </div>
 </div>

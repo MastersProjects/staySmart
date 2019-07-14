@@ -1,21 +1,33 @@
-import {Component, OnInit} from '@angular/core';
-import {Banner} from '../../../shared/model/banner';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.scss']
 })
-export class BannerComponent implements OnInit {
+export class BannerComponent implements OnInit, OnDestroy {
 
-  banner: Banner = {image: 'background.jpg', html: '<h1>Stay Smart</h1>'};
-  // home: Banner = {image: 'background.jpg', html: '<h1 class=\'display-4\'>Willkommen auf stay smart!</h1><p class=\'lead\'>Die simple Nachhilfvermittlung für alle Klassenstufen</p><hr class=\'my-4\'><p>Nachhilfelherer suchen?</p><p class=\'lead\'><a class=\'btn btn-primary btn-lg\' href=\'anfragen\' role=\'button\'>Anfrage erstllen</a></p>'};
-  // request: Banner = { image: 'anfragen_unscharf.png', html: '<h1 class=\'display-4\'>Anfrage erstellen</h1>' };
+  destroy$ = new Subject<void>();
 
-  constructor() {
+  route: string;
+
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.route = event.url;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }
