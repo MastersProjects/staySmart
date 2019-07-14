@@ -10,6 +10,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RequestComponent} from './search/request/request.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BannerComponent} from './general/banner/banner.component';
+import {LocationService} from './shared/clients/location.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import {BannerComponent} from './general/banner/banner.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

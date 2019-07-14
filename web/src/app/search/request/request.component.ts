@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {RequestForm} from 'src/shared/model/requestForm';
+import {RequestForm} from 'src/app/shared/model/requestForm';
 import {Observable, of} from 'rxjs';
-import {LocationService} from 'src/shared/clients/location.service';
+import {LocationService} from 'src/app/shared/clients/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 
 @Component({
@@ -38,8 +38,8 @@ export class RequestComponent implements OnInit {
       this.progressBars[this.step - 1].classList.remove('complete');
       this.steps[this.step].className = 'step';
 
-      let formElementNow = document.getElementById('f' + (this.step + 1));
-      let formElementNext = document.getElementById('f' + this.step);
+      const formElementNow = document.getElementById('f' + (this.step + 1));
+      const formElementNext = document.getElementById('f' + this.step);
 
       formElementNow.style.display = 'none';
       formElementNext.style.display = 'block';
@@ -55,8 +55,8 @@ export class RequestComponent implements OnInit {
         this.progressBars[this.step].classList.add('complete');
         this.step += 1;
 
-        let formElementNow = document.getElementById('f' + this.step);
-        let formElementNext = document.getElementById('f' + (this.step + 1));
+        const formElementNow = document.getElementById('f' + this.step);
+        const formElementNext = document.getElementById('f' + (this.step + 1));
 
         formElementNow.style.display = 'none';
         formElementNext.style.display = 'block';
@@ -70,12 +70,12 @@ export class RequestComponent implements OnInit {
 
   formValid(step: number): boolean {
     let check = false;
-    if (step == 0) {
-      let check = this.model.firstname && this.model.name && this.model.mail && this.model.phone ? true : false;
-    } else if (step == 1) {
-      check = this.model.grade && this.model.subject ? true : false;
-    } else if (step == 2) {
-      check = this.model.budget && this.model.problem && this.model.location ? true : false;
+    if (step === 0) {
+      check = !!(this.model.firstname && this.model.name && this.model.mail && this.model.phone);
+    } else if (step === 1) {
+      check = !!(this.model.grade && this.model.subject);
+    } else if (step === 2) {
+      check = !!(this.model.budget && this.model.problem && this.model.location);
     } // ToDo add time validation
 
     return check;
