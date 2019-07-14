@@ -20,7 +20,7 @@ export class BannerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.route = event.url;
+        this.route = event.urlAfterRedirects;
       }
     });
   }
