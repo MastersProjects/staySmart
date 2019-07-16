@@ -9,6 +9,7 @@ jobs:
     - stage: DEV
       if: branch = "master"
       script:
+        - npm run lint --prefix web
         - npm run prebuild --prefix web
         - npm run build.dev --prefix web
       deploy:
@@ -20,6 +21,7 @@ jobs:
     - stage: PROD
       if: tag IS present
       script:
+        - npm run lint --prefix web
         - npm run prebuild --prefix web
         - npm run build.prod --prefix web
       deploy:
