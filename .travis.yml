@@ -13,6 +13,9 @@ jobs:
         - npm run lint --prefix web
         - npm run prebuild --prefix web
         - npm run build.dev --prefix web
+        - npm run test.sonar
+        - npm run e2e
+        - sonar-scanner
       deploy:
         - provider: firebase
           skip_cleanup: true
@@ -25,9 +28,6 @@ jobs:
         - npm run lint --prefix web
         - npm run prebuild --prefix web
         - npm run build.prod --prefix web
-        - npm run test.sonar
-        - npm run e2e
-        - sonar-scanner
       deploy:
         - provider: firebase
           skip_cleanup: true
