@@ -33,11 +33,3 @@ jobs:
           message: $TRAVIS_TAG $TRAVIS_COMMIT
           on:
             tags: true
-addons:
-    sonarcloud:
-        organisation: zperee
-        token:
-            secure: b63041d3b76c0e2b49950d83067624383d776e3f         
-script:
-    # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-    - sonar-scanner
