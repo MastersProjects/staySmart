@@ -25,6 +25,9 @@ jobs:
         - npm run lint --prefix web
         - npm run prebuild --prefix web
         - npm run build.prod --prefix web
+        - npm run test.sonar
+        - npm run e2e
+        - sonar-scanner
       deploy:
         - provider: firebase
           skip_cleanup: true
@@ -41,4 +44,4 @@ addons:
       secure: $SONAR_TOKEN # encrypted value of your token
 script:
   # other script steps might be done before running the actual analysis
-  - sonar-scanner
+  

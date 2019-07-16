@@ -10,7 +10,8 @@
     "build.dev": "ng build --configuration dev",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "test.sonar": "ng test --code-coverage --no-watch"
   },
   "private": true,
   "dependencies": {
