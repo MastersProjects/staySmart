@@ -10,8 +10,8 @@
     "build.dev": "ng build --configuration dev",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "test.sonar": "ng test --code-coverage --no-watch"
+    "e2e": "ng e2e --protractor-config=./e2e/protractor-ci.conf.js",
+    "test.sonar": "ng test --code-coverage --no-watch  --browsers=ChromeHeadlessCI"
   },
   "private": true,
   "dependencies": {

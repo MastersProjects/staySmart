@@ -42,6 +42,10 @@ addons:
     organization: "mastersprojects" # the key of the org you chose at step #3
     token:
       secure: $SONAR_TOKEN # encrypted value of your token
-  chrome: stable
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
   
