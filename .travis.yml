@@ -34,7 +34,6 @@ jobs:
           message: $TRAVIS_TAG $TRAVIS_COMMIT
           on:
             tags: true
-
 addons:
   sonarcloud:
     organization: "mastersprojects" # the key of the org you chose at step #3
