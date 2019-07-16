@@ -1,5 +1,9 @@
 # stay smart
-[![build status](https://travis-ci.org/zperee/staySmart.svg?branch=master)](https://travis-ci.org/zperee/staySmart)
+[![Build Status](https://travis-ci.org/MastersProjects/staySmart.svg?branch=master)](https://travis-ci.org/MastersProjects/staySmart)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MastersProjects_staySmart&metric=alert_status)](https://sonarcloud.io/dashboard?id=MastersProjects_staySmart)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MastersProjects_staySmart&metric=coverage)](https://sonarcloud.io/dashboard?id=MastersProjects_staySmart)
+[![Web Dependency Status](https://david-dm.org/MastersProjects/staySmart/status.svg?path=web)](https://david-dm.org/MastersProjects/staySmart?path=web)
+[![Function Dependency Status](https://david-dm.org/MastersProjects/staySmart/status.svg?path=functions)](https://david-dm.org/MastersProjects/staySmart?path=functions)
 
 The association stay smart is a non-profit organisation that actively supports the promotion of education. For this purpose, the organisation operates a tutoring platform. The concept of the platform has recently changed, therefore a new implementation of the website is needed.
 
