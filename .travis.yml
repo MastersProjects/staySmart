@@ -13,8 +13,8 @@ jobs:
         - npm run lint --prefix web
         - npm run prebuild --prefix web
         - npm run build.dev --prefix web
-        - npm run test.sonar
-        - npm run e2e
+        - npm run test.sonar --prefix web
+        - npm run e2e --prefix web
         - sonar-scanner
       deploy:
         - provider: firebase
