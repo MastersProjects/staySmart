@@ -1,3 +1,4 @@
+dist: trusty
 language: node_js
 node_js:
   - '12'
@@ -33,3 +34,12 @@ jobs:
           message: $TRAVIS_TAG $TRAVIS_COMMIT
           on:
             tags: true
+
+addons:
+  sonarcloud:
+    organization: "mastersprojects" # the key of the org you chose at step #3
+    token:
+      secure: $SONAR_TOKEN # encrypted value of your token
+script:
+  # other script steps might be done before running the actual analysis
+  - sonar-scanner
