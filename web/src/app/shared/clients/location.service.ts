@@ -27,14 +27,15 @@ export class LocationService {
 
     PARAMS.searchText = query;
     const resultKey = 'results';
+    const itemKey = 'attrs';
     return this.http.get<GeoLocation[]>(GEO_URL, {params: PARAMS}).pipe(
       map(res =>  {
         return res[resultKey].map(item => {
-          item = item['attrs'];
-          let location = new GeoLocation(item.label, item.detail, item.lon, item.lat, item.y, item.x, item.geom_st_box2d);
+          item = item[itemKey];
+          const location = new GeoLocation(item.label, item.detail, item.lon, item.lat, item.y, item.x, item.geom_st_box2d);
           return location;
-        })
+        });
       })
-    )
+    );
   }
 }

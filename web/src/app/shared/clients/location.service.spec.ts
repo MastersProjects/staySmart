@@ -18,14 +18,14 @@ describe('LocationService', () => {
     const service: LocationService = TestBed.get(LocationService);
     service.searchLocation('dueben').subscribe(res =>
       expect(res.length).toBeGreaterThan(0)
-    )
+    );
   }));
 
   it('should return empty list', async(() => {
     const service: LocationService = TestBed.get(LocationService);
     service.searchLocation('').subscribe(res =>
       expect(res.length).toBe(0)
-    )
+    );
   }));
 
   it('should return parsed object list', async(() => {
@@ -37,7 +37,7 @@ describe('LocationService', () => {
       expect(res[0].y).toBeDefined();
       expect(res[0].lat).toBeDefined();
       expect(res[0].lon).toBeDefined();
-      expect(res[0].geom_st_box2d).toBeDefined();
-    })
+      expect(res[0].geomStBox2d).toBeDefined();
+    });
   }));
 });

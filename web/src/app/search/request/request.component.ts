@@ -113,27 +113,27 @@ export class RequestComponent implements OnInit {
   locationFomratterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
 }
 
-function locationDomainValidator(control: FormControl) {
-  let location = control.value;
-  if (!(location && location.label && location.detail && location.lon && location.lat && location.x && location.y && location.geom_st_box2d)) {
+export function locationDomainValidator(control: FormControl) {
+  const location = control.value;
+  if (!(location && location.label && location.detail && location.lon && location.lat && location.x
+    && location.y && location.geom_st_box2d)) {
       return {
         locationDomain: {
           parsedDomain: domain
         }
-      }
+      };
     }
   return null;
 }
 
 @Directive({
-  selector: '[locationDomain][ngModel]', 
-  providers: [
-    {
-      provide: NG_VALIDATORS, 
-      useValue: locationDomainValidator, 
+  selector: '[locationDomain][ngModel]',
+  providers: [{
+      provide: NG_VALIDATORS,
+      useValue: locationDomainValidator,
       multi: true
     }
   ]
 })
-export class LocationDomainValidator {
+export class LocationDomainValidatorDirective {
 }

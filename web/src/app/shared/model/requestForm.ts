@@ -18,15 +18,15 @@ export class GeoLocation {
     lat: number;
     y: number;
     x: number;
-    geom_st_box2d: string;
+    geomStBox2d: string;
 
-    public constructor(label: string, detail: string, lon: number, lat: number, y: number, x: number, geom_st_box2d: string) {
+    public constructor(label: string, detail: string, lon: number, lat: number, y: number, x: number, geomStBox2d: string) {
         this.label = label;
         this.detail = detail;
         this.lon = lon;
         this.lat = lat;
         this.y = y;
         this.x = x;
-        this.geom_st_box2d = geom_st_box2d;
+        this.geomStBox2d = geomStBox2d;
     }
 }
