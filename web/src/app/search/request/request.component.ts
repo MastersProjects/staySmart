@@ -116,7 +116,7 @@ export class RequestComponent implements OnInit {
 export function locationDomainValidator(control: FormControl) {
   const location = control.value;
   if (!(location && location.label && location.detail && location.lon && location.lat && location.x
-    && location.y && location.geom_st_box2d)) {
+    && location.y && location.geomStBox2d)) {
       return {
         locationDomain: {
           parsedDomain: domain
@@ -127,7 +127,7 @@ export function locationDomainValidator(control: FormControl) {
 }
 
 @Directive({
-  selector: '[locationDomain][ngModel]',
+  selector: '[appLocationDomain]',
   providers: [{
       provide: NG_VALIDATORS,
       useValue: locationDomainValidator,

@@ -77,7 +77,7 @@
                 <div class="form-row">                  
                     <div class="form-group form-group col-lg-6">
                         <label for="location">Ort</label>
-                        <input id="location" #location="ngModel" name="location" type="text" class="form-control" [class.is-invalid]="searchFailed || location.invalid && (location.dirty || location.touched)" locationDomain [(ngModel)]="model.location" [ngbTypeahead]="searchLocation" [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter"/>
+                        <input id="location" #location="ngModel" name="location" type="text" class="form-control" [class.is-invalid]="searchFailed || location.invalid && (location.dirty || location.touched)" appLocationDomain [(ngModel)]="model.location" [ngbTypeahead]="searchLocation" [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter"/>
                         <span *ngIf="searching">Suchen...</span>
                         <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen werden.</div>
                         <small *ngIf="location.invalid && (location.dirty || location.touched)" id="locationhelp" class="form-text text-danger">Bitte gültige Ortschaft auswählen</small>
