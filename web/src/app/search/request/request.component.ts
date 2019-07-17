@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Directive} from '@angular/core';
 import {RequestForm, GeoLocation} from 'src/app/shared/model/requestForm';
 import {Observable, of} from 'rxjs';
 import {LocationService} from 'src/app/shared/clients/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
+import { NG_VALIDATORS, FormControl } from '@angular/forms';
+import { domain } from 'process';
+import { isDefined } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-request',
@@ -108,5 +111,29 @@ export class RequestComponent implements OnInit {
 
   locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
   locationFomratterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
+}
 
+function locationDomainValidator(control: FormControl) {
+  let location = control.value;
+  if (!(location && location.label && location.detail && location.lon && location.lat && location.x && location.y && location.geom_st_box2d)) {
+      return {
+        locationDomain: {
+          parsedDomain: domain
+        }
+      }
+    }
+  return null;
+}
+
+@Directive({
+  selector: '[locationDomain][ngModel]', 
+  providers: [
+    {
+      provide: NG_VALIDATORS, 
+      useValue: locationDomainValidator, 
+      multi: true
+    }
+  ]
+})
+export class LocationDomainValidator {
 }

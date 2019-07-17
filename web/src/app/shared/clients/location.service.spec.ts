@@ -2,11 +2,8 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { LocationService } from './location.service';
 import { HttpClientModule } from '@angular/common/http';
-import { DebugElement } from '@angular/core';
 
 describe('LocationService', () => {
-  let de: DebugElement;
-
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientModule],
     providers: [LocationService]
@@ -21,13 +18,15 @@ describe('LocationService', () => {
     const service: LocationService = TestBed.get(LocationService);
     service.searchLocation('dueben').subscribe(res =>
       expect(res.length).toBeGreaterThan(0)
-  )}));
+    )
+  }));
 
   it('should return empty list', async(() => {
     const service: LocationService = TestBed.get(LocationService);
     service.searchLocation('').subscribe(res =>
       expect(res.length).toBe(0)
-  )}));
+    )
+  }));
 
   it('should return parsed object list', async(() => {
     const service: LocationService = TestBed.get(LocationService);
@@ -39,5 +38,6 @@ describe('LocationService', () => {
       expect(res[0].lat).toBeDefined();
       expect(res[0].lon).toBeDefined();
       expect(res[0].geom_st_box2d).toBeDefined();
-    })}));
+    })
+  }));
 });

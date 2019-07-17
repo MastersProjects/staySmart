@@ -12,12 +12,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {BannerComponent} from './general/banner/banner.component';
 import {LocationService} from './shared/clients/location.service';
 
+import {LocationDomainValidator} from './search/request/request.component'
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RequestComponent,
-    BannerComponent
+    BannerComponent,
+    LocationDomainValidator
   ],
   imports: [
     BrowserModule,
