@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RequestForm} from 'src/app/shared/model/requestForm';
+import {RequestForm, GeoLocation} from 'src/app/shared/model/requestForm';
 import {Observable, of} from 'rxjs';
 import {LocationService} from 'src/app/shared/clients/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
@@ -96,7 +96,7 @@ export class RequestComponent implements OnInit {
       tap(() => this.searching = true),
       switchMap(term =>
         this.locationService.searchLocation(term).pipe(
-          tap(() => this.searchFailed = false),
+          tap( e => console.log(e)),
           catchError(() => {
             this.searchFailed = true;
             console.log('Search failed');
@@ -106,7 +106,7 @@ export class RequestComponent implements OnInit {
       tap(() => this.searching = false)
     )
 
-  locationFormatter = (result: any) => result.attrs.label.replace(/<[^>]*>/g, '');
-  locationFomratterForm = (result: any) => result.attrs.label = result.attrs.label.replace(/<[^>]*>/g, '');
+  locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
+  locationFomratterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
 
 }
