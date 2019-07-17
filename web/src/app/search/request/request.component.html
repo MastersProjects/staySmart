@@ -80,7 +80,7 @@
                         <input id="location" #location="ngModel" name="location" type="text" class="form-control" [class.is-invalid]="searchFailed || location.invalid && (location.dirty || location.touched)" locationDomain [(ngModel)]="model.location" [ngbTypeahead]="searchLocation" [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter"/>
                         <span *ngIf="searching">Suchen...</span>
                         <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen werden.</div>
-                        <small *ngIf="location?.invalid && (location.dirty || location.touched)" id="locationhelp" class="form-text text-danger">Bitte gültige Ortschaft auswählen</small>
+                        <small *ngIf="location.invalid && (location.dirty || location.touched)" id="locationhelp" class="form-text text-danger">Bitte gültige Ortschaft auswählen</small>
                     </div>
                     <!--https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=stäfa&type=locations&origins=gg25 request to this url for validation-->
 
@@ -101,7 +101,7 @@
                         <button name="prev2" type="button" (click)="prevStep()"
                             class="btn btn-primary float-left custom-btn-blue">Zurück</button>
                         <!-- add missing validation -->
-                        <button type="submit" name="submit" class="btn btn-primary float-right custom-btn-blue" [disabled]="budget.invalid || problem.invalid">Absenden</button>
+                        <button type="submit" name="submit" class="btn btn-primary float-right custom-btn-blue" [disabled]="budget.invalid || problem.invalid || location.valid">Absenden</button>
                     </div>
                 </div>
             </div>
