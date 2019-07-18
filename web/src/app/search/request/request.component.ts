@@ -5,7 +5,6 @@ import {LocationService} from 'src/app/shared/clients/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 import { NG_VALIDATORS, FormControl } from '@angular/forms';
 import { domain } from 'process';
-import { isDefined } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-request',
@@ -15,7 +14,6 @@ import { isDefined } from '@ng-bootstrap/ng-bootstrap/util/util';
 export class RequestComponent implements OnInit {
   constructor(private locationService: LocationService) {
   }
-
   /* Variables for stepper */
   steps: HTMLCollectionOf<Element>;
   progressBars: HTMLCollectionOf<Element>;
@@ -78,8 +76,10 @@ export class RequestComponent implements OnInit {
     } else if (step === 1) {
       check = !!(this.model.grade && this.model.subject);
     } else if (step === 2) {
-      check = !!(this.model.budget && this.model.problem && this.model.location);
-    } // ToDo add time validation
+      check = !!(this.model.budget && this.model.problem && this.model.location && (this.model.days.monday || this.model.days.thursday 
+        || this.model.days.tuesday || this.model.days.wednesday || this.model.days.friday || this.model.days.saturday 
+        || this.model.days.sunday));
+    } // ToDo better day check (this.model.days as Array<boolean>).some(x => x === true)
 
     return check;
   }

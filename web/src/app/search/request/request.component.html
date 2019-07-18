@@ -56,13 +56,13 @@
                     <div class="form-group col-lg-6">
                         <label for="lecture">Fach</label>
                         <select class="form-control" name="fach" id="lecture" size="6" [(ngModel)]="model.subject" required #lecture="ngModel">
-                            <option *ngFor="let sub of subjects" [ngValue]="sub">{{sub}}</option>
+                            <option *ngFor="let sub of subjects">{{sub}}</option>
                         </select>
                     </div>
                     <div class="form-group col-lg-6">
                         <label for="class">Klasse</label>
                         <select class="form-control" name="grade" id="class" size="6" [(ngModel)]="model.grade" required #grade="ngModel">
-                            <option *ngFor="let grade of grades" [ngValue]="grade">{{grade}}</option>
+                            <option *ngFor="let grade of grades">{{grade}}</option>
                         </select>
                     </div>
                     <div class="form-group col-12">
@@ -75,33 +75,61 @@
             </div>
             <div class="formStep" id="f3" style="display:none">
                 <div class="form-row">                  
-                    <div class="form-group form-group col-lg-6">
+                    <div class="form-group form-group col-lg-6 ml-n1">
                         <label for="location">Ort</label>
+                        <div class=" mt-2">
                         <input id="location" #location="ngModel" name="location" type="text" class="form-control" [class.is-invalid]="searchFailed || location.invalid && (location.dirty || location.touched)" appLocationDomain [(ngModel)]="model.location" [ngbTypeahead]="searchLocation" [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter"/>
                         <span *ngIf="searching">Suchen...</span>
                         <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen werden.</div>
                         <small *ngIf="location.invalid && (location.dirty || location.touched)" id="locationhelp" class="form-text text-danger">Bitte gültige Ortschaft auswählen</small>
+                            </div>
                     </div>
                     <!--https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=stäfa&type=locations&origins=gg25 request to this url for validation-->
 
                     <div class="form-group col-lg-6">
-                        <label for="time">Zeitpunkt</label>
-                        <input id="time" name="time" type="text" class="form-control">
+                        <label for="day ml-n1">Tag</label><br>
+                        <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                            <label class="btn-primary" ngbButtonLabel>
+                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.monday"> Montag
+                            </label>
+                            <label class="btn-primary" ngbButtonLabel>
+                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.tuesday"> Dienstag
+                            </label>
+                            <label class="btn-primary" ngbButtonLabel>
+                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.wednesday"> Mittwoch
+                            </label>
+                        </div>
+                        <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                            <label class="btn-primary" ngbButtonLabel>
+                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.thursday"> Donnerstag
+                            </label>
+                            <label class="btn-primary" ngbButtonLabel>
+                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.friday"> Freitag
+                            </label>
+                        </div>
+                        <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                            <label class="btn-primary" ngbButtonLabel>
+                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.saturday"> Samstag
+                            </label>
+                            <label class="btn-primary" ngbButtonLabel>
+                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.sunday"> Sonntag
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-6">
-                        <label for="range">Budget maximal</label>
+                    <div class="form-group col-lg-6 ml-n1">
+                        <label for="range">Budget maximal (pro Stunde)</label>
                         <input type="range" name="budget" #budget="ngModel" class="custom-range" min="0" max="20" id="range" [(ngModel)]="model.budget" required>
                         <small class="form-text text-muted" *ngIf="model.budget">Aktuelles Budget: {{model.budget * 5}}.-</small>
+                        <small *ngIf="budget.invalid" id="budgethelp" class="form-text text-danger">Bitte Budget definieren</small>
                     </div>
-                    <div class="form-group col-lg-6">
+                    <div class="form-group col-lg-6 ml-n1">
                         <label for="problem">Problem</label>
                         <textarea class="form-control" name="problem" #problem="ngModel" id="problem" rows="3" required minlength="20" [(ngModel)]="model.problem"></textarea>
                     </div>
-                    <div class="form-group col-12">
+                    <div class="form-group col-12 ml-n1">
                         <button name="prev2" type="button" (click)="prevStep()"
                             class="btn btn-primary float-left custom-btn-blue">Zurück</button>
-                        <!-- add missing validation -->
-                        <button type="submit" name="submit" class="btn btn-primary float-right custom-btn-blue" [disabled]="budget.invalid || problem.invalid || location.valid">Absenden</button>
+                        <button type="submit" name="submit" class="btn btn-primary float-right custom-btn-blue" [disabled]="budget.invalid || problem.invalid || location.invalid || !formValid(2)">Absenden</button>
                     </div>
                 </div>
             </div>
