@@ -76,8 +76,8 @@ export class RequestComponent implements OnInit {
     } else if (step === 1) {
       check = !!(this.model.grade && this.model.subject);
     } else if (step === 2) {
-      check = !!(this.model.budget && this.model.problem && this.model.location && (this.model.days.monday || this.model.days.thursday 
-        || this.model.days.tuesday || this.model.days.wednesday || this.model.days.friday || this.model.days.saturday 
+      check = !!(this.model.budget && this.model.problem && this.model.location && (this.model.days.monday || this.model.days.thursday
+        || this.model.days.tuesday || this.model.days.wednesday || this.model.days.friday || this.model.days.saturday
         || this.model.days.sunday));
     } // ToDo better day check (this.model.days as Array<boolean>).some(x => x === true)
 

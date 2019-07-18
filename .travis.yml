@@ -47,5 +47,7 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
+notifications:
+  slack: masters-yt82785:lq9xXfCc9P7DUukuhFbpP2tw
 
   

@@ -6,12 +6,12 @@ export class RequestForm {
     subject: string;
     grade: string;
     location: GeoLocation;
-    days: {monday: boolean, tuesday: boolean, wednesday: boolean, thursday: boolean, friday: boolean, saturday: boolean, sunday: boolean}
+    days: {monday: boolean, tuesday: boolean, wednesday: boolean, thursday: boolean, friday: boolean, saturday: boolean, sunday: boolean};
     budget: number;
     problem: string;
 
     constructor() {
-        this.days = {monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false, sunday: false}
+        this.days = {monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false, sunday: false};
     }
 }
 
