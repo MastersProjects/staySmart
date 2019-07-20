@@ -1,153 +1,187 @@
 <div class="row">
-    <div class="col-12">
-        <h1>Nachhilfe von stay smart</h1>
-        <hr>
-        <p> Unsere Nachhilfeanbieterinnen und Nachhilfeanbieter helfen Schülerinnen und Schülern allfällige Probleme mit
-            dem Schulstoff zu bewältigen. Sie stehen dir auch bei den täglichen Hausaufgaben mit hilfreichen
-            Ratschlägen zur Seite.
-            <br><br>Die meisten von unseren Anbietern studieren an der ETH, der Uni, den Fachhochschulen oder besuchen
-            die BMS oder das Gymnasium. Sie sind mit den Schwierigkeiten des Schulalltags bestens bekannt und kennen
-            verschiedenen Strategien, um diesen zu bewältigen.
-            <br>Alle unsere Anbieter lernen wir in einem persönlichen Gespräch kennen.
-            <br><br>Den maximalen Preis kannst du festlegen. Folglich suchen wir nach einem Anbietenden der unter
-            deiner Preisgrenze liegt. Aktuell liegen die Preise der Anbieter/innen zwischen 20 und 50 Franken pro
-            Lektion.<br>Unser Vermittlungsservice ist vollkommen kostenlos!</p>
-        <hr>
-    </div>
+  <div class="col-12">
+    <h1>Nachhilfe von stay smart</h1>
+    <hr>
+    <p> Unsere Nachhilfeanbieterinnen und Nachhilfeanbieter helfen Schülerinnen und Schülern allfällige Probleme mit
+      dem Schulstoff zu bewältigen. Sie stehen dir auch bei den täglichen Hausaufgaben mit hilfreichen
+      Ratschlägen zur Seite.
+      <br><br>Die meisten von unseren Anbietern studieren an der ETH, der Uni, den Fachhochschulen oder besuchen
+      die BMS oder das Gymnasium. Sie sind mit den Schwierigkeiten des Schulalltags bestens bekannt und kennen
+      verschiedenen Strategien, um diesen zu bewältigen.
+      <br>Alle unsere Anbieter lernen wir in einem persönlichen Gespräch kennen.
+      <br><br>Den maximalen Preis kannst du festlegen. Folglich suchen wir nach einem Anbietenden der unter
+      deiner Preisgrenze liegt. Aktuell liegen die Preise der Anbieter/innen zwischen 20 und 50 Franken pro
+      Lektion.<br>Unser Vermittlungsservice ist vollkommen kostenlos!</p>
+    <hr>
+  </div>
 </div>
 <div class="row mt-md-4 mt-3">
-    <div class="col-12 col-md-10 offset-md-1">
-        <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-            <div class="formStep" id="f1">
-                <div class="form-row">
-                    <div class="form-group col-lg-6">
-                        <label for="firstname">Vorname</label>
-                        <input id="firstname" #firstname="ngModel" name="firstname" type="text" class="form-control" [class.is-invalid]="firstname.invalid && (firstname.dirty || firstname.touched)" required
-                            [(ngModel)]="model.firstname">
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label for="name">Name</label>
-                        <input id="name" #name="ngModel" name="name" type="text" class="form-control" required [class.is-invalid]="name.invalid && (name.dirty || name.touched)" [(ngModel)]="model.name">
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label for="mail">Email</label>
-                        <input id="mail" name="mail" #mail="ngModel" type="text" class="form-control" required email [class.is-invalid]="mail.invalid && (mail.dirty || mail.touched)" [(ngModel)]="model.mail">
-                        <small *ngIf="mail.invalid && (mail.dirty || mail.touched)" id="phonehelp" class="form-text text-danger">Keine gültige Email eingegeben</small>
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label for="phone">Mobiltelefon</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">+41</div>
-                            </div>
-                            <input id="phone" name="phone" type="text" class="form-control" [class.is-invalid]="phone.invalid && (phone.dirty || phone.touched)" required pattern="\d{9}"
-                                [(ngModel)]="model.phone" #phone="ngModel">
-                        </div>
-                        <small *ngIf="phone.invalid && (phone.dirty || phone.touched)" id="phonehelp" class="form-text text-danger">Die Telefonnummer ohne führende 0 eingeben</small>
-                    </div>
-                    <div class="form-group col-12">
-                        <button name="next1" type="button" (click)="nextStep()" [disabled]="firstname.invalid || name.invalid || mail.invalid || phone.invalid"
-                            class="btn btn-primary float-right custom-btn-blue">Weiter</button>
-                    </div>
-                </div>
+  <div class="col-12 col-md-10 offset-md-1">
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="formStep" id="f1">
+        <div class="form-row">
+          <div class="form-group col-lg-6">
+            <label for="firstname">Vorname</label>
+            <input id="firstname" #firstname="ngModel" name="firstname" type="text" class="form-control"
+                   [class.is-invalid]="firstname.invalid && (firstname.dirty || firstname.touched)" required
+                   [(ngModel)]="model.firstname">
+          </div>
+          <div class="form-group col-lg-6">
+            <label for="name">Name</label>
+            <input id="name" #name="ngModel" name="lastname" type="text" class="form-control" required
+                   [class.is-invalid]="name.invalid && (name.dirty || name.touched)" [(ngModel)]="model.name">
+          </div>
+          <div class="form-group col-lg-6">
+            <label for="mail">Email</label>
+            <input id="mail" name="mail" #mail="ngModel" type="text" class="form-control" required email
+                   [class.is-invalid]="mail.invalid && (mail.dirty || mail.touched)" [(ngModel)]="model.mail">
+            <small *ngIf="mail.invalid && (mail.dirty || mail.touched)" id="emailhelp" class="form-text text-danger">
+              Keine gültige Email eingegeben
+            </small>
+          </div>
+          <div class="form-group col-lg-6">
+            <label for="phone">Mobiltelefon</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">+41</div>
+              </div>
+              <input id="phone" name="phone" type="text" class="form-control"
+                     [class.is-invalid]="phone.invalid && (phone.dirty || phone.touched)" required pattern="\d{9}"
+                     [(ngModel)]="model.phone" #phone="ngModel">
             </div>
-            <div class="formStep" id="f2" style="display:none">
-                <div class="form-row">
-                    <div class="form-group col-lg-6">
-                        <label for="lecture">Fach</label>
-                        <select class="form-control" name="fach" id="lecture" size="6" [(ngModel)]="model.subject" required #lecture="ngModel">
-                            <option *ngFor="let sub of subjects">{{sub}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label for="class">Klasse</label>
-                        <select class="form-control" name="grade" id="class" size="6" [(ngModel)]="model.grade" required #grade="ngModel">
-                            <option *ngFor="let grade of grades">{{grade}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-12">
-                        <button name="prev1" type="button" (click)="prevStep()"
-                            class="btn btn-primary float-left custom-btn-blue">Zurück</button>
-                        <button name="next2" type="button" (click)="nextStep()"
-                            class="btn btn-primary float-right custom-btn-blue" [disabled]="grade.invalid || lecture.invalid">Weiter</button>
-                    </div>
-                </div>
+            <small *ngIf="phone.invalid && (phone.dirty || phone.touched)" id="phonehelp" class="form-text text-danger">
+              Die Telefonnummer ohne führende 0 eingeben
+            </small>
+          </div>
+          <div class="form-group col-12">
+            <button name="next1" type="button" (click)="nextStep()"
+                    [disabled]="firstname.invalid || name.invalid || mail.invalid || phone.invalid"
+                    class="btn btn-primary float-right custom-btn-blue">Weiter
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="formStep" id="f2" style="display:none">
+        <div class="form-row">
+          <div class="form-group col-lg-6">
+            <label for="lecture">Fach</label>
+            <select class="form-control" name="fach" id="lecture" size="6" [(ngModel)]="model.subject" required
+                    #lecture="ngModel">
+              <option *ngFor="let sub of subjects">{{sub}}</option>
+            </select>
+          </div>
+          <div class="form-group col-lg-6">
+            <label for="class">Klasse</label>
+            <select class="form-control" name="grade" id="class" size="6" [(ngModel)]="model.grade" required
+                    #grade="ngModel">
+              <option *ngFor="let grade of grades">{{grade}}</option>
+            </select>
+          </div>
+          <div class="form-group col-12">
+            <button name="prev1" type="button" (click)="prevStep()"
+                    class="btn btn-primary float-left custom-btn-blue">Zurück
+            </button>
+            <button name="next2" type="button" (click)="nextStep()"
+                    class="btn btn-primary float-right custom-btn-blue" [disabled]="grade.invalid || lecture.invalid">
+              Weiter
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="formStep" id="f3" style="display:none">
+        <div class="form-row">
+          <div class="form-group form-group col-lg-6 ml-n1">
+            <label for="location">Ort</label>
+            <div class=" mt-2">
+              <input id="location" #location="ngModel" name="location" type="text" class="form-control"
+                     [class.is-invalid]="searchFailed || location.invalid && (location.dirty || location.touched)"
+                     appLocationDomain [(ngModel)]="model.location" [ngbTypeahead]="searchLocation"
+                     [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter"/>
+              <span *ngIf="searching">Suchen...</span>
+              <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen
+                werden.
+              </div>
+              <small *ngIf="location.invalid && (location.dirty || location.touched)" id="locationhelp"
+                     class="form-text text-danger">Bitte gültige Ortschaft auswählen
+              </small>
             </div>
-            <div class="formStep" id="f3" style="display:none">
-                <div class="form-row">                  
-                    <div class="form-group form-group col-lg-6 ml-n1">
-                        <label for="location">Ort</label>
-                        <div class=" mt-2">
-                        <input id="location" #location="ngModel" name="location" type="text" class="form-control" [class.is-invalid]="searchFailed || location.invalid && (location.dirty || location.touched)" appLocationDomain [(ngModel)]="model.location" [ngbTypeahead]="searchLocation" [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter"/>
-                        <span *ngIf="searching">Suchen...</span>
-                        <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen werden.</div>
-                        <small *ngIf="location.invalid && (location.dirty || location.touched)" id="locationhelp" class="form-text text-danger">Bitte gültige Ortschaft auswählen</small>
-                            </div>
-                    </div>
-                    <!--https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=stäfa&type=locations&origins=gg25 request to this url for validation-->
+          </div>
+          <!--https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=stäfa&type=locations&origins=gg25 request to this url for validation-->
 
-                    <div class="form-group col-lg-6">
-                        <label for="day ml-n1">Tag</label><br>
-                        <div class="btn-group btn-group-toggle mt-2 ml-n1">
-                            <label class="btn-primary" ngbButtonLabel>
-                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.monday"> Montag
-                            </label>
-                            <label class="btn-primary" ngbButtonLabel>
-                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.tuesday"> Dienstag
-                            </label>
-                            <label class="btn-primary" ngbButtonLabel>
-                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.wednesday"> Mittwoch
-                            </label>
-                        </div>
-                        <div class="btn-group btn-group-toggle mt-2 ml-n1">
-                            <label class="btn-primary" ngbButtonLabel>
-                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.thursday"> Donnerstag
-                            </label>
-                            <label class="btn-primary" ngbButtonLabel>
-                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.friday"> Freitag
-                            </label>
-                        </div>
-                        <div class="btn-group btn-group-toggle mt-2 ml-n1">
-                            <label class="btn-primary" ngbButtonLabel>
-                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.saturday"> Samstag
-                            </label>
-                            <label class="btn-primary" ngbButtonLabel>
-                                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.sunday"> Sonntag
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-6 ml-n1">
-                        <label for="range">Budget maximal (pro Stunde)</label>
-                        <input type="range" name="budget" #budget="ngModel" class="custom-range" min="0" max="20" id="range" [(ngModel)]="model.budget" required>
-                        <small class="form-text text-muted" *ngIf="model.budget">Aktuelles Budget: {{model.budget * 5}}.-</small>
-                        <small *ngIf="budget.invalid" id="budgethelp" class="form-text text-danger">Bitte Budget definieren</small>
-                    </div>
-                    <div class="form-group col-lg-6 ml-n1">
-                        <label for="problem">Problem</label>
-                        <textarea class="form-control" name="problem" #problem="ngModel" id="problem" rows="3" required minlength="20" [(ngModel)]="model.problem"></textarea>
-                    </div>
-                    <div class="form-group col-12 ml-n1">
-                        <button name="prev2" type="button" (click)="prevStep()"
-                            class="btn btn-primary float-left custom-btn-blue">Zurück</button>
-                        <button type="submit" name="submit" class="btn btn-primary float-right custom-btn-blue" [disabled]="budget.invalid || problem.invalid || location.invalid || !formValid(2)">Absenden</button>
-                    </div>
-                </div>
+          <div class="form-group col-lg-6">
+            <label for="day ml-n1">Tag</label><br>
+            <div class="btn-group btn-group-toggle mt-2 ml-n1">
+              <label class="btn-primary" ngbButtonLabel>
+                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.monday">
+                Montag
+              </label>
+              <label class="btn-primary" ngbButtonLabel>
+                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.tuesday">
+                Dienstag
+              </label>
+              <label class="btn-primary" ngbButtonLabel>
+                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.wednesday">
+                Mittwoch
+              </label>
             </div>
-        </form>
-    </div>
+            <div class="btn-group btn-group-toggle mt-2 ml-n1">
+              <label class="btn-primary" ngbButtonLabel>
+                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.thursday">
+                Donnerstag
+              </label>
+              <label class="btn-primary" ngbButtonLabel>
+                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.friday">
+                Freitag
+              </label>
+            </div>
+            <div class="btn-group btn-group-toggle mt-2 ml-n1">
+              <label class="btn-primary" ngbButtonLabel>
+                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.saturday">
+                Samstag
+              </label>
+              <label class="btn-primary" ngbButtonLabel>
+                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.sunday">
+                Sonntag
+              </label>
+            </div>
+          </div>
+          <div class="form-group col-lg-6 ml-n1">
+            <label for="range">Budget maximal (pro Stunde)</label>
+            <input type="range" name="budget" #budget="ngModel" class="custom-range" min="0" max="20" id="range"
+                   [(ngModel)]="model.budget" required>
+            <small class="form-text text-muted" *ngIf="model.budget">Aktuelles Budget: {{model.budget * 5}}.-</small>
+            <small *ngIf="budget.invalid" id="budgethelp" class="form-text text-danger">Bitte Budget definieren</small>
+          </div>
+          <div class="form-group col-lg-6 ml-n1">
+            <label for="problem">Problem</label>
+            <textarea class="form-control" name="problem" #problem="ngModel" id="problem" rows="3" required
+                      minlength="20" [(ngModel)]="model.problem"></textarea>
+          </div>
+          <div class="form-group col-12 ml-n1">
+            <button name="prev2" type="button" (click)="prevStep()"
+                    class="btn btn-primary float-left custom-btn-blue">Zurück
+            </button>
+            <button type="submit" name="submit" class="btn btn-primary float-right custom-btn-blue"
+                    [disabled]="budget.invalid || problem.invalid || location.invalid || !formValid(2)">Absenden
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 <div class="row mb-md-4">
-    <div class="stepper">
-        <div class="step active-step">
-            <span class="step-number s1"></span>
-        </div>
-        <span class="progress p1"></span>
-        <div class="step">
-            <span class="step-number s2"></span>
-        </div>
-        <span class="progress p2"></span>
-        <div class="step">
-            <span class="step-number s3"></span>
-        </div>
+  <div class="stepper">
+    <div class="step active-step">
+      <span class="step-number s1"></span>
     </div>
+    <span class="progress p1"></span>
+    <div class="step">
+      <span class="step-number s2"></span>
+    </div>
+    <span class="progress p2"></span>
+    <div class="step">
+      <span class="step-number s3"></span>
+    </div>
+  </div>
 </div>
