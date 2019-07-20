@@ -7,12 +7,13 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {RequestComponent} from './search/request/request.component';
+import {LocationDomainValidatorDirective, RequestComponent} from './search/request/request.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BannerComponent} from './general/banner/banner.component';
 import {LocationService} from './shared/clients/location.service';
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
 
-import {LocationDomainValidatorDirective} from './search/request/request.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,9 +25,10 @@ import {LocationDomainValidatorDirective} from './search/request/request.compone
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [LocationService],
   bootstrap: [AppComponent]
