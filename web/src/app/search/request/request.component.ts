@@ -1,10 +1,11 @@
-import {Component, OnInit, Directive} from '@angular/core';
-import {RequestForm, GeoLocation} from 'src/app/shared/model/requestForm';
+import {Component, Directive, OnInit} from '@angular/core';
+import {GeoLocation, RequestForm} from 'src/app/shared/model/requestForm';
 import {Observable, of} from 'rxjs';
 import {LocationService} from 'src/app/shared/clients/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
-import { NG_VALIDATORS, FormControl } from '@angular/forms';
-import { domain } from 'process';
+import {FormControl, NG_VALIDATORS} from '@angular/forms';
+import {domain} from 'process';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-request',
@@ -12,8 +13,7 @@ import { domain } from 'process';
   styleUrls: ['./request.component.scss']
 })
 export class RequestComponent implements OnInit {
-  constructor(private locationService: LocationService) {
-  }
+
   /* Variables for stepper */
   steps: HTMLCollectionOf<Element>;
   progressBars: HTMLCollectionOf<Element>;
@@ -29,9 +29,49 @@ export class RequestComponent implements OnInit {
   searching = false;
   searchFailed = false;
 
+  constructor(private locationService: LocationService, private angularFirestore: AngularFirestore) {
+  }
+
   ngOnInit() {
     this.steps = document.getElementsByClassName('step');
     this.progressBars = document.getElementsByClassName('progress');
+  }
+
+  // TODO just an example
+  requestTutorSearch(requestForm: RequestForm) {
+    const request = {
+      firstname: requestForm.firstname,
+      name: requestForm.name,
+      mail: requestForm.mail,
+      phone: requestForm.phone,
+      subject: requestForm.subject,
+      grade: requestForm.grade,
+      location: {
+        label: requestForm.location.label,
+        detail: requestForm.location.detail,
+        lon: requestForm.location.lon,
+        lat: requestForm.location.lat,
+        y: requestForm.location.y,
+        x: requestForm.location.x,
+        geomStBox2d: requestForm.location.geomStBox2d,
+      },
+      days: {
+        monday: requestForm.days.monday,
+        tuesday: requestForm.days.tuesday,
+        wednesday: requestForm.days.wednesday,
+        thursday: requestForm.days.thursday,
+        friday: requestForm.days.friday,
+        saturday: requestForm.days.saturday,
+        sunday: requestForm.days.sunday
+      },
+      budget: requestForm.budget,
+      problem: requestForm.problem
+    };
+    this.angularFirestore.collection('TutorSearchRequests').add(request).then(value => {
+      console.log(value);
+    }).catch(reason => {
+      console.log(reason);
+    });
   }
 
   prevStep() {
@@ -86,7 +126,8 @@ export class RequestComponent implements OnInit {
 
   onSubmit() {
     if (this.formValid(0) && this.formValid(1) && this.formValid(2)) {
-      console.log(JSON.stringify(this.model));
+      console.log(this.model);
+      this.requestTutorSearch(this.model);
     } else {
       console.log('Error in Form');
     }
@@ -99,7 +140,7 @@ export class RequestComponent implements OnInit {
       tap(() => this.searching = true),
       switchMap(term =>
         this.locationService.searchLocation(term).pipe(
-          tap( e => console.log(e)),
+          tap(e => console.log(e)),
           catchError(() => {
             this.searchFailed = true;
             console.log('Search failed');
@@ -117,22 +158,22 @@ export function locationDomainValidator(control: FormControl) {
   const location = control.value;
   if (!(location && location.label && location.detail && location.lon && location.lat && location.x
     && location.y && location.geomStBox2d)) {
-      return {
-        locationDomain: {
-          parsedDomain: domain
-        }
-      };
-    }
+    return {
+      locationDomain: {
+        parsedDomain: domain
+      }
+    };
+  }
   return null;
 }
 
 @Directive({
   selector: '[appLocationDomain]',
   providers: [{
-      provide: NG_VALIDATORS,
-      useValue: locationDomainValidator,
-      multi: true
-    }
+    provide: NG_VALIDATORS,
+    useValue: locationDomainValidator,
+    multi: true
+  }
   ]
 })
 export class LocationDomainValidatorDirective {

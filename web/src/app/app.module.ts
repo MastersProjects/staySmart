@@ -13,6 +13,7 @@ import {BannerComponent} from './general/banner/banner.component';
 import {LocationService} from './shared/clients/location.service';
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {AngularFireModule} from '@angular/fire';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     NgbModule,
     FormsModule,
     HttpClientModule,
