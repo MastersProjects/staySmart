@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {of, Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
-import { GeoLocation } from '../model/requestForm';
+import {GeoLocation} from './model/tutor-search-request.model';
 
 const GEO_URL = 'https://api3.geo.admin.ch/rest/services/api/SearchServer';
 const PARAMS = {
@@ -29,11 +29,18 @@ export class LocationService {
     const resultKey = 'results';
     const itemKey = 'attrs';
     return this.http.get<GeoLocation[]>(GEO_URL, {params: PARAMS}).pipe(
-      map(res =>  {
+      map(res => {
         return res[resultKey].map(item => {
           item = item[itemKey];
-          const location = new GeoLocation(item.label, item.detail, item.lon, item.lat, item.y, item.x, item.geom_st_box2d);
-          return location;
+          return {
+            label: item.label,
+            detail: item.detail,
+            lon: item.lon,
+            lat: item.lat,
+            y: item.y,
+            x: item.x,
+            geomStBox2d: item.geom_st_box2d,
+          };
         });
       })
     );

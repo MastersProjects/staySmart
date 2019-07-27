@@ -1,7 +1,7 @@
 import {Component, Directive, OnInit} from '@angular/core';
-import {GeoLocation, RequestForm} from 'src/app/shared/model/requestForm';
+import {GeoLocation, TutorSearchRequest} from 'src/app/shared/model/tutor-search-request.model';
 import {Observable, of} from 'rxjs';
-import {LocationService} from 'src/app/shared/clients/location.service';
+import {LocationService} from 'src/app/shared/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 import {FormControl, NG_VALIDATORS} from '@angular/forms';
 import {domain} from 'process';
@@ -21,7 +21,35 @@ export class TutorSearchRequestComponent implements OnInit {
 
   /* Variables for form */
   submitted = false;
-  model: RequestForm = new RequestForm();
+  model: TutorSearchRequest = {
+    firstname: '',
+    name: '',
+    mail: '',
+    phone: '',
+    subject: '',
+    grade: '',
+    location: {
+      label: '',
+      detail: '',
+      lon: 0,
+      lat: 0,
+      y: 0,
+      x: 0,
+      geomStBox2d: '',
+    },
+    days: {
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+      sunday: false
+    },
+    budget: 0,
+    problem: '',
+    timestamp: null
+  };
   grades = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynmaic not static
   subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynmaic not static
 
@@ -38,35 +66,8 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   // TODO just an example
-  requestTutorSearch(requestForm: RequestForm) {
-    const request = {
-      firstname: requestForm.firstname,
-      name: requestForm.name,
-      mail: requestForm.mail,
-      phone: requestForm.phone,
-      subject: requestForm.subject,
-      grade: requestForm.grade,
-      location: {
-        label: requestForm.location.label,
-        detail: requestForm.location.detail,
-        lon: requestForm.location.lon,
-        lat: requestForm.location.lat,
-        y: requestForm.location.y,
-        x: requestForm.location.x,
-        geomStBox2d: requestForm.location.geomStBox2d,
-      },
-      days: {
-        monday: requestForm.days.monday,
-        tuesday: requestForm.days.tuesday,
-        wednesday: requestForm.days.wednesday,
-        thursday: requestForm.days.thursday,
-        friday: requestForm.days.friday,
-        saturday: requestForm.days.saturday,
-        sunday: requestForm.days.sunday
-      },
-      budget: requestForm.budget,
-      problem: requestForm.problem
-    };
+  requestTutorSearch(requestForm: TutorSearchRequest) {
+    const request = {...requestForm, timestamp: new Date()};
     this.angularFirestore.collection('TutorSearchRequests').add(request).then(value => {
       console.log(value);
     }).catch(reason => {
