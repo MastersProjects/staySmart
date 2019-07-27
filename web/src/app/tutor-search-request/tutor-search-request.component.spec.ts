@@ -4,11 +4,11 @@ import {TutorSearchRequestComponent} from './tutor-search-request.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
-describe('RequestComponent', () => {
+describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
   let fixture: ComponentFixture<TutorSearchRequestComponent>;
 
