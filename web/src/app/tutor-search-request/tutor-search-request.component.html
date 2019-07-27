@@ -24,17 +24,19 @@
             <label for="firstname">Vorname</label>
             <input id="firstname" #firstname="ngModel" name="firstname" type="text" class="form-control"
                    [class.is-invalid]="firstname.invalid && (firstname.dirty || firstname.touched)" required
-                   [(ngModel)]="model.firstname">
+                   [(ngModel)]="tutorSearchRequest.firstname">
           </div>
           <div class="form-group col-lg-6">
             <label for="name">Name</label>
             <input id="name" #name="ngModel" name="lastname" type="text" class="form-control" required
-                   [class.is-invalid]="name.invalid && (name.dirty || name.touched)" [(ngModel)]="model.name">
+                   [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+                   [(ngModel)]="tutorSearchRequest.name">
           </div>
           <div class="form-group col-lg-6">
             <label for="mail">Email</label>
             <input id="mail" name="mail" #mail="ngModel" type="text" class="form-control" required email
-                   [class.is-invalid]="mail.invalid && (mail.dirty || mail.touched)" [(ngModel)]="model.mail">
+                   [class.is-invalid]="mail.invalid && (mail.dirty || mail.touched)"
+                   [(ngModel)]="tutorSearchRequest.mail">
             <small *ngIf="mail.invalid && (mail.dirty || mail.touched)" id="emailhelp" class="form-text text-danger">
               Keine gültige Email eingegeben
             </small>
@@ -47,7 +49,7 @@
               </div>
               <input id="phone" name="phone" type="text" class="form-control"
                      [class.is-invalid]="phone.invalid && (phone.dirty || phone.touched)" required pattern="\d{9}"
-                     [(ngModel)]="model.phone" #phone="ngModel">
+                     [(ngModel)]="tutorSearchRequest.phone" #phone="ngModel">
             </div>
             <small *ngIf="phone.invalid && (phone.dirty || phone.touched)" id="phonehelp" class="form-text text-danger">
               Die Telefonnummer ohne führende 0 eingeben
@@ -65,14 +67,16 @@
         <div class="form-row">
           <div class="form-group col-lg-6">
             <label for="lecture">Fach</label>
-            <select class="form-control" name="fach" id="lecture" size="6" [(ngModel)]="model.subject" required
+            <select class="form-control" name="fach" id="lecture" size="6" [(ngModel)]="tutorSearchRequest.subject"
+                    required
                     #lecture="ngModel">
               <option *ngFor="let sub of subjects">{{sub}}</option>
             </select>
           </div>
           <div class="form-group col-lg-6">
             <label for="class">Klasse</label>
-            <select class="form-control" name="grade" id="class" size="6" [(ngModel)]="model.grade" required
+            <select class="form-control" name="grade" id="class" size="6" [(ngModel)]="tutorSearchRequest.grade"
+                    required
                     #grade="ngModel">
               <option *ngFor="let grade of grades">{{grade}}</option>
             </select>
@@ -95,7 +99,7 @@
             <div class=" mt-2">
               <input id="location" #location="ngModel" name="location" type="text" class="form-control"
                      [class.is-invalid]="searchFailed || location.invalid && (location.dirty || location.touched)"
-                     appLocationDomain [(ngModel)]="model.location" [ngbTypeahead]="searchLocation"
+                     appLocationDomain [(ngModel)]="tutorSearchRequest.location" [ngbTypeahead]="searchLocation"
                      [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter"/>
               <span *ngIf="searching">Suchen...</span>
               <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen
@@ -109,38 +113,45 @@
           <!--https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=stäfa&type=locations&origins=gg25 request to this url for validation-->
 
           <div class="form-group col-lg-6">
-            <label for="day ml-n1">Tag</label><br>
+            <label>Tag</label><br>
             <div class="btn-group btn-group-toggle mt-2 ml-n1">
               <label class="btn-primary" ngbButtonLabel>
-                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.monday">
+                <input id="day-monday" name="day" type="checkbox" ngbButton
+                       [(ngModel)]="tutorSearchRequest.days.monday">
                 Montag
               </label>
               <label class="btn-primary" ngbButtonLabel>
-                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.tuesday">
+                <input id="day-tuesday" name="day" type="checkbox" ngbButton
+                       [(ngModel)]="tutorSearchRequest.days.tuesday">
                 Dienstag
               </label>
               <label class="btn-primary" ngbButtonLabel>
-                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.wednesday">
+                <input id="day-wednesday" name="day" type="checkbox" ngbButton
+                       [(ngModel)]="tutorSearchRequest.days.wednesday">
                 Mittwoch
               </label>
             </div>
             <div class="btn-group btn-group-toggle mt-2 ml-n1">
               <label class="btn-primary" ngbButtonLabel>
-                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.thursday">
+                <input id="day-thursday" name="day" type="checkbox" ngbButton
+                       [(ngModel)]="tutorSearchRequest.days.thursday">
                 Donnerstag
               </label>
               <label class="btn-primary" ngbButtonLabel>
-                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.friday">
+                <input id="day-friday" name="day" type="checkbox" ngbButton
+                       [(ngModel)]="tutorSearchRequest.days.friday">
                 Freitag
               </label>
             </div>
             <div class="btn-group btn-group-toggle mt-2 ml-n1">
               <label class="btn-primary" ngbButtonLabel>
-                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.saturday">
+                <input id="day-saturday" name="day" type="checkbox" ngbButton
+                       [(ngModel)]="tutorSearchRequest.days.saturday">
                 Samstag
               </label>
               <label class="btn-primary" ngbButtonLabel>
-                <input id="day" #day="ngModel" name="day" type="checkbox" ngbButton [(ngModel)]="model.days.sunday">
+                <input id="day-sunday" name="day" type="checkbox" ngbButton
+                       [(ngModel)]="tutorSearchRequest.days.sunday">
                 Sonntag
               </label>
             </div>
@@ -148,14 +159,15 @@
           <div class="form-group col-lg-6 ml-n1">
             <label for="range">Budget maximal (pro Stunde)</label>
             <input type="range" name="budget" #budget="ngModel" class="custom-range" min="0" max="20" id="range"
-                   [(ngModel)]="model.budget" required>
-            <small class="form-text text-muted" *ngIf="model.budget">Aktuelles Budget: {{model.budget * 5}}.-</small>
+                   [(ngModel)]="tutorSearchRequest.budget" required>
+            <small class="form-text text-muted" *ngIf="tutorSearchRequest.budget">Aktuelles
+              Budget: {{tutorSearchRequest.budget * 5}}.-</small>
             <small *ngIf="budget.invalid" id="budgethelp" class="form-text text-danger">Bitte Budget definieren</small>
           </div>
           <div class="form-group col-lg-6 ml-n1">
             <label for="problem">Problem</label>
             <textarea class="form-control" name="problem" #problem="ngModel" id="problem" rows="3" required
-                      minlength="20" [(ngModel)]="model.problem"></textarea>
+                      minlength="20" [(ngModel)]="tutorSearchRequest.problem"></textarea>
           </div>
           <div class="form-group col-12 ml-n1">
             <button name="prev2" type="button" (click)="prevStep()"

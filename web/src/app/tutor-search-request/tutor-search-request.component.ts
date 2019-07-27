@@ -5,7 +5,7 @@ import {LocationService} from 'src/app/shared/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 import {FormControl, NG_VALIDATORS} from '@angular/forms';
 import {domain} from 'process';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {StaySmartService} from '../shared/stay-smart.service';
 
 @Component({
   selector: 'app-tutor-search-request',
@@ -21,7 +21,7 @@ export class TutorSearchRequestComponent implements OnInit {
 
   /* Variables for form */
   submitted = false;
-  model: TutorSearchRequest = {
+  tutorSearchRequest: TutorSearchRequest = {
     firstname: '',
     name: '',
     mail: '',
@@ -57,22 +57,12 @@ export class TutorSearchRequestComponent implements OnInit {
   searching = false;
   searchFailed = false;
 
-  constructor(private locationService: LocationService, private angularFirestore: AngularFirestore) {
+  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
   }
 
   ngOnInit() {
     this.steps = document.getElementsByClassName('step');
     this.progressBars = document.getElementsByClassName('progress');
-  }
-
-  // TODO just an example
-  requestTutorSearch(requestForm: TutorSearchRequest) {
-    const request = {...requestForm, timestamp: new Date()};
-    this.angularFirestore.collection('TutorSearchRequests').add(request).then(value => {
-      console.log(value);
-    }).catch(reason => {
-      console.log(reason);
-    });
   }
 
   prevStep() {
@@ -113,13 +103,26 @@ export class TutorSearchRequestComponent implements OnInit {
   formValid(step: number): boolean {
     let check = false;
     if (step === 0) {
-      check = !!(this.model.firstname && this.model.name && this.model.mail && this.model.phone);
+      check = !!(this.tutorSearchRequest.firstname
+        && this.tutorSearchRequest.name
+        && this.tutorSearchRequest.mail
+        && this.tutorSearchRequest.phone
+      );
     } else if (step === 1) {
-      check = !!(this.model.grade && this.model.subject);
+      check = !!(this.tutorSearchRequest.grade && this.tutorSearchRequest.subject);
     } else if (step === 2) {
-      check = !!(this.model.budget && this.model.problem && this.model.location && (this.model.days.monday || this.model.days.thursday
-        || this.model.days.tuesday || this.model.days.wednesday || this.model.days.friday || this.model.days.saturday
-        || this.model.days.sunday));
+      check = !!(this.tutorSearchRequest.budget
+        && this.tutorSearchRequest.problem
+        && this.tutorSearchRequest.location
+        && (this.tutorSearchRequest.days.monday
+          || this.tutorSearchRequest.days.thursday
+          || this.tutorSearchRequest.days.tuesday
+          || this.tutorSearchRequest.days.wednesday
+          || this.tutorSearchRequest.days.friday
+          || this.tutorSearchRequest.days.saturday
+          || this.tutorSearchRequest.days.sunday
+        )
+      );
     } // ToDo better day check (this.model.days as Array<boolean>).some(x => x === true)
 
     return check;
@@ -127,8 +130,12 @@ export class TutorSearchRequestComponent implements OnInit {
 
   onSubmit() {
     if (this.formValid(0) && this.formValid(1) && this.formValid(2)) {
-      console.log(this.model);
-      this.requestTutorSearch(this.model);
+      console.log(this.tutorSearchRequest);
+      this.staySmartService.requestTutorSearch(this.tutorSearchRequest).then(value => {
+        console.log(value);
+      }).catch(reason => {
+        console.log(reason);
+      });
     } else {
       console.log('Error in Form');
     }
@@ -170,11 +177,12 @@ export function locationDomainValidator(control: FormControl) {
 
 @Directive({
   selector: '[appLocationDomain]',
-  providers: [{
-    provide: NG_VALIDATORS,
-    useValue: locationDomainValidator,
-    multi: true
-  }
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useValue: locationDomainValidator,
+      multi: true
+    }
   ]
 })
 export class LocationDomainValidatorDirective {

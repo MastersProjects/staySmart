@@ -17,6 +17,7 @@ import {LocationService} from './shared/location.service';
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {StaySmartService} from './shared/stay-smart.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [LocationService],
+  providers: [LocationService, StaySmartService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
