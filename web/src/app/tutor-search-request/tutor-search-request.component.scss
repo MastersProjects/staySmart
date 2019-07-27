@@ -1,0 +1,75 @@
+/* Progress */
+.stepper {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+  padding: 2em 0;
+  z-index: -1;
+}
+
+.step {
+  position: relative;
+  flex: 1 1 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.step-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  background-color: #c8c9c6;
+  color: #5aa7ce;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.step-title {
+  color: hsl(0, 0%, 70%);
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.active-step > .step-title {
+  color: white;
+}
+
+.step.active-step > .step-number, .step.complete-step > .step-number {
+  color: white;
+}
+
+.active-step .step-number.s1, .active-step .step-number.s2, .active-step .step-number.s3 {
+  background-color: #279ED7
+}
+
+.progress {
+  position: relative;
+  height: 10px;
+  width: 23%;
+  background-color: #c8c9c6;
+  margin: 0% -23%;
+  z-index: 0;
+  transform: translateY(-200%);
+}
+
+.progress::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 10px;
+  transition: width 0.5s;
+  -webkit-transition: width 0.5s;
+}
+
+.progress.p1::after, .progress.p2::after {
+  background-color: #E74F29
+}
+
+.progress.complete::after {
+  width: 100%;
+}

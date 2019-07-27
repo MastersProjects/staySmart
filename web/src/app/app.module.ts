@@ -7,7 +7,10 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {LocationDomainValidatorDirective, RequestComponent} from './search/request/request.component';
+import {
+  LocationDomainValidatorDirective,
+  TutorSearchRequestComponent
+} from './tutor-search-request/tutor-search-request.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BannerComponent} from './general/banner/banner.component';
 import {LocationService} from './shared/clients/location.service';
@@ -19,7 +22,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
   declarations: [
     AppComponent,
     HomeComponent,
-    RequestComponent,
+    TutorSearchRequestComponent,
     BannerComponent,
     LocationDomainValidatorDirective
   ],

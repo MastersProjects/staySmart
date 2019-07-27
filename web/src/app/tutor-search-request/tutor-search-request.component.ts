@@ -8,11 +8,11 @@ import {domain} from 'process';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
-  selector: 'app-request',
-  templateUrl: './request.component.html',
-  styleUrls: ['./request.component.scss']
+  selector: 'app-tutor-search-request',
+  templateUrl: './tutor-search-request.component.html',
+  styleUrls: ['./tutor-search-request.component.scss']
 })
-export class RequestComponent implements OnInit {
+export class TutorSearchRequestComponent implements OnInit {
 
   /* Variables for stepper */
   steps: HTMLCollectionOf<Element>;

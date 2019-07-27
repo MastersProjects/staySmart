@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {RequestComponent} from './search/request/request.component';
+import {TutorSearchRequestComponent} from './tutor-search-request/tutor-search-request.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'staysmart', pathMatch: 'full'},
   {path: 'staysmart', component: HomeComponent},
-  {path: 'anfragen', component: RequestComponent}
+  {path: 'anfragen', component: TutorSearchRequestComponent}
 
 ];
 

@@ -1,16 +1,16 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {RequestComponent} from './request.component';
+import {TutorSearchRequestComponent} from './tutor-search-request.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../environments/environment';
 
 describe('RequestComponent', () => {
-  let component: RequestComponent;
-  let fixture: ComponentFixture<RequestComponent>;
+  let component: TutorSearchRequestComponent;
+  let fixture: ComponentFixture<TutorSearchRequestComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,13 +21,13 @@ describe('RequestComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule
       ],
-      declarations: [RequestComponent]
+      declarations: [TutorSearchRequestComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RequestComponent);
+    fixture = TestBed.createComponent(TutorSearchRequestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
