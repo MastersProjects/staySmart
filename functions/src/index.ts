@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as nodemailer from 'nodemailer';
+import * as Mail from 'nodemailer/lib/mailer';
 
 admin.initializeApp();
 
@@ -31,8 +32,8 @@ export const emailOnSubmit = functions.region('europe-west1')
         const createdTutorSearchRequest: any = snap.data();
         console.log(createdTutorSearchRequest);
 
-        const mailOptions = {
-            from: `StaySmart ${functions.config().env.code} <Phongtsm@gmail.com>`,
+        const mailOptions: Mail.Options = {
+            from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
             to: createdTutorSearchRequest.mail,
             subject: createdTutorSearchRequest.subject,
             html: `<p style="font-size: 16px;">TEST ${snap.id}</p>
