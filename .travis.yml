@@ -3,7 +3,6 @@ language: node_js
 node_js:
   - '12'
 install:
-  - npm install -g firebase-tools
   - npm ci --prefix web
   - npm ci --prefix functions
 jobs:
@@ -11,7 +10,6 @@ jobs:
     - stage: DEV
       if: branch = "master"
       script:
-        - firebase functions:config:set env.code="$dev.env.code" gmail.client_id="$dev.gmail.client_id" gmail.secret="$dev.gmail.secret" gmail.refresh_token="$dev.gmail.refresh_token" gmail.access_token="$dev.gmail.access_token"
         - npm run lint --prefix web
         - npm run prebuild --prefix web
         - npm run build.dev --prefix web
