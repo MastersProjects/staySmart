@@ -14,8 +14,8 @@ jobs:
         - npm run prebuild --prefix web
         - npm run build.dev --prefix web
         - npm run test.sonar --prefix web
-        # temporary didable e2e because of chrome version error
-        # - npm run e2e --prefix web
+        - npm run pree2e --prefix web # FIXME workaround for Issue #3 (chromedriver 74 error)
+        - npm run e2e --prefix web
         - sonar-scanner
       deploy:
         - provider: firebase
