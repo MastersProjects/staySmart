@@ -17,3 +17,15 @@
     <h1 class='display-4'>Anfrage erstellen</h1>
   </div>
 </div>
+
+<div *ngIf="route === '/anbieten'" class="jumbotron img-jumbo text-white"
+     [style.background-image]="'url(assets/img/anbieten_unscharf.png)'">
+  <div class="container">
+    <h1 class='display-4'>Nachhilfe anbieten</h1>
+  </div>
+</div>
+
+<div *ngIf="route === '/verein'" class="jumbotron img-jumbo text-white"
+     [style.background-image]="'url(assets/img/team.jpg)'">
+</div>
+

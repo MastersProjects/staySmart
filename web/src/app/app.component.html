@@ -6,8 +6,7 @@
         stay smart
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false" aria-label="Toggle navigation">
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
@@ -16,13 +15,22 @@
             <a class="nav-link" [routerLink]="['/anfragen']">Nachhilfe suchen</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="anbieten/anbieten.html">Nachhilfe anbieten</a>
+            <a class="nav-link" [routerLink]="['/anbieten']">Nachhilfe anbieten</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Verein
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" [routerLink]="['/verein']">Über uns</a>
+              <a class="dropdown-item" [routerLink]="['/team']">Mitglieder</a>
+              <a class="dropdown-item" [routerLink]="['/sponsoren']">Sponsoren</a>
+              <a class="dropdown-item" [routerLink]="['/presse']">Presse</a>
+            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="anderes/eltern.html">Für Eltern</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="anderes/staysmart.html">Verein stay smart</a>
+            <a class="nav-link" [routerLink]="['/unterstuezen']">Unterstüzen</a>
           </li>
         </ul>
         <hr class="d-md-none">
@@ -43,11 +51,9 @@
           <p class="m-3">2019 - stay smart</p>
         </div>
         <div class="col-3 d-flex justify-content-end my-auto">
-          <img src="assets/img/logo.png" width="40" height="40" class="d-inline-block align-top"
-               alt="stay smart logo">
+          <img src="assets/img/logo.png" width="40" height="40" class="d-inline-block align-top" alt="stay smart logo">
         </div>
       </div>
     </div>
   </footer>
 </div>
-

@@ -1,4 +1,13 @@
-.custom-navbar {
+.custom-navbar, .dropdown-menu {
+  background-color: #777777
+}
+
+.dropdown-menu a {
+  color: rgba(255,255,255,.5);
+}
+
+.dropdown-menu a:hover {
+  color: #fff;
   background-color: #777777
 }
 
