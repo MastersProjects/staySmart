@@ -5,6 +5,10 @@ import {AppRoutingModule} from '../app-routing.module';
 import {TutorSearchRequestComponent} from '../tutor-search-request/tutor-search-request.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
+import {OrganisationComponent} from '../other/organisation/organisation.component';
+import {PresseComponent} from '../other/presse/presse.component';
+import {TeamComponent} from '../other/team/team.component';
+import {TutorRegistrationComponent} from '../tutor-registration/tutor-registration.component'
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -13,7 +17,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ AppRoutingModule, NgbModule, FormsModule ],
-      declarations: [ HomeComponent, TutorSearchRequestComponent ]
+      declarations: [ HomeComponent, TutorSearchRequestComponent, OrganisationComponent, PresseComponent, TeamComponent, TutorRegistrationComponent ]
     })
     .compileComponents();
   }));

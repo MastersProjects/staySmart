@@ -18,10 +18,10 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {StaySmartService} from './shared/stay-smart.service';
-import { TutorRegistrationComponent } from './tutor-registration/tutor-registration.component';
-import { OrganisationComponent } from './other/organisation/organisation.component';
-import { TeamComponent } from './other/team/team.component';
-import { PresseComponent } from './other/presse/presse.component';
+import {TutorRegistrationComponent} from './tutor-registration/tutor-registration.component';
+import {OrganisationComponent} from './other/organisation/organisation.component';
+import {TeamComponent} from './other/team/team.component';
+import {PresseComponent} from './other/presse/presse.component';
 
 @NgModule({
   declarations: [
