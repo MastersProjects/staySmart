@@ -5,17 +5,17 @@ import * as Mail from 'nodemailer/lib/mailer';
 
 admin.initializeApp();
 
-
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'mail.nachhilfestaysmart.ch',
+    port: 465,
     auth: {
-        type: 'OAuth2',
-        user: 'phongtsm@gmail.com',
-        clientId: functions.config().gmail.client_id,
-        clientSecret: functions.config().gmail.secret,
-        refreshToken: functions.config().gmail.refresh_token,
-        accessToken: functions.config().gmail.access_token,
+        user: functions.config().smtp.user,
+        pass: functions.config().smtp.password
     },
+    tls: {
+        rejectUnauthorized: false
+    },
+    debug: true
 });
 
 
@@ -41,13 +41,12 @@ export const emailOnSubmit = functions.region('europe-west1')
                 ${createdTutorSearchRequest.problem}`
         };
 
-        transporter.sendMail(mailOptions, (error) => {
+        return transporter.sendMail(mailOptions, (error) => {
             if (error) {
                 console.error(error);
+            } else {
+                console.log(`Sended to ${createdTutorSearchRequest.mail}`);
             }
-            console.log('Sended');
         });
-
-        return '';
 
     });
