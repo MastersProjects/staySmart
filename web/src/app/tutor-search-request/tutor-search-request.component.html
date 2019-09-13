@@ -15,6 +15,7 @@
     <hr>
   </div>
 </div>
+<div class="form-wrapper" *ngIf="!submitted">
 <div class="row mt-md-4 mt-3">
   <div class="col-12 col-md-10 offset-md-1">
     <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
@@ -196,4 +197,12 @@
       <span class="step-number s3"></span>
     </div>
   </div>
+</div>
+</div>
+<div class="row" *ngIf="submitted">
+<div class="col-12 text-center">
+    <h3 class="mt-5">Vielen Dank für deine Anfrage</h3>
+    <fa-icon [icon]="faCheck" class="big-icon icon-green mt-5"></fa-icon>
+    <p class="mb-5 text-muted">Du wirst blad die ersten Angebote von einem unserer Anbieter erhalten!</p>
+</div>
 </div>

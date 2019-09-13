@@ -6,6 +6,7 @@ import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rx
 import {FormControl, NG_VALIDATORS} from '@angular/forms';
 import {domain} from 'process';
 import {StaySmartService} from '../shared/stay-smart.service';
+import {faCheck} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tutor-search-request',
@@ -13,6 +14,7 @@ import {StaySmartService} from '../shared/stay-smart.service';
   styleUrls: ['./tutor-search-request.component.scss']
 })
 export class TutorSearchRequestComponent implements OnInit {
+  faCheck = faCheck;
 
   /* Variables for stepper */
   steps: HTMLCollectionOf<Element>;
@@ -133,6 +135,7 @@ export class TutorSearchRequestComponent implements OnInit {
       console.log(this.tutorSearchRequest);
       this.staySmartService.requestTutorSearch(this.tutorSearchRequest).then(value => {
         console.log(value);
+        this.submitted = true;
       }).catch(reason => {
         console.log(reason);
       });

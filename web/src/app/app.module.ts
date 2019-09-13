@@ -22,6 +22,7 @@ import {TutorRegistrationComponent} from './tutor-registration/tutor-registratio
 import {OrganisationComponent} from './other/organisation/organisation.component';
 import {TeamComponent} from './other/team/team.component';
 import {PresseComponent} from './other/presse/presse.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {PresseComponent} from './other/presse/presse.component';
     NgbModule,
     FormsModule,
     HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [LocationService, StaySmartService],
   bootstrap: [AppComponent]
