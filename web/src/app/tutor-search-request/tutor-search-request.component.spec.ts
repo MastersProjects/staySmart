@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
@@ -19,7 +20,8 @@ describe('TutorSearchRequestComponent', () => {
         FormsModule,
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule
+        AngularFirestoreModule,
+        FontAwesomeModule
       ],
       declarations: [TutorSearchRequestComponent]
     })
