@@ -41,12 +41,10 @@ export const emailOnSubmit = functions.region('europe-west1')
                 ${createdTutorSearchRequest.problem}`
         };
 
-        return transporter.sendMail(mailOptions, (error) => {
-            if (error) {
-                console.error(error);
-            } else {
-                console.log(`Sended to ${createdTutorSearchRequest.mail}`);
-            }
+        return transporter.sendMail(mailOptions).then(() => {
+            console.log(`Sended to ${createdTutorSearchRequest.mail}`);
+        }).catch(error => {
+            console.error(error);
         });
 
     });
