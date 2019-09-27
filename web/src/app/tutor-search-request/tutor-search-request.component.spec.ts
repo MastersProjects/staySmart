@@ -8,6 +8,8 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {StepperComponent} from '../shared/stepper/stepper.component';
 
 describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
@@ -21,9 +23,13 @@ describe('TutorSearchRequestComponent', () => {
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        CdkStepperModule
       ],
-      declarations: [TutorSearchRequestComponent]
+      declarations: [
+        TutorSearchRequestComponent,
+        StepperComponent
+      ]
     })
       .compileComponents();
   }));
