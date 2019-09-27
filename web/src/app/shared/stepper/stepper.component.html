@@ -1,0 +1,27 @@
+<div class="form-row">
+  <ng-container [ngTemplateOutlet]="selected.content"></ng-container>
+
+  <div class="form-group col-12">
+    <button *ngIf="selectedIndex !== 0" name="previous" type="button" class="btn btn-primary float-left"
+            cdkStepperPrevious>Zurück
+    </button>
+    <button *ngIf="selectedIndex !== steps.length - 1" name="next" type="button" class="btn btn-primary float-right"
+            cdkStepperNext>Weiter
+    </button>
+    <button *ngIf="selectedIndex === steps.length - 1" name="next" type="button" class="btn btn-primary float-right"
+            (click)="completeStepper()">Absenden
+    </button>
+  </div>
+</div>
+
+<div class="row mb-md-4">
+  <div class="stepper">
+    <ng-container *ngFor="let step of steps; let i = index;">
+      <div class="step" [ngClass]="{'step-active' : i <= selectedIndex}">
+        <span class="step-point"></span>
+      </div>
+      <span *ngIf="i !== steps.length - 1" class="progress"
+            [ngClass]="{'progress-completed' : i + 1 <= selectedIndex}"></span>
+    </ng-container>
+  </div>
+</div>

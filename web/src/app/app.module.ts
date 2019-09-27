@@ -23,6 +23,8 @@ import {OrganisationComponent} from './other/organisation/organisation.component
 import {TeamComponent} from './other/team/team.component';
 import {PresseComponent} from './other/presse/presse.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {StepperComponent} from './shared/stepper/stepper.component';
+import {CdkStepperModule} from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     TutorRegistrationComponent,
     OrganisationComponent,
     TeamComponent,
-    PresseComponent
+    PresseComponent,
+    StepperComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     NgbModule,
     FormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CdkStepperModule
   ],
   providers: [LocationService, StaySmartService],
   bootstrap: [AppComponent]
