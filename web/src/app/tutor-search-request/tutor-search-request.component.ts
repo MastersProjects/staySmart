@@ -59,6 +59,7 @@ export class TutorSearchRequestComponent implements OnInit {
   searching = false;
   searchFailed = false;
 
+
   constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
   }
 
@@ -67,71 +68,35 @@ export class TutorSearchRequestComponent implements OnInit {
     this.progressBars = document.getElementsByClassName('progress');
   }
 
-  prevStep() {
-    if (this.step > 0) {
-      this.progressBars[this.step - 1].classList.remove('complete');
-      this.steps[this.step].className = 'step';
-
-      const formElementNow = document.getElementById('f' + (this.step + 1));
-      const formElementNext = document.getElementById('f' + this.step);
-
-      formElementNow.style.display = 'none';
-      formElementNext.style.display = 'block';
-
-      this.step -= 1;
-      this.steps[this.step].className = 'step active-step';
-    }
+  get step1Completed() {
+    return !!(this.tutorSearchRequest.firstname
+      && this.tutorSearchRequest.name
+      && this.tutorSearchRequest.mail
+      && this.tutorSearchRequest.phone);
   }
 
-  nextStep() {
-    if (this.step < this.steps.length - 1) {
-      if (this.formValid(this.step)) {
-        this.progressBars[this.step].classList.add('complete');
-        this.step += 1;
 
-        const formElementNow = document.getElementById('f' + this.step);
-        const formElementNext = document.getElementById('f' + (this.step + 1));
-
-        formElementNow.style.display = 'none';
-        formElementNext.style.display = 'block';
-
-        this.steps[this.step].className = 'step active-step';
-      } else {
-        console.log('Form invalid for next step!'); // ToDo Error message
-      }
-    }
+  get step2Completed() {
+    return !!(this.tutorSearchRequest.grade && this.tutorSearchRequest.subject);
   }
 
-  formValid(step: number): boolean {
-    let check = false;
-    if (step === 0) {
-      check = !!(this.tutorSearchRequest.firstname
-        && this.tutorSearchRequest.name
-        && this.tutorSearchRequest.mail
-        && this.tutorSearchRequest.phone
-      );
-    } else if (step === 1) {
-      check = !!(this.tutorSearchRequest.grade && this.tutorSearchRequest.subject);
-    } else if (step === 2) {
-      check = !!(this.tutorSearchRequest.budget
-        && this.tutorSearchRequest.problem
-        && this.tutorSearchRequest.location
-        && (this.tutorSearchRequest.days.monday
-          || this.tutorSearchRequest.days.thursday
-          || this.tutorSearchRequest.days.tuesday
-          || this.tutorSearchRequest.days.wednesday
-          || this.tutorSearchRequest.days.friday
-          || this.tutorSearchRequest.days.saturday
-          || this.tutorSearchRequest.days.sunday
-        )
-      );
-    } // ToDo better day check (this.model.days as Array<boolean>).some(x => x === true)
-
-    return check;
+  get step3Completed() {
+    return !!(this.tutorSearchRequest.budget
+      && this.tutorSearchRequest.problem
+      && this.tutorSearchRequest.location
+      && (this.tutorSearchRequest.days.monday
+        || this.tutorSearchRequest.days.thursday
+        || this.tutorSearchRequest.days.tuesday
+        || this.tutorSearchRequest.days.wednesday
+        || this.tutorSearchRequest.days.friday
+        || this.tutorSearchRequest.days.saturday
+        || this.tutorSearchRequest.days.sunday
+      )
+    );
   }
 
   onSubmit() {
-    if (this.formValid(0) && this.formValid(1) && this.formValid(2)) {
+    if (this.step1Completed && this.step2Completed && this.step3Completed) {
       console.log(this.tutorSearchRequest);
       this.staySmartService.requestTutorSearch(this.tutorSearchRequest).then(value => {
         console.log(value);

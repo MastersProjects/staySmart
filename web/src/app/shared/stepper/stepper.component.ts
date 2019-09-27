@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {CdkStepper} from '@angular/cdk/stepper';
+import {Directionality} from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-stepper',
@@ -9,9 +10,8 @@ import {CdkStepper} from '@angular/cdk/stepper';
 })
 export class StepperComponent extends CdkStepper {
 
-  @Output() stepperCompleted = new EventEmitter();
-
-  completeStepper() {
-    this.stepperCompleted.emit(true);
+  constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef) {
+    super(dir, changeDetectorRef);
   }
+
 }
