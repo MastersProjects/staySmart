@@ -161,7 +161,7 @@
             <label for="range">Budget maximal (pro Stunde)</label>
             <input type="range" name="budget" #budget="ngModel" class="custom-range" min="0" max="20" id="range"
                    [(ngModel)]="tutorSearchRequest.budget" required>
-            <small class="form-text text-muted" *ngIf="tutorSearchRequest.budget">Aktuelles
+            <small class="form-text text-muted h6 font-weight-light" *ngIf="tutorSearchRequest.budget">Aktuelles
               Budget: {{tutorSearchRequest.budget * 5}}.-</small>
             <small *ngIf="budget.invalid" id="budgethelp" class="form-text text-danger">Bitte Budget definieren</small>
           </div>
