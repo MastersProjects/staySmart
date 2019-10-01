@@ -14,44 +14,9 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./tutor-search-request.component.scss']
 })
 export class TutorSearchRequestComponent implements OnInit {
-  faCheck = faCheck;
-
-  /* Variables for stepper */
-  steps: HTMLCollectionOf<Element>;
-  progressBars: HTMLCollectionOf<Element>;
-  step = 0;
-
-  /* Variables for form */
+  faCheck = faCheck; // Icon
   submitted = false;
-  tutorSearchRequest: TutorSearchRequest = {
-    firstname: '',
-    name: '',
-    mail: '',
-    phone: '',
-    subject: '',
-    grade: '',
-    location: {
-      label: '',
-      detail: '',
-      lon: 0,
-      lat: 0,
-      y: 0,
-      x: 0,
-      geomStBox2d: '',
-    },
-    days: {
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-      sunday: false
-    },
-    budget: 0,
-    problem: '',
-    timestamp: null
-  };
+
   grades = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynamic not static
   subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynamic not static
 
@@ -59,14 +24,12 @@ export class TutorSearchRequestComponent implements OnInit {
   searching = false;
   searchFailed = false;
 
+  /* Form */
   requestForm: FormGroup;
 
   constructor(private locationService: LocationService, private staySmartService: StaySmartService) {}
 
   ngOnInit() {
-    this.steps = document.getElementsByClassName('step');
-    this.progressBars = document.getElementsByClassName('progress');
-
     this.requestForm = new FormGroup({
       general: new FormGroup({
         firstname: new FormControl('', Validators.required),
@@ -120,11 +83,11 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   get isOneDaySelected() {
-    return true; // ToDo day validation
+    return false; // ToDo day validation
   }
 
   onSubmit() {
-    if (this.step1Completed && this.step2Completed && this.step3Completed) {
+    /*if (this.step1Completed && this.step2Completed && this.step3Completed) {
       console.log(this.tutorSearchRequest);
       this.staySmartService.requestTutorSearch(this.tutorSearchRequest).then(value => {
         console.log(value);
@@ -134,7 +97,7 @@ export class TutorSearchRequestComponent implements OnInit {
       });
     } else {
       console.log('Error in Form');
-    }
+    }*/
   }
 
   searchLocation = (text: Observable<string>) =>

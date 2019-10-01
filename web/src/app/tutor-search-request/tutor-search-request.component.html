@@ -94,13 +94,14 @@
                   <label for="location">Ort</label>
                   <div class=" mt-2">
                     <input id="location" name="location" type="text" class="form-control" formControlName="location"
-                      [ngbTypeahead]="searchLocation"
-                      [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter" />
+                      [ngbTypeahead]="searchLocation" [inputFormatter]="locationFomratterForm"
+                      [resultFormatter]="locationFormatter" />
                     <span *ngIf="searching">Suchen...</span>
                     <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen
                       werden.
                     </div>
-                    <small *ngIf="step3.get('location').invalid && (step3.get('location').dirty || step3.get('location').touched)"
+                    <small
+                      *ngIf="step3.get('location').invalid && (step3.get('location').dirty || step3.get('location').touched)"
                       class="form-text text-danger">Bitte gültige Ortschaft auswählen
                     </small>
                   </div>
@@ -148,9 +149,11 @@
                   <label for="range">Budget maximal (pro Stunde)</label>
                   <input type="range" id="range" name="budget" class="custom-range" formControlName="budget" min="0"
                     max="20">
-                  <small class="form-text text-muted" *ngIf="tutorSearchRequest.budget">Aktuelles
-                    Budget: {{step3.get('budget').budget * 5}}.-</small>
-                  <small *ngIf="step3.get('budget').invalid" class="form-text text-danger">Bitte Budget
+                  <small class="form-text text-muted" *ngIf="step3.get('budget').value > 0">Aktuelles
+                    Budget: {{step3.get('budget').value * 5}}.-</small>
+                  <small
+                    *ngIf="step3.get('budget').invalid && (step3.get('budget').dirty || step3.get('budget').touched)"
+                    class="form-text text-danger">Bitte Budget
                     definieren</small>
                 </div>
                 <div class="form-group col-lg-6 ml-n1">
