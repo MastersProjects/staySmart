@@ -3,7 +3,7 @@ import {GeoLocation, TutorSearchRequest} from 'src/app/shared/model/tutor-search
 import {Observable, of} from 'rxjs';
 import {LocationService} from 'src/app/shared/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
-import {FormControl, NG_VALIDATORS} from '@angular/forms';
+import {FormControl, NG_VALIDATORS, FormGroup, Validators} from '@angular/forms';
 import {domain} from 'process';
 import {StaySmartService} from '../shared/stay-smart.service';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
@@ -52,12 +52,14 @@ export class TutorSearchRequestComponent implements OnInit {
     problem: '',
     timestamp: null
   };
-  grades = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynmaic not static
-  subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynmaic not static
+  grades = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynamic not static
+  subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynamic not static
 
   /* Variables location search */
   searching = false;
   searchFailed = false;
+
+  requestForm: FormGroup;
 
 
   constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
@@ -66,15 +68,25 @@ export class TutorSearchRequestComponent implements OnInit {
   ngOnInit() {
     this.steps = document.getElementsByClassName('step');
     this.progressBars = document.getElementsByClassName('progress');
+
+
+    this.requestForm = new FormGroup({
+      general: new FormGroup({
+        firstname: new FormControl('', Validators.required),
+        name: new FormControl('', Validators.required),
+        mail: new FormControl('' , [Validators.required, Validators.email]),
+        phone: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}/)])
+      })
+  });
   }
 
   get step1Completed() {
-    return !!(this.tutorSearchRequest.firstname
-      && this.tutorSearchRequest.name
-      && this.tutorSearchRequest.mail
-      && this.tutorSearchRequest.phone);
+    return !!(this.step1.valid);
   }
 
+  get step1() {
+    return this.requestForm.get('general');
+  }
 
   get step2Completed() {
     return !!(this.tutorSearchRequest.grade && this.tutorSearchRequest.subject);
@@ -127,7 +139,7 @@ export class TutorSearchRequestComponent implements OnInit {
     )
 
   locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
-  locationFomratterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
+  locationFormatterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
 }
 
 export function locationDomainValidator(control: FormControl) {
