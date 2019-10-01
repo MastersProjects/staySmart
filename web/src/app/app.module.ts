@@ -7,10 +7,7 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {
-  LocationDomainValidatorDirective,
-  TutorSearchRequestComponent
-} from './tutor-search-request/tutor-search-request.component';
+import {TutorSearchRequestComponent} from './tutor-search-request/tutor-search-request.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BannerComponent} from './general/banner/banner.component';
 import {LocationService} from './shared/location.service';
@@ -32,7 +29,6 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
     HomeComponent,
     TutorSearchRequestComponent,
     BannerComponent,
-    LocationDomainValidatorDirective,
     TutorRegistrationComponent,
     OrganisationComponent,
     TeamComponent,

@@ -1,12 +1,12 @@
-import {Component, Directive, OnInit} from '@angular/core';
-import {GeoLocation, TutorSearchRequest} from 'src/app/shared/model/tutor-search-request.model';
-import {Observable, of} from 'rxjs';
-import {LocationService} from 'src/app/shared/location.service';
-import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
-import {FormControl, NG_VALIDATORS, FormGroup, Validators} from '@angular/forms';
-import {domain} from 'process';
-import {StaySmartService} from '../shared/stay-smart.service';
-import {faCheck} from '@fortawesome/free-solid-svg-icons';
+import { Component, Directive, OnInit } from '@angular/core';
+import { GeoLocation, TutorSearchRequest } from 'src/app/shared/model/tutor-search-request.model';
+import { Observable, of } from 'rxjs';
+import { LocationService } from 'src/app/shared/location.service';
+import { catchError, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { FormControl, NG_VALIDATORS, FormGroup, Validators } from '@angular/forms';
+import { locationDomainValidator } from '../shared/validators/location-validator';
+import { StaySmartService } from '../shared/stay-smart.service';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tutor-search-request',
@@ -61,27 +61,38 @@ export class TutorSearchRequestComponent implements OnInit {
 
   requestForm: FormGroup;
 
-
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
-  }
+  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {}
 
   ngOnInit() {
     this.steps = document.getElementsByClassName('step');
     this.progressBars = document.getElementsByClassName('progress');
 
-
     this.requestForm = new FormGroup({
       general: new FormGroup({
         firstname: new FormControl('', Validators.required),
         name: new FormControl('', Validators.required),
-        mail: new FormControl('' , [Validators.required, Validators.email]),
+        mail: new FormControl('', [Validators.required, Validators.email]),
         phone: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}/)])
       }),
       category: new FormGroup({
         subject: new FormControl('', Validators.required),
         grade: new FormControl('', Validators.required)
-      })
-  });
+      }),
+      details: new FormGroup({
+        budget: new FormControl('', Validators.required),
+        problem: new FormControl('', [Validators.required, Validators.minLength(20)]),
+        days: new FormGroup({
+          monday: new FormControl(),
+          tuesday: new FormControl(),
+          wednesday: new FormControl(),
+          thursday: new FormControl(),
+          friday: new FormControl(),
+          saturday: new FormControl(),
+          sunday: new FormControl()
+        }),
+        location: new FormControl('', [Validators.required, locationDomainValidator])
+      }),
+    });
   }
 
   get step1Completed() {
@@ -101,18 +112,15 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   get step3Completed() {
-    return !!(this.tutorSearchRequest.budget
-      && this.tutorSearchRequest.problem
-      && this.tutorSearchRequest.location
-      && (this.tutorSearchRequest.days.monday
-        || this.tutorSearchRequest.days.thursday
-        || this.tutorSearchRequest.days.tuesday
-        || this.tutorSearchRequest.days.wednesday
-        || this.tutorSearchRequest.days.friday
-        || this.tutorSearchRequest.days.saturday
-        || this.tutorSearchRequest.days.sunday
-      )
-    );
+    return !!(this.step2.valid && this.isOneDaySelected);
+  }
+
+  get step3() {
+    return this.requestForm.get('details');
+  }
+
+  get isOneDaySelected() {
+    return true; // ToDo day validation
   }
 
   onSubmit() {
@@ -150,28 +158,3 @@ export class TutorSearchRequestComponent implements OnInit {
   locationFormatterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
 }
 
-export function locationDomainValidator(control: FormControl) {
-  const location = control.value;
-  if (!(location && location.label && location.detail && location.lon && location.lat && location.x
-    && location.y && location.geomStBox2d)) {
-    return {
-      locationDomain: {
-        parsedDomain: domain
-      }
-    };
-  }
-  return null;
-}
-
-@Directive({
-  selector: '[appLocationDomain]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useValue: locationDomainValidator,
-      multi: true
-    }
-  ]
-})
-export class LocationDomainValidatorDirective {
-}

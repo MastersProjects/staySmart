@@ -74,49 +74,94 @@
                 <div class="form-group col-lg-6">
                   <label for="class">Klasse</label>
                   <select id="class" name="grade" class="form-control" size="6" formControlName="grade">
-                      <option *ngFor="let grade of grades">{{grade}}</option>
-                    </select>
+                    <option *ngFor="let grade of grades">{{grade}}</option>
+                  </select>
                 </div>
                 <div class="form-group col-12">
                   <button name="prev1" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
                   </button>
-                  <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext [disabled]="!step2Completed">Weiter
+                  <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext
+                    [disabled]="!step2Completed">Weiter
                   </button>
                 </div>
               </div>
             </div>
           </cdk-step>
           <cdk-step [completed]="!step3Completed">
-            <div class="formStep" id="f3">
+            <div class="formStep" id="f3" formGroupName="details">
               <div class="form-row">
                 <div class="form-group form-group col-lg-6 ml-n1">
                   <label for="location">Ort</label>
                   <div class=" mt-2">
-
+                    <input id="location" name="location" type="text" class="form-control" formControlName="location"
+                      [ngbTypeahead]="searchLocation"
+                      [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter" />
                     <span *ngIf="searching">Suchen...</span>
                     <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen
                       werden.
                     </div>
+                    <small *ngIf="step3.get('location').invalid && (step3.get('location').dirty || step3.get('location').touched)"
+                      class="form-text text-danger">Bitte gültige Ortschaft auswählen
+                    </small>
                   </div>
                 </div>
-                <!--https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=stäfa&type=locations&origins=gg25 request to this url for validation-->
-
                 <div class="form-group col-lg-6">
                   <label>Tag</label><br>
-
+                  <div formGroupName="days">
+                    <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-monday" name="day" type="checkbox" ngbButton formControlName="monday">
+                        Montag
+                      </label>
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-tuesday" name="day" type="checkbox" ngbButton formControlName="tuesday">
+                        Dienstag
+                      </label>
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-wednesday" name="day" type="checkbox" ngbButton formControlName="wednesday">
+                        Mittwoch
+                      </label>
+                    </div>
+                    <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-thursday" name="day" type="checkbox" ngbButton formControlName="thursday">
+                        Donnerstag
+                      </label>
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-friday" name="day" type="checkbox" ngbButton formControlName="friday">
+                        Freitag
+                      </label>
+                    </div>
+                    <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-saturday" name="day" type="checkbox" ngbButton formControlName="saturday">
+                        Samstag
+                      </label>
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-sunday" name="day" type="checkbox" ngbButton formControlName="sunday">
+                        Sonntag
+                      </label>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group col-lg-6 ml-n1">
                   <label for="range">Budget maximal (pro Stunde)</label>
-
+                  <input type="range" id="range" name="budget" class="custom-range" formControlName="budget" min="0"
+                    max="20">
+                  <small class="form-text text-muted" *ngIf="tutorSearchRequest.budget">Aktuelles
+                    Budget: {{step3.get('budget').budget * 5}}.-</small>
+                  <small *ngIf="step3.get('budget').invalid" class="form-text text-danger">Bitte Budget
+                    definieren</small>
                 </div>
                 <div class="form-group col-lg-6 ml-n1">
                   <label for="problem">Problem</label>
-
+                  <textarea id="problem" name="problem" class="form-control" formControlName="problem"
+                    rows="3"></textarea>
                 </div>
                 <div class="form-group col-12 ml-n1">
                   <button name="prev2" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
                   </button>
-                  <button type="submit" name="submit" class="btn btn-primary float-right">
+                  <button type="submit" name="submit" class="btn btn-primary float-right" [disabled]="!step3Completed">
                     Absenden
                   </button>
                 </div>
@@ -140,4 +185,6 @@
 
 <pre>{{requestForm.value | json}}
   {{step1.valid}}
+  {{step2.valid}}
+  {{step3.valid}}
 </pre>
