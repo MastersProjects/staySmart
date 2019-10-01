@@ -49,33 +49,38 @@
                     </div>
                     <input type="text" id="phone" name="phone" class="form-control" formControlName="phone">
                   </div>
-                    <small *ngIf="step1.get('phone').invalid && (step1.get('phone').dirty || step1.get('phone').touched)"
-                         class="form-text text-danger">
+                  <small *ngIf="step1.get('phone').invalid && (step1.get('phone').dirty || step1.get('phone').touched)"
+                    class="form-text text-danger">
                     Die Telefonnummer ohne führende 0 eingeben
                   </small>
                 </div>
                 <div class="form-group col-12">
-                  <button name="next1" type="button" class="btn btn-primary float-right" [disabled]="!step1Completed" cdkStepperNext>Weiter
+                  <button name="next1" type="button" class="btn btn-primary float-right" [disabled]="!step1Completed"
+                    cdkStepperNext>Weiter
                   </button>
                 </div>
               </div>
             </div>
           </cdk-step>
-          <cdk-step [completed]="!step2Completed">
-            <div class="formStep" id="f2">
+          <cdk-step [completed]="step2Completed">
+            <div class="formStep" id="f2" formGroupName="category">
               <div class="form-row">
                 <div class="form-group col-lg-6">
                   <label for="lecture">Fach</label>
-
+                  <select id="lecture" name="fach" class="form-control" size="6" formControlName="subject">
+                    <option *ngFor="let sub of subjects">{{sub}}</option>
+                  </select>
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="class">Klasse</label>
-
+                  <select id="class" name="grade" class="form-control" size="6" formControlName="grade">
+                      <option *ngFor="let grade of grades">{{grade}}</option>
+                    </select>
                 </div>
                 <div class="form-group col-12">
                   <button name="prev1" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
                   </button>
-                  <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext>Weiter
+                  <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext [disabled]="!step2Completed">Weiter
                   </button>
                 </div>
               </div>

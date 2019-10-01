@@ -76,6 +76,10 @@ export class TutorSearchRequestComponent implements OnInit {
         name: new FormControl('', Validators.required),
         mail: new FormControl('' , [Validators.required, Validators.email]),
         phone: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}/)])
+      }),
+      category: new FormGroup({
+        subject: new FormControl('', Validators.required),
+        grade: new FormControl('', Validators.required)
       })
   });
   }
@@ -89,7 +93,11 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   get step2Completed() {
-    return !!(this.tutorSearchRequest.grade && this.tutorSearchRequest.subject);
+    return !!(this.step2.valid);
+  }
+
+  get step2() {
+    return this.requestForm.get('category');
   }
 
   get step3Completed() {
