@@ -35,7 +35,7 @@ export class TutorSearchRequestComponent implements OnInit {
         firstname: new FormControl('', Validators.required),
         name: new FormControl('', Validators.required),
         mail: new FormControl('', [Validators.required, Validators.email]),
-        phone: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}/)])
+        phone: new FormControl('', [Validators.required, Validators.pattern(/\d{9}/), Validators.maxLength(9)])
       }),
       category: new FormGroup({
         subject: new FormControl('', Validators.required),
