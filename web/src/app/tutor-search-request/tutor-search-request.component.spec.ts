@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { TutorSearchRequestComponent } from './tutor-search-request.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -10,13 +10,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { StepperComponent } from '../shared/stepper/stepper.component';
-import { Observable } from 'rxjs';
 
 describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
   let fixture: ComponentFixture<TutorSearchRequestComponent>;
-  const required = 'required';
-  const mail = 'email';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -60,19 +57,19 @@ describe('TutorSearchRequestComponent', () => {
 
     // Email field is required
     errors = email.errors || {};
-    expect(errors[this.required]).toBeTruthy();
+    expect(errors[`required`]).toBeTruthy();
 
     // Set email to something
     email.setValue('test');
     errors = email.errors || {};
-    expect(errors[this.required]).toBeFalsy();
-    expect(errors[this.mail]).toBeTruthy();
+    expect(errors[`required`]).toBeFalsy();
+    expect(errors[`email`]).toBeTruthy();
 
     // Set email to something correct
     email.setValue('test@example.com');
     errors = email.errors || {};
-    expect(errors[this.required]).toBeFalsy();
-    expect(errors[this.mail]).toBeFalsy();
+    expect(errors[`required`]).toBeFalsy();
+    expect(errors[`email`]).toBeFalsy();
 
     // Field should be ok
     expect(email.valid).toBeTruthy();
@@ -84,7 +81,7 @@ describe('TutorSearchRequestComponent', () => {
 
     // Phone field is required
     errors = phone.errors || {};
-    expect(errors[this.required]).toBeTruthy();
+    expect(errors[`required`]).toBeTruthy();
 
     // Set phone to something
     phone.setValue('111111111');
@@ -97,7 +94,7 @@ describe('TutorSearchRequestComponent', () => {
 
     // Phone field is required
     errors = phone.errors || {};
-    expect(errors[this.required]).toBeTruthy();
+    expect(errors[`required`]).toBeTruthy();
 
     //  Number to short
     phone.setValue('1');
@@ -134,7 +131,7 @@ describe('TutorSearchRequestComponent', () => {
 
     // budget field is required
     errors = phone.errors || {};
-    expect(errors[this.required]).toBeTruthy();
+    expect(errors[`required`]).toBeTruthy();
 
     // Set budget to something invalid
     phone.setValue('no number');
@@ -155,7 +152,7 @@ describe('TutorSearchRequestComponent', () => {
 
     // budget field is required
     errors = phone.errors || {};
-    expect(errors[this.required]).toBeTruthy();
+    expect(errors[`required`]).toBeTruthy();
 
     // Set problem to short
     phone.setValue('problem');
@@ -177,6 +174,37 @@ describe('TutorSearchRequestComponent', () => {
   });
 
   it('step three validity', () => {
+    fillFormValid();
+    expect(component.step3Completed).toBeTruthy();
+  });
+
+  // ToDo Location search
+  it('search location', () => {
+
+  });
+
+  // ToDo
+  it('should call submit', () => {
+    /*spyOn(component, 'onSubmit');
+    el = fixture.debugElement.query(By.css('button')).nativeElement;
+    el.click();
+    expect(component.onSubmit).toHaveBeenCalledTimes(1);*/
+  });
+
+  // ToDo
+  it('should submit', () => {
+    /*fillFormValid();
+    component.onSubmit();
+    expect(component.submitted).toBeTruthy();*/
+  });
+
+  function fillFormValid() {
+    component.step1.get('name').setValue('Muster');
+    component.step1.get('firstname').setValue('Max');
+    component.step1.get('mail').setValue('muster@test.ch');
+    component.step1.get('phone').setValue('111111111');
+    component.step2.get('grade').setValue('Gymnasium');
+    component.step2.get('subject').setValue('Mathe');
     component.step3.get('budget').setValue('35');
     component.step3.get('problem').setValue('aaaaaaaaaaaaaaaaaaaa');
     component.step3.get('location').setValue({
@@ -192,11 +220,5 @@ describe('TutorSearchRequestComponent', () => {
       monday: true, tuesday: false, wednesday: true, thursday: true, friday: true,
       saturday: true, sunday: false
     });
-    expect(component.step3Completed).toBeTruthy();
-  });
-
-  // Location search
-  it('search location', () => {
-
-  });
+  }
 });

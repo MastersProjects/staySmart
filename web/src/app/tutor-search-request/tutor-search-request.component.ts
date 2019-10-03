@@ -49,13 +49,13 @@ export class TutorSearchRequestComponent implements OnInit {
         budget: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
         problem: new FormControl('', [Validators.required, Validators.minLength(20)]),
         days: new FormGroup({
-          monday: new FormControl(),
-          tuesday: new FormControl(),
-          wednesday: new FormControl(),
-          thursday: new FormControl(),
-          friday: new FormControl(),
-          saturday: new FormControl(),
-          sunday: new FormControl()
+          monday: new FormControl(false),
+          tuesday: new FormControl(false),
+          wednesday: new FormControl(false),
+          thursday: new FormControl(false),
+          friday: new FormControl(false),
+          saturday: new FormControl(false),
+          sunday: new FormControl(false)
         }),
         location: new FormControl('', [Validators.required, locationDomainValidator])
       }),
@@ -95,37 +95,55 @@ export class TutorSearchRequestComponent implements OnInit {
     return (element);
   }
 
-onSubmit() {
-  /*if (this.step1Completed && this.step2Completed && this.step3Completed) {
-    this.staySmartService.requestTutorSearch(tutorSearchRequest).then(value => {
-      console.log(value);
-      this.submitted = true;
-    }).catch(reason => {
-      console.log(reason);
-    });
-  } else {
-    console.log('Error in Form');
-  }*/
-}
+  onSubmit() {
+    if (this.step1Completed && this.step2Completed && this.step3Completed) {
+      const tutorSearchRequestData = this.mapFormToModel();
+      this.staySmartService.requestTutorSearch(tutorSearchRequestData).then(value => {
+        console.log(value);
+        this.submitted = true;
+      }).catch(reason => {
+        console.log(reason);
+      });
+    } else {
+      console.log('Error in Form');
+    }
+  }
 
-searchLocation = (text: Observable<string>) =>
-  text.pipe(
-    debounceTime(300),
-    distinctUntilChanged(),
-    tap(() => this.searching = true),
-    switchMap(term =>
-      this.locationService.searchLocation(term).pipe(
-        tap(e => console.log(e)),
-        catchError(() => {
-          this.searchFailed = true;
-          console.log('Search failed');
-          return of([]);
-        }))
-    ),
-    tap(() => this.searching = false)
-  )
+  mapFormToModel() {
+    const tutorSearchRequestData: TutorSearchRequest = {
+      name: this.step1.get('name').value,
+      firstname: this.step1.get('firstname').value,
+      mail: this.step1.get('mail').value,
+      phone: this.step1.get('phone').value,
+      grade: this.step2.get('grade').value,
+      subject: this.step2.get('subject').value,
+      budget: this.step3.get('budget').value,
+      location: this.step3.get('location').value,
+      days: this.step3.get('days').value,
+      problem: this.step3.get('problem').value,
+      timestamp: null
+    };
+    return tutorSearchRequestData;
+  }
 
-locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
-locationFormatterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
+  searchLocation = (text: Observable<string>) =>
+    text.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>
+        this.locationService.searchLocation(term).pipe(
+          tap(e => console.log(e)),
+          catchError(() => {
+            this.searchFailed = true;
+            console.log('Search failed');
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
+
+  locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
+  locationFormatterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
 }
 
