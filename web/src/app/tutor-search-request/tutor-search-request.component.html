@@ -19,7 +19,7 @@
 <div class="form-wrapper" *ngIf="!submitted">
   <div class="row mt-md-4 mt-3">
     <div class="col-12 col-md-10 offset-md-1">
-      <form [formGroup]="requestForm">
+      <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
 
         <app-stepper linear>
           <cdk-step [completed]="step1Completed">

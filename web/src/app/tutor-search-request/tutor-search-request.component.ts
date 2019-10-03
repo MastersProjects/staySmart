@@ -27,22 +27,26 @@ export class TutorSearchRequestComponent implements OnInit {
   /* Form */
   requestForm: FormGroup;
 
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {}
+  constructor(private locationService: LocationService, private staySmartService: StaySmartService) { }
 
   ngOnInit() {
-    this.requestForm = new FormGroup({
+    this.requestForm = this.createForm();
+  }
+
+  createForm(): FormGroup {
+    return new FormGroup({
       general: new FormGroup({
         firstname: new FormControl('', Validators.required),
         name: new FormControl('', Validators.required),
         mail: new FormControl('', [Validators.required, Validators.email]),
-        phone: new FormControl('', [Validators.required, Validators.pattern(/\d{9}/), Validators.maxLength(9)])
+        phone: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)])
       }),
       category: new FormGroup({
         subject: new FormControl('', Validators.required),
         grade: new FormControl('', Validators.required)
       }),
       details: new FormGroup({
-        budget: new FormControl('', Validators.required),
+        budget: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
         problem: new FormControl('', [Validators.required, Validators.minLength(20)]),
         days: new FormGroup({
           monday: new FormControl(),
@@ -75,49 +79,53 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   get step3Completed() {
-    return !!(this.step2.valid && this.isOneDaySelected);
+    return !!(this.step3.valid && this.isOneDaySelected(this.step3.get('days').value));
   }
 
   get step3() {
     return this.requestForm.get('details');
   }
 
-  get isOneDaySelected() {
-    return false; // ToDo day validation
+  isOneDaySelected(days: object) {
+    const dayList = Object.keys(days).map(i => days[i]);
+    return dayList.some(this.isTrue);
   }
 
-  onSubmit() {
-    /*if (this.step1Completed && this.step2Completed && this.step3Completed) {
-      console.log(this.tutorSearchRequest);
-      this.staySmartService.requestTutorSearch(this.tutorSearchRequest).then(value => {
-        console.log(value);
-        this.submitted = true;
-      }).catch(reason => {
-        console.log(reason);
-      });
-    } else {
-      console.log('Error in Form');
-    }*/
+  isTrue(element, index, array) {
+    return (element);
   }
 
-  searchLocation = (text: Observable<string>) =>
-    text.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      tap(() => this.searching = true),
-      switchMap(term =>
-        this.locationService.searchLocation(term).pipe(
-          tap(e => console.log(e)),
-          catchError(() => {
-            this.searchFailed = true;
-            console.log('Search failed');
-            return of([]);
-          }))
-      ),
-      tap(() => this.searching = false)
-    )
+onSubmit() {
+  /*if (this.step1Completed && this.step2Completed && this.step3Completed) {
+    this.staySmartService.requestTutorSearch(tutorSearchRequest).then(value => {
+      console.log(value);
+      this.submitted = true;
+    }).catch(reason => {
+      console.log(reason);
+    });
+  } else {
+    console.log('Error in Form');
+  }*/
+}
 
-  locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
-  locationFormatterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
+searchLocation = (text: Observable<string>) =>
+  text.pipe(
+    debounceTime(300),
+    distinctUntilChanged(),
+    tap(() => this.searching = true),
+    switchMap(term =>
+      this.locationService.searchLocation(term).pipe(
+        tap(e => console.log(e)),
+        catchError(() => {
+          this.searchFailed = true;
+          console.log('Search failed');
+          return of([]);
+        }))
+    ),
+    tap(() => this.searching = false)
+  )
+
+locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
+locationFormatterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
 }
 

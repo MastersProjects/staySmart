@@ -1,19 +1,22 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TutorSearchRequestComponent} from './tutor-search-request.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {CdkStepperModule} from '@angular/cdk/stepper';
-import {StepperComponent} from '../shared/stepper/stepper.component';
+import { TutorSearchRequestComponent } from './tutor-search-request.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { StepperComponent } from '../shared/stepper/stepper.component';
+import { Observable } from 'rxjs';
 
 describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
   let fixture: ComponentFixture<TutorSearchRequestComponent>;
+  const required = 'required';
+  const mail = 'email';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,7 +27,8 @@ describe('TutorSearchRequestComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         FontAwesomeModule,
-        CdkStepperModule
+        CdkStepperModule,
+        ReactiveFormsModule
       ],
       declarations: [
         TutorSearchRequestComponent,
@@ -40,7 +44,159 @@ describe('TutorSearchRequestComponent', () => {
     fixture.detectChanges();
   });
 
+  // General
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('form invalid when empty', () => {
+    expect(component.requestForm.valid).toBeFalsy();
+  });
+
+  // Step 1
+  it('email field validity', () => {
+    let errors = {};
+    const email = component.step1.get('mail');
+
+    // Email field is required
+    errors = email.errors || {};
+    expect(errors[this.required]).toBeTruthy();
+
+    // Set email to something
+    email.setValue('test');
+    errors = email.errors || {};
+    expect(errors[this.required]).toBeFalsy();
+    expect(errors[this.mail]).toBeTruthy();
+
+    // Set email to something correct
+    email.setValue('test@example.com');
+    errors = email.errors || {};
+    expect(errors[this.required]).toBeFalsy();
+    expect(errors[this.mail]).toBeFalsy();
+
+    // Field should be ok
+    expect(email.valid).toBeTruthy();
+  });
+
+  it('phone field validity', () => {
+    let errors = {};
+    const phone = component.step1.get('phone');
+
+    // Phone field is required
+    errors = phone.errors || {};
+    expect(errors[this.required]).toBeTruthy();
+
+    // Set phone to something
+    phone.setValue('111111111');
+    expect(phone.valid).toBeTruthy();
+  });
+
+  it('phone field validity', () => {
+    let errors = {};
+    const phone = component.step1.get('phone');
+
+    // Phone field is required
+    errors = phone.errors || {};
+    expect(errors[this.required]).toBeTruthy();
+
+    //  Number to short
+    phone.setValue('1');
+    expect(phone.valid).toBeFalsy();
+
+    // Number to long
+    phone.setValue('111111111111111111');
+    expect(phone.valid).toBeFalsy();
+
+    // Set phone to something valid
+    phone.setValue('111111111');
+    expect(phone.valid).toBeTruthy();
+  });
+
+  it('step one validity', () => {
+    component.step1.get('phone').setValue('111111111');
+    component.step1.get('mail').setValue('test@example.com');
+    component.step1.get('name').setValue('test');
+    component.step1.get('firstname').setValue('muster');
+    expect(component.step1Completed).toBeTruthy();
+  });
+
+  // Step two
+  it('step two validity', () => {
+    component.step2.get('subject').setValue('Physics');
+    component.step2.get('grade').setValue('4. - 6. Klasse');
+    expect(component.step2Completed).toBeTruthy();
+  });
+
+  // Step 3
+  it('budget field validity', () => {
+    let errors = {};
+    const phone = component.step3.get('budget');
+
+    // budget field is required
+    errors = phone.errors || {};
+    expect(errors[this.required]).toBeTruthy();
+
+    // Set budget to something invalid
+    phone.setValue('no number');
+    expect(phone.valid).toBeFalsy();
+
+    // Set budget to something valid
+    phone.setValue('35');
+    expect(phone.valid).toBeTruthy();
+  });
+
+  it('location field validity', () => {
+
+  });
+
+  it('problem field validity', () => {
+    let errors = {};
+    const phone = component.step3.get('problem');
+
+    // budget field is required
+    errors = phone.errors || {};
+    expect(errors[this.required]).toBeTruthy();
+
+    // Set problem to short
+    phone.setValue('problem');
+    expect(phone.valid).toBeFalsy();
+
+    // Set budget to something valid
+    phone.setValue('Lorem Impsum dolor sit amet');
+    expect(phone.valid).toBeTruthy();
+  });
+
+  it('one day selected', () => {
+   let days = {monday: null, tuesday: false, wednesday: false, thursday: false, friday: false,
+    saturday: false, sunday: false};
+   expect(component.isOneDaySelected(days)).toBeFalsy();
+
+   days = {monday: true, tuesday: true, wednesday: false, thursday: false, friday: false,
+    saturday: false, sunday: false};
+   expect(component.isOneDaySelected(days)).toBeTruthy();
+  });
+
+  it('step three validity', () => {
+    component.step3.get('budget').setValue('35');
+    component.step3.get('problem').setValue('aaaaaaaaaaaaaaaaaaaa');
+    component.step3.get('location').setValue({
+      label: '<b>Dübendorf (ZH)</b>',
+      detail: 'duebendorf zh',
+      lon: 8.616637229919434,
+      lat: 47.38813400268555,
+      y: 688943.0625,
+      x: 249256.875,
+      geomStBox2d: 'BOX(686406.730634135 246884.697158672,691666.601228744 251628.209128328)'
+    });
+    component.step3.get('days').setValue({
+      monday: true, tuesday: false, wednesday: true, thursday: true, friday: true,
+      saturday: true, sunday: false
+    });
+    expect(component.step3Completed).toBeTruthy();
+  });
+
+  // Location search
+  it('search location', () => {
+
   });
 });

@@ -4,7 +4,7 @@ import {HomeComponent} from './home.component';
 import {AppRoutingModule} from '../app-routing.module';
 import {TutorSearchRequestComponent} from '../tutor-search-request/tutor-search-request.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OrganisationComponent} from '../other/organisation/organisation.component';
 import {PresseComponent} from '../other/presse/presse.component';
 import {TeamComponent} from '../other/team/team.component';
@@ -24,7 +24,8 @@ describe('HomeComponent', () => {
         NgbModule,
         FormsModule,
         FontAwesomeModule,
-        CdkStepperModule
+        CdkStepperModule,
+        ReactiveFormsModule
       ],
       declarations: [
         HomeComponent,
