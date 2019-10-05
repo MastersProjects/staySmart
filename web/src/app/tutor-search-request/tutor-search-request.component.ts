@@ -63,15 +63,15 @@ export class TutorSearchRequestComponent implements OnInit {
     });
   }
 
-  get step1Completed() {
+  get isStep1Valid(): boolean {
     return this.step1.valid;
   }
 
-  get step2Completed() {
+  get isStep2Valid(): boolean {
     return this.step2.valid;
   }
 
-  get step3Completed() {
+  get isStep3Valid(): boolean {
     return this.step3.valid && this.isOneDaySelected(this.step3.get('days').value);
   }
 
@@ -87,17 +87,17 @@ export class TutorSearchRequestComponent implements OnInit {
     return this.requestForm.get('details');
   }
 
-  isOneDaySelected(days: object) {
+  isOneDaySelected(days: object): boolean {
     const dayList = Object.keys(days).map(i => days[i]);
     return dayList.some(this.isTrue);
   }
 
-  isTrue(element, index, array) {
+  isTrue(element, index, array): boolean {
     return element;
   }
 
-  onSubmit() {
-    if (this.step1Completed && this.step2Completed && this.step3Completed) {
+  submitForm() {
+    if (this.isStep1Valid && this.isStep2Valid && this.isStep3Valid) {
       const tutorSearchRequestData = this.mapFormToModel();
       this.staySmartService.requestTutorSearch(tutorSearchRequestData).then(value => {
         console.log(value);
@@ -110,8 +110,8 @@ export class TutorSearchRequestComponent implements OnInit {
     }
   }
 
-  mapFormToModel() {
-    const tutorSearchRequestData: TutorSearchRequest = {
+  mapFormToModel(): TutorSearchRequest {
+    return {
       name: this.step1.get('name').value,
       firstname: this.step1.get('firstname').value,
       mail: this.step1.get('mail').value,
@@ -124,7 +124,6 @@ export class TutorSearchRequestComponent implements OnInit {
       problem: this.step3.get('problem').value,
       timestamp: null
     };
-    return tutorSearchRequestData;
   }
 
   searchLocation = (text: Observable<string>) =>

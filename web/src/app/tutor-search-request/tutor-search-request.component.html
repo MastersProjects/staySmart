@@ -19,7 +19,7 @@
 <div class="form-wrapper" *ngIf="!submitted">
   <div class="row mt-md-4 mt-3">
     <div class="col-12 col-md-10 offset-md-1">
-      <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="requestForm" (ngSubmit)="submitForm()">
 
         <app-stepper linear>
           <cdk-step [stepControl]="step1">
@@ -55,7 +55,7 @@
                   </small>
                 </div>
                 <div class="form-group col-12">
-                  <button name="next1" type="button" class="btn btn-primary float-right" [disabled]="!step1Completed"
+                  <button name="next1" type="button" class="btn btn-primary float-right" [disabled]="!isStep1Valid"
                     cdkStepperNext>Weiter
                   </button>
                 </div>
@@ -81,7 +81,7 @@
                   <button name="prev1" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
                   </button>
                   <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext
-                    [disabled]="!step2Completed">Weiter
+                    [disabled]="!isStep2Valid">Weiter
                   </button>
                 </div>
               </div>
@@ -167,7 +167,7 @@
                 <div class="form-group col-12 ml-n1">
                   <button name="prev2" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
                   </button>
-                  <button type="submit" name="submit" id="submit" class="btn btn-primary float-right" [disabled]="!step3Completed">
+                  <button type="submit" name="submit" id="submit" class="btn btn-primary float-right" [disabled]="!isStep3Valid">
                     Absenden
                   </button>
                 </div>

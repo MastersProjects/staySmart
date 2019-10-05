@@ -1,15 +1,15 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TutorSearchRequestComponent } from './tutor-search-request.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../../environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CdkStepperModule } from '@angular/cdk/stepper';
-import { StepperComponent } from '../shared/stepper/stepper.component';
+import {TutorSearchRequestComponent} from './tutor-search-request.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {StepperComponent} from '../shared/stepper/stepper.component';
 
 describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
@@ -52,7 +52,7 @@ describe('TutorSearchRequestComponent', () => {
 
   // Step 1
   it('email field validity', () => {
-    let errors = {};
+    let errors: {};
     const email = component.step1.get('mail');
 
     // Email field is required
@@ -76,7 +76,7 @@ describe('TutorSearchRequestComponent', () => {
   });
 
   it('phone field validity', () => {
-    let errors = {};
+    let errors: {};
     const phone = component.step1.get('phone');
 
     // Phone field is required
@@ -89,7 +89,7 @@ describe('TutorSearchRequestComponent', () => {
   });
 
   it('phone field validity', () => {
-    let errors = {};
+    let errors: {};
     const phone = component.step1.get('phone');
 
     // Phone field is required
@@ -114,19 +114,19 @@ describe('TutorSearchRequestComponent', () => {
     component.step1.get('mail').setValue('test@example.com');
     component.step1.get('name').setValue('test');
     component.step1.get('firstname').setValue('muster');
-    expect(component.step1Completed).toBeTruthy();
+    expect(component.isStep1Valid).toBeTruthy();
   });
 
   // Step two
   it('step two validity', () => {
     component.step2.get('subject').setValue('Physics');
     component.step2.get('grade').setValue('4. - 6. Klasse');
-    expect(component.step2Completed).toBeTruthy();
+    expect(component.isStep2Valid).toBeTruthy();
   });
 
   // Step 3
   it('budget field validity', () => {
-    let errors = {};
+    let errors: {};
     const phone = component.step3.get('budget');
 
     // budget field is required
@@ -147,7 +147,7 @@ describe('TutorSearchRequestComponent', () => {
   });
 
   it('problem field validity', () => {
-    let errors = {};
+    let errors: {};
     const phone = component.step3.get('problem');
 
     // budget field is required
@@ -175,7 +175,7 @@ describe('TutorSearchRequestComponent', () => {
 
   it('step three validity', () => {
     fillFormValid();
-    expect(component.step3Completed).toBeTruthy();
+    expect(component.isStep3Valid).toBeTruthy();
   });
 
   // ToDo Location search
