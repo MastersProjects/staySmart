@@ -160,6 +160,9 @@
                   <label for="problem">Problem</label>
                   <textarea id="problem" name="problem" class="form-control" formControlName="problem"
                     rows="3"></textarea>
+                  <small *ngIf="step3.get('problem').invalid && (step3.get('problem').dirty || step3.get('problem').touched)" id="problemhelp"
+                         class="form-text text-danger">Bitte schildere dein Problem mit mindestens 20 Zeichen.
+                  </small>
                 </div>
                 <div class="form-group col-12 ml-n1">
                   <button name="prev2" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
