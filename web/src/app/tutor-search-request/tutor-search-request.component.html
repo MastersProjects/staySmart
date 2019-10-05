@@ -149,7 +149,7 @@
                   <label for="range">Budget maximal (pro Stunde)</label>
                   <input type="range" id="range" name="budget" class="custom-range" formControlName="budget" min="0"
                     max="20">
-                  <small class="form-text text-muted" *ngIf="step3.get('budget').value > 0">Aktuelles
+                  <small class="form-text text-muted h6 font-weight-light" *ngIf="step3.get('budget').value > 0">Aktuelles
                     Budget: {{step3.get('budget').value * 5}}.-</small>
                   <small
                     *ngIf="step3.get('budget').invalid && (step3.get('budget').dirty || step3.get('budget').touched)"
