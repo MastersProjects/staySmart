@@ -1,12 +1,12 @@
-import { Component, Directive, OnInit } from '@angular/core';
-import { GeoLocation, TutorSearchRequest } from 'src/app/shared/model/tutor-search-request.model';
-import { Observable, of } from 'rxjs';
-import { LocationService } from 'src/app/shared/location.service';
-import { catchError, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
-import { FormControl, NG_VALIDATORS, FormGroup, Validators } from '@angular/forms';
-import { locationDomainValidator } from '../shared/validators/location-validator';
-import { StaySmartService } from '../shared/stay-smart.service';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import {Component, OnInit} from '@angular/core';
+import {GeoLocation, TutorSearchRequest} from 'src/app/shared/model/tutor-search-request.model';
+import {Observable, of} from 'rxjs';
+import {LocationService} from 'src/app/shared/location.service';
+import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {locationDomainValidator} from '../shared/validators/location-validator';
+import {StaySmartService} from '../shared/stay-smart.service';
+import {faCheck} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tutor-search-request',
@@ -27,7 +27,8 @@ export class TutorSearchRequestComponent implements OnInit {
   /* Form */
   requestForm: FormGroup;
 
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService) { }
+  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
+  }
 
   ngOnInit() {
     this.requestForm = this.createForm();
@@ -63,23 +64,23 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   get step1Completed() {
-    return !!(this.step1.valid);
+    return this.step1.valid;
+  }
+
+  get step2Completed() {
+    return this.step2.valid;
+  }
+
+  get step3Completed() {
+    return this.step3.valid && this.isOneDaySelected(this.step3.get('days').value);
   }
 
   get step1() {
     return this.requestForm.get('general');
   }
 
-  get step2Completed() {
-    return !!(this.step2.valid);
-  }
-
   get step2() {
     return this.requestForm.get('category');
-  }
-
-  get step3Completed() {
-    return !!(this.step3.valid && this.isOneDaySelected(this.step3.get('days').value));
   }
 
   get step3() {
@@ -92,7 +93,7 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   isTrue(element, index, array) {
-    return (element);
+    return element;
   }
 
   onSubmit() {
@@ -143,7 +144,16 @@ export class TutorSearchRequestComponent implements OnInit {
       tap(() => this.searching = false)
     )
 
-  locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
-  locationFormatterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
+  locationFormatter = (result: GeoLocation) => {
+    if (result.label) {
+      return result.label.replace(/<[^>]*>/g, '');
+    }
+  }
+
+  locationFormatterForm = (result: GeoLocation) => {
+    if (result.label) {
+      return result.label.replace(/<[^>]*>/g, '');
+    }
+  }
 }
 

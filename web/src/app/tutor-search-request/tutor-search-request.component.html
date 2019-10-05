@@ -36,7 +36,7 @@
                 <div class="form-group col-lg-6">
                   <label for="mail">Email</label>
                   <input type="text" id="mail" name="mail" class="form-control" formControlName="mail">
-                  <small *ngIf="step1.get('mail').invalid && (step1.get('mail').dirty 
+                  <small *ngIf="step1.get('mail').invalid && (step1.get('mail').dirty
                   || step1.get('mail').touched)" class="form-text text-danger">
                     Keine gültige Email eingegeben
                   </small>
@@ -87,14 +87,14 @@
               </div>
             </div>
           </cdk-step>
-          <cdk-step [completed]="!step3Completed">
+          <cdk-step [completed]="step3Completed">
             <div class="formStep" id="f3" formGroupName="details">
               <div class="form-row">
                 <div class="form-group form-group col-lg-6 ml-n1">
                   <label for="location">Ort</label>
                   <div class=" mt-2">
                     <input id="location" name="location" type="text" class="form-control" formControlName="location"
-                      [ngbTypeahead]="searchLocation" [inputFormatter]="locationFomratterForm"
+                      [ngbTypeahead]="searchLocation" [inputFormatter]="locationFormatterForm"
                       [resultFormatter]="locationFormatter" />
                     <span *ngIf="searching">Suchen...</span>
                     <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen
@@ -185,9 +185,3 @@
     <p class="mb-5 text-muted">Du wirst bald die ersten Angebote von einem unserer Anbieter erhalten!</p>
   </div>
 </div>
-
-<pre>{{requestForm.value | json}}
-  {{step1.valid}}
-  {{step2.valid}}
-  {{step3.valid}}
-</pre>
