@@ -22,7 +22,7 @@
       <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
 
         <app-stepper linear>
-          <cdk-step [completed]="step1Completed">
+          <cdk-step [stepControl]="step1">
             <div class="formStep" id="f1">
               <div class="form-row" formGroupName="general">
                 <div class="form-group col-lg-6">
@@ -62,7 +62,7 @@
               </div>
             </div>
           </cdk-step>
-          <cdk-step [completed]="step2Completed">
+          <cdk-step [stepControl]="step2">
             <div class="formStep" id="f2" formGroupName="category">
               <div class="form-row">
                 <div class="form-group col-lg-6">
@@ -87,7 +87,7 @@
               </div>
             </div>
           </cdk-step>
-          <cdk-step [completed]="step3Completed">
+          <cdk-step [stepControl]="step3">
             <div class="formStep" id="f3" formGroupName="details">
               <div class="form-row">
                 <div class="form-group form-group col-lg-6 ml-n1">
