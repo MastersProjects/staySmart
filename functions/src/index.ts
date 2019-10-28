@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin';
 import * as nodemailer from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
 import * as uuidv4 from 'uuid/v4';
+import * as https from 'https';
 
 admin.initializeApp();
 
@@ -47,9 +48,48 @@ export const emailOnSubmit = functions.region('europe-west1')
         };
 
         return transporter.sendMail(mailOptions).then(() => {
-            console.log(`Sended to ${createdTutorSearchRequest.mail}`);
+            console.log(`Sent to ${createdTutorSearchRequest.mail}`);
         }).catch(error => {
             console.error(error);
         });
 
     });
+
+export const sendWhatsApp = functions.region('europe-west1').https.onRequest((request, response) => {
+    const options = {
+        host: 'api.websms.com',
+        path: '/rest/converged/whatsapp',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${functions.config().websms.token}`
+        }
+    };
+
+    const data = JSON.stringify(
+        {
+            "recipientAddressList": [functions.config().websms.testmobilenumber],
+            "contentCategory": "informational",
+            "messageContent": "StaySmart WhatsApp Test"
+        }
+    );
+
+    const req = https.request(options, res => {
+        res.setEncoding('utf8');
+        console.log(`statusCode: ${res.statusCode}`);
+
+        res.on('data', chunk => {
+            console.log(chunk);
+        });
+    });
+
+    req.on('error', error => {
+        console.error(error);
+    });
+
+    req.write(data);
+    req.end(() => {
+        response.send('Sent');
+    })
+
+});
