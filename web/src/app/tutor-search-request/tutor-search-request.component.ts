@@ -1,10 +1,10 @@
-import {Component, Directive, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GeoLocation, TutorSearchRequest} from 'src/app/shared/model/tutor-search-request.model';
 import {Observable, of} from 'rxjs';
 import {LocationService} from 'src/app/shared/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
-import {FormControl, NG_VALIDATORS} from '@angular/forms';
-import {domain} from 'process';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {locationDomainValidator} from '../shared/validators/location-validator';
 import {StaySmartService} from '../shared/stay-smart.service';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 
@@ -14,126 +14,92 @@ import {faCheck} from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./tutor-search-request.component.scss']
 })
 export class TutorSearchRequestComponent implements OnInit {
-  faCheck = faCheck;
-
-  /* Variables for stepper */
-  steps: HTMLCollectionOf<Element>;
-  progressBars: HTMLCollectionOf<Element>;
-  step = 0;
-
-  /* Variables for form */
+  faCheck = faCheck; // Icon
   submitted = false;
-  tutorSearchRequest: TutorSearchRequest = {
-    firstname: '',
-    name: '',
-    mail: '',
-    phone: '',
-    subject: '',
-    grade: '',
-    location: {
-      label: '',
-      detail: '',
-      lon: 0,
-      lat: 0,
-      y: 0,
-      x: 0,
-      geomStBox2d: '',
-    },
-    days: {
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-      sunday: false
-    },
-    budget: 0,
-    problem: '',
-    timestamp: null
-  };
-  grades = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynmaic not static
-  subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynmaic not static
+
+  grades = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynamic not static
+  subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynamic not static
 
   /* Variables location search */
   searching = false;
   searchFailed = false;
 
+  /* Form */
+  requestForm: FormGroup;
+
   constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
   }
 
   ngOnInit() {
-    this.steps = document.getElementsByClassName('step');
-    this.progressBars = document.getElementsByClassName('progress');
+    this.requestForm = this.createForm();
   }
 
-  prevStep() {
-    if (this.step > 0) {
-      this.progressBars[this.step - 1].classList.remove('complete');
-      this.steps[this.step].className = 'step';
-
-      const formElementNow = document.getElementById('f' + (this.step + 1));
-      const formElementNext = document.getElementById('f' + this.step);
-
-      formElementNow.style.display = 'none';
-      formElementNext.style.display = 'block';
-
-      this.step -= 1;
-      this.steps[this.step].className = 'step active-step';
-    }
+  createForm(): FormGroup {
+    return new FormGroup({
+      general: new FormGroup({
+        firstname: new FormControl('', Validators.required),
+        name: new FormControl('', Validators.required),
+        mail: new FormControl('', [Validators.required, Validators.email]),
+        phone: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)])
+      }),
+      category: new FormGroup({
+        subject: new FormControl('', Validators.required),
+        grade: new FormControl('', Validators.required)
+      }),
+      details: new FormGroup({
+        budget: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
+        problem: new FormControl('', [Validators.required, Validators.minLength(20)]),
+        days: new FormGroup({
+          monday: new FormControl(false),
+          tuesday: new FormControl(false),
+          wednesday: new FormControl(false),
+          thursday: new FormControl(false),
+          friday: new FormControl(false),
+          saturday: new FormControl(false),
+          sunday: new FormControl(false)
+        }),
+        location: new FormControl('', [Validators.required, locationDomainValidator])
+      }),
+    });
   }
 
-  nextStep() {
-    if (this.step < this.steps.length - 1) {
-      if (this.formValid(this.step)) {
-        this.progressBars[this.step].classList.add('complete');
-        this.step += 1;
-
-        const formElementNow = document.getElementById('f' + this.step);
-        const formElementNext = document.getElementById('f' + (this.step + 1));
-
-        formElementNow.style.display = 'none';
-        formElementNext.style.display = 'block';
-
-        this.steps[this.step].className = 'step active-step';
-      } else {
-        console.log('Form invalid for next step!'); // ToDo Error message
-      }
-    }
+  get isStep1Valid(): boolean {
+    return this.step1.valid;
   }
 
-  formValid(step: number): boolean {
-    let check = false;
-    if (step === 0) {
-      check = !!(this.tutorSearchRequest.firstname
-        && this.tutorSearchRequest.name
-        && this.tutorSearchRequest.mail
-        && this.tutorSearchRequest.phone
-      );
-    } else if (step === 1) {
-      check = !!(this.tutorSearchRequest.grade && this.tutorSearchRequest.subject);
-    } else if (step === 2) {
-      check = !!(this.tutorSearchRequest.budget
-        && this.tutorSearchRequest.problem
-        && this.tutorSearchRequest.location
-        && (this.tutorSearchRequest.days.monday
-          || this.tutorSearchRequest.days.thursday
-          || this.tutorSearchRequest.days.tuesday
-          || this.tutorSearchRequest.days.wednesday
-          || this.tutorSearchRequest.days.friday
-          || this.tutorSearchRequest.days.saturday
-          || this.tutorSearchRequest.days.sunday
-        )
-      );
-    } // ToDo better day check (this.model.days as Array<boolean>).some(x => x === true)
-
-    return check;
+  get isStep2Valid(): boolean {
+    return this.step2.valid;
   }
 
-  onSubmit() {
-    if (this.formValid(0) && this.formValid(1) && this.formValid(2)) {
-      console.log(this.tutorSearchRequest);
-      this.staySmartService.requestTutorSearch(this.tutorSearchRequest).then(value => {
+  get isStep3Valid(): boolean {
+    return this.step3.valid && this.isOneDaySelected(this.step3.get('days').value);
+  }
+
+  get step1() {
+    return this.requestForm.get('general');
+  }
+
+  get step2() {
+    return this.requestForm.get('category');
+  }
+
+  get step3() {
+    return this.requestForm.get('details');
+  }
+
+  isOneDaySelected(days: object): boolean {
+    const dayList = Object.keys(days).map(i => days[i]);
+    return dayList.some(this.isTrue);
+  }
+
+  isTrue(element, index, array): boolean {
+    return element;
+  }
+
+  submitForm() {
+    if (this.isStep1Valid && this.isStep2Valid && this.isStep3Valid) {
+      const tutorSearchRequestData = this.mapFormToModel();
+      this.staySmartService.requestTutorSearch(tutorSearchRequestData).then(value => {
         console.log(value);
         this.submitted = true;
       }).catch(reason => {
@@ -142,6 +108,22 @@ export class TutorSearchRequestComponent implements OnInit {
     } else {
       console.log('Error in Form');
     }
+  }
+
+  mapFormToModel(): TutorSearchRequest {
+    return {
+      name: this.step1.get('name').value,
+      firstname: this.step1.get('firstname').value,
+      mail: this.step1.get('mail').value,
+      phone: this.step1.get('phone').value,
+      grade: this.step2.get('grade').value,
+      subject: this.step2.get('subject').value,
+      budget: this.step3.get('budget').value,
+      location: this.step3.get('location').value,
+      days: this.step3.get('days').value,
+      problem: this.step3.get('problem').value,
+      timestamp: null
+    };
   }
 
   searchLocation = (text: Observable<string>) =>
@@ -161,32 +143,16 @@ export class TutorSearchRequestComponent implements OnInit {
       tap(() => this.searching = false)
     )
 
-  locationFormatter = (result: GeoLocation) => result.label.replace(/<[^>]*>/g, '');
-  locationFomratterForm = (result: GeoLocation) => result.label = result.label.replace(/<[^>]*>/g, '');
-}
-
-export function locationDomainValidator(control: FormControl) {
-  const location = control.value;
-  if (!(location && location.label && location.detail && location.lon && location.lat && location.x
-    && location.y && location.geomStBox2d)) {
-    return {
-      locationDomain: {
-        parsedDomain: domain
-      }
-    };
-  }
-  return null;
-}
-
-@Directive({
-  selector: '[appLocationDomain]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useValue: locationDomainValidator,
-      multi: true
+  locationFormatter = (result: GeoLocation) => {
+    if (result.label) {
+      return result.label.replace(/<[^>]*>/g, '');
     }
-  ]
-})
-export class LocationDomainValidatorDirective {
+  }
+
+  locationFormatterForm = (result: GeoLocation) => {
+    if (result.label) {
+      return result.label.replace(/<[^>]*>/g, '');
+    }
+  }
 }
+

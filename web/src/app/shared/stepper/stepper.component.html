@@ -1,0 +1,14 @@
+<ng-container [ngTemplateOutlet]="selected.content"></ng-container>
+
+
+<div class="row mb-md-4">
+  <div class="stepper">
+    <ng-container *ngFor="let step of steps; let i = index;">
+      <div class="step" [ngClass]="{'step-active' : i <= selectedIndex}">
+        <span class="step-point"></span>
+      </div>
+      <span *ngIf="i !== steps.length - 1" class="progress"
+            [ngClass]="{'progress-completed' : i + 1 <= selectedIndex}"></span>
+    </ng-container>
+  </div>
+</div>

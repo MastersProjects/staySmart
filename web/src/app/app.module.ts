@@ -1,16 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {
-  LocationDomainValidatorDirective,
-  TutorSearchRequestComponent
-} from './tutor-search-request/tutor-search-request.component';
+import {TutorSearchRequestComponent} from './tutor-search-request/tutor-search-request.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BannerComponent} from './general/banner/banner.component';
 import {LocationService} from './shared/location.service';
@@ -23,6 +20,8 @@ import {OrganisationComponent} from './other/organisation/organisation.component
 import {TeamComponent} from './other/team/team.component';
 import {PresseComponent} from './other/presse/presse.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {StepperComponent} from './shared/stepper/stepper.component';
+import {CdkStepperModule} from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
@@ -30,11 +29,11 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     HomeComponent,
     TutorSearchRequestComponent,
     BannerComponent,
-    LocationDomainValidatorDirective,
     TutorRegistrationComponent,
     OrganisationComponent,
     TeamComponent,
-    PresseComponent
+    PresseComponent,
+    StepperComponent
   ],
   imports: [
     BrowserModule,
@@ -43,8 +42,10 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     AngularFirestoreModule,
     NgbModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CdkStepperModule
   ],
   providers: [LocationService, StaySmartService],
   bootstrap: [AppComponent]

@@ -15,197 +15,176 @@
     <hr>
   </div>
 </div>
-<div class="form-wrapper" *ngIf="!submitted">
-<div class="row mt-md-4 mt-3">
-  <div class="col-12 col-md-10 offset-md-1">
-    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-      <div class="formStep" id="f1">
-        <div class="form-row">
-          <div class="form-group col-lg-6">
-            <label for="firstname">Vorname</label>
-            <input id="firstname" #firstname="ngModel" name="firstname" type="text" class="form-control"
-                   [class.is-invalid]="firstname.invalid && (firstname.dirty || firstname.touched)" required
-                   [(ngModel)]="tutorSearchRequest.firstname">
-          </div>
-          <div class="form-group col-lg-6">
-            <label for="name">Name</label>
-            <input id="name" #name="ngModel" name="lastname" type="text" class="form-control" required
-                   [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
-                   [(ngModel)]="tutorSearchRequest.name">
-          </div>
-          <div class="form-group col-lg-6">
-            <label for="mail">Email</label>
-            <input id="mail" name="mail" #mail="ngModel" type="text" class="form-control" required email
-                   [class.is-invalid]="mail.invalid && (mail.dirty || mail.touched)"
-                   [(ngModel)]="tutorSearchRequest.mail">
-            <small *ngIf="mail.invalid && (mail.dirty || mail.touched)" id="emailhelp" class="form-text text-danger">
-              Keine gültige Email eingegeben
-            </small>
-          </div>
-          <div class="form-group col-lg-6">
-            <label for="phone">Mobiltelefon</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">+41</div>
-              </div>
-              <input id="phone" name="phone" type="text" class="form-control"
-                     [class.is-invalid]="phone.invalid && (phone.dirty || phone.touched)" required pattern="\d{9}"
-                     [(ngModel)]="tutorSearchRequest.phone" #phone="ngModel">
-            </div>
-            <small *ngIf="phone.invalid && (phone.dirty || phone.touched)" id="phonehelp" class="form-text text-danger">
-              Die Telefonnummer ohne führende 0 eingeben
-            </small>
-          </div>
-          <div class="form-group col-12">
-            <button name="next1" type="button" (click)="nextStep()"
-                    [disabled]="firstname.invalid || name.invalid || mail.invalid || phone.invalid"
-                    class="btn btn-primary float-right custom-btn-blue">Weiter
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="formStep" id="f2" style="display:none">
-        <div class="form-row">
-          <div class="form-group col-lg-6">
-            <label for="lecture">Fach</label>
-            <select class="form-control" name="fach" id="lecture" size="6" [(ngModel)]="tutorSearchRequest.subject"
-                    required
-                    #lecture="ngModel">
-              <option *ngFor="let sub of subjects">{{sub}}</option>
-            </select>
-          </div>
-          <div class="form-group col-lg-6">
-            <label for="class">Klasse</label>
-            <select class="form-control" name="grade" id="class" size="6" [(ngModel)]="tutorSearchRequest.grade"
-                    required
-                    #grade="ngModel">
-              <option *ngFor="let grade of grades">{{grade}}</option>
-            </select>
-          </div>
-          <div class="form-group col-12">
-            <button name="prev1" type="button" (click)="prevStep()"
-                    class="btn btn-primary float-left custom-btn-blue">Zurück
-            </button>
-            <button name="next2" type="button" (click)="nextStep()"
-                    class="btn btn-primary float-right custom-btn-blue" [disabled]="grade.invalid || lecture.invalid">
-              Weiter
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="formStep" id="f3" style="display:none">
-        <div class="form-row">
-          <div class="form-group form-group col-lg-6 ml-n1">
-            <label for="location">Ort</label>
-            <div class=" mt-2">
-              <input id="location" #location="ngModel" name="location" type="text" class="form-control"
-                     [class.is-invalid]="searchFailed || location.invalid && (location.dirty || location.touched)"
-                     appLocationDomain [(ngModel)]="tutorSearchRequest.location" [ngbTypeahead]="searchLocation"
-                     [inputFormatter]="locationFomratterForm" [resultFormatter]="locationFormatter"/>
-              <span *ngIf="searching">Suchen...</span>
-              <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen
-                werden.
-              </div>
-              <small *ngIf="location.invalid && (location.dirty || location.touched)" id="locationhelp"
-                     class="form-text text-danger">Bitte gültige Ortschaft auswählen
-              </small>
-            </div>
-          </div>
-          <!--https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=stäfa&type=locations&origins=gg25 request to this url for validation-->
 
-          <div class="form-group col-lg-6">
-            <label>Tag</label><br>
-            <div class="btn-group btn-group-toggle mt-2 ml-n1">
-              <label class="btn-primary" ngbButtonLabel>
-                <input id="day-monday" name="day" type="checkbox" ngbButton
-                       [(ngModel)]="tutorSearchRequest.days.monday">
-                Montag
-              </label>
-              <label class="btn-primary" ngbButtonLabel>
-                <input id="day-tuesday" name="day" type="checkbox" ngbButton
-                       [(ngModel)]="tutorSearchRequest.days.tuesday">
-                Dienstag
-              </label>
-              <label class="btn-primary" ngbButtonLabel>
-                <input id="day-wednesday" name="day" type="checkbox" ngbButton
-                       [(ngModel)]="tutorSearchRequest.days.wednesday">
-                Mittwoch
-              </label>
+<div class="form-wrapper" *ngIf="!submitted">
+  <div class="row mt-md-4 mt-3">
+    <div class="col-12 col-md-10 offset-md-1">
+      <form [formGroup]="requestForm" (ngSubmit)="submitForm()">
+
+        <app-stepper linear>
+          <cdk-step [stepControl]="step1">
+            <div class="formStep" id="f1">
+              <div class="form-row" formGroupName="general">
+                <div class="form-group col-lg-6">
+                  <label for="firstname">Vorname</label>
+                  <input type="text" id="firstname" name="firstname" class="form-control" formControlName="firstname">
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" class="form-control" formControlName="name">
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="mail">Email</label>
+                  <input type="text" id="mail" name="mail" class="form-control" formControlName="mail">
+                  <small *ngIf="step1.get('mail').invalid && (step1.get('mail').dirty
+                  || step1.get('mail').touched)" class="form-text text-danger">
+                    Keine gültige Email eingegeben
+                  </small>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="phone">Mobiltelefon</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">+41</div>
+                    </div>
+                    <input type="text" id="phone" name="phone" class="form-control" formControlName="phone">
+                  </div>
+                  <small *ngIf="step1.get('phone').invalid && (step1.get('phone').dirty || step1.get('phone').touched)"
+                    class="form-text text-danger">
+                    Die Telefonnummer ohne führende 0 eingeben
+                  </small>
+                </div>
+                <div class="form-group col-12">
+                  <button name="next1" type="button" class="btn btn-primary float-right" [disabled]="!isStep1Valid"
+                    cdkStepperNext>Weiter
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="btn-group btn-group-toggle mt-2 ml-n1">
-              <label class="btn-primary" ngbButtonLabel>
-                <input id="day-thursday" name="day" type="checkbox" ngbButton
-                       [(ngModel)]="tutorSearchRequest.days.thursday">
-                Donnerstag
-              </label>
-              <label class="btn-primary" ngbButtonLabel>
-                <input id="day-friday" name="day" type="checkbox" ngbButton
-                       [(ngModel)]="tutorSearchRequest.days.friday">
-                Freitag
-              </label>
+          </cdk-step>
+          <cdk-step [stepControl]="step2">
+            <div class="formStep" id="f2" formGroupName="category">
+              <div class="form-row">
+                <div class="form-group col-lg-6">
+                  <label for="lecture">Fach</label>
+                  <select id="lecture" name="fach" class="form-control" size="6" formControlName="subject">
+                    <option *ngFor="let sub of subjects">{{sub}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="class">Klasse</label>
+                  <select id="class" name="grade" class="form-control" size="6" formControlName="grade">
+                    <option *ngFor="let grade of grades">{{grade}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-12">
+                  <button name="prev1" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
+                  </button>
+                  <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext
+                    [disabled]="!isStep2Valid">Weiter
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="btn-group btn-group-toggle mt-2 ml-n1">
-              <label class="btn-primary" ngbButtonLabel>
-                <input id="day-saturday" name="day" type="checkbox" ngbButton
-                       [(ngModel)]="tutorSearchRequest.days.saturday">
-                Samstag
-              </label>
-              <label class="btn-primary" ngbButtonLabel>
-                <input id="day-sunday" name="day" type="checkbox" ngbButton
-                       [(ngModel)]="tutorSearchRequest.days.sunday">
-                Sonntag
-              </label>
+          </cdk-step>
+          <cdk-step [stepControl]="step3">
+            <div class="formStep" id="f3" formGroupName="details">
+              <div class="form-row">
+                <div class="form-group form-group col-lg-6 ml-n1">
+                  <label for="location">Ort</label>
+                  <div class=" mt-2">
+                    <input id="location" name="location" type="text" class="form-control" formControlName="location"
+                      [ngbTypeahead]="searchLocation" [inputFormatter]="locationFormatterForm"
+                      [resultFormatter]="locationFormatter" />
+                    <span *ngIf="searching">Suchen...</span>
+                    <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen
+                      werden.
+                    </div>
+                    <small
+                      *ngIf="step3.get('location').invalid && (step3.get('location').dirty || step3.get('location').touched)"
+                      class="form-text text-danger">Bitte gültige Ortschaft auswählen
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label>Tag</label><br>
+                  <div formGroupName="days">
+                    <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-monday" name="day" type="checkbox" ngbButton formControlName="monday">
+                        Montag
+                      </label>
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-tuesday" name="day" type="checkbox" ngbButton formControlName="tuesday">
+                        Dienstag
+                      </label>
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-wednesday" name="day" type="checkbox" ngbButton formControlName="wednesday">
+                        Mittwoch
+                      </label>
+                    </div>
+                    <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-thursday" name="day" type="checkbox" ngbButton formControlName="thursday">
+                        Donnerstag
+                      </label>
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-friday" name="day" type="checkbox" ngbButton formControlName="friday">
+                        Freitag
+                      </label>
+                    </div>
+                    <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-saturday" name="day" type="checkbox" ngbButton formControlName="saturday">
+                        Samstag
+                      </label>
+                      <label class="btn-primary" ngbButtonLabel>
+                        <input id="day-sunday" name="day" type="checkbox" ngbButton formControlName="sunday">
+                        Sonntag
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-lg-6 ml-n1">
+                  <label for="range">Budget maximal (pro Stunde)</label>
+                  <input type="range" id="range" name="budget" class="custom-range" formControlName="budget" min="0"
+                    max="20">
+                  <small class="form-text text-muted h6 font-weight-light" *ngIf="step3.get('budget').value > 0">Aktuelles
+                    Budget: {{step3.get('budget').value * 5}}.-</small>
+                  <small
+                    *ngIf="step3.get('budget').invalid && (step3.get('budget').dirty || step3.get('budget').touched)"
+                    class="form-text text-danger">Bitte Budget
+                    definieren</small>
+                </div>
+                <div class="form-group col-lg-6 ml-n1">
+                  <label for="problem">Problem</label>
+                  <textarea id="problem" name="problem" class="form-control" formControlName="problem"
+                    rows="3"></textarea>
+                  <small *ngIf="step3.get('problem').invalid && (step3.get('problem').dirty || step3.get('problem').touched)" id="problemhelp"
+                         class="form-text text-danger">Bitte schildere dein Problem mit mindestens 20 Zeichen.
+                  </small>
+                </div>
+                <div class="form-group col-12 ml-n1">
+                  <button name="prev2" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
+                  </button>
+                  <button type="submit" name="submit" id="submit" class="btn btn-primary float-right" [disabled]="!isStep3Valid">
+                    Absenden
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group col-lg-6 ml-n1">
-            <label for="range">Budget maximal (pro Stunde)</label>
-            <input type="range" name="budget" #budget="ngModel" class="custom-range" min="0" max="20" id="range"
-                   [(ngModel)]="tutorSearchRequest.budget" required>
-            <small class="form-text text-muted h6 font-weight-light" *ngIf="tutorSearchRequest.budget">Aktuelles
-              Budget: {{tutorSearchRequest.budget * 5}}.-</small>
-            <small *ngIf="budget.invalid" id="budgethelp" class="form-text text-danger">Bitte Budget definieren</small>
-          </div>
-          <div class="form-group col-lg-6 ml-n1">
-            <label for="problem">Problem</label>
-            <textarea class="form-control" name="problem" #problem="ngModel" id="problem" rows="3" required
-                      minlength="20" [(ngModel)]="tutorSearchRequest.problem"></textarea>
-            <small *ngIf="problem.invalid && (problem.dirty || problem.touched)" id="problemhelp"
-              class="form-text text-danger">Bitte schildere dein Problem mit mindestens 20 Zeichen.
-            </small>        
-          </div>
-          <div class="form-group col-12 ml-n1">
-            <button name="prev2" type="button" (click)="prevStep()"
-                    class="btn btn-primary float-left custom-btn-blue">Zurück
-            </button>
-            <button type="submit" name="submit" class="btn btn-primary float-right custom-btn-blue"
-                    [disabled]="budget.invalid || problem.invalid || location.invalid || !formValid(2)">Absenden
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
+          </cdk-step>
+        </app-stepper>
+
+      </form>
+    </div>
   </div>
 </div>
-<div class="row mb-md-4">
-  <div class="stepper">
-    <div class="step active-step">
-      <span class="step-number s1"></span>
-    </div>
-    <span class="progress p1"></span>
-    <div class="step">
-      <span class="step-number s2"></span>
-    </div>
-    <span class="progress p2"></span>
-    <div class="step">
-      <span class="step-number s3"></span>
-    </div>
-  </div>
-</div>
-</div>
+
 <div class="row" *ngIf="submitted">
-<div class="col-12 text-center">
+  <div class="col-12 text-center">
     <h3 class="mt-5">Vielen Dank für deine Anfrage</h3>
     <fa-icon [icon]="faCheck" class="big-icon icon-green mt-5"></fa-icon>
-    <p class="mb-5 text-muted">Du wirst blad die ersten Angebote von einem unserer Anbieter erhalten!</p>
-</div>
+    <p class="mb-5 text-muted">Du wirst bald die ersten Angebote von einem unserer Anbieter erhalten!</p>
+  </div>
 </div>
