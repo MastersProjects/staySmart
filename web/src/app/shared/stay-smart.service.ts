@@ -10,8 +10,13 @@ export class StaySmartService {
   constructor(private angularFirestore: AngularFirestore) {
   }
 
-  requestTutorSearch(tutorSearchRequest: TutorSearchRequest): Promise<any> {
-    return this.angularFirestore.collection('TutorSearchRequests')
-      .add({...tutorSearchRequest, timestamp: new Date()});
+  requestTutorSearch(tutorSearchRequest: TutorSearchRequest): Promise<any>[] {
+    const id = this.angularFirestore.createId();
+    return [
+      this.angularFirestore.collection('TutorSearchRequests').doc(id)
+        .set({...tutorSearchRequest.tutorSearchRequestData, timestamp: new Date()}),
+      this.angularFirestore.collection('TutorSearchRequests').doc(id)
+        .collection('ContactData').add(tutorSearchRequest.tutorSearchRequestContactData)
+    ];
   }
 }

@@ -29,10 +29,18 @@ export const helloWorld = functions.region('europe-west1').https.onRequest((requ
 });
 
 export const emailOnSubmit = functions.region('europe-west1')
-    .firestore.document('TutorSearchRequests/{tutorSearchRequestID}').onCreate(async (snap) => {
+    .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/ContactData/{contactDataID}')
+    .onCreate(async (snap, context) => {
         console.log('emailOnSubmit');
-        const createdTutorSearchRequest: any = snap.data();
-        console.log(createdTutorSearchRequest);
+
+        const tutorSearchRequestSnap = await admin.firestore().collection('TutorSearchRequests')
+            .doc(context.params['tutorSearchRequestID']).get();
+
+        const createdTutorSearchRequest: any = tutorSearchRequestSnap.data();
+        const createdTutorSearchRequestContactData: any = snap.data();
+
+        console.log('createdTutorSearchRequest', createdTutorSearchRequest);
+        console.log('createdTutorSearchRequestContactData', createdTutorSearchRequestContactData);
 
         const linkRef = uuidv4();
 
@@ -40,7 +48,7 @@ export const emailOnSubmit = functions.region('europe-west1')
 
         const mailOptions: Mail.Options = {
             from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
-            to: createdTutorSearchRequest.mail,
+            to: createdTutorSearchRequestContactData.email,
             subject: createdTutorSearchRequest.subject,
             html: `<p style="font-size: 16px;">TEST https://staysmart-dev.web.app/search-request/${linkRef}</p>
                 <br />
@@ -48,7 +56,7 @@ export const emailOnSubmit = functions.region('europe-west1')
         };
 
         return transporter.sendMail(mailOptions).then(() => {
-            console.log(`Sent to ${createdTutorSearchRequest.mail}`);
+            console.log(`Sent to ${createdTutorSearchRequestContactData.email}`);
         }).catch(error => {
             console.error(error);
         });

@@ -17,7 +17,7 @@ export class TutorSearchRequestComponent implements OnInit {
   faCheck = faCheck; // Icon
   submitted = false;
 
-  grades = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynamic not static
+  gradeLevels = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynamic not static
   subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynamic not static
 
   /* Variables location search */
@@ -37,19 +37,19 @@ export class TutorSearchRequestComponent implements OnInit {
   createForm(): FormGroup {
     return new FormGroup({
       general: new FormGroup({
-        firstname: new FormControl('', Validators.required),
-        name: new FormControl('', Validators.required),
-        mail: new FormControl('', [Validators.required, Validators.email]),
-        phone: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)])
+        firstName: new FormControl('', Validators.required),
+        lastName: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)])
       }),
       category: new FormGroup({
         subject: new FormControl('', Validators.required),
-        grade: new FormControl('', Validators.required)
+        gradeLevel: new FormControl('', Validators.required)
       }),
       details: new FormGroup({
         budget: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
         problem: new FormControl('', [Validators.required, Validators.minLength(20)]),
-        days: new FormGroup({
+        daysAvailable: new FormGroup({
           monday: new FormControl(false),
           tuesday: new FormControl(false),
           wednesday: new FormControl(false),
@@ -72,7 +72,7 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   get isStep3Valid(): boolean {
-    return this.step3.valid && this.isOneDaySelected(this.step3.get('days').value);
+    return this.step3.valid && this.isOneDaySelected(this.step3.get('daysAvailable').value);
   }
 
   get step1() {
@@ -98,8 +98,8 @@ export class TutorSearchRequestComponent implements OnInit {
 
   submitForm() {
     if (this.isStep1Valid && this.isStep2Valid && this.isStep3Valid) {
-      const tutorSearchRequestData = this.mapFormToModel();
-      this.staySmartService.requestTutorSearch(tutorSearchRequestData).then(value => {
+      const tutorSearchRequest = this.mapFormToModel();
+      Promise.all(this.staySmartService.requestTutorSearch(tutorSearchRequest)).then(value => {
         console.log(value);
         this.submitted = true;
       }).catch(reason => {
@@ -112,17 +112,21 @@ export class TutorSearchRequestComponent implements OnInit {
 
   mapFormToModel(): TutorSearchRequest {
     return {
-      name: this.step1.get('name').value,
-      firstname: this.step1.get('firstname').value,
-      mail: this.step1.get('mail').value,
-      phone: this.step1.get('phone').value,
-      grade: this.step2.get('grade').value,
-      subject: this.step2.get('subject').value,
-      budget: this.step3.get('budget').value,
-      location: this.step3.get('location').value,
-      days: this.step3.get('days').value,
-      problem: this.step3.get('problem').value,
-      timestamp: null
+      tutorSearchRequestData: {
+        lastName: this.step1.get('lastName').value,
+        firstName: this.step1.get('firstName').value,
+        gradeLevel: this.step2.get('gradeLevel').value,
+        subject: this.step2.get('subject').value,
+        budget: this.step3.get('budget').value,
+        location: this.step3.get('location').value,
+        daysAvailable: this.step3.get('daysAvailable').value,
+        problem: this.step3.get('problem').value,
+        timestamp: null
+      },
+      tutorSearchRequestContactData: {
+        email: this.step1.get('email').value,
+        phoneNumber: '41' + this.step1.get('phoneNumber').value
+      }
     };
   }
 

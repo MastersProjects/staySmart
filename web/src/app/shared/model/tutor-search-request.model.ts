@@ -1,12 +1,15 @@
 export interface TutorSearchRequest {
-  firstname: string;
-  name: string;
-  mail: string;
-  phone: string;
+  tutorSearchRequestData: TutorSearchRequestData;
+  tutorSearchRequestContactData: TutorSearchRequestContactData;
+}
+
+export interface TutorSearchRequestData {
+  firstName: string;
+  lastName: string;
   subject: string;
-  grade: string;
+  gradeLevel: string;
   location: GeoLocation;
-  days: {
+  daysAvailable: {
     monday: boolean,
     tuesday: boolean,
     wednesday: boolean,
@@ -18,6 +21,11 @@ export interface TutorSearchRequest {
   budget: number;
   problem: string;
   timestamp: Date;
+}
+
+export interface TutorSearchRequestContactData {
+  email: string;
+  phoneNumber: string;
 }
 
 export interface GeoLocation {

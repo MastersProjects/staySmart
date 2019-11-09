@@ -26,37 +26,40 @@
             <div class="formStep" id="f1">
               <div class="form-row" formGroupName="general">
                 <div class="form-group col-lg-6">
-                  <label for="firstname">Vorname</label>
-                  <input type="text" id="firstname" name="firstname" class="form-control" formControlName="firstname">
+                  <label for="firstName">Vorname</label>
+                  <input type="text" id="firstName" name="firstName" class="form-control" formControlName="firstName">
                 </div>
                 <div class="form-group col-lg-6">
-                  <label for="name">Name</label>
-                  <input type="text" id="name" name="name" class="form-control" formControlName="name">
+                  <label for="lastName">Name</label>
+                  <input type="text" id="lastName" name="lastName" class="form-control" formControlName="lastName">
                 </div>
                 <div class="form-group col-lg-6">
-                  <label for="mail">Email</label>
-                  <input type="text" id="mail" name="mail" class="form-control" formControlName="mail">
-                  <small *ngIf="step1.get('mail').invalid && (step1.get('mail').dirty
-                  || step1.get('mail').touched)" class="form-text text-danger">
+                  <label for="email">Email</label>
+                  <input type="text" id="email" name="email" class="form-control" formControlName="email">
+                  <small *ngIf="step1.get('email').invalid && (step1.get('email').dirty
+                  || step1.get('email').touched)" class="form-text text-danger">
                     Keine gültige Email eingegeben
                   </small>
                 </div>
                 <div class="form-group col-lg-6">
-                  <label for="phone">Mobiltelefon</label>
+                  <label for="phoneNumber">Mobiltelefon</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <div class="input-group-text">+41</div>
                     </div>
-                    <input type="text" id="phone" name="phone" class="form-control" formControlName="phone">
+                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+                           formControlName="phoneNumber">
                   </div>
-                  <small *ngIf="step1.get('phone').invalid && (step1.get('phone').dirty || step1.get('phone').touched)"
+                  <small
+                    *ngIf="step1.get('phoneNumber').invalid && (step1.get('phoneNumber').dirty
+                    || step1.get('phoneNumber').touched)"
                     class="form-text text-danger">
                     Die Telefonnummer ohne führende 0 eingeben
                   </small>
                 </div>
                 <div class="form-group col-12">
                   <button name="next1" type="button" class="btn btn-primary float-right" [disabled]="!isStep1Valid"
-                    cdkStepperNext>Weiter
+                          cdkStepperNext>Weiter
                   </button>
                 </div>
               </div>
@@ -72,16 +75,16 @@
                   </select>
                 </div>
                 <div class="form-group col-lg-6">
-                  <label for="class">Klasse</label>
-                  <select id="class" name="grade" class="form-control" size="6" formControlName="grade">
-                    <option *ngFor="let grade of grades">{{grade}}</option>
+                  <label for="gradeLevel">Klasse</label>
+                  <select id="gradeLevel" name="gradeLevel" class="form-control" size="6" formControlName="gradeLevel">
+                    <option *ngFor="let gradeLevel of gradeLevels">{{gradeLevel}}</option>
                   </select>
                 </div>
                 <div class="form-group col-12">
                   <button name="prev1" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
                   </button>
                   <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext
-                    [disabled]="!isStep2Valid">Weiter
+                          [disabled]="!isStep2Valid">Weiter
                   </button>
                 </div>
               </div>
@@ -94,8 +97,8 @@
                   <label for="location">Ort</label>
                   <div class=" mt-2">
                     <input id="location" name="location" type="text" class="form-control" formControlName="location"
-                      [ngbTypeahead]="searchLocation" [inputFormatter]="locationFormatterForm"
-                      [resultFormatter]="locationFormatter" />
+                           [ngbTypeahead]="searchLocation" [inputFormatter]="locationFormatterForm"
+                           [resultFormatter]="locationFormatter"/>
                     <span *ngIf="searching">Suchen...</span>
                     <div class="invalid-feedback" *ngIf="searchFailed">Entschuldigung, Ortschaft konnte nicht geladen
                       werden.
@@ -108,7 +111,7 @@
                 </div>
                 <div class="form-group col-lg-6">
                   <label>Tag</label><br>
-                  <div formGroupName="days">
+                  <div formGroupName="daysAvailable">
                     <div class="btn-group btn-group-toggle mt-2 ml-n1">
                       <label class="btn-primary" ngbButtonLabel>
                         <input id="day-monday" name="day" type="checkbox" ngbButton formControlName="monday">
@@ -148,7 +151,7 @@
                 <div class="form-group col-lg-6 ml-n1">
                   <label for="range">Budget maximal (pro Stunde)</label>
                   <input type="range" id="range" name="budget" class="custom-range" formControlName="budget" min="0"
-                    max="20">
+                         max="20">
                   <small class="form-text text-muted h6 font-weight-light" *ngIf="step3.get('budget').value > 0">Aktuelles
                     Budget: {{step3.get('budget').value * 5}}.-</small>
                   <small
@@ -159,15 +162,18 @@
                 <div class="form-group col-lg-6 ml-n1">
                   <label for="problem">Problem</label>
                   <textarea id="problem" name="problem" class="form-control" formControlName="problem"
-                    rows="3"></textarea>
-                  <small *ngIf="step3.get('problem').invalid && (step3.get('problem').dirty || step3.get('problem').touched)" id="problemhelp"
-                         class="form-text text-danger">Bitte schildere dein Problem mit mindestens 20 Zeichen.
+                            rows="3"></textarea>
+                  <small
+                    *ngIf="step3.get('problem').invalid && (step3.get('problem').dirty || step3.get('problem').touched)"
+                    id="problemhelp"
+                    class="form-text text-danger">Bitte schildere dein Problem mit mindestens 20 Zeichen.
                   </small>
                 </div>
                 <div class="form-group col-12 ml-n1">
                   <button name="prev2" type="button" class="btn btn-primary float-left" cdkStepperPrevious>Zurück
                   </button>
-                  <button type="submit" name="submit" id="submit" class="btn btn-primary float-right" [disabled]="!isStep3Valid">
+                  <button type="submit" name="submit" id="submit" class="btn btn-primary float-right"
+                          [disabled]="!isStep3Valid">
                     Absenden
                   </button>
                 </div>
