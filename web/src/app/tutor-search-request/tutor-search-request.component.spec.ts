@@ -53,7 +53,7 @@ describe('TutorSearchRequestComponent', () => {
   // Step 1
   it('email field validity', () => {
     let errors: {};
-    const email = component.step1.get('mail');
+    const email = component.step1.get('email');
 
     // Email field is required
     errors = email.errors || {};
@@ -77,7 +77,7 @@ describe('TutorSearchRequestComponent', () => {
 
   it('phone field validity', () => {
     let errors: {};
-    const phone = component.step1.get('phone');
+    const phone = component.step1.get('phoneNumber');
 
     // Phone field is required
     errors = phone.errors || {};
@@ -90,7 +90,7 @@ describe('TutorSearchRequestComponent', () => {
 
   it('phone field validity', () => {
     let errors: {};
-    const phone = component.step1.get('phone');
+    const phone = component.step1.get('phoneNumber');
 
     // Phone field is required
     errors = phone.errors || {};
@@ -110,36 +110,36 @@ describe('TutorSearchRequestComponent', () => {
   });
 
   it('step one validity', () => {
-    component.step1.get('phone').setValue('111111111');
-    component.step1.get('mail').setValue('test@example.com');
-    component.step1.get('name').setValue('test');
-    component.step1.get('firstname').setValue('muster');
+    component.step1.get('phoneNumber').setValue('111111111');
+    component.step1.get('email').setValue('test@example.com');
+    component.step1.get('lastName').setValue('test');
+    component.step1.get('firstName').setValue('muster');
     expect(component.isStep1Valid).toBeTruthy();
   });
 
   // Step two
   it('step two validity', () => {
     component.step2.get('subject').setValue('Physics');
-    component.step2.get('grade').setValue('4. - 6. Klasse');
+    component.step2.get('gradeLevel').setValue('4. - 6. Klasse');
     expect(component.isStep2Valid).toBeTruthy();
   });
 
   // Step 3
   it('budget field validity', () => {
     let errors: {};
-    const phone = component.step3.get('budget');
+    const budget = component.step3.get('budget');
 
     // budget field is required
-    errors = phone.errors || {};
+    errors = budget.errors || {};
     expect(errors[`required`]).toBeTruthy();
 
     // Set budget to something invalid
-    phone.setValue('no number');
-    expect(phone.valid).toBeFalsy();
+    budget.setValue('no number');
+    expect(budget.valid).toBeFalsy();
 
     // Set budget to something valid
-    phone.setValue('35');
-    expect(phone.valid).toBeTruthy();
+    budget.setValue('35');
+    expect(budget.valid).toBeTruthy();
   });
 
   it('location field validity', () => {
@@ -148,19 +148,19 @@ describe('TutorSearchRequestComponent', () => {
 
   it('problem field validity', () => {
     let errors: {};
-    const phone = component.step3.get('problem');
+    const problem = component.step3.get('problem');
 
     // budget field is required
-    errors = phone.errors || {};
+    errors = problem.errors || {};
     expect(errors[`required`]).toBeTruthy();
 
     // Set problem to short
-    phone.setValue('problem');
-    expect(phone.valid).toBeFalsy();
+    problem.setValue('problem');
+    expect(problem.valid).toBeFalsy();
 
     // Set budget to something valid
-    phone.setValue('Lorem Impsum dolor sit amet');
-    expect(phone.valid).toBeTruthy();
+    problem.setValue('Lorem Impsum dolor sit amet');
+    expect(problem.valid).toBeTruthy();
   });
 
   it('one day selected', () => {
@@ -199,11 +199,11 @@ describe('TutorSearchRequestComponent', () => {
   });
 
   function fillFormValid() {
-    component.step1.get('name').setValue('Muster');
-    component.step1.get('firstname').setValue('Max');
-    component.step1.get('mail').setValue('muster@test.ch');
-    component.step1.get('phone').setValue('111111111');
-    component.step2.get('grade').setValue('Gymnasium');
+    component.step1.get('lastName').setValue('Muster');
+    component.step1.get('firstName').setValue('Max');
+    component.step1.get('email').setValue('muster@test.ch');
+    component.step1.get('phoneNumber').setValue('111111111');
+    component.step2.get('gradeLevel').setValue('Gymnasium');
     component.step2.get('subject').setValue('Mathe');
     component.step3.get('budget').setValue('35');
     component.step3.get('problem').setValue('aaaaaaaaaaaaaaaaaaaa');
@@ -216,7 +216,7 @@ describe('TutorSearchRequestComponent', () => {
       x: 249256.875,
       geomStBox2d: 'BOX(686406.730634135 246884.697158672,691666.601228744 251628.209128328)'
     });
-    component.step3.get('days').setValue({
+    component.step3.get('daysAvailable').setValue({
       monday: true, tuesday: false, wednesday: true, thursday: true, friday: true,
       saturday: true, sunday: false
     });
