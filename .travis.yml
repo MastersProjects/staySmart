@@ -16,7 +16,7 @@ jobs:
         - npm run test.sonar --prefix web
         - npm run pree2e --prefix web # FIXME workaround for Issue #3 (chromedriver 74 error)
         - npm run e2e --prefix web
-        - sonar-scanner
+        # - sonar-scanner FIXME disabled till Issue #20 is resolved
       deploy:
         - provider: firebase
           skip_cleanup: true
@@ -41,8 +41,7 @@ jobs:
 addons:
   sonarcloud:
     organization: "mastersprojects" # the key of the org you chose at step #3
-    token:
-      secure: $SONAR_TOKEN # encrypted value of your token
+    token: $SONAR_TOKEN # encrypted value of your token
   apt:
     sources:
       - google-chrome
