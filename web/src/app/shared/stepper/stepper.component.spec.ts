@@ -4,7 +4,7 @@ import {StepperComponent} from './stepper.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 
 describe('StepperComponent', () => {
-  let component: StepperComponent;
+  /*let component: StepperComponent;*/
   let fixture: ComponentFixture<StepperComponent>;
 
   beforeEach(async(() => {
@@ -17,7 +17,7 @@ describe('StepperComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StepperComponent);
-    component = fixture.componentInstance;
+    /*component = fixture.componentInstance;*/
     fixture.detectChanges();
   });
 

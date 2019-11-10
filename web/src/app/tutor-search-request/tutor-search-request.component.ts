@@ -92,7 +92,7 @@ export class TutorSearchRequestComponent implements OnInit {
     return dayList.some(this.isTrue);
   }
 
-  isTrue(element, index, array): boolean {
+  isTrue(element): boolean {
     return element;
   }
 
