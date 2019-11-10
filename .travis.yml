@@ -17,7 +17,7 @@ jobs:
         - npm run test.sonar --prefix web
         - npm run pree2e --prefix web # FIXME workaround for Issue #3 (chromedriver 74 error)
         - npm run e2e --prefix web
-        # - sonar-scanner FIXME disabled till Issue #20 is resolved
+        - sonar-scanner
       deploy:
         - provider: firebase
           skip_cleanup: true
