@@ -20,8 +20,7 @@ jobs:
       deploy:
         - provider: firebase
           skip_cleanup: true
-          token:
-            secure: $FIREBASE_TOKEN
+          token: $FIREBASE_TOKEN
           message: $TRAVIS_COMMIT 
     - stage: PROD
       if: tag IS present
@@ -32,8 +31,7 @@ jobs:
       deploy:
         - provider: firebase
           skip_cleanup: true
-          token:
-            secure: $FIREBASE_TOKEN
+          token: $FIREBASE_TOKEN
           project: "staysmart-57b5a"
           message: $TRAVIS_TAG $TRAVIS_COMMIT
           on:
