@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
 
-export const helloWorld = functions.region('europe-west1').https.onRequest((request, response) => {
+export const helloWorld = functions.region('europe-west1').https.onRequest((_request, response) => {
     response.send("Hello from Firebase!");
 });
 
@@ -63,7 +63,7 @@ export const emailOnSubmit = functions.region('europe-west1')
 
     });
 
-export const sendWhatsApp = functions.region('europe-west1').https.onRequest((request, response) => {
+export const sendWhatsApp = functions.region('europe-west1').https.onRequest((_request, response) => {
     const options = {
         host: 'api.websms.com',
         path: '/rest/converged/whatsapp',
