@@ -10,11 +10,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TutorSearchRequestComponent} from './tutor-search-request/tutor-search-request.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BannerComponent} from './general/banner/banner.component';
-import {LocationService} from './shared/location.service';
 import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {StaySmartService} from './shared/stay-smart.service';
 import {TutorRegistrationComponent} from './tutor-registration/tutor-registration.component';
 import {OrganisationComponent} from './other/organisation/organisation.component';
 import {TeamComponent} from './other/team/team.component';
@@ -47,7 +45,7 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
     FontAwesomeModule,
     CdkStepperModule
   ],
-  providers: [LocationService, StaySmartService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
