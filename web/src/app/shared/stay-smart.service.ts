@@ -2,13 +2,17 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {TutorSearchRequest} from './model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
+import {AngularFireStorage} from '@angular/fire/storage';
+import * as uuidv4 from 'uuid/v4';
+import {Observable} from 'rxjs';
+import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StaySmartService {
 
-  constructor(private angularFirestore: AngularFirestore) {
+  constructor(private angularFirestore: AngularFirestore, private angularFireStorage: AngularFireStorage) {
   }
 
   requestTutorSearch(tutorSearchRequest: TutorSearchRequest): Promise<any> {
@@ -24,6 +28,12 @@ export class StaySmartService {
       tutorSearchRequest.tutorSearchRequestContactData
     );
     return batch.commit();
+  }
+
+  uploadStudentCard(file: File): Observable<UploadTaskSnapshot> {
+    const ref = this.angularFireStorage.ref(`studentCard/${uuidv4()}`);
+    const task = ref.put(file);
+    return task.snapshotChanges();
   }
 
   get timestamp() {

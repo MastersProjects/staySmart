@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {GeoLocation, TutorSearchRequest} from 'src/app/shared/model/tutor-search-request.model';
+import {TutorSearchRequest} from 'src/app/shared/model/tutor-search-request.model';
 import {Observable, of} from 'rxjs';
 import {LocationService} from 'src/app/shared/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {locationDomainValidator} from '../shared/validators/location-validator';
+import {locationDomainValidator} from '../shared/validators/location.validator';
 import {StaySmartService} from '../shared/stay-smart.service';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
+import {GeoLocation} from '../shared/model/geo-location.model';
 
 @Component({
   selector: 'app-tutor-search-request',
