@@ -1,9 +1,9 @@
 <div class="form-wrapper" *ngIf="!submitted">
   <div class="row mt-md-4 mt-3">
     <div class="col-12 col-md-10 offset-md-1">
-      <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+      <form [formGroup]="registrationForm" (ngSubmit)="submitForm()">
         <app-stepper linear>
-          <cdk-step [stepControl]="registerForm.get('step1')">
+          <cdk-step [stepControl]="registrationForm.get('step1')">
             <div class="form-row" formGroupName="step1">
               <div class="form-group col-lg-6">
                 <label for="firstName">Vorname</label>
@@ -62,13 +62,13 @@
               </div>
               <div class="form-group col-12">
                 <button name="next1" type="button" class="btn btn-primary float-right"
-                        [disabled]="registerForm.get('step1').invalid" cdkStepperNext>
+                        [disabled]="registrationForm.get('step1').invalid" cdkStepperNext>
                   Weiter
                 </button>
               </div>
             </div>
           </cdk-step>
-          <cdk-step [stepControl]="registerForm.get('step2')">
+          <cdk-step [stepControl]="registrationForm.get('step2')">
             <div class="form-row" formGroupName="step2">
               <div class="form-group col-12">
                 <label for="street-address">Adresse und Hausnummer</label>
@@ -91,13 +91,13 @@
                   Zurück
                 </button>
                 <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext
-                        [disabled]="registerForm.get('step2').invalid">
+                        [disabled]="registrationForm.get('step2').invalid">
                   Weiter
                 </button>
               </div>
             </div>
           </cdk-step>
-          <cdk-step [stepControl]="registerForm.get('step3')">
+          <cdk-step [stepControl]="registrationForm.get('step3')">
             <div class="form-row" formGroupName="step3">
               <div class="form-group col-12">
                 <label>Legi (Foto)</label>
@@ -152,13 +152,13 @@
                   Zurück
                 </button>
                 <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext
-                        [disabled]="registerForm.get('step3').invalid">
+                        [disabled]="registrationForm.get('step3').invalid">
                   Weiter
                 </button>
               </div>
             </div>
           </cdk-step>
-          <cdk-step [stepControl]="registerForm.get('step4')">
+          <cdk-step [stepControl]="registrationForm.get('step4')">
             <div class="form-row" formGroupName="step4">
               <div class="form-group col-lg-6">
                 <label for="subjects">Fächer</label>
@@ -167,8 +167,8 @@
                 </select>
               </div>
               <div class="form-group col-lg-6">
-                <label for="gradeLevel">Klasse</label>
-                <select multiple id="gradeLevel" name="gradeLevel" class="form-control" formControlName="gradeLevel">
+                <label for="gradeLevels">Klasse</label>
+                <select multiple id="gradeLevels" name="gradeLevel" class="form-control" formControlName="gradeLevels">
                   <option *ngFor="let gradeLevel of gradeLevels">{{gradeLevel}}</option>
                 </select>
               </div>
@@ -216,8 +216,8 @@
                 <input type="range" id="price" name="price" class="custom-range" formControlName="price" min="0"
                        max="20">
                 <small class="form-text text-muted h6 font-weight-light"
-                       *ngIf="registerForm.get('step4').get('price').value > 0">
-                  Aktuelles Budget: {{registerForm.get('step4').get('price').value * 5}}.-
+                       *ngIf="registrationForm.get('step4').get('price').value > 0">
+                  Aktuelles Budget: {{registrationForm.get('step4').get('price').value * 5}}.-
                 </small>
               </div>
               <div class="form-group col-12">
@@ -229,7 +229,7 @@
                   Zurück
                 </button>
                 <button type="submit" name="submit" id="submit" class="btn btn-primary float-right"
-                        [disabled]="registerForm.invalid">
+                        [disabled]="registrationForm.invalid">
                   Absenden
                 </button>
               </div>

@@ -18,7 +18,7 @@ export interface TutorRegistration {
   education: string;
 
   subjects: string[];
-  gradeLevel: string;
+  gradeLevels: string[];
   daysAvailable: {
     monday: boolean,
     tuesday: boolean,
@@ -32,5 +32,4 @@ export interface TutorRegistration {
   attention: string;
 
   status: 'new';
-
 }

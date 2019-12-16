@@ -11,8 +11,6 @@ import {NgbDateAdapter, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import 'moment/locale/de-ch';
 import {StaySmartService} from '../shared/stay-smart.service';
-import {TutorRegistration} from '../shared/model/tutor-registration.model';
-import {AuthService} from '../shared/auth.service';
 
 @Component({
   selector: 'app-tutor-registration',
@@ -25,7 +23,7 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
 
   submitted = false;
-  registerForm: FormGroup;
+  registrationForm: FormGroup;
 
   /* Variables location search */
   searching = false;
@@ -42,13 +40,11 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   studentCardFrontFileName: string;
   studentCardBackFileName: string;
 
-
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService,
-              private authService: AuthService) {
+  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
   }
 
   ngOnInit() {
-    this.registerForm = this.createForm();
+    this.registrationForm = this.createForm();
   }
 
   ngOnDestroy() {
@@ -56,91 +52,21 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private createForm(): FormGroup {
-    return new FormGroup({
-      step1: new FormGroup({
-        firstName: new FormControl('', Validators.required),
-        lastName: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        mobileNumber: new FormControl(
-          '', [Validators.required, Validators.pattern(/^\d{9}$/)]
-        ),
-        birthday: new FormGroup({
-          day: new FormControl('', Validators.required),
-          month: new FormControl('', Validators.required),
-          year: new FormControl('', Validators.required)
-        }), // TODO min. age validator?
-        password: new FormControl('', Validators.required), // TODO password secure validator
-        repeatPassword: new FormControl('', Validators.required)
-      }, {validators: repeatPasswordValidator}),
-      step2: new FormGroup({
-        streetAddress: new FormControl('', Validators.required),
-        postalCode: new FormControl('', Validators.required),
-        city: new FormControl('', [Validators.required, locationDomainValidator]),
-      }),
-      step3: new FormGroup({
-        studentCardFront: new FormControl('', Validators.required),
-        studentCardBack: new FormControl('', Validators.required),
-        studentCardExpireDate: new FormControl('', Validators.required), // TODO not expired validator
-        education: new FormControl('', Validators.required),
-      }),
-      step4: new FormGroup({
-        subjects: new FormControl('', Validators.required),
-        gradeLevel: new FormControl('', Validators.required),
-        daysAvailable: new FormGroup({
-          monday: new FormControl(false),
-          tuesday: new FormControl(false),
-          wednesday: new FormControl(false),
-          thursday: new FormControl(false),
-          friday: new FormControl(false),
-          saturday: new FormControl(false),
-          sunday: new FormControl(false)
-        }, {validators: Validators.required}),
-        price: new FormControl('', Validators.required),
-        attention: new FormControl('')
-      })
-    });
-  }
-
   submitForm() {
-    if (this.registerForm.valid) {
-      const tutorRegistration = this.getModelFromForm();
-      this.authService.registerNewTutor(
-        tutorRegistration,
-        this.registerForm.get('step1').get('password').value
-      ).subscribe(() => {
-        console.log('Registered');
-      });
+    if (this.registrationForm.valid) {
+
+      // TODO start loading circle
+
+      /* this.registrationForm.value has to be StaySmartService.RegistrationForm
+      *  TODO refactoring: make that it checks on runtime (maybe use class instead of interface?)
+      */
+      this.staySmartService.registerNewTutor(this.registrationForm.value).pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          console.log('Registered');
+          this.submitted = true;
+          // TODO end loading circle
+        });
     }
-  }
-
-  private getModelFromForm(): TutorRegistration {
-    const birthday = this.registerForm.get('step1').get('birthday').value;
-    return {
-      uid: '',
-      firstName: this.registerForm.get('step1').get('firstName').value,
-      lastName: this.registerForm.get('step1').get('lastName').value,
-      email: this.registerForm.get('step1').get('email').value,
-      mobileNumber: this.registerForm.get('step1').get('mobileNumber').value,
-      birthday: new Date(birthday.year, birthday.month - 1, birthday.day),
-
-      streetAddress: this.registerForm.get('step2').get('streetAddress').value,
-      postalCode: this.registerForm.get('step2').get('postalCode').value,
-      city: this.registerForm.get('step2').get('city').value,
-
-      studentCardFront: this.registerForm.get('step3').get('studentCardFront').value,
-      studentCardBack: this.registerForm.get('step3').get('studentCardBack').value,
-      studentCardExpireDate: this.registerForm.get('step3').get('studentCardExpireDate').value,
-      education: this.registerForm.get('step3').get('education').value,
-
-      subjects: this.registerForm.get('step4').get('subjects').value,
-      gradeLevel: this.registerForm.get('step4').get('gradeLevel').value,
-      daysAvailable: this.registerForm.get('step4').get('daysAvailable').value,
-      price: this.registerForm.get('step4').get('price').value,
-      attention: this.registerForm.get('step4').get('attention').value,
-
-      status: 'new',
-    };
   }
 
   get years() {
@@ -155,8 +81,8 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
 
   get days() {
     const days = [];
-    const formMonth = this.registerForm.get('step1').get('birthday').get('month').value;
-    const formYear = this.registerForm.get('step1').get('birthday').get('year').value;
+    const formMonth = this.registrationForm.get('step1').get('birthday').get('month').value;
+    const formYear = this.registrationForm.get('step1').get('birthday').get('year').value;
     const selectedMonth = formMonth ? formMonth : new Date().getMonth() + 1;
     const selectedYear = formYear ? formYear : new Date().getFullYear();
     const daysCount = moment(`${selectedMonth} ${selectedYear}`, 'MM YYYY').daysInMonth();
@@ -167,51 +93,32 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   }
 
   checkMonthDays() {
-    const formDay = this.registerForm.get('step1').get('birthday').get('day').value;
-    const formMonth = this.registerForm.get('step1').get('birthday').get('month').value;
-    const formYear = this.registerForm.get('step1').get('birthday').get('year').value;
+    const formDay = this.registrationForm.get('step1').get('birthday').get('day').value;
+    const formMonth = this.registrationForm.get('step1').get('birthday').get('month').value;
+    const formYear = this.registrationForm.get('step1').get('birthday').get('year').value;
     const selectedMonth = formMonth ? formMonth : new Date().getMonth() + 1;
     const selectedYear = formYear ? formYear : new Date().getFullYear();
     const daysCount = moment(`${selectedMonth} ${selectedYear}`, 'MM YYYY').daysInMonth();
     if (formDay > daysCount) {
-      this.registerForm.get('step1').get('birthday').get('day').setValue(1);
+      this.registrationForm.get('step1').get('birthday').get('day').setValue(1);
     }
   }
 
-  // FIXME upload when regsiter
   onFrontFileChange(event) {
-    const file = event.target.files[0];
+    const file: File = event.target.files[0];
     this.studentCardFrontFileName = file.name;
-    this.staySmartService.uploadStudentCard(event.target.files[0]).pipe(takeUntil(this.destroy$))
-      .subscribe(response => {
-        const uploadPercentage = (response.bytesTransferred / response.totalBytes) * 100;
-        console.log(uploadPercentage);
-        if (uploadPercentage === 100) {
-          console.log('success!');
-          console.log(response);
-          this.registerForm.get('step3').get('studentCardFront').setValue(response.ref.fullPath);
-        }
-      });
+    this.registrationForm.get('step3').get('studentCardFront').setValue(file);
   }
 
-  // FIXME upload when regsiter
   onBackFileChange(event) {
     const file = event.target.files[0];
     this.studentCardBackFileName = file.name;
-    this.staySmartService.uploadStudentCard(event.target.files[0]).pipe(takeUntil(this.destroy$))
-      .subscribe(response => {
-        const uploadPercentage = (response.bytesTransferred / response.totalBytes) * 100;
-        console.log(uploadPercentage);
-        if (uploadPercentage === 100) {
-          console.log('success!');
-          console.log(response);
-          this.registerForm.get('step3').get('studentCardBack').setValue(response.ref.fullPath);
-        }
-      });
+    this.registrationForm.get('step3').get('studentCardBack').setValue(file);
   }
 
   searchLocation = (text: Observable<string>) =>
     text.pipe(
+      takeUntil(this.destroy$),
       debounceTime(300),
       distinctUntilChanged(),
       tap(() => this.searching = true),
@@ -240,5 +147,51 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
+  private createForm(): FormGroup {
+    /*StaySmartService.RegistrationForm*/
+    return new FormGroup({
+      step1: new FormGroup({
+        firstName: new FormControl('', Validators.required),
+        lastName: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        mobileNumber: new FormControl(
+          '', [Validators.required, Validators.pattern(/^\d{9}$/)]
+        ),
+        birthday: new FormGroup({
+          day: new FormControl('', Validators.required),
+          month: new FormControl('', Validators.required),
+          year: new FormControl('', Validators.required)
+        }), // TODO min. age validator?
+        password: new FormControl('', Validators.required), // TODO password secure validator
+        repeatPassword: new FormControl('', Validators.required)
+      }, {validators: repeatPasswordValidator}),
+      step2: new FormGroup({
+        streetAddress: new FormControl('', Validators.required),
+        postalCode: new FormControl('', Validators.required),
+        city: new FormControl('', [Validators.required, locationDomainValidator]),
+      }),
+      step3: new FormGroup({
+        studentCardFront: new FormControl(null, Validators.required), // TODO image file validator
+        studentCardBack: new FormControl(null, Validators.required), // TODO image file validator
+        studentCardExpireDate: new FormControl('', Validators.required), // TODO not expired validator
+        education: new FormControl('', Validators.required),
+      }),
+      step4: new FormGroup({
+        subjects: new FormControl('', Validators.required),
+        gradeLevels: new FormControl('', Validators.required),
+        daysAvailable: new FormGroup({
+          monday: new FormControl(false),
+          tuesday: new FormControl(false),
+          wednesday: new FormControl(false),
+          thursday: new FormControl(false),
+          friday: new FormControl(false),
+          saturday: new FormControl(false),
+          sunday: new FormControl(false)
+        }, {validators: Validators.required}),
+        price: new FormControl('', Validators.required),
+        attention: new FormControl('')
+      })
+    });
+  }
 
 }
