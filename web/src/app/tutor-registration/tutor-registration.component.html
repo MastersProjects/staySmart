@@ -32,9 +32,9 @@
                          formControlName="mobileNumber">
                 </div>
                 <small
-                  *ngIf="registrationForm.get('step1').get('phoneNumber').invalid
-                    && (registrationForm.get('step1').get('phoneNumber').dirty
-                    || registrationForm.get('step1').get('phoneNumber').touched)" class="form-text text-danger">
+                  *ngIf="registrationForm.get('step1').get('mobileNumber').invalid
+                    && (registrationForm.get('step1').get('mobileNumber').dirty
+                    || registrationForm.get('step1').get('mobileNumber').touched)" class="form-text text-danger">
                   Die Telefonnummer ohne führende 0 eingeben
                 </small>
               </div>
@@ -100,9 +100,9 @@
                   Entschuldigung, Ortschaft konnte nicht geladen werden.
                 </div>
                 <small
-                  *ngIf="registrationForm.get('step3').get('location').invalid
-                    && (registrationForm.get('step3').get('location').dirty
-                    || registrationForm.get('step3').get('location').touched)" class="form-text text-danger">
+                  *ngIf="registrationForm.get('step2').get('city').invalid
+                    && (registrationForm.get('step2').get('city').dirty
+                    || registrationForm.get('step2').get('city').touched)" class="form-text text-danger">
                   Bitte gültige Ortschaft auswählen
                 </small>
               </div>
