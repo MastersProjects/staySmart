@@ -155,7 +155,7 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
       step1: new FormGroup({
         firstName: new FormControl('', Validators.required),
         lastName: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl('', [Validators.required, Validators.email]), // TODO email already in use validator
         mobileNumber: new FormControl(
           '', [Validators.required, Validators.pattern(/^\d{9}$/)]
         ),
