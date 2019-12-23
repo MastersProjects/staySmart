@@ -7,6 +7,7 @@ import {catchError, debounceTime, distinctUntilChanged, switchMap, takeUntil, ta
 import {GeoLocation} from '../shared/model/geo-location.model';
 import {LocationService} from '../shared/location.service';
 import {faCalendar} from '@fortawesome/free-solid-svg-icons/faCalendar';
+import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {NgbDateAdapter, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import 'moment/locale/de-ch';
@@ -33,6 +34,7 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   gradeLevels = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // TODO load dynamic not static
 
   faCalendar = faCalendar;
+  faCheck = faCheck;
 
   months = moment.months();
 

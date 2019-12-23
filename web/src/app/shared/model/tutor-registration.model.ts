@@ -32,4 +32,6 @@ export interface TutorRegistration {
   attention: string;
 
   status: 'new';
+
+  registrationTimestamp: Date;
 }

@@ -1,4 +1,4 @@
-<div class="form-wrapper" *ngIf="!submitted">
+<div *ngIf="!submitted" class="form-wrapper">
   <div class="row mt-md-4 mt-3">
     <div class="col-12 col-md-10 offset-md-1">
       <form [formGroup]="registrationForm" (ngSubmit)="submitForm()">
@@ -114,7 +114,6 @@
                       <input type="file" class="custom-file-input" accept="image/*"
                              (change)="onFrontFileChange($event)">
                     </div>
-                    <!--TODO Progressbar-->
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -126,7 +125,6 @@
                       </label>
                       <input type="file" class="custom-file-input" accept="image/*" (change)="onBackFileChange($event)">
                     </div>
-                    <!--TODO Progressbar-->
                   </div>
                 </div>
               </div>
@@ -241,3 +239,24 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="submitted" class="container">
+  <div class="row mt-4">
+    <div class="col-8 offset-2 text-center mt-2">
+      <h1>Sie sind nun Registriert</h1>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 text-center">
+      <fa-icon [icon]="faCheck" size="8x" style="color: #449D44"></fa-icon>
+    </div>
+  </div>
+  <div class="row mt-4 mb-5">
+    <div class="col-8 offset-2 text-center">
+      <h6>Ihr Profil wird innerhalb der nächsten 48 Stunden validiert. Nach der Freigabe Ihres Profiles
+        erhalten Sie auch schon die ersten Anfragen.</h6>
+    </div>
+  </div>
+  <!--TODO Redirection to Login form-->
+</div>
+

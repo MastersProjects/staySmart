@@ -50,7 +50,7 @@ export class StaySmartService {
             uploadTaskFrontSnap.ref.fullPath, uploadTaskBackSnap.ref.fullPath
           );
           return from(this.angularFirestore.collection('Tutors').doc(result.userCredential.user.uid)
-            .set(tutorRegistration));
+            .set({...tutorRegistration, registrationTimestamp: this.serverTimestamp}));
         } else {
           console.log('file upload not successful');
           // TODO error handler
@@ -64,10 +64,6 @@ export class StaySmartService {
     const frontRef = this.angularFireStorage.ref(`studentCard/${uuidv4()}`);
     const backRef = this.angularFireStorage.ref(`studentCard/${uuidv4()}`);
     return from(Promise.all([frontRef.put(studentCardFront).then(), backRef.put(studentCardBack).then()]));
-  }
-
-  private get serverTimestamp() {
-    return firebase.firestore.FieldValue.serverTimestamp();
   }
 
   private createTutorRegistration(registrationForm: RegistrationForm, uid: string,
@@ -97,7 +93,13 @@ export class StaySmartService {
       attention: registrationForm.step4.attention,
 
       status: 'new',
+
+      registrationTimestamp: null
     };
+  }
+
+  private get serverTimestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp();
   }
 }
 
