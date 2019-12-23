@@ -45,7 +45,7 @@ export class TutorSearchRequestComponent implements OnInit {
       }),
       category: new FormGroup({
         subject: new FormControl('', Validators.required),
-        gradeLevels: new FormControl('', Validators.required)
+        gradeLevel: new FormControl('', Validators.required)
       }),
       details: new FormGroup({
         budget: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]),
@@ -116,7 +116,7 @@ export class TutorSearchRequestComponent implements OnInit {
       tutorSearchRequestData: {
         lastName: this.step1.get('lastName').value,
         firstName: this.step1.get('firstName').value,
-        gradeLevel: this.step2.get('gradeLevels').value,
+        gradeLevel: this.step2.get('gradeLevel').value,
         subject: this.step2.get('subject').value,
         budget: this.step3.get('budget').value,
         location: this.step3.get('location').value,

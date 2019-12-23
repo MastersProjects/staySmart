@@ -10,6 +10,8 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {StepperComponent} from '../shared/stepper/stepper.component';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
@@ -23,6 +25,8 @@ describe('TutorSearchRequestComponent', () => {
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
+        AngularFireStorageModule,
+        AngularFireAuthModule,
         FontAwesomeModule,
         CdkStepperModule,
         ReactiveFormsModule
