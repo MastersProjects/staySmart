@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TutorSearchRequestComponent} from './tutor-search-request.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
@@ -21,7 +21,6 @@ describe('TutorSearchRequestComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        FormsModule,
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
