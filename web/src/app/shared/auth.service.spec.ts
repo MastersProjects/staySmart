@@ -1,24 +1,20 @@
 import {TestBed} from '@angular/core/testing';
 
-import {StaySmartService} from './stay-smart.service';
+import {AuthService} from './auth.service';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFireStorageModule} from '@angular/fire/storage';
 
-describe('StaySmartService', () => {
+describe('AuthService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       AngularFireModule.initializeApp(environment.firebase),
-      AngularFirestoreModule,
-      AngularFireStorageModule,
-      AngularFireAuthModule,
+      AngularFireAuthModule
     ],
   }));
 
   it('should be created', () => {
-    const service: StaySmartService = TestBed.get(StaySmartService);
+    const service: AuthService = TestBed.get(AuthService);
     expect(service).toBeTruthy();
   });
 });

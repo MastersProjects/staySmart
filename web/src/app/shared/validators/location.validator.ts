@@ -1,4 +1,4 @@
-import { AbstractControl } from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 
 export function locationDomainValidator(control: AbstractControl) {
     const location = control.value;

@@ -1,3 +1,5 @@
+import {GeoLocation} from './geo-location.model';
+
 export interface TutorSearchRequest {
   tutorSearchRequestData: TutorSearchRequestData;
   tutorSearchRequestContactData: TutorSearchRequestContactData;
@@ -28,12 +30,3 @@ export interface TutorSearchRequestContactData {
   phoneNumber: string;
 }
 
-export interface GeoLocation {
-  label: string;
-  detail: string;
-  lon: number;
-  lat: number;
-  y: number;
-  x: number;
-  geomStBox2d: string;
-}

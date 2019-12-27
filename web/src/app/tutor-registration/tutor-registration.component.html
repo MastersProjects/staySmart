@@ -1,1 +1,291 @@
-<p>work</p>
+<div *ngIf="!submitted" class="form-wrapper">
+  <div class="row mt-md-4 mt-3">
+    <div class="col-12 col-md-10 offset-md-1">
+      <form [formGroup]="registrationForm" (ngSubmit)="submitForm()">
+        <app-stepper linear>
+          <cdk-step [stepControl]="registrationForm.get('step1')">
+            <div class="form-row" formGroupName="step1">
+              <div class="form-group col-lg-6">
+                <label for="firstName">Vorname</label>
+                <input id="firstName" name="firstName" type="text" class="form-control" formControlName="firstName">
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="lastName">Name</label>
+                <input id="lastName" name="lastName" type="text" class="form-control" formControlName="lastName">
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="text" class="form-control" formControlName="email">
+                <small *ngIf="registrationForm.get('step1').get('email').invalid
+                  && (registrationForm.get('step1').get('email').dirty
+                  || registrationForm.get('step1').get('email').touched)" class="form-text text-danger">
+                  Bitte eine gültige E-mail eingeben
+                </small>
+                <!--TODO email already in use Validation text-->
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="mobileNumber">Mobiltelefon</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">+41</div>
+                  </div>
+                  <input type="text" id="mobileNumber" name="mobileNumber" class="form-control"
+                         formControlName="mobileNumber">
+                </div>
+                <small
+                  *ngIf="registrationForm.get('step1').get('mobileNumber').invalid
+                    && (registrationForm.get('step1').get('mobileNumber').dirty
+                    || registrationForm.get('step1').get('mobileNumber').touched)" class="form-text text-danger">
+                  Die Telefonnummer ohne führende 0 eingeben
+                </small>
+              </div>
+              <div class="form-group col-lg-6" formGroupName="birthday">
+                <label>Geburtsdatum</label>
+                <div class="form-row">
+                  <div class="form-group col-4">
+                    <select id="day" name="day" class="form-control" formControlName="day">
+                      <option *ngFor="let day of days" [value]="day">{{day}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-4">
+                    <select id="month" name="month" class="form-control" formControlName="month"
+                            (change)="checkMonthDays()">
+                      <option *ngFor="let month of months; let i = index" [value]="i+1">{{month}}</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-4">
+                    <select id="year" name="year" class="form-control" formControlName="year">
+                      <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-lg-6"></div>
+              <div class="form-group col-lg-6">
+                <label for="password">Passwort</label>
+                <input id="password" name="password" type="password" class="form-control" formControlName="password">
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="repeatPassword">Passwort wiederholen</label>
+                <input id="repeatPassword" name="repeatPassword" type="password" class="form-control"
+                       formControlName="repeatPassword">
+                <small
+                  *ngIf="registrationForm.get('step1').errors?.notSame
+                    && (registrationForm.get('step1').get('repeatPassword').dirty
+                    || registrationForm.get('step1').get('repeatPassword').touched)" class="form-text text-danger">
+                  Das Passwort stimmt nicht überein
+                </small>
+                <!--TODO password secure validation text-->
+              </div>
+              <div class="form-group col-12">
+                <button name="next1" type="button" class="btn btn-primary float-right"
+                        [disabled]="registrationForm.get('step1').invalid" cdkStepperNext>
+                  Weiter
+                </button>
+              </div>
+            </div>
+          </cdk-step>
+          <cdk-step [stepControl]="registrationForm.get('step2')">
+            <div class="form-row" formGroupName="step2">
+              <div class="form-group col-12">
+                <label for="street-address">Adresse und Hausnummer</label>
+                <input type="text" id="street-address" name="street-address" class="form-control"
+                       formControlName="streetAddress">
+              </div>
+              <div class="form-group col-3">
+                <label for="postalCode">PLZ</label>
+                <input type="text" id="postalCode" name="postalCode" class="form-control" formControlName="postalCode">
+              </div>
+              <div class="form-group col-9">
+                <label for="city">Ort</label>
+                <input type="text" id="city" name="city" class="form-control" formControlName="city"
+                       [ngbTypeahead]="searchLocation" [inputFormatter]="locationFormatterForm"
+                       [resultFormatter]="locationFormatter">
+                <span *ngIf="searching">Suchen...</span>
+                <div class="invalid-feedback" *ngIf="searchFailed">
+                  Entschuldigung, Ortschaft konnte nicht geladen werden.
+                </div>
+                <small
+                  *ngIf="registrationForm.get('step2').get('city').invalid
+                    && (registrationForm.get('step2').get('city').dirty
+                    || registrationForm.get('step2').get('city').touched)" class="form-text text-danger">
+                  Bitte gültige Ortschaft auswählen
+                </small>
+              </div>
+
+              <div class="form-group col-12">
+                <button name="prev1" type="button" class="btn btn-primary float-left" cdkStepperPrevious>
+                  Zurück
+                </button>
+                <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext
+                        [disabled]="registrationForm.get('step2').invalid">
+                  Weiter
+                </button>
+              </div>
+            </div>
+          </cdk-step>
+          <cdk-step [stepControl]="registrationForm.get('step3')">
+            <div class="form-row" formGroupName="step3">
+              <div class="form-group col-12">
+                <label>Legi (Foto)</label>
+                <div class="form-row">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Vorderseite</span>
+                    </div>
+                    <div class="custom-file">
+                      <label
+                        class="custom-file-label">
+                        {{studentCardFrontFileName ? studentCardFrontFileName : 'File auswählen'}}
+                      </label>
+                      <input type="file" class="custom-file-input" accept="image/*"
+                             (change)="onFrontFileChange($event)">
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Rückseite</span>
+                    </div>
+                    <div class="custom-file">
+                      <label class="custom-file-label">
+                        {{studentCardBackFileName ? studentCardBackFileName : 'File auswählen'}}
+                      </label>
+                      <input type="file" class="custom-file-input" accept="image/*" (change)="onBackFileChange($event)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-12">
+                <label for="studentCardExpireDate">Legi Ablaufdatum</label>
+                <div class="input-group">
+                  <input id="studentCardExpireDate" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker
+                         name="studentCardExpireDate" #d="ngbDatepicker" formControlName="studentCardExpireDate">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                      <fa-icon [icon]="faCalendar"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-12">
+                <label for="education">Studium</label>
+                <input type="text" id="education" name="education" class="form-control" formControlName="education">
+              </div>
+
+              <div class="form-group col-12">
+                <button name="prev1" type="button" class="btn btn-primary float-left" cdkStepperPrevious>
+                  Zurück
+                </button>
+                <button name="next2" type="button" class="btn btn-primary float-right" cdkStepperNext
+                        [disabled]="registrationForm.get('step3').invalid">
+                  Weiter
+                </button>
+              </div>
+            </div>
+          </cdk-step>
+          <cdk-step [stepControl]="registrationForm.get('step4')">
+            <div class="form-row" formGroupName="step4">
+              <div class="form-group col-lg-6">
+                <label for="subjects">Fächer</label>
+                <select multiple id="subjects" name="subjects" class="form-control" formControlName="subjects">
+                  <option *ngFor="let sub of subjects">{{sub}}</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="gradeLevels">Klasse</label>
+                <select multiple id="gradeLevels" name="gradeLevel" class="form-control" formControlName="gradeLevels">
+                  <option *ngFor="let gradeLevel of gradeLevels">{{gradeLevel}}</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Tag</label><br>
+                <div formGroupName="daysAvailable">
+                  <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                    <label class="btn-primary" ngbButtonLabel>
+                      <input id="day-monday" name="day" type="checkbox" ngbButton formControlName="monday">
+                      Montag
+                    </label>
+                    <label class="btn-primary" ngbButtonLabel>
+                      <input id="day-tuesday" name="day" type="checkbox" ngbButton formControlName="tuesday">
+                      Dienstag
+                    </label>
+                    <label class="btn-primary" ngbButtonLabel>
+                      <input id="day-wednesday" name="day" type="checkbox" ngbButton formControlName="wednesday">
+                      Mittwoch
+                    </label>
+                  </div>
+                  <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                    <label class="btn-primary" ngbButtonLabel>
+                      <input id="day-thursday" name="day" type="checkbox" ngbButton formControlName="thursday">
+                      Donnerstag
+                    </label>
+                    <label class="btn-primary" ngbButtonLabel>
+                      <input id="day-friday" name="day" type="checkbox" ngbButton formControlName="friday">
+                      Freitag
+                    </label>
+                  </div>
+                  <div class="btn-group btn-group-toggle mt-2 ml-n1">
+                    <label class="btn-primary" ngbButtonLabel>
+                      <input id="day-saturday" name="day" type="checkbox" ngbButton formControlName="saturday">
+                      Samstag
+                    </label>
+                    <label class="btn-primary" ngbButtonLabel>
+                      <input id="day-sunday" name="day" type="checkbox" ngbButton formControlName="sunday">
+                      Sonntag
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-lg-6 ml-n1">
+                <label for="price">Budget maximal (pro Stunde)</label>
+                <input type="range" id="price" name="price" class="custom-range" formControlName="price" min="0"
+                       max="20">
+                <small class="form-text text-muted h6 font-weight-light"
+                       *ngIf="registrationForm.get('step4').get('price').value > 0">
+                  Aktuelles Budget: {{registrationForm.get('step4').get('price').value * 5}}.-
+                </small>
+              </div>
+              <div class="form-group col-12">
+                <label for="attention">Attention</label>
+                <textarea class="form-control" id="attention" rows="3" formControlName="attention"></textarea>
+              </div>
+              <div class="form-group col-12 ml-n1">
+                <button name="prev2" type="button" class="btn btn-primary float-left" cdkStepperPrevious>
+                  Zurück
+                </button>
+                <button type="submit" name="submit" id="submit" class="btn btn-primary float-right"
+                        [disabled]="registrationForm.invalid">
+                  Absenden
+                </button>
+              </div>
+            </div>
+          </cdk-step>
+        </app-stepper>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="submitted" class="container">
+  <div class="row mt-4">
+    <div class="col-8 offset-2 text-center mt-2">
+      <h1>Sie sind nun Registriert</h1>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 text-center">
+      <fa-icon [icon]="faCheck" size="8x" style="color: #449D44"></fa-icon>
+    </div>
+  </div>
+  <div class="row mt-4 mb-5">
+    <div class="col-8 offset-2 text-center">
+      <h6>Ihr Profil wird innerhalb der nächsten 48 Stunden validiert. Nach der Freigabe Ihres Profiles
+        erhalten Sie auch schon die ersten Anfragen.</h6>
+    </div>
+  </div>
+  <!--TODO Redirection to Login form-->
+</div>
+

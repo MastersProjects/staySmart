@@ -23,6 +23,7 @@ import {StepperComponent} from './shared/stepper/stepper.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {registerLocaleData} from '@angular/common';
 import localeDECH from '@angular/common/locales/de-CH';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 registerLocaleData(localeDECH);
 
@@ -43,6 +44,7 @@ registerLocaleData(localeDECH);
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireAuthModule,
     NgbModule,
     FormsModule,
