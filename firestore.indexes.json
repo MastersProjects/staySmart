@@ -103,7 +103,7 @@
           "mode": "ASCENDING"
         },
         {
-          "fieldPath": "tags.subjects.Physic",
+          "fieldPath": "tags.subjects.Physik",
           "mode": "ASCENDING"
         },
         {
@@ -125,7 +125,7 @@
           "mode": "ASCENDING"
         },
         {
-          "fieldPath": "tags.subjects.Physic",
+          "fieldPath": "tags.subjects.Physik",
           "mode": "ASCENDING"
         },
         {
@@ -147,7 +147,7 @@
           "mode": "ASCENDING"
         },
         {
-          "fieldPath": "tags.subjects.Physic",
+          "fieldPath": "tags.subjects.Physik",
           "mode": "ASCENDING"
         },
         {
