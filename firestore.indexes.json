@@ -21,6 +21,277 @@
   //    },
   //   ]
   // ]
-  "indexes": [],
+  "indexes": [
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.Sekundarstufe",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Mathe",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.`1. - 3. Klasse`",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Mathe",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.`4. - 6. Klasse`",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Mathe",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+
+
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.Sekundarstufe",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Physic",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.`1. - 3. Klasse`",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Physic",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.`4. - 6. Klasse`",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Physic",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+
+
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.Sekundarstufe",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Deutsch",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.`1. - 3. Klasse`",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Deutsch",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.`4. - 6. Klasse`",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Deutsch",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+
+
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.Sekundarstufe",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Englisch",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.`1. - 3. Klasse`",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Englisch",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Tutors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tags.daysAvailable",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "tags.gradeLevels.`4. - 6. Klasse`",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "tags.subjects.Englisch",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "price",
+          "mode": "ASCENDING"
+        }
+      ]
+    }
+  ],
   "fieldOverrides": []
 }
