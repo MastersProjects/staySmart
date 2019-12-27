@@ -4,6 +4,7 @@ import * as nodemailer from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
 import * as uuidv4 from 'uuid/v4';
 import * as https from 'https';
+import FieldPath = admin.firestore.FieldPath;
 
 admin.initializeApp();
 
@@ -62,6 +63,67 @@ export const emailOnSubmit = functions.region('europe-west1')
         });
 
     });
+
+// Notify Tutor on a new matching TutorSearchRequest
+export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
+    .firestore.document('TutorSearchRequests/{tutorSearchRequestID}')
+    .onCreate(async (snap, context) => {
+        const createdTutorSearchRequest: any = snap.data();
+        console.log('createdTutorSearchRequest', createdTutorSearchRequest);
+
+        const requestDaysAvailableList: string[] = [];
+
+        Object.keys(createdTutorSearchRequest.daysAvailable).forEach(key => {
+            if (createdTutorSearchRequest.daysAvailable[key]) {
+                requestDaysAvailableList.push(key);
+            }
+        });
+
+        console.log('requestDaysAvailableList', requestDaysAvailableList);
+
+        // TODO where condition with location / city
+        const matchingQuery = admin.firestore().collection('Tutors')
+            .where('price', '<=', createdTutorSearchRequest.budget)
+            .where(`tags.subjects.${createdTutorSearchRequest.subject}`, '==', true)
+            // using FieldPath because gradeLevel can contain period (.) and strings are escaped by periods
+            .where(new FieldPath('tags', 'gradeLevels', createdTutorSearchRequest.gradeLevel), '==', true)
+            .where('tags.daysAvailable', 'array-contains-any', requestDaysAvailableList)
+        ;
+
+        const matchingQuerySnapshot = await matchingQuery.get();
+
+        console.log('matchingQuerySnapshot.docs', matchingQuerySnapshot.docs);
+
+        const promises: Promise<any>[] = [];
+
+        matchingQuerySnapshot.docs.forEach(matchingTutorDoc => {
+
+            const matchingTutor = matchingTutorDoc.data();
+
+            console.log('matchingTutor', matchingTutor);
+
+            // TODO mail message
+            const mailOptions: Mail.Options = {
+                from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
+                to: matchingTutor.email,
+                subject: context.params['tutorSearchRequestID'],
+                html: `${createdTutorSearchRequest.toString()}`
+            };
+
+            promises.push(transporter.sendMail(mailOptions)
+                .then(() => {
+                    console.log(`Sent to ${matchingTutor.email}`);
+                }).catch(error => {
+                    console.error(error);
+                })
+            );
+
+        });
+
+        return Promise.all(promises); // TODO if one of the promises fails, then all the rest of the promises fail.
+
+    });
+
 
 export const sendWhatsApp = functions.region('europe-west1').https.onRequest((_request, response) => {
     const options = {
