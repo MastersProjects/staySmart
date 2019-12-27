@@ -100,8 +100,7 @@ export class TutorSearchRequestComponent implements OnInit {
   submitForm() {
     if (this.isStep1Valid && this.isStep2Valid && this.isStep3Valid) {
       const tutorSearchRequest = this.mapFormToModel();
-      this.staySmartService.requestTutorSearch(tutorSearchRequest).then(value => {
-        console.log(value);
+      this.staySmartService.requestTutorSearch(tutorSearchRequest).then(() => {
         this.submitted = true;
       }).catch(reason => {
         console.log(reason);

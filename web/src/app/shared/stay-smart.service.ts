@@ -20,7 +20,7 @@ export class StaySmartService {
               private authService: AuthService) {
   }
 
-  requestTutorSearch(tutorSearchRequest: TutorSearchRequest): Promise<any> {
+  requestTutorSearch(tutorSearchRequest: TutorSearchRequest): Promise<void> {
     const batch = this.angularFirestore.firestore.batch();
     const tutorSearchRequestId = this.angularFirestore.createId();
     batch.set(
@@ -69,7 +69,7 @@ export class StaySmartService {
   private createTutorRegistration(registrationForm: RegistrationForm, uid: string,
                                   studentCardFront: string, studentCardBack: string): TutorRegistration {
     const birthday = registrationForm.step1.birthday;
-    return {
+    const tutorRegistration = {
       uid,
       firstName: registrationForm.step1.firstName,
       lastName: registrationForm.step1.lastName,
@@ -92,10 +92,32 @@ export class StaySmartService {
       price: registrationForm.step4.price,
       attention: registrationForm.step4.attention,
 
-      status: 'new',
+      status: 'new' as const,
 
-      registrationTimestamp: null
+      registrationTimestamp: null,
+
+      tags: {
+        subjects: {},
+        gradeLevels: {},
+        daysAvailable: []
+      }
     };
+
+    // Creating Tags for matching with Tutor Search Request
+    tutorRegistration.subjects.forEach(subject => {
+      tutorRegistration.tags.subjects[subject] = true;
+    });
+    tutorRegistration.gradeLevels.forEach(gradeLevel => {
+      tutorRegistration.tags.gradeLevels[gradeLevel] = true;
+    });
+    Object.keys(tutorRegistration.daysAvailable).forEach(key => {
+      if (tutorRegistration.daysAvailable[key]) {
+        tutorRegistration.tags.daysAvailable.push(key);
+      }
+    });
+
+    return tutorRegistration;
+
   }
 
   private get serverTimestamp() {
