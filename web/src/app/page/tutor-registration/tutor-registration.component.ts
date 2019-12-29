@@ -164,7 +164,7 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
           month: new FormControl('', Validators.required),
           year: new FormControl('', Validators.required)
         }), // TODO min. age validator?
-        password: new FormControl('', Validators.required), // TODO password secure validator
+        password: new FormControl('', [Validators.required, Validators.minLength(6)]),
         repeatPassword: new FormControl('', Validators.required)
       }, {validators: repeatPasswordValidator}),
       step2: new FormGroup({

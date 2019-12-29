@@ -66,18 +66,21 @@
               <div class="form-group col-lg-6">
                 <label for="password">Passwort</label>
                 <input id="password" name="password" type="password" class="form-control" formControlName="password">
+                <small *ngIf="registrationForm.get('step1').get('password').errors?.minlength
+                        && (registrationForm.get('step1').get('password').dirty
+                        || registrationForm.get('step1').get('password').touched)" class="form-text text-danger">
+                  Das Passwort muss mind. 6 lang sein
+                </small>
               </div>
               <div class="form-group col-lg-6">
                 <label for="repeatPassword">Passwort wiederholen</label>
                 <input id="repeatPassword" name="repeatPassword" type="password" class="form-control"
                        formControlName="repeatPassword">
-                <small
-                  *ngIf="registrationForm.get('step1').errors?.notSame
-                    && (registrationForm.get('step1').get('repeatPassword').dirty
-                    || registrationForm.get('step1').get('repeatPassword').touched)" class="form-text text-danger">
+                <small *ngIf="registrationForm.get('step1').errors?.notSame
+                        && (registrationForm.get('step1').get('repeatPassword').dirty
+                        || registrationForm.get('step1').get('repeatPassword').touched)" class="form-text text-danger">
                   Das Passwort stimmt nicht überein
                 </small>
-                <!--TODO password secure validation text-->
               </div>
               <div class="form-group col-12">
                 <button name="next1" type="button" class="btn btn-primary float-right"
