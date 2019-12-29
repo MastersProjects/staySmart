@@ -4,12 +4,14 @@ import {AuthService} from './auth.service';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 describe('AuthService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       AngularFireModule.initializeApp(environment.firebase),
-      AngularFireAuthModule
+      AngularFireAuthModule,
+      AngularFirestoreModule
     ],
   }));
 
