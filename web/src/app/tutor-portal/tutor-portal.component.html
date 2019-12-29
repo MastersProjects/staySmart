@@ -1,0 +1,7 @@
+<p>tutor-portal works!</p>
+
+<pre>{{tutor$ | async | json}}</pre>
+
+<button *ngIf="tutor$ | async" (click)="logout()">Logout</button>
+
+<router-outlet></router-outlet>

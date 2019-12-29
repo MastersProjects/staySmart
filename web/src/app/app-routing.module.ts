@@ -14,7 +14,8 @@ const routes: Routes = [
   {path: 'anbieten', component: TutorRegistrationComponent},
   {path: 'verein', component: OrganisationComponent},
   {path: 'team', component: TeamComponent},
-  {path: 'presse', component: PresseComponent}
+  {path: 'presse', component: PresseComponent},
+  {path: 'tutor-portal', loadChildren: () => import('./tutor-portal/tutor-portal.module').then(m => m.TutorPortalModule)}
 
 
 ];

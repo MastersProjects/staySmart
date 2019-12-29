@@ -8,7 +8,7 @@ import {from, Observable} from 'rxjs';
 import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 import {TutorRegistration} from './model/tutor-registration.model';
 import {map, switchMap} from 'rxjs/operators';
-import {AuthService} from './auth.service';
+import {AuthService} from '../auth/auth.service';
 import {GeoLocation} from './model/geo-location.model';
 
 @Injectable({
