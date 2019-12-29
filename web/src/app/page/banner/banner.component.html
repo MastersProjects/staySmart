@@ -1,0 +1,35 @@
+<ng-container *ngIf="(currentRoute$ | async) as currentRoute">
+  <div *ngIf="currentRoute === '/staysmart'" class="jumbotron img-jumbo text-white"
+       [style.background-image]="'url(assets/img/background.jpg)'">
+    <div class="container">
+      <h1 class='display-4'>Willkommen auf stay smart!</h1>
+      <p class='lead'>Die simple Nachhilfvermittlung für alle Klassenstufen</p>
+      <hr class='my-4'>
+      <p>Nachhilfelherer suchen?</p>
+      <p class='lead'>
+        <a class='btn btn-primary btn-lg' [routerLink]="['/anfragen']" role='button'>Anfrage erstllen</a>
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="currentRoute === '/anfragen'" class="jumbotron img-jumbo text-white"
+       [style.background-image]="'url(assets/img/anfragen_unscharf.png)'">
+    <div class="container">
+      <h1 class='display-4'>Anfrage erstellen</h1>
+    </div>
+  </div>
+
+  <div *ngIf="currentRoute === '/anbieten'" class="jumbotron img-jumbo text-white"
+       [style.background-image]="'url(assets/img/anbieten_unscharf.png)'">
+    <div class="container">
+      <h1 class='display-4'>Nachhilfe anbieten</h1>
+    </div>
+  </div>
+
+  <div *ngIf="currentRoute === '/verein'" class="jumbotron img-jumbo text-white"
+       [style.background-image]="'url(assets/img/team.jpg)'">
+  </div>
+</ng-container>
+
+
+

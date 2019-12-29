@@ -1,0 +1,32 @@
+.custom-navbar, .dropdown-menu {
+  background-color: #777777
+}
+
+.dropdown-menu a {
+  color: rgba(255,255,255,.5);
+}
+
+.dropdown-menu a:hover {
+  color: #fff;
+  background-color: #777777
+}
+
+.img-jumbo {
+  background-position: left bottom;
+  background-size: cover;
+  border-radius: 0;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.footer {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  height: 56px;
+  background-color: #777777;
+  color: white;
+}

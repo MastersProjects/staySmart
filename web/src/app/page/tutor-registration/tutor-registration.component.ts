@@ -1,17 +1,17 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {repeatPasswordValidator} from '../shared/validators/repeat-password.validator';
-import {locationDomainValidator} from '../shared/validators/location.validator';
+import {repeatPasswordValidator} from '../../shared/validators/repeat-password.validator';
+import {locationDomainValidator} from '../../shared/validators/location.validator';
 import {Observable, of, Subject} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, takeUntil, tap} from 'rxjs/operators';
-import {GeoLocation} from '../shared/model/geo-location.model';
-import {LocationService} from '../shared/location.service';
+import {GeoLocation} from '../../shared/model/geo-location.model';
+import {LocationService} from '../../shared/location.service';
 import {faCalendar} from '@fortawesome/free-solid-svg-icons/faCalendar';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {NgbDateAdapter, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import 'moment/locale/de-ch';
-import {StaySmartService} from '../shared/stay-smart.service';
+import {StaySmartService} from '../../shared/stay-smart.service';
 
 @Component({
   selector: 'app-tutor-registration',

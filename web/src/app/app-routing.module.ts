@@ -1,23 +1,19 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {TutorSearchRequestComponent} from './tutor-search-request/tutor-search-request.component';
-import {TutorRegistrationComponent} from './tutor-registration/tutor-registration.component';
-import {OrganisationComponent} from './other/organisation/organisation.component';
-import {TeamComponent} from './other/team/team.component';
-import {PresseComponent} from './other/presse/presse.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'staysmart', pathMatch: 'full'},
-  {path: 'staysmart', component: HomeComponent},
-  {path: 'anfragen', component: TutorSearchRequestComponent},
-  {path: 'anbieten', component: TutorRegistrationComponent},
-  {path: 'verein', component: OrganisationComponent},
-  {path: 'team', component: TeamComponent},
-  {path: 'presse', component: PresseComponent},
-  {path: 'tutor-portal', loadChildren: () => import('./tutor-portal/tutor-portal.module').then(m => m.TutorPortalModule)}
-
-
+  {
+    path: '',
+    loadChildren: () => import('./page/page.module').then(m => m.PageModule)
+  },
+  {
+    path: 'tutor-portal',
+    loadChildren: () => import('./tutor-portal/tutor-portal.module').then(m => m.TutorPortalModule)
+  },
+  {
+    path: 'admin-portal',
+    loadChildren: () => import('./admin-portal/admin-portal.module').then(m => m.AdminPortalModule)
+  }
 ];
 
 @NgModule({
