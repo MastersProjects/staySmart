@@ -4,7 +4,7 @@ import {TutorSearchRequest} from './model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {AngularFireStorage} from '@angular/fire/storage';
 import * as uuidv4 from 'uuid/v4';
-import {from, Observable} from 'rxjs';
+import {from, Observable, of} from 'rxjs';
 import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 import {TutorRegistration} from './model/tutor-registration.model';
 import {map, switchMap} from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class StaySmartService {
     );
     batch.set(
       this.angularFirestore.collection('TutorSearchRequests').doc(tutorSearchRequestId)
-        .collection('ContactData').doc(this.angularFirestore.createId()).ref,
+        .collection('TutorSearchRequestContactData').doc(this.angularFirestore.createId()).ref,
       tutorSearchRequest.tutorSearchRequestContactData
     );
     return batch.commit();
@@ -55,6 +55,29 @@ export class StaySmartService {
           console.log('file upload not successful');
           // TODO error handler
           return null;
+        }
+      })
+    );
+  }
+
+  getTutorSearchRequest(linkRef: string): Observable<TutorSearchRequest | null> {
+    return this.angularFirestore.collectionGroup(
+      'TutorSearchRequestContactData',
+      query => query.where('linkRef', '==', linkRef)
+    ).get().pipe(
+      switchMap(querySnapshot => {
+        if (!querySnapshot.empty) {
+          return this.angularFirestore.collection('TutorSearchRequests')
+            .doc(querySnapshot.docs[0].ref.parent.parent.id).valueChanges().pipe(
+              map(data => (
+                {
+                  tutorSearchRequestData: data,
+                  tutorSearchRequestContactData: querySnapshot.docs[0].data()
+                } as TutorSearchRequest
+              ))
+            );
+        } else {
+          return of(null);
         }
       })
     );

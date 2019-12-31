@@ -8,6 +8,7 @@ import {TutorRegistrationComponent} from './tutor-registration/tutor-registratio
 import {OrganisationComponent} from './organisation/organisation.component';
 import {TeamComponent} from './team/team.component';
 import {PresseComponent} from './presse/presse.component';
+import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail/tutor-search-request-detail.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
     children: [
       {path: 'staysmart', component: HomeComponent},
       {path: 'anfragen', component: TutorSearchRequestComponent},
+      {path: 'anfragen/:linkRef', component: TutorSearchRequestDetailComponent},
       {path: 'anbieten', component: TutorRegistrationComponent},
       {path: 'verein', component: OrganisationComponent},
       {path: 'team', component: TeamComponent},

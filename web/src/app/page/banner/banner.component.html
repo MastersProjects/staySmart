@@ -1,4 +1,4 @@
-<ng-container *ngIf="(currentRoute$ | async) as currentRoute">
+<ng-container *ngIf="currentRoute$ | async as currentRoute">
   <div *ngIf="currentRoute === '/staysmart'" class="jumbotron img-jumbo text-white"
        [style.background-image]="'url(assets/img/background.jpg)'">
     <div class="container">

@@ -15,6 +15,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail/tutor-search-request-detail.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     OrganisationComponent,
     TeamComponent,
     PresseComponent,
-    StepperComponent
+    StepperComponent,
+    TutorSearchRequestDetailComponent
   ],
   imports: [
     CommonModule,

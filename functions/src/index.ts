@@ -30,7 +30,7 @@ export const helloWorld = functions.region('europe-west1').https.onRequest((_req
 });
 
 export const emailOnSubmit = functions.region('europe-west1')
-    .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/ContactData/{contactDataID}')
+    .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestContactData/{contactDataID}')
     .onCreate(async (snap, context) => {
         console.log('emailOnSubmit');
 
