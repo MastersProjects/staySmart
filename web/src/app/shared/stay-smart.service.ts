@@ -67,15 +67,11 @@ export class StaySmartService {
     ).get().pipe(
       switchMap(querySnapshot => {
         if (!querySnapshot.empty) {
-          return this.angularFirestore.collection('TutorSearchRequests')
-            .doc(querySnapshot.docs[0].ref.parent.parent.id).valueChanges().pipe(
-              map(data => (
-                {
-                  tutorSearchRequestData: data,
-                  tutorSearchRequestContactData: querySnapshot.docs[0].data()
-                } as TutorSearchRequest
-              ))
-            );
+          return this.angularFirestore.doc(querySnapshot.docs[0].ref.parent.parent.path).valueChanges().pipe(
+            map(data => ({
+              tutorSearchRequestData: data, tutorSearchRequestContactData: querySnapshot.docs[0].data()
+            } as TutorSearchRequest))
+          );
         } else {
           return of(null);
         }
