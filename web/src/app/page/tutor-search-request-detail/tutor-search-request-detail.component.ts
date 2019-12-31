@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {TutorSearchRequest} from '../../shared/model/tutor-search-request.model';
-import {switchMap} from 'rxjs/operators';
+import {switchMap, tap} from 'rxjs/operators';
 import {StaySmartService} from '../../shared/stay-smart.service';
 
 @Component({
@@ -14,13 +14,18 @@ export class TutorSearchRequestDetailComponent implements OnInit {
 
   tutorSearchRequest$: Observable<TutorSearchRequest | null>;
 
-  constructor(private activatedRoute: ActivatedRoute, private staySmartService: StaySmartService) {
+  constructor(private activatedRoute: ActivatedRoute, private staySmartService: StaySmartService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.tutorSearchRequest$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        return this.staySmartService.getTutorSearchRequest(params.get('linkRef'));
+      switchMap((params: ParamMap) => this.staySmartService.getTutorSearchRequest(params.get('linkRef'))),
+      tap(result => {
+        if (!result) {
+          console.log('invalid refLink');
+          this.router.navigate(['anfragen']);
+        }
       })
     );
   }
