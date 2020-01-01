@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {TutorPortalRoutingModule} from './tutor-portal-routing.module';
 import {TutorPortalComponent} from './tutor-portal.component';
 import {TutorPortalLoginComponent} from './tutor-portal-login/tutor-portal-login.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {TutorPortalLoginComponent} from './tutor-portal-login/tutor-portal-login
   ],
   imports: [
     CommonModule,
-    TutorPortalRoutingModule
+    TutorPortalRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class TutorPortalModule {

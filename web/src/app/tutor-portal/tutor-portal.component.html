@@ -1,7 +1,8 @@
 <p>tutor-portal works!</p>
 
-<pre>{{tutor$ | async | json}}</pre>
+<button *ngIf="isLoggedIn$ | async" class="btn btn-primary" (click)="logout()">Logout</button>
 
-<button *ngIf="tutor$ | async" (click)="logout()">Logout</button>
-
-<router-outlet></router-outlet>
+<div class="container">
+  <pre>{{tutor$ | async | json}}</pre>
+  <router-outlet></router-outlet>
+</div>

@@ -38,7 +38,6 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
 
   months = moment.months();
 
-  today = new Date();
   studentCardFrontFileName: string;
   studentCardBackFileName: string;
 

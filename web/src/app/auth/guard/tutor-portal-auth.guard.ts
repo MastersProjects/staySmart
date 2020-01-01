@@ -14,8 +14,8 @@ export class TutorPortalAuthGuard implements CanActivate {
   }
 
   canActivate(): Observable<boolean> {
-    const portalUser$ = this.authService.tutorPortalUser$;
-    return portalUser$.pipe(
+    console.log('TutorPortalAuthGuard');
+    return this.authService.tutorPortalUser$.pipe(
       take(1),
       map(tutor => !!tutor),
       tap(loggedIn => {

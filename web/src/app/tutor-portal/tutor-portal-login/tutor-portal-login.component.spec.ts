@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {RouterTestingModule} from '@angular/router/testing';
+import {ReactiveFormsModule} from '@angular/forms';
 
 describe('PortalLoginComponent', () => {
   let component: TutorPortalLoginComponent;
@@ -17,7 +18,8 @@ describe('PortalLoginComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveFormsModule
       ],
       declarations: [TutorPortalLoginComponent]
     })

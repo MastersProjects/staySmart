@@ -51,7 +51,7 @@ export const emailOnSubmit = functions.region('europe-west1')
             from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
             to: createdTutorSearchRequestContactData.email,
             subject: createdTutorSearchRequest.subject,
-            html: `<p style="font-size: 16px;">TEST https://staysmart-dev.web.app/search-request/${linkRef}</p>
+            html: `<p style="font-size: 16px;">TEST https://staysmart-dev.web.app/anfragen/${linkRef}</p>
                 <br />
                 ${createdTutorSearchRequest.problem}`
         };

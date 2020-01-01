@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Tutor} from '../../shared/model/tutor.model';
 import {AuthService} from '../../auth/auth.service';
 import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-tutor-portal-login',
@@ -11,27 +11,36 @@ import {Router} from '@angular/router';
 })
 export class TutorPortalLoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  loginForm: FormGroup;
+  isLoading: boolean;
+  eventAuthError$: Observable<string>;
 
-  tutor$: Observable<Tutor> | Observable<null>;
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   ngOnInit() {
-    this.tutor$ = this.authService.tutorPortalUser$.pipe();
+    this.loginForm = this.createLoginForm();
+    this.eventAuthError$ = this.authService.eventAuthError$;
   }
 
-  login(email: string, password: string) {
-    console.log('login');
-    this.authService.login(email, password).subscribe(response => {
-      console.log(response);
-      this.router.navigate(['/tutor-portal']);
+  login() {
+    if (this.loginForm.valid) {
+      console.log('login');
+      this.isLoading = true;
+      this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then(response => {
+        console.log(response);
+        this.isLoading = false;
+        if (response) {
+          this.router.navigate(['/tutor-portal']);
+        }
+      });
+    }
+  }
+
+  private createLoginForm() {
+    return new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required)
     });
   }
-
-  logout() {
-    this.authService.logout().subscribe(() => {
-      console.log('logged out');
-      this.router.navigate(['/tutor-portal/login']);
-    });
-  }
-
 }

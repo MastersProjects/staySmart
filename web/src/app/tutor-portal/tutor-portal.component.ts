@@ -11,13 +11,15 @@ import {Router} from '@angular/router';
 })
 export class TutorPortalComponent implements OnInit {
 
+  tutor$: Observable<Tutor> | Observable<null>;
+  isLoggedIn$: Observable<boolean>;
+
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  tutor$: Observable<Tutor> | Observable<null>;
-
   ngOnInit() {
     this.tutor$ = this.authService.tutorPortalUser$;
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
 
   logout() {
