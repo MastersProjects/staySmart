@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 
 import {TutorPortalResetPasswordComponent} from './tutor-portal-reset-password.component';
 import {AngularFireModule} from '@angular/fire';
@@ -12,7 +12,7 @@ describe('TutorPortalResetPasswordComponent', () => {
   let component: TutorPortalResetPasswordComponent;
   let fixture: ComponentFixture<TutorPortalResetPasswordComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -21,9 +21,9 @@ describe('TutorPortalResetPasswordComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule
       ],
-      declarations: [ TutorPortalResetPasswordComponent ]
+      declarations: [TutorPortalResetPasswordComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

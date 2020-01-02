@@ -3,6 +3,7 @@ import {AuthService} from '../auth/auth.service';
 import {Observable} from 'rxjs';
 import {Tutor} from '../shared/model/tutor.model';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-tutor-portal',
@@ -11,15 +12,15 @@ import {Router} from '@angular/router';
 })
 export class TutorPortalComponent implements OnInit {
 
+  version = environment.version;
+
   tutor$: Observable<Tutor> | Observable<null>;
-  isLoggedIn$: Observable<boolean>;
 
   constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
     this.tutor$ = this.authService.tutorPortalUser$;
-    this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
 
   logout() {
