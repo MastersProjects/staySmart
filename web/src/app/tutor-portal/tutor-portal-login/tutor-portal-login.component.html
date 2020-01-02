@@ -15,6 +15,15 @@
           <div *ngIf="eventAuthError$ | async as eventAuthError" class="alert alert-danger" role="alert">
             {{eventAuthError}}
           </div>
+          <div *ngIf="emailVerifiedError" class="alert alert-warning text-center" role="alert">
+            <span>E-Mail ist nocht nicht verifiziert.</span>
+            <button class="btn btn-block btn-link text-decoration-none" type="button" (click)="sendEmailVerification()">
+              Nochmals senden
+            </button>
+          </div>
+          <div *ngIf="emailVerificationSent" class="alert alert-success text-center" role="alert">
+            Verifizierungsmail an '{{userEmail}}' versendet.
+          </div>
           <div class="form-group">
             <input type="email" class="form-control" id="email" placeholder="E-mail" formControlName="email">
           </div>

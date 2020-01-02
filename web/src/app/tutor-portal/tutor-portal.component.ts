@@ -23,7 +23,7 @@ export class TutorPortalComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe(() => {
+    this.authService.logout().then(() => {
       console.log('logged out');
       this.router.navigate(['/tutor-portal/login']);
     });

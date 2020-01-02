@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {from, Observable, of, Subject} from 'rxjs';
 import * as firebase from 'firebase/app';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Tutor} from '../shared/model/tutor.model';
 
@@ -19,25 +19,28 @@ export class AuthService {
   }
 
   registerUser(email: string, password: string): Observable<firebase.auth.UserCredential> {
-    return from(this.angularFireAuth.auth.createUserWithEmailAndPassword(email, password));
+    return from(this.angularFireAuth.auth.createUserWithEmailAndPassword(email, password)).pipe(
+      tap(userCredential => userCredential.user.sendEmailVerification())
+    );
   }
 
   login(email: string, password: string): Promise<firebase.auth.UserCredential | null> {
-    return this.angularFireAuth.auth.signInWithEmailAndPassword(email, password).catch(err => {
-      console.log('login error', err);
-      if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
-        this.eventAuthError.next('Falsches E-mail oder Passwort');
-      } else if (err.code === 'auth/too-many-requests') {
-        this.eventAuthError.next('Zu viele Versuche. Versuche es später noch einmals.');
-      } else {
-        this.eventAuthError.next(`${err.code}: ${err.message}`);
-      }
-      return null;
-    });
+    return this.angularFireAuth.auth.signInWithEmailAndPassword(email, password)
+      .catch(error => {
+        console.log('login error', error);
+        if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+          this.eventAuthError.next('Falsches E-mail oder Passwort');
+        } else if (error.code === 'auth/too-many-requests') {
+          this.eventAuthError.next('Zu viele Versuche. Versuche es später noch einmals.');
+        } else {
+          this.eventAuthError.next(`${error.code}: ${error.message}`);
+        }
+        return null;
+      });
   }
 
-  logout(): Observable<void> {
-    return from(this.angularFireAuth.auth.signOut());
+  logout(): Promise<void> {
+    return this.angularFireAuth.auth.signOut();
   }
 
   resetPassword(email: string): Promise<void> {
@@ -48,7 +51,12 @@ export class AuthService {
     return this.angularFireAuth.authState.pipe(
       switchMap(user => {
         if (user) {
-          return this.getTutor(user.uid);
+          if (user.emailVerified) {
+            return this.getTutor(user.uid);
+          } else {
+            console.log('E-Mail not verified');
+            return from(this.logout()).pipe(map(() => null));
+          }
         } else {
           return of(null);
         }
@@ -58,7 +66,18 @@ export class AuthService {
 
   get isLoggedIn$(): Observable<boolean> {
     return this.angularFireAuth.authState.pipe(
-      map(authState => !!authState)
+      switchMap(authState => {
+        if (authState) {
+          if (authState.emailVerified) {
+            return of(true);
+          } else {
+            console.log('E-Mail not verified');
+            return from(this.logout()).pipe(map(() => false));
+          }
+        } else {
+          return of(false);
+        }
+      })
     );
   }
 
@@ -71,7 +90,7 @@ export class AuthService {
         } else {
           console.log(`Tutor ${uid} doesn't exist in Firestore`);
           this.eventAuthError.next('Falsches E-mail oder Passwort');
-          return this.logout().pipe(map(() => null)); // mapping because we need Observable<null> instead of Observable<void>
+          return from(this.logout()).pipe(map(() => null)); // mapping because we need Observable<null> instead of Observable<void>
         }
       })
     );
