@@ -5,12 +5,14 @@ import {TutorPortalRoutingModule} from './tutor-portal-routing.module';
 import {TutorPortalComponent} from './tutor-portal.component';
 import {TutorPortalLoginComponent} from './tutor-portal-login/tutor-portal-login.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {TutorPortalResetPasswordComponent} from './tutor-portal-reset-password/tutor-portal-reset-password.component';
 
 
 @NgModule({
   declarations: [
     TutorPortalComponent,
-    TutorPortalLoginComponent
+    TutorPortalLoginComponent,
+    TutorPortalResetPasswordComponent
   ],
   imports: [
     CommonModule,

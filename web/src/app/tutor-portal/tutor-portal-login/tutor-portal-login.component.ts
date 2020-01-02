@@ -3,6 +3,7 @@ import {AuthService} from '../../auth/auth.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-tutor-portal-login',
@@ -14,6 +15,7 @@ export class TutorPortalLoginComponent implements OnInit {
   loginForm: FormGroup;
   isLoading: boolean;
   eventAuthError$: Observable<string>;
+  version = environment.version;
 
   constructor(private authService: AuthService, private router: Router) {
   }

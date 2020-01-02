@@ -40,6 +40,10 @@ export class AuthService {
     return from(this.angularFireAuth.auth.signOut());
   }
 
+  resetPassword(email: string): Promise<void> {
+    return this.angularFireAuth.auth.sendPasswordResetEmail(email);
+  }
+
   get tutorPortalUser$(): Observable<Tutor | null> {
     return this.angularFireAuth.authState.pipe(
       switchMap(user => {
