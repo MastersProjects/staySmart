@@ -9,7 +9,10 @@ export class TutorPortalService {
   }
 
   getTutorSearchRequests(): Observable<any[]> {
-    return this.angularFirestore.collection('TutorSearchRequests').valueChanges();
+    return this.angularFirestore.collection(
+      'TutorSearchRequests',
+      ref => ref.orderBy('timestamp', 'desc')
+    ).valueChanges();
   }
 
 }

@@ -1,10 +1,7 @@
 <h3>Nachhilf Anfragen</h3>
 
-<div class="card mt-4" *ngFor="let tutorSearchRequest of tutorSearchRequests$ | async">
-  <h5 class="card-header">{{tutorSearchRequest.subject}} - {{tutorSearchRequest.gradeLevel}}</h5>
-  <div class="card-body">
-    <h6 class="card-title">Problem</h6>
-    <p class="card-text">{{tutorSearchRequest.problem}}</p>
-    <pre>{{tutorSearchRequest | json}}</pre>
+<div *ngFor="let tutorSearchRequest of tutorSearchRequests$ | async" class="row">
+  <div class="col-12 my-4">
+    <app-tutor-portal-request-detail [tutorSearchRequest]="tutorSearchRequest"></app-tutor-portal-request-detail>
   </div>
 </div>

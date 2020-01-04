@@ -1,4 +1,5 @@
 import {GeoLocation} from './geo-location.model';
+import {Timestamp} from '@firebase/firestore-types';
 
 export interface TutorSearchRequest {
   tutorSearchRequestData: TutorSearchRequestData;
@@ -22,7 +23,7 @@ export interface TutorSearchRequestData {
   };
   budget: number;
   problem: string;
-  timestamp: Date;
+  timestamp: Timestamp;
 }
 
 export interface TutorSearchRequestContactData {

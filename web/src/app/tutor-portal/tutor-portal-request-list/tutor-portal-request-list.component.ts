@@ -12,7 +12,8 @@ export class TutorPortalRequestListComponent implements OnInit {
 
   tutorSearchRequests$: Observable<TutorSearchRequestData[]>;
 
-  constructor(private tutorPortalService: TutorPortalService) { }
+  constructor(private tutorPortalService: TutorPortalService) {
+  }
 
   ngOnInit() {
     this.tutorSearchRequests$ = this.tutorPortalService.getTutorSearchRequests();

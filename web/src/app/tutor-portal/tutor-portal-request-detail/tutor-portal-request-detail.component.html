@@ -1,0 +1,90 @@
+<div class="card">
+  <div class="card-header text-center" (click)="collapseToggle()">
+    {{tutorSearchRequest.firstName}} {{tutorSearchRequest.lastName}}
+    <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="isCollapsed ? '180' : ''"></fa-icon>
+  </div>
+  <div [@collapse]="isCollapsed ? 'closed' : 'opened'" class="card-body">
+    <div class="form-group">
+      <label class="w-100">
+        Ort
+        <input disabled name="location" type="text" class="form-control"
+               [value]="tutorSearchRequest.location.label">
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="w-100">
+        Zeitpunkt
+      </label>
+      <button *ngIf="tutorSearchRequest.daysAvailable.monday" disabled class="btn btn-outline-success mr-1 mb-1">
+        Montag
+      </button>
+      <button *ngIf="tutorSearchRequest.daysAvailable.tuesday" disabled class="btn btn-outline-success mr-1 mb-1">
+        Dienstag
+      </button>
+      <button *ngIf="tutorSearchRequest.daysAvailable.wednesday" disabled class="btn btn-outline-success mr-1 mb-1">
+        Mittwoch
+      </button>
+      <button *ngIf="tutorSearchRequest.daysAvailable.thursday" disabled class="btn btn-outline-success mr-1 mb-1">
+        Donnerstag
+      </button>
+      <button *ngIf="tutorSearchRequest.daysAvailable.friday" disabled class="btn btn-outline-success mr-1 mb-1">
+        Freitag
+      </button>
+      <button *ngIf="tutorSearchRequest.daysAvailable.saturday" disabled class="btn btn-outline-success mr-1 mb-1">
+        Samstag
+      </button>
+      <button *ngIf="tutorSearchRequest.daysAvailable.sunday" disabled class="btn btn-outline-success mr-1 mb-1">
+        Sonntag
+      </button>
+    </div>
+    <div class="form-group">
+      <label class="w-100">
+        Budget maximal (pro Stunde)
+        <input disabled type="range" name="budget" class="custom-range" min="0" max="20"
+               [value]="tutorSearchRequest.budget">
+        <small class="form-text text-muted h6 font-weight-light">Budget: {{tutorSearchRequest.budget * 5}}.-</small>
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="w-100">
+        Problem
+        <textarea disabled class="form-control" rows="7" [value]="tutorSearchRequest.problem"></textarea>
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="w-100">
+        Fach
+        <input disabled name="lecture" type="text" class="form-control"
+               [value]="tutorSearchRequest.subject">
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="w-100">
+        Klasse
+        <input disabled name="class" type="text" class="form-control"
+               [value]="tutorSearchRequest.gradeLevel">
+      </label>
+    </div>
+    <div class="row mx-2 mt-5">
+      <div class="col-6">
+        <a class="btn btn-danger btn-circle" href="keineAnfrage.html" role="button">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </a>
+      </div>
+      <div class="col-6">
+        <a class="btn btn-success float-right btn-circle" href="anfrage2.html" role="button">
+          <fa-icon [icon]="faCheck"></fa-icon>
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-footer text-muted">
+    <div class="row">
+      <div class="col-sm-6">Bereits 3 Angebote erhalten</div>
+      <div class="col-sm-6 text-sm-right">
+        <small>Erstellt am: {{tutorSearchRequest.timestamp.toDate() | date: 'medium'}}</small>
+      </div>
+    </div>
+  </div>
+</div>
