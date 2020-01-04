@@ -25,7 +25,7 @@ registerLocaleData(localeDECH);
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'de-ch'}],
   bootstrap: [AppComponent]

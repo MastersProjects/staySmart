@@ -149,13 +149,13 @@ export class TutorSearchRequestComponent implements OnInit {
 
   locationFormatter = (result: GeoLocation) => {
     if (result.label) {
-      return result.label.replace(/<[^>]*>/g, '');
+      return result.label;
     }
   }
 
   locationFormatterForm = (result: GeoLocation) => {
     if (result.label) {
-      return result.label.replace(/<[^>]*>/g, '');
+      return result.label;
     }
   }
 }

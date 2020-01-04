@@ -8,7 +8,7 @@ const GEO_URL = 'https://api3.geo.admin.ch/rest/services/api/SearchServer';
 const PARAMS = {
   type: 'locations',
   origins: 'gg25',
-  searchText: '*'
+  searchText: ''
 };
 
 @Injectable({
@@ -20,26 +20,22 @@ export class LocationService {
   constructor(private http: HttpClient) {
   }
 
-  searchLocation(query: string): Observable<GeoLocation[]> {
-    if (query === '') {
+  searchLocation(searchText: string): Observable<GeoLocation[]> {
+    if (searchText === '') {
       return of([]);
     }
 
-    PARAMS.searchText = query;
-    const resultKey = 'results';
-    const itemKey = 'attrs';
-    return this.http.get<GeoLocation[]>(GEO_URL, {params: PARAMS}).pipe(
+    return this.http.get<any>(GEO_URL, {params: {...PARAMS, searchText}}).pipe(
       map(res => {
-        return res[resultKey].map(item => {
-          item = item[itemKey];
+        return res.results.map(item => {
           return {
-            label: item.label,
-            detail: item.detail,
-            lon: item.lon,
-            lat: item.lat,
-            y: item.y,
-            x: item.x,
-            geomStBox2d: item.geom_st_box2d,
+            label: item.attrs.label.replace(/<[^>]*>/g, ''),
+            detail: item.attrs.detail,
+            lon: item.attrs.lon,
+            lat: item.attrs.lat,
+            y: item.attrs.y,
+            x: item.attrs.x,
+            geomStBox2d: item.attrs.geom_st_box2d,
           };
         });
       })
