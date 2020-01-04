@@ -1,5 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: avenir;
+  src: url(assets/font/avenir.otf) format("opentype");
+}
+
 html, body {
   height: 100%;
   margin: 0;
+  font-family: avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
