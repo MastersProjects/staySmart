@@ -44,4 +44,10 @@ export class TutorPortalRequestDetailComponent implements OnInit {
   collapseToggle() {
     this.isCollapsed = !this.isCollapsed;
   }
+
+  scrollToElementOnOpen(collapseBody: HTMLDivElement, $event: any) {
+    if ($event.toState === 'opened') {
+      collapseBody.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+  }
 }

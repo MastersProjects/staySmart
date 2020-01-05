@@ -1,9 +1,10 @@
-<div class="card">
+<div #card class="card">
   <div class="card-header text-center" (click)="collapseToggle()">
     {{tutorSearchRequest.firstName}} {{tutorSearchRequest.lastName}}
     <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="isCollapsed ? '180' : ''"></fa-icon>
   </div>
-  <div [@collapse]="isCollapsed ? 'closed' : 'opened'" class="card-body">
+  <div [@collapse]="isCollapsed ? 'closed' : 'opened'" (@collapse.done)="scrollToElementOnOpen(card, $event)"
+       class="card-body">
     <div class="form-group">
       <label class="w-100">
         Ort
