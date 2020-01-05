@@ -1,0 +1,25 @@
+<form [formGroup]="requestOfferForm" (ngSubmit)="submitOffer()">
+  <div class="form-group">
+    <label class="w-100">
+      Nachricht
+      <textarea class="form-control" rows="7" formControlName="message"></textarea>
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="w-100">
+      Preis pro Stunde (Fr.)
+      <input class="form-control" formControlName="price">
+    </label>
+  </div>
+  <div class="row mx-2 mt-5">
+    <div class="col-6">
+      <button class="btn btn-danger" type="button" (click)="cancel()">Abbrechen</button>
+    </div>
+    <div class="col-6">
+      <button [disabled]="requestOfferForm.invalid" class="btn btn-success float-right" type="submit">
+        Offerte senden
+      </button>
+    </div>
+  </div>
+</form>
+

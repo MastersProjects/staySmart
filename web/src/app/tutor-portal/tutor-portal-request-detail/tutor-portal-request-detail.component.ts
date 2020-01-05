@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.model';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {animate, AnimationEvent, state, style, transition, trigger} from '@angular/animations';
 import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 
 @Component({
@@ -29,6 +29,7 @@ import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 export class TutorPortalRequestDetailComponent implements OnInit {
 
   @Input() tutorSearchRequest: TutorSearchRequestData;
+  requestAccepted: boolean;
 
   faCheck = faCheck;
   faTimes = faTimes;
@@ -45,9 +46,15 @@ export class TutorPortalRequestDetailComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  scrollToElementOnOpen(collapseBody: HTMLDivElement, $event: any) {
-    if ($event.toState === 'opened') {
+  onCollapseAnimationDone(collapseBody: HTMLDivElement, animationEvent: AnimationEvent) {
+    if (animationEvent.toState === 'opened') {
       collapseBody.scrollIntoView({behavior: 'smooth', block: 'start'});
+    } else if (animationEvent.toState === 'closed' || this.requestAccepted) {
+      this.requestAccepted = false;
     }
+  }
+
+  acceptRequest() {
+    this.requestAccepted = true;
   }
 }

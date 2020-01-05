@@ -11,6 +11,7 @@ import {TutorPortalRequestListComponent} from './tutor-portal-request-list/tutor
 import {TutorPortalService} from './shared/tutor-portal.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TutorPortalRequestDetailComponent} from './tutor-portal-request-detail/tutor-portal-request-detail.component';
+import {TutorPortalRequestOfferComponent} from './tutor-portal-request-offer/tutor-portal-request-offer.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {TutorPortalRequestDetailComponent} from './tutor-portal-request-detail/t
     TutorPortalResetPasswordComponent,
     TutorPortalDashboardComponent,
     TutorPortalRequestListComponent,
-    TutorPortalRequestDetailComponent
+    TutorPortalRequestDetailComponent,
+    TutorPortalRequestOfferComponent
   ],
   imports: [
     CommonModule,

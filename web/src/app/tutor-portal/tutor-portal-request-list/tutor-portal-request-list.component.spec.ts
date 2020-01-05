@@ -7,6 +7,8 @@ import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {TutorPortalRequestDetailComponent} from '../tutor-portal-request-detail/tutor-portal-request-detail.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {ReactiveFormsModule} from '@angular/forms';
+import {TutorPortalRequestOfferComponent} from '../tutor-portal-request-offer/tutor-portal-request-offer.component';
 
 describe('TutorPortalRequestListComponent', () => {
   let component: TutorPortalRequestListComponent;
@@ -17,11 +19,13 @@ describe('TutorPortalRequestListComponent', () => {
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        ReactiveFormsModule
       ],
       declarations: [
         TutorPortalRequestListComponent,
-        TutorPortalRequestDetailComponent
+        TutorPortalRequestDetailComponent,
+        TutorPortalRequestOfferComponent
       ],
       providers: [TutorPortalService]
     })

@@ -7,6 +7,8 @@ import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TutorPortalRequestOfferComponent} from '../tutor-portal-request-offer/tutor-portal-request-offer.component';
+import {ReactiveFormsModule} from '@angular/forms';
 import Timestamp = firebase.firestore.Timestamp;
 
 describe('TutorPortalRequestDetailComponent', () => {
@@ -19,9 +21,13 @@ describe('TutorPortalRequestDetailComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         FontAwesomeModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ReactiveFormsModule
       ],
-      declarations: [TutorPortalRequestDetailComponent]
+      declarations: [
+        TutorPortalRequestDetailComponent,
+        TutorPortalRequestOfferComponent
+      ]
     })
       .compileComponents();
   }));
