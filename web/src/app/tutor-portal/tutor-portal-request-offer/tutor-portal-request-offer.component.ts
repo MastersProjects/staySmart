@@ -26,7 +26,7 @@ export class TutorPortalRequestOfferComponent implements OnInit {
       message: new FormControl('', Validators.required),
       price: new FormControl(
         minPrice,
-        [Validators.required, Validators.pattern('^[0-9]*$'), Validators.max(minPrice)]
+        [Validators.required, Validators.pattern('^[0-9]*$')]
       )
     });
   }
