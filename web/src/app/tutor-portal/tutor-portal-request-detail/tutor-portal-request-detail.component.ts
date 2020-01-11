@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.model';
+import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
 import {animate, AnimationEvent, state, style, transition, trigger} from '@angular/animations';
 import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
+import {TutorPortalService} from '../shared/tutor-portal.service';
 
 @Component({
   selector: 'app-tutor-portal-request-detail',
@@ -30,7 +31,7 @@ export class TutorPortalRequestDetailComponent implements OnInit {
   faChevronUp = faChevronUp;
   isCollapsed = true;
 
-  constructor() {
+  constructor(private tutorPortalService: TutorPortalService) {
   }
 
   ngOnInit() {
@@ -56,6 +57,13 @@ export class TutorPortalRequestDetailComponent implements OnInit {
   offerCanceled() {
     this.requestAccepted = false;
     new Promise(resolve => setTimeout(resolve, 300)).then(() => this.scrollToCardElement());
+  }
+
+  sendOffer(tutorSearchRequestOffer: TutorSearchRequestOffer) {
+    this.tutorPortalService.sendTutorSearchRequestOffer(tutorSearchRequestOffer, this.tutorSearchRequest.id).then(response => {
+      console.log('offer sent', response);
+      // TODO action after offerSent
+    });
   }
 
   private scrollToCardElement() {

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {from, Observable, of, Subject} from 'rxjs';
 import * as firebase from 'firebase/app';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {map, switchMap, take, tap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Tutor} from '../shared/model/tutor.model';
 
@@ -62,6 +62,10 @@ export class AuthService {
         }
       })
     );
+  }
+
+  get tutorPortalUser(): Promise<Tutor | null> {
+    return this.tutorPortalUser$.pipe(take(1)).toPromise();
   }
 
   get isLoggedIn$(): Observable<boolean> {

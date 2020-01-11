@@ -7,6 +7,7 @@ export interface TutorSearchRequest {
 }
 
 export interface TutorSearchRequestData {
+  id?: string;
   firstName: string;
   lastName: string;
   subject: string;
@@ -29,5 +30,14 @@ export interface TutorSearchRequestData {
 export interface TutorSearchRequestContactData {
   email: string;
   phoneNumber: string;
+}
+
+export interface TutorSearchRequestOffer {
+  firstName: string;
+  lastName: string;
+  /* TODO profilePicture: string;*/
+  message: string;
+  price: number;
+  timestamp: Timestamp;
 }
 

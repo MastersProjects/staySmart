@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 
 @Component({
   selector: 'app-tutor-portal-request-offer',
@@ -10,7 +11,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class TutorPortalRequestOfferComponent implements OnInit {
 
   @Input() minPrice: number;
-  @Output() canceled = new EventEmitter<null>();
+  @Output() canceled = new EventEmitter<void>();
+  @Output() submitted = new EventEmitter<TutorSearchRequestOffer>();
 
   requestOfferForm: FormGroup;
 
@@ -37,7 +39,7 @@ export class TutorPortalRequestOfferComponent implements OnInit {
 
   submitOffer() {
     if (this.requestOfferForm.valid) {
-      console.log(this.requestOfferForm.value);
+      this.submitted.emit(this.requestOfferForm.value);
     }
   }
 }

@@ -1,6 +1,6 @@
 <div #card class="card">
   <div class="card-header text-center" (click)="collapseToggle()">
-    {{requestAccepted ? 'Offerte für': null}} {{tutorSearchRequest.firstName}} {{tutorSearchRequest.lastName}}
+    {{requestAccepted ? 'Offerte für' : null}} {{tutorSearchRequest.firstName}} {{tutorSearchRequest.lastName}}
     <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="isCollapsed ? '180' : ''"></fa-icon>
   </div>
   <div [@collapse]="isCollapsed ? 'closed' : 'opened'" (@collapse.done)="onCollapseAnimationDone($event)"
@@ -81,7 +81,8 @@
       </div>
     </ng-container>
     <ng-container *ngIf="requestAccepted">
-      <app-tutor-portal-request-offer [minPrice]="tutorSearchRequest.budget*5" (canceled)="offerCanceled()">
+      <app-tutor-portal-request-offer [minPrice]="tutorSearchRequest.budget*5" (canceled)="offerCanceled()"
+                                      (submitted)="sendOffer($event)">
       </app-tutor-portal-request-offer>
     </ng-container>
   </div>
