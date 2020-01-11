@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.model';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
@@ -29,6 +29,7 @@ import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 export class TutorPortalRequestDetailComponent implements OnInit {
 
   @Input() tutorSearchRequest: TutorSearchRequestData;
+  @ViewChild('card', {static: false}) cardElement: ElementRef;
   requestAccepted: boolean;
 
   faCheck = faCheck;
@@ -46,9 +47,9 @@ export class TutorPortalRequestDetailComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  onCollapseAnimationDone(collapseBody: HTMLDivElement, animationEvent: AnimationEvent) {
+  onCollapseAnimationDone(animationEvent: AnimationEvent) {
     if (animationEvent.toState === 'opened') {
-      collapseBody.scrollIntoView({behavior: 'smooth', block: 'start'});
+      this.scrollToCardElement();
     } else if (animationEvent.toState === 'closed' || this.requestAccepted) {
       this.requestAccepted = false;
     }
@@ -56,5 +57,15 @@ export class TutorPortalRequestDetailComponent implements OnInit {
 
   acceptRequest() {
     this.requestAccepted = true;
+    new Promise(resolve => setTimeout(resolve, 300)).then(() => this.scrollToCardElement());
+  }
+
+  offerCanceled() {
+    this.requestAccepted = false;
+    new Promise(resolve => setTimeout(resolve, 300)).then(() => this.scrollToCardElement());
+  }
+
+  private scrollToCardElement() {
+    this.cardElement.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 }
