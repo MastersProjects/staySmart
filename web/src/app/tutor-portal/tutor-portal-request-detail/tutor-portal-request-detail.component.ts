@@ -12,15 +12,8 @@ import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('collapse', [
-      state('closed', style({
-        height: '0',
-        overflow: 'hidden',
-        opacity: '0'
-      })),
-      state('opened', style({
-        overflow: 'hidden',
-        opacity: '1'
-      })),
+      state('closed', style({height: '0', overflow: 'hidden', opacity: '0'})),
+      state('opened', style({overflow: 'hidden', opacity: '1'})),
       transition('closed=>opened', animate('500ms')),
       transition('opened=>closed', animate('500ms'))
     ])
@@ -29,9 +22,9 @@ import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 export class TutorPortalRequestDetailComponent implements OnInit {
 
   @Input() tutorSearchRequest: TutorSearchRequestData;
-  @ViewChild('card', {static: false}) cardElement: ElementRef;
-  requestAccepted: boolean;
+  @ViewChild('card', {static: false}) private cardElement: ElementRef;
 
+  requestAccepted: boolean;
   faCheck = faCheck;
   faTimes = faTimes;
   faChevronUp = faChevronUp;
