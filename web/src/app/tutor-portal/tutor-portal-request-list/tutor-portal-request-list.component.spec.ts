@@ -9,6 +9,7 @@ import {TutorPortalRequestDetailComponent} from '../tutor-portal-request-detail/
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TutorPortalRequestOfferComponent} from '../tutor-portal-request-offer/tutor-portal-request-offer.component';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 describe('TutorPortalRequestListComponent', () => {
   let component: TutorPortalRequestListComponent;
@@ -19,6 +20,7 @@ describe('TutorPortalRequestListComponent', () => {
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
+        AngularFireAuthModule,
         FontAwesomeModule,
         ReactiveFormsModule
       ],
