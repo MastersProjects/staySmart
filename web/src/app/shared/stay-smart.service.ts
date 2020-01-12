@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {TutorSearchRequest} from './model/tutor-search-request.model';
+import {TutorSearchRequest, TutorSearchRequestData, TutorSearchRequestOffer} from './model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {AngularFireStorage} from '@angular/fire/storage';
 import * as uuidv4 from 'uuid/v4';
 import {from, Observable, of} from 'rxjs';
 import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 import {TutorRegistration} from './model/tutor-registration.model';
-import {map, switchMap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {AuthService} from '../auth/auth.service';
 import {GeoLocation} from './model/geo-location.model';
 
@@ -61,22 +61,42 @@ export class StaySmartService {
   }
 
   getTutorSearchRequest(linkRef: string): Observable<TutorSearchRequest | null> {
-    return this.angularFirestore.collectionGroup(
-      'TutorSearchRequestContactData',
-      query => query.where('linkRef', '==', linkRef)
-    ).get().pipe(
-      switchMap(querySnapshot => {
-        if (!querySnapshot.empty) {
-          return this.angularFirestore.doc(querySnapshot.docs[0].ref.parent.parent.path).valueChanges().pipe(
-            map(data => ({
-              tutorSearchRequestData: data, tutorSearchRequestContactData: querySnapshot.docs[0].data()
-            } as TutorSearchRequest))
-          );
-        } else {
-          return of(null);
-        }
-      })
-    );
+    return this.angularFirestore
+      .collectionGroup(
+        'TutorSearchRequestContactData',
+        query => query.where('linkRef', '==', linkRef)
+      ).get().pipe(
+        switchMap(querySnapshot => {
+          if (!querySnapshot.empty) {
+            return this.angularFirestore
+              .doc<TutorSearchRequestData>(querySnapshot.docs[0].ref.parent.parent.path)
+              .snapshotChanges().pipe(
+                map(snap => ({
+                  tutorSearchRequestData: {...snap.payload.data(), id: snap.payload.id} as TutorSearchRequestData,
+                  tutorSearchRequestContactData: querySnapshot.docs[0].data()
+                } as TutorSearchRequest))
+              );
+          } else {
+            return of(null);
+          }
+        }),
+        switchMap(tutorSearchRequest => {
+          if (tutorSearchRequest) {
+            return this.angularFirestore
+              .collection('TutorSearchRequests')
+              .doc((tutorSearchRequest as TutorSearchRequest).tutorSearchRequestData.id)
+              .collection<TutorSearchRequestOffer>('TutorSearchRequestOffers')
+              .valueChanges().pipe(
+                map(tutorSearchRequestOffers => {
+                  return {...tutorSearchRequest, tutorSearchRequestOffers};
+                })
+              );
+          } else {
+            return of(null);
+          }
+        }),
+        tap(console.log)
+      );
   }
 
   private uploadStudentCards(studentCardFront: File, studentCardBack: File): Observable<UploadTaskSnapshot[]> {

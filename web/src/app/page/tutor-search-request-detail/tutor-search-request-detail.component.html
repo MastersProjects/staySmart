@@ -1,3 +1,21 @@
-<p>tutor-search-request-detail works!</p>
+<ng-container *ngIf="tutorSearchRequest$ | async as tutorSearchRequest">
+  <div>
+    <h4>TutorSearchRequestContactData</h4>
+    <pre>{{tutorSearchRequest.tutorSearchRequestContactData | json}}</pre>
+  </div>
+  <div>
+    <h4>TutorSearchRequestData</h4>
+    <pre>{{tutorSearchRequest.tutorSearchRequestData | json}}</pre>
+  </div>
+  <div>
+    <h4>TutorSearchRequestOffers</h4>
 
-<pre>{{tutorSearchRequest$ | async | json}}</pre>
+    <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers">
+      <h6>{{tutorSearchRequestOffer.firstName}} {{tutorSearchRequestOffer.lastName}}</h6>
+      <pre>{{tutorSearchRequestOffer | json}}</pre>
+      <hr>
+    </div>
+  </div>
+</ng-container>
+
+

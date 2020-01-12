@@ -4,6 +4,7 @@ import {Timestamp} from '@firebase/firestore-types';
 export interface TutorSearchRequest {
   tutorSearchRequestData: TutorSearchRequestData;
   tutorSearchRequestContactData: TutorSearchRequestContactData;
+  tutorSearchRequestOffers?: TutorSearchRequestOffer[];
 }
 
 export interface TutorSearchRequestData {
