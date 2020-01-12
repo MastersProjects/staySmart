@@ -108,28 +108,32 @@ export class StaySmartService {
   private createTutorRegistration(registrationForm: RegistrationForm, uid: string,
                                   studentCardFront: string, studentCardBack: string): TutorRegistration {
     const birthday = registrationForm.step1.birthday;
+    const {firstName, lastName, email, mobileNumber} = registrationForm.step1;
+    const {streetAddress, postalCode, city} = registrationForm.step2;
+    const {studentCardExpireDate, education} = registrationForm.step3;
+    const {subjects, gradeLevels, daysAvailable, price, attention} = registrationForm.step4;
     const tutorRegistration = {
       uid,
-      firstName: registrationForm.step1.firstName,
-      lastName: registrationForm.step1.lastName,
-      email: registrationForm.step1.email,
-      mobileNumber: registrationForm.step1.mobileNumber,
+      firstName,
+      lastName,
+      email,
+      mobileNumber,
       birthday: new Date(birthday.year, birthday.month - 1, birthday.day),
 
-      streetAddress: registrationForm.step2.streetAddress,
-      postalCode: registrationForm.step2.postalCode,
-      city: registrationForm.step2.city,
+      streetAddress,
+      postalCode,
+      city,
 
       studentCardFront,
       studentCardBack,
-      studentCardExpireDate: registrationForm.step3.studentCardExpireDate,
-      education: registrationForm.step3.education,
+      studentCardExpireDate,
+      education,
 
-      subjects: registrationForm.step4.subjects,
-      gradeLevels: registrationForm.step4.gradeLevels,
-      daysAvailable: registrationForm.step4.daysAvailable,
-      price: registrationForm.step4.price,
-      attention: registrationForm.step4.attention,
+      subjects,
+      gradeLevels,
+      daysAvailable,
+      price,
+      attention,
 
       status: 'new' as const,
 

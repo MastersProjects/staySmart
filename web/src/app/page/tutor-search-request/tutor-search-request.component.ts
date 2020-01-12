@@ -111,21 +111,24 @@ export class TutorSearchRequestComponent implements OnInit {
   }
 
   mapFormToModel(): TutorSearchRequest {
+    const {lastName, firstName, email, phoneNumber} = this.step1.value;
+    const {gradeLevel, subject} = this.step2.value;
+    const {budget, location, daysAvailable, problem} = this.step3.value;
     return {
       tutorSearchRequestData: {
-        lastName: this.step1.get('lastName').value,
-        firstName: this.step1.get('firstName').value,
-        gradeLevel: this.step2.get('gradeLevel').value,
-        subject: this.step2.get('subject').value,
-        budget: this.step3.get('budget').value,
-        location: this.step3.get('location').value,
-        daysAvailable: this.step3.get('daysAvailable').value,
-        problem: this.step3.get('problem').value,
+        lastName,
+        firstName,
+        gradeLevel,
+        subject,
+        budget,
+        location,
+        daysAvailable,
+        problem,
         timestamp: null
       },
       tutorSearchRequestContactData: {
-        email: this.step1.get('email').value,
-        phoneNumber: '41' + this.step1.get('phoneNumber').value
+        email,
+        phoneNumber
       }
     };
   }
