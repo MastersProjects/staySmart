@@ -13,9 +13,9 @@ export class TutorPortalService {
   }
 
   getTutorSearchRequests(): Observable<TutorSearchRequestData[]> {
-    return this.angularFirestore.collection<TutorSearchRequestData[]>(
+    return this.angularFirestore.collection<TutorSearchRequestData>(
       'TutorSearchRequests', ref => ref.orderBy('timestamp', 'desc')
-    ).valueChanges({idField: 'id'}) as unknown as Observable<TutorSearchRequestData[]>;
+    ).valueChanges({idField: 'id'});
   }
 
   async sendTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
