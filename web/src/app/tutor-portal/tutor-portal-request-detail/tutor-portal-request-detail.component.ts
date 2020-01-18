@@ -2,23 +2,17 @@ import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild
 import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
-import {animate, AnimationEvent, state, style, transition, trigger} from '@angular/animations';
+import {AnimationEvent} from '@angular/animations';
 import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import {TutorPortalService} from '../shared/tutor-portal.service';
+import {collapse} from '../../shared/collapse.animation';
 
 @Component({
   selector: 'app-tutor-portal-request-detail',
   templateUrl: './tutor-portal-request-detail.component.html',
   styleUrls: ['./tutor-portal-request-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('collapse', [
-      state('closed', style({height: '0', overflow: 'hidden', opacity: '0'})),
-      state('opened', style({overflow: 'hidden', opacity: '1'})),
-      transition('closed=>opened', animate('500ms')),
-      transition('opened=>closed', animate('500ms'))
-    ])
-  ]
+  animations: [collapse]
 })
 export class TutorPortalRequestDetailComponent implements OnInit {
 
@@ -39,6 +33,10 @@ export class TutorPortalRequestDetailComponent implements OnInit {
 
   collapseToggle() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  get collapseState() {
+    return this.isCollapsed ? 'closed' : 'opened';
   }
 
   onCollapseAnimationDone(animationEvent: AnimationEvent) {
