@@ -34,6 +34,7 @@ export interface TutorSearchRequestContactData {
 }
 
 export interface TutorSearchRequestOffer {
+  uid: string;
   firstName: string;
   lastName: string;
   /* TODO profilePicture: string;*/

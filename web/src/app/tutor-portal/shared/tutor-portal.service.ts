@@ -24,6 +24,7 @@ export class TutorPortalService {
 
     const offer = {
       ...tutorSearchRequestOffer,
+      uid: tutorPortalUser.uid,
       firstName: tutorPortalUser.firstName,
       lastName: tutorPortalUser.lastName,
       timestamp: this.serverTimestamp
