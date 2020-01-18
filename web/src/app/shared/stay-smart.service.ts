@@ -86,7 +86,7 @@ export class StaySmartService {
               .collection('TutorSearchRequests')
               .doc((tutorSearchRequest as TutorSearchRequest).tutorSearchRequestData.id)
               .collection<TutorSearchRequestOffer>('TutorSearchRequestOffers')
-              .valueChanges().pipe(
+              .valueChanges({idField: 'id'}).pipe(
                 map(tutorSearchRequestOffers => {
                   return {...tutorSearchRequest, tutorSearchRequestOffers};
                 })
@@ -97,6 +97,40 @@ export class StaySmartService {
         }),
         tap(console.log)
       );
+  }
+
+  async acceptTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
+                                      tutorSearchRequest: TutorSearchRequest): Promise<void[]> {
+    await this.updateTutorSearchRequestOfferStatus(
+      {...tutorSearchRequestOffer, status: 'accepted'}, tutorSearchRequest.tutorSearchRequestData.id
+    );
+    const offersToDecline = tutorSearchRequest.tutorSearchRequestOffers
+      .filter(offer => offer !== tutorSearchRequestOffer)
+      .reduce((previousValue, currentValue) => {
+        console.log('to decline', currentValue);
+        return [
+          ...previousValue,
+          this.declineTutorSearchRequestOffer(currentValue, tutorSearchRequest.tutorSearchRequestData.id)
+        ];
+      }, []);
+    return Promise.all(offersToDecline);
+  }
+
+  declineTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
+                                 tutorSearchRequestDataId: string): Promise<void> {
+    return this.updateTutorSearchRequestOfferStatus(
+      {...tutorSearchRequestOffer, status: 'declined'}, tutorSearchRequestDataId
+    );
+  }
+
+  private updateTutorSearchRequestOfferStatus(tutorSearchRequestOffer: TutorSearchRequestOffer,
+                                              tutorSearchRequestDataId: string): Promise<void> {
+    return this.angularFirestore
+      .collection('TutorSearchRequests')
+      .doc(tutorSearchRequestDataId)
+      .collection('TutorSearchRequestOffers')
+      .doc(tutorSearchRequestOffer.id)
+      .update({status: tutorSearchRequestOffer.status});
   }
 
   private uploadStudentCards(studentCardFront: File, studentCardBack: File): Observable<UploadTaskSnapshot[]> {

@@ -34,6 +34,7 @@ export interface TutorSearchRequestContactData {
 }
 
 export interface TutorSearchRequestOffer {
+  id?: string;
   uid: string;
   firstName: string;
   lastName: string;
@@ -41,5 +42,6 @@ export interface TutorSearchRequestOffer {
   message: string;
   price: number;
   timestamp: Timestamp;
+  status?: 'accepted' | 'declined';
 }
 

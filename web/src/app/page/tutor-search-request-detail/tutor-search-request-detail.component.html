@@ -7,14 +7,11 @@
     <h4>TutorSearchRequestData</h4>
     <pre>{{tutorSearchRequest.tutorSearchRequestData | json}}</pre>
   </div>
-  <div>
-    <h4>TutorSearchRequestOffers</h4>
-
-    <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers">
-      <h6>{{tutorSearchRequestOffer.firstName}} {{tutorSearchRequestOffer.lastName}}</h6>
-      <pre>{{tutorSearchRequestOffer | json}}</pre>
-      <hr>
-    </div>
+  <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers">
+    <app-tutor-search-request-offer [tutorSearchRequestOffer]="tutorSearchRequestOffer"
+                                    (accepted)="acceptOffer(tutorSearchRequestOffer, tutorSearchRequest)"
+                                    (declined)="declineOffer(tutorSearchRequestOffer, tutorSearchRequest.tutorSearchRequestData.id)">
+    </app-tutor-search-request-offer>
   </div>
 </ng-container>
 

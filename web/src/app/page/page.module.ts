@@ -16,6 +16,7 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail/tutor-search-request-detail.component';
+import {TutorSearchRequestOfferComponent} from './tutor-search-request-offer/tutor-search-request-offer.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail/t
     TeamComponent,
     PresseComponent,
     StepperComponent,
-    TutorSearchRequestDetailComponent
+    TutorSearchRequestDetailComponent,
+    TutorSearchRequestOfferComponent
   ],
   imports: [
     CommonModule,
