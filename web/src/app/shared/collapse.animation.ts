@@ -5,4 +5,4 @@ export const collapse = trigger('collapse', [
   state('opened', style({overflow: 'hidden', opacity: '1'})),
   transition('closed=>opened', animate('500ms')),
   transition('opened=>closed', animate('500ms'))
-])
+]);
