@@ -1,5 +1,5 @@
 # stay smart
-[![Build Status](https://travis-ci.org/MastersProjects/staySmart.svg?branch=master)](https://travis-ci.org/MastersProjects/staySmart)
+[![Build Status](https://github.com/MastersProjects/staySmart/workflows/Development/badge.svg)](https://github.com/MastersProjects/staySmart/actions?query=workflow%3ADevelopment)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MastersProjects_staySmart&metric=alert_status)](https://sonarcloud.io/dashboard?id=MastersProjects_staySmart)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MastersProjects_staySmart&metric=coverage)](https://sonarcloud.io/dashboard?id=MastersProjects_staySmart)
 [![Web Dependency Status](https://david-dm.org/MastersProjects/staySmart/status.svg?path=web)](https://david-dm.org/MastersProjects/staySmart?path=web)
@@ -13,7 +13,6 @@ The frontEnd is an Angular web-project. Firebase is used for the backend and hos
 ## Technology-Stack
 * :fire: Firebase 
 * :a: Angular 8 (Bootstrap 4, TypeScript , HTML, CSS)
-* :gear: Travis CI
 * :octocat: [Git](https://git-scm.com/downloads)
 
 
@@ -23,4 +22,3 @@ There are two environemnts for the application called `staySmart-dev` and `stayS
 
 ## URL
 * web: https://staysmart-dev.web.app
-* functions: https://europe-west1-staysmart-dev.cloudfunctions.net
