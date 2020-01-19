@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "staysmart-dev"
+    "default": "staysmart-dev",
+    "production": "staysmart-57b5a"
   }
 }
