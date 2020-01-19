@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Use Node.js
         uses: actions/setup-node@v1
@@ -34,11 +34,12 @@ jobs:
           npm run pree2e --prefix web # FIXME workaround for Issue #3 (chromedriver 74 error)
           npm run e2e --prefix web
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#      - name: SonarCloud Scan TODO SONAR_TOKEN
+#        if: success()
+#        uses: sonarsource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Install Firebase Tools
         if: success()
