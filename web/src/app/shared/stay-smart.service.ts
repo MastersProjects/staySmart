@@ -85,8 +85,14 @@ export class StaySmartService {
             return this.angularFirestore
               .collection('TutorSearchRequests')
               .doc((tutorSearchRequest as TutorSearchRequest).tutorSearchRequestData.id)
-              .collection<TutorSearchRequestOffer>('TutorSearchRequestOffers')
-              .valueChanges({idField: 'id'}).pipe(
+              .collection<TutorSearchRequestOffer>(
+                'TutorSearchRequestOffers',
+                ref => ref
+                  .where('status', '==', 'new')
+                /* TODO also status with 'accepted'? Operation 'in' is not in AngularFire yet
+                 * https://firebase.googleblog.com/2019/11/cloud-firestore-now-supports-in-queries.html
+                 */
+              ).valueChanges({idField: 'id'}).pipe(
                 map(tutorSearchRequestOffers => {
                   return {...tutorSearchRequest, tutorSearchRequestOffers};
                 })
