@@ -7,7 +7,7 @@
     <h4>TutorSearchRequestData</h4>
     <pre>{{tutorSearchRequest.tutorSearchRequestData | json}}</pre>
   </div>
-  <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers">
+  <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers" class="my-4">
     <app-tutor-search-request-offer [tutorSearchRequestOffer]="tutorSearchRequestOffer"
                                     (accepted)="acceptOffer(tutorSearchRequestOffer, tutorSearchRequest)"
                                     (declined)="declineOffer(tutorSearchRequestOffer, tutorSearchRequest.tutorSearchRequestData.id)">
