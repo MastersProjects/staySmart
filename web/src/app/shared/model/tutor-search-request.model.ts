@@ -42,6 +42,6 @@ export interface TutorSearchRequestOffer {
   message: string;
   price: number;
   timestamp: Timestamp;
-  status?: 'accepted' | 'declined';
+  status: 'new' | 'accepted' | 'declined';
 }
 

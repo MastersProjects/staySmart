@@ -27,7 +27,8 @@ export class TutorPortalService {
       uid: tutorPortalUser.uid,
       firstName: tutorPortalUser.firstName,
       lastName: tutorPortalUser.lastName,
-      timestamp: this.serverTimestamp
+      timestamp: this.serverTimestamp,
+      status: 'new'
     }; // TODO Profile Picture
 
     return this.angularFirestore.collection(
