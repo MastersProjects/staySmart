@@ -69,6 +69,8 @@ export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}')
     .onCreate(async (snap, context) => {
         const createdTutorSearchRequest: any = snap.data();
+        const tutorSearchRequestID = context.params['tutorSearchRequestID'];
+
         console.log('createdTutorSearchRequest', createdTutorSearchRequest);
 
         const requestDaysAvailableList: string[] = [];
@@ -81,7 +83,7 @@ export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
 
         console.log('requestDaysAvailableList', requestDaysAvailableList);
 
-        // TODO where condition with location / city
+        // TODO where condition with location / city & status active
         const matchingQuery = admin.firestore().collection('Tutors')
             .where('price', '<=', createdTutorSearchRequest.budget)
             .where(`tags.subjects.${createdTutorSearchRequest.subject}`, '==', true)
@@ -97,16 +99,23 @@ export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
         const promises: Promise<any>[] = [];
 
         matchingQuerySnapshot.docs.forEach(matchingTutorDoc => {
-
             const matchingTutor = matchingTutorDoc.data();
 
             console.log('matchingTutor', matchingTutor);
+
+            if (matchingTutor.matchingTutorSearchRequests) {
+                promises.push(matchingTutorDoc.ref.update({
+                    matchingTutorSearchRequests: [...matchingTutor.matchingTutorSearchRequests, tutorSearchRequestID]
+                }));
+            } else {
+                promises.push(matchingTutorDoc.ref.update({matchingTutorSearchRequests: [tutorSearchRequestID]}));
+            }
 
             // TODO mail message
             const mailOptions: Mail.Options = {
                 from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
                 to: matchingTutor.email,
-                subject: context.params['tutorSearchRequestID'],
+                subject: tutorSearchRequestID,
                 html: `${createdTutorSearchRequest.toString()}`
             };
 
