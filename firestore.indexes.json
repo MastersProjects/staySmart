@@ -88,8 +88,6 @@
         }
       ]
     },
-
-
     {
       "collectionGroup": "Tutors",
       "queryScope": "COLLECTION",
@@ -156,8 +154,6 @@
         }
       ]
     },
-
-
     {
       "collectionGroup": "Tutors",
       "queryScope": "COLLECTION",
@@ -224,8 +220,6 @@
         }
       ]
     },
-
-
     {
       "collectionGroup": "Tutors",
       "queryScope": "COLLECTION",
@@ -289,6 +283,20 @@
         {
           "fieldPath": "price",
           "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "TutorSearchRequests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "DESCENDING"
         }
       ]
     }
