@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {TutorSearchRequest, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import {switchMap, tap} from 'rxjs/operators';
 import {StaySmartService} from '../../shared/stay-smart.service';
+import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 
 @Component({
   selector: 'app-tutor-search-request-detail',
@@ -13,6 +14,9 @@ import {StaySmartService} from '../../shared/stay-smart.service';
 export class TutorSearchRequestDetailComponent implements OnInit {
 
   tutorSearchRequest$: Observable<TutorSearchRequest | null>;
+  hasAcceptedOffer: boolean;
+
+  faCheck = faCheck;
 
   constructor(private activatedRoute: ActivatedRoute, private staySmartService: StaySmartService,
               private router: Router) {
@@ -33,6 +37,7 @@ export class TutorSearchRequestDetailComponent implements OnInit {
   acceptOffer(tutorSearchRequestOffer: TutorSearchRequestOffer, tutorSearchRequest: TutorSearchRequest) {
     this.staySmartService.acceptTutorSearchRequestOffer(tutorSearchRequestOffer, tutorSearchRequest).then(() => {
       console.log('accepted offer', tutorSearchRequestOffer);
+      this.hasAcceptedOffer = true;
     });
   }
 

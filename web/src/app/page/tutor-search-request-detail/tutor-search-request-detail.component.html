@@ -1,18 +1,41 @@
-<ng-container *ngIf="tutorSearchRequest$ | async as tutorSearchRequest">
-  <div>
-    <h4>TutorSearchRequestContactData</h4>
-    <pre>{{tutorSearchRequest.tutorSearchRequestContactData | json}}</pre>
+<ng-container *ngIf="!hasAcceptedOffer">
+  <ng-container *ngIf="tutorSearchRequest$ | async as tutorSearchRequest">
+    <div>
+      <h4>TutorSearchRequestContactData</h4>
+      <pre>{{tutorSearchRequest.tutorSearchRequestContactData | json}}</pre>
+    </div>
+    <div>
+      <h4>TutorSearchRequestData</h4>
+      <pre>{{tutorSearchRequest.tutorSearchRequestData | json}}</pre>
+    </div>
+    <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers" class="my-4">
+      <app-tutor-search-request-offer [tutorSearchRequestOffer]="tutorSearchRequestOffer"
+                                      (accepted)="acceptOffer(tutorSearchRequestOffer, tutorSearchRequest)"
+                                      (declined)="declineOffer(tutorSearchRequestOffer, tutorSearchRequest.tutorSearchRequestData.id)">
+      </app-tutor-search-request-offer>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="hasAcceptedOffer">
+  <div class="row mt-4">
+    <div class="col-8 offset-2 text-center mt-2">
+      <h1>Offerte angenommen</h1>
+    </div>
   </div>
-  <div>
-    <h4>TutorSearchRequestData</h4>
-    <pre>{{tutorSearchRequest.tutorSearchRequestData | json}}</pre>
+  <div class="row mt-4">
+    <div class="col-12 text-center">
+      <fa-icon [icon]="faCheck" size="8x" style="color: #449D44"></fa-icon>
+    </div>
   </div>
-  <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers" class="my-4">
-    <app-tutor-search-request-offer [tutorSearchRequestOffer]="tutorSearchRequestOffer"
-                                    (accepted)="acceptOffer(tutorSearchRequestOffer, tutorSearchRequest)"
-                                    (declined)="declineOffer(tutorSearchRequestOffer, tutorSearchRequest.tutorSearchRequestData.id)">
-    </app-tutor-search-request-offer>
+  <div class="row mt-4 mb-5">
+    <div class="col-8 offset-2 text-center">
+      <h6>Super!
+        Du hast die Offerte angenommen und wirst von deinem neuen Nachhilfelehrer per Telefon kontaktiert.</h6>
+    </div>
   </div>
 </ng-container>
+
+
 
 
