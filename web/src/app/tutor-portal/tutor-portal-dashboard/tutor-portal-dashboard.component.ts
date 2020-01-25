@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {TutorPortalService} from '../shared/tutor-portal.service';
+import {Observable} from 'rxjs';
+import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.model';
 
 @Component({
   selector: 'app-tutor-portal-dashboard',
@@ -7,9 +10,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TutorPortalDashboardComponent implements OnInit {
 
-  constructor() { }
+  matchingTutorSearchRequests$: Observable<TutorSearchRequestData[]>;
+
+  constructor(private tutorPortalService: TutorPortalService) { }
 
   ngOnInit() {
+    this.matchingTutorSearchRequests$ = this.tutorPortalService.getMatchingTutorSearchRequests();
   }
 
 }

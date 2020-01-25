@@ -5,6 +5,7 @@ import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/mode
 import * as firebase from 'firebase/app';
 import {DocumentReference} from '@angular/fire/firestore/interfaces';
 import {AuthService} from '../../auth/auth.service';
+import {switchMap} from 'rxjs/operators';
 
 @Injectable() // provided in TutorPortalModule
 export class TutorPortalService {
@@ -17,6 +18,20 @@ export class TutorPortalService {
       'TutorSearchRequests',
       ref => ref.where('status', '==', 'new').orderBy('timestamp', 'desc')
     ).valueChanges({idField: 'id'});
+  }
+
+  getMatchingTutorSearchRequests(): Observable<TutorSearchRequestData[]> {
+    return this.authService.tutorPortalUser$.pipe(
+      switchMap(tutor => {
+        return this.angularFirestore.collection<TutorSearchRequestData>(
+          'TutorSearchRequests',
+          ref => ref
+            .where('status', '==', 'new')
+            // @ts-ignore
+            .where(firebase.firestore.FieldPath.documentId(), 'in', tutor.matchingTutorSearchRequests)
+        ).valueChanges({idField: 'id'});
+      })
+    );
   }
 
   async sendTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,

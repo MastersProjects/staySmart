@@ -35,5 +35,7 @@ export interface Tutor {
 
   registrationTimestamp: Date;
 
+  matchingTutorSearchRequests?: string[];
+
   tags?: any;
 }

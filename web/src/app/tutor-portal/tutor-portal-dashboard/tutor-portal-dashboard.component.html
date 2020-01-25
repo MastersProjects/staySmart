@@ -1,1 +1,7 @@
-<p>tutor-portal-dashboard works!</p>
+<h3>Für dich</h3>
+
+<div *ngFor="let tutorSearchRequest of matchingTutorSearchRequests$ | async" class="row">
+  <div class="col-12 my-4">
+    <app-tutor-portal-request-detail [tutorSearchRequest]="tutorSearchRequest"></app-tutor-portal-request-detail>
+  </div>
+</div>
