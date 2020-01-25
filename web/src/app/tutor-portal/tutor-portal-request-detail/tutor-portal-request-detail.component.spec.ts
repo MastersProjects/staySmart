@@ -64,7 +64,8 @@ describe('TutorPortalRequestDetailComponent', () => {
       },
       problem: 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
       subject: 'Physik',
-      timestamp: new Timestamp(1578106112, 229000000)
+      timestamp: new Timestamp(1578106112, 229000000),
+      status: 'new'
     };
     fixture.detectChanges();
   });
