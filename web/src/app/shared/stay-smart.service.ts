@@ -25,7 +25,7 @@ export class StaySmartService {
     const tutorSearchRequestId = this.angularFirestore.createId();
     batch.set(
       this.angularFirestore.collection('TutorSearchRequests').doc(tutorSearchRequestId).ref,
-      {...tutorSearchRequest.tutorSearchRequestData, timestamp: this.serverTimestamp}
+      {...tutorSearchRequest.tutorSearchRequestData, timestamp: this.serverTimestamp, status: 'new'}
     );
     batch.set(
       this.angularFirestore.collection('TutorSearchRequests').doc(tutorSearchRequestId)

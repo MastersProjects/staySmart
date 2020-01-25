@@ -26,6 +26,7 @@ export interface TutorSearchRequestData {
   budget: number;
   problem: string;
   timestamp: Timestamp;
+  status: 'new' | 'mediated';
 }
 
 export interface TutorSearchRequestContactData {

@@ -124,7 +124,8 @@ export class TutorSearchRequestComponent implements OnInit {
         location,
         daysAvailable,
         problem,
-        timestamp: null
+        timestamp: null,
+        status: 'new'
       },
       tutorSearchRequestContactData: {
         email,
