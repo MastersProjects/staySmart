@@ -283,12 +283,16 @@
       <fa-icon [icon]="faCheck" size="8x" style="color: #449D44"></fa-icon>
     </div>
   </div>
-  <div class="row mt-4 mb-5">
+  <div class="row mt-4">
     <div class="col-8 offset-2 text-center">
       <h6>Ihr Profil wird innerhalb der nächsten 48 Stunden validiert. Nach der Freigabe Ihres Profiles
         erhalten Sie auch schon die ersten Anfragen.</h6>
     </div>
   </div>
-  <!--TODO Redirection to Login form-->
+  <div class="row mt-4 mb-5">
+    <div class="col-8 offset-2 text-center">
+      <a class="btn btn-primary" [routerLink]="['/tutor-portal/login']">Zum Login</a>
+    </div>
+  </div>
 </div>
 
