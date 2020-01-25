@@ -105,11 +105,16 @@ export class StaySmartService {
       );
   }
 
-  async acceptTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
-                                      tutorSearchRequest: TutorSearchRequest): Promise<void[]> {
-    await this.updateTutorSearchRequestOfferStatus(
+  acceptTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
+                                tutorSearchRequest: TutorSearchRequest): Promise<void[]> {
+    const updateOfferStatus = this.updateTutorSearchRequestOfferStatus(
       {...tutorSearchRequestOffer, status: 'accepted'}, tutorSearchRequest.tutorSearchRequestData.id
     );
+    const updateRequestStatus = this.angularFirestore
+      .collection('TutorSearchRequests')
+      .doc(tutorSearchRequest.tutorSearchRequestData.id)
+      .update({status: 'mediated'});
+
     const offersToDecline = tutorSearchRequest.tutorSearchRequestOffers
       .filter(offer => offer !== tutorSearchRequestOffer)
       .reduce((previousValue, currentValue) => {
@@ -119,7 +124,7 @@ export class StaySmartService {
           this.declineTutorSearchRequestOffer(currentValue, tutorSearchRequest.tutorSearchRequestData.id)
         ];
       }, []);
-    return Promise.all(offersToDecline);
+    return Promise.all([updateOfferStatus, updateRequestStatus, ...offersToDecline]);
   }
 
   declineTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
