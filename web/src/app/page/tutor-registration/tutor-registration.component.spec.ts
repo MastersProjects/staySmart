@@ -12,6 +12,7 @@ import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('TutorRegistrationComponent', () => {
   let component: TutorRegistrationComponent;
@@ -32,7 +33,8 @@ describe('TutorRegistrationComponent', () => {
         ReactiveFormsModule,
         CdkStepperModule,
         FontAwesomeModule,
-        NgbModule
+        NgbModule,
+        RouterTestingModule
       ]
     })
       .compileComponents();
