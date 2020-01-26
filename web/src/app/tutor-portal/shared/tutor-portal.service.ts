@@ -23,13 +23,15 @@ export class TutorPortalService {
   getMatchingTutorSearchRequests(): Observable<TutorSearchRequestData[]> {
     return this.authService.tutorPortalUser$.pipe(
       switchMap(tutor => {
-        return this.angularFirestore.collection<TutorSearchRequestData>(
-          'TutorSearchRequests',
-          ref => ref
-            .where('status', '==', 'new')
-            // @ts-ignore
-            .where(firebase.firestore.FieldPath.documentId(), 'in', tutor.matchingTutorSearchRequests)
-        ).valueChanges({idField: 'id'});
+        if (tutor) {
+          return this.angularFirestore.collection<TutorSearchRequestData>(
+            'TutorSearchRequests',
+            ref => ref
+              .where('status', '==', 'new')
+              // @ts-ignore
+              .where(firebase.firestore.FieldPath.documentId(), 'in', tutor.matchingTutorSearchRequests)
+          ).valueChanges({idField: 'id'});
+        }
       })
     );
   }
