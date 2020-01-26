@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
@@ -17,6 +26,10 @@ import {collapse} from '../../shared/collapse.animation';
 export class TutorPortalRequestDetailComponent implements OnInit {
 
   @Input() tutorSearchRequest: TutorSearchRequestData;
+  @Input() isDeclinable: boolean;
+
+  @Output() declined = new EventEmitter<void>();
+
   @ViewChild('card', {static: false}) private cardElement: ElementRef;
 
   requestAccepted: boolean;
@@ -52,6 +65,10 @@ export class TutorPortalRequestDetailComponent implements OnInit {
     new Promise(resolve => setTimeout(resolve, 300)).then(() => this.scrollToCardElement());
   }
 
+  declineRequest() {
+    this.declined.emit();
+  }
+
   offerCanceled() {
     this.requestAccepted = false;
     new Promise(resolve => setTimeout(resolve, 300)).then(() => this.scrollToCardElement());
@@ -67,4 +84,5 @@ export class TutorPortalRequestDetailComponent implements OnInit {
   private scrollToCardElement() {
     this.cardElement.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
+
 }

@@ -69,7 +69,7 @@
       </div>
       <div class="row mx-2 mt-5">
         <div class="col-6">
-          <button class="btn btn-danger btn-circle">
+          <button *ngIf="isDeclinable" class="btn btn-danger btn-circle" (click)="declineRequest()">
             <fa-icon [icon]="faTimes"></fa-icon>
           </button>
         </div>
@@ -88,7 +88,7 @@
   </div>
   <div class="card-footer text-muted">
     <div class="row">
-      <div class="col-sm-6">Bereits 3 Angebote erhalten</div>
+      <div class="col-sm-6"></div>
       <div class="col-sm-6 text-sm-right">
         <small>Erstellt am: {{tutorSearchRequest.timestamp.toDate() | date: 'medium'}}</small>
       </div>
