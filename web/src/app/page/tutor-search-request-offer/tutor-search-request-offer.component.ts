@@ -39,7 +39,7 @@ export class TutorSearchRequestOfferComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.tutorSearchRequestOffer.status === 'accepted') {
+    if (this.tutorSearchRequestOffer && this.tutorSearchRequestOffer.status === 'accepted') {
       this.isCollapsed = false;
     }
   }
