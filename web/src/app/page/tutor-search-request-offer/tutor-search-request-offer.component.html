@@ -17,7 +17,7 @@
         <input class="form-control" type="number" disabled [value]="tutorSearchRequestOffer?.price">
       </label>
     </div>
-    <div class="row mx-2 mt-5">
+    <div *ngIf="tutorSearchRequestOffer.status === 'new'" class="row mx-2 mt-5">
       <div class="col-6">
         <button class="btn btn-danger btn-circle" (click)="declineOffer()">
           <fa-icon [icon]="faTimes"></fa-icon>
@@ -27,6 +27,11 @@
         <button class="btn btn-success float-right btn-circle" (click)="acceptOffer()">
           <fa-icon [icon]="faCheck"></fa-icon>
         </button>
+      </div>
+    </div>
+    <div *ngIf="tutorSearchRequestOffer.status === 'accepted'" class="row mx-2 mt-5">
+      <div class="col text-center">
+        <h6>Angenommen</h6>
       </div>
     </div>
   </div>
