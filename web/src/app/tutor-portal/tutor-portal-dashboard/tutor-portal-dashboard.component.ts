@@ -12,10 +12,17 @@ export class TutorPortalDashboardComponent implements OnInit {
 
   matchingTutorSearchRequests$: Observable<TutorSearchRequestData[]>;
 
-  constructor(private tutorPortalService: TutorPortalService) { }
+  constructor(private tutorPortalService: TutorPortalService) {
+  }
 
   ngOnInit() {
     this.matchingTutorSearchRequests$ = this.tutorPortalService.getMatchingTutorSearchRequests();
   }
 
+  onDecline(tutorSearchRequest: TutorSearchRequestData) {
+    this.tutorPortalService.declineMatchingTutorSearchRequest(tutorSearchRequest.id).then(() => {
+        console.log('declined', tutorSearchRequest);
+      }
+    );
+  }
 }

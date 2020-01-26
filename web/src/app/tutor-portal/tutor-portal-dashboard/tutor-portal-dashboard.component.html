@@ -2,6 +2,8 @@
 
 <div *ngFor="let tutorSearchRequest of matchingTutorSearchRequests$ | async" class="row">
   <div class="col-12 my-4">
-    <app-tutor-portal-request-detail [tutorSearchRequest]="tutorSearchRequest"></app-tutor-portal-request-detail>
+    <app-tutor-portal-request-detail [tutorSearchRequest]="tutorSearchRequest" [isDeclinable]="true"
+                                     (declined)="onDecline(tutorSearchRequest)">
+    </app-tutor-portal-request-detail>
   </div>
 </div>

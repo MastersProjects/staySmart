@@ -36,6 +36,15 @@ export class TutorPortalService {
     );
   }
 
+  async declineMatchingTutorSearchRequest(tutorSearchRequestID: string): Promise<void> {
+    const tutorPortalUser = await this.authService.tutorPortalUser;
+    const matchingTutorSearchRequests = tutorPortalUser.matchingTutorSearchRequests
+      .filter(request => request !== tutorSearchRequestID);
+    return this.angularFirestore.collection('Tutors').doc(tutorPortalUser.uid).update(
+      {matchingTutorSearchRequests}
+    );
+  }
+
   async sendTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
                                     tutorSearchRequestId: string): Promise<DocumentReference> {
     const tutorPortalUser = await this.authService.tutorPortalUser;
