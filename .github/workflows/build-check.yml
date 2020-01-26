@@ -23,13 +23,21 @@ jobs:
           npm ci --prefix web
           npm ci --prefix functions
 
-      - name: Build
+      - name: Lint
         if: success()
         run: |
           npm run lint --prefix web
           npm run lint --prefix functions
+
+      - name: Build
+        if: success()
+        run: |
           npm run prebuild --prefix web
           npm run build.dev --prefix web
+
+      - name: Test
+        if: success()
+        run: |
           npm run test.sonar --prefix web
           npm run pree2e --prefix web # FIXME workaround for Issue #3 (chromedriver 74 error)
           npm run e2e --prefix web

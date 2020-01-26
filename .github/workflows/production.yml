@@ -26,8 +26,6 @@ jobs:
       - name: Build
         if: success()
         run: |
-          npm run lint --prefix web
-          npm run lint --prefix functions
           npm run prebuild --prefix web
           npm run build.prod --prefix web
 
