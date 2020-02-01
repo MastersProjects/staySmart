@@ -44,7 +44,7 @@ export class AuthService {
           return of(null);
         }
       }),
-      shareReplay(1)
+      shareReplay(2)
     );
   }
 
