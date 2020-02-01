@@ -12,6 +12,8 @@ import {TutorPortalService} from './shared/tutor-portal.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TutorPortalRequestDetailComponent} from './tutor-portal-request-detail/tutor-portal-request-detail.component';
 import {TutorPortalRequestOfferComponent} from './tutor-portal-request-offer/tutor-portal-request-offer.component';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-portal-navigation.component';
 
 
 @NgModule({
@@ -22,13 +24,15 @@ import {TutorPortalRequestOfferComponent} from './tutor-portal-request-offer/tut
     TutorPortalDashboardComponent,
     TutorPortalRequestListComponent,
     TutorPortalRequestDetailComponent,
-    TutorPortalRequestOfferComponent
+    TutorPortalRequestOfferComponent,
+    TutorPortalNavigationComponent
   ],
   imports: [
     CommonModule,
     TutorPortalRoutingModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbDropdownModule
   ],
   providers: [TutorPortalService] // Because TutorPortalService is only provided in this module which is lazy loaded
 })

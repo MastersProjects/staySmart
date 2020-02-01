@@ -6,8 +6,10 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-portal-navigation.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
-describe('PortalComponent', () => {
+describe('TutorPortalComponent', () => {
   let component: TutorPortalComponent;
   let fixture: ComponentFixture<TutorPortalComponent>;
 
@@ -17,9 +19,13 @@ describe('PortalComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
-        RouterTestingModule
+        RouterTestingModule,
+        FontAwesomeModule
       ],
-      declarations: [TutorPortalComponent]
+      declarations: [
+        TutorPortalComponent,
+        TutorPortalNavigationComponent
+      ]
     })
       .compileComponents();
   }));
