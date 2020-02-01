@@ -39,18 +39,20 @@ export class TutorPortalLoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       console.log('login');
       this.isLoading = true;
-      this.authService.login(this.loginForm.value.email, this.loginForm.value.password).then(userCredential => {
-        console.log(userCredential);
-        this.isLoading = false;
-        if (userCredential) {
-          if (userCredential.user.emailVerified) {
-            this.router.navigate(['/tutor-portal']);
-          } else {
-            this.user = userCredential.user;
-            this.emailVerifiedError = true;
+      this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
+        .then(userCredential => {
+          if (userCredential) {
+            if (userCredential.user.emailVerified) {
+              this.router.navigate(['/tutor-portal']);
+            } else {
+              this.user = userCredential.user;
+              this.emailVerifiedError = true;
+            }
           }
-        }
-      });
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     }
   }
 
