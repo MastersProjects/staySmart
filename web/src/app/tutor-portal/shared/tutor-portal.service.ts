@@ -3,7 +3,6 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
-import {DocumentReference} from '@angular/fire/firestore/interfaces';
 import {AuthService} from '../../auth/auth.service';
 import {switchMap} from 'rxjs/operators';
 
@@ -46,7 +45,7 @@ export class TutorPortalService {
   }
 
   async sendTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
-                                    tutorSearchRequestId: string): Promise<DocumentReference> {
+                                    tutorSearchRequestId: string): Promise<[void, firebase.firestore.DocumentReference]> {
     const tutorPortalUser = await this.authService.tutorPortalUser;
 
     const offer = {
@@ -58,9 +57,17 @@ export class TutorPortalService {
       status: 'new'
     }; // TODO Profile Picture
 
-    return this.angularFirestore.collection(
+    const sentOffers = tutorPortalUser.sentOffers ?
+      [...tutorPortalUser.sentOffers, tutorSearchRequestId] : [tutorSearchRequestId];
+
+    const updatePortalUser = this.angularFirestore.collection('Tutors').doc(tutorPortalUser.uid)
+      .update({sentOffers});
+
+    const addOffer = this.angularFirestore.collection(
       `TutorSearchRequests/${tutorSearchRequestId}/TutorSearchRequestOffers`
     ).add(offer);
+
+    return Promise.all([updatePortalUser, addOffer]);
   }
 
   private get serverTimestamp() {

@@ -27,6 +27,7 @@ export class TutorPortalRequestDetailComponent implements OnInit {
 
   @Input() tutorSearchRequest: TutorSearchRequestData;
   @Input() isDeclinable: boolean;
+  @Input() hasSent: boolean;
 
   @Output() declined = new EventEmitter<void>();
 
@@ -76,7 +77,7 @@ export class TutorPortalRequestDetailComponent implements OnInit {
 
   sendOffer(tutorSearchRequestOffer: TutorSearchRequestOffer) {
     this.tutorPortalService.sendTutorSearchRequestOffer(tutorSearchRequestOffer, this.tutorSearchRequest.id).then(response => {
-      console.log('offer sent', response);
+      console.log('offer sent', response[1]);
       // TODO action after offerSent
     });
   }

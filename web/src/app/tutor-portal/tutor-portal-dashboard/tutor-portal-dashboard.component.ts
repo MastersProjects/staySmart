@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {Observable} from 'rxjs';
 import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.model';
+import {AuthService} from '../../auth/auth.service';
+import {Tutor} from '../../shared/model/tutor.model';
 
 @Component({
   selector: 'app-tutor-portal-dashboard',
@@ -11,12 +13,14 @@ import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.mo
 export class TutorPortalDashboardComponent implements OnInit {
 
   matchingTutorSearchRequests$: Observable<TutorSearchRequestData[]>;
+  tutorPortalUser$: Observable<Tutor | null>;
 
-  constructor(private tutorPortalService: TutorPortalService) {
+  constructor(private tutorPortalService: TutorPortalService, private authService: AuthService) {
   }
 
   ngOnInit() {
     this.matchingTutorSearchRequests$ = this.tutorPortalService.getMatchingTutorSearchRequests();
+    this.tutorPortalUser$ = this.authService.tutorPortalUser$;
   }
 
   onDecline(tutorSearchRequest: TutorSearchRequestData) {
@@ -24,5 +28,9 @@ export class TutorPortalDashboardComponent implements OnInit {
         console.log('declined', tutorSearchRequest);
       }
     );
+  }
+
+  hasSent(sentOffers: string[], id: string) {
+    return sentOffers.includes(id);
   }
 }

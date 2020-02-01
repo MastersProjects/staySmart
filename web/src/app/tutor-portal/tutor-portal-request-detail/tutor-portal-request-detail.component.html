@@ -68,15 +68,20 @@
         </label>
       </div>
       <div class="row mx-2 mt-5">
-        <div class="col-6">
-          <button *ngIf="isDeclinable" class="btn btn-danger btn-circle" (click)="declineRequest()">
-            <fa-icon [icon]="faTimes"></fa-icon>
-          </button>
-        </div>
-        <div class="col-6">
-          <button class="btn btn-success float-right btn-circle" (click)="acceptRequest()">
-            <fa-icon [icon]="faCheck"></fa-icon>
-          </button>
+        <ng-container *ngIf="!hasSent">
+          <div class="col-6">
+            <button *ngIf="isDeclinable" class="btn btn-danger btn-circle" (click)="declineRequest()">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-success float-right btn-circle" (click)="acceptRequest()">
+              <fa-icon [icon]="faCheck"></fa-icon>
+            </button>
+          </div>
+        </ng-container>
+        <div *ngIf="hasSent" class="col text-center">
+          <h6>Offerte gesendet</h6>
         </div>
       </div>
     </ng-container>
