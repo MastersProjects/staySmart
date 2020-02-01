@@ -2,20 +2,50 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {from, Observable, of, Subject} from 'rxjs';
 import * as firebase from 'firebase/app';
-import {map, switchMap, take, tap} from 'rxjs/operators';
+import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Tutor} from '../shared/model/tutor.model';
+import {User} from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-
   private eventAuthError = new Subject<string>(); // subject is private so it can only be written inside the service
   eventAuthError$ = this.eventAuthError.asObservable(); // public accessible subject as a observable so it can be subscribed
+  private authState$: Observable<User | null>;
+  tutorPortalUser$: Observable<Tutor | null>;
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore) {
+    this.loadAuthState();
+    this.loadTutorPortalUser();
+  }
+
+  private loadAuthState() {
+    this.authState$ = this.angularFireAuth.authState.pipe(
+      tap(() => console.log('authState Subscribed')),
+      shareReplay(1)
+    );
+  }
+
+  private loadTutorPortalUser() {
+    this.tutorPortalUser$ = this.authState$.pipe(
+      tap(() => console.log('tutorPortalUser$ Subscribed')),
+      switchMap(user => {
+        if (user) {
+          if (user.emailVerified) {
+            return this.getTutor(user.uid);
+          } else {
+            console.log('E-Mail not verified');
+            return from(this.logout()).pipe(map(() => null));
+          }
+        } else {
+          return of(null);
+        }
+      }),
+      shareReplay(1)
+    );
   }
 
   registerUser(email: string, password: string): Observable<firebase.auth.UserCredential> {
@@ -47,23 +77,6 @@ export class AuthService {
     return this.angularFireAuth.auth.sendPasswordResetEmail(email);
   }
 
-  get tutorPortalUser$(): Observable<Tutor | null> {
-    return this.angularFireAuth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          if (user.emailVerified) {
-            return this.getTutor(user.uid);
-          } else {
-            console.log('E-Mail not verified');
-            return from(this.logout()).pipe(map(() => null));
-          }
-        } else {
-          return of(null);
-        }
-      })
-    );
-  }
-
   get tutorPortalUser(): Promise<Tutor | null> {
     return this.tutorPortalUser$.pipe(take(1)).toPromise();
   }
@@ -88,7 +101,7 @@ export class AuthService {
   private getTutor(uid: string): Observable<Tutor | null> {
     return this.angularFirestore.collection('Tutors').doc(uid).valueChanges().pipe(
       switchMap(tutor => {
-        console.log('tutor', tutor);
+        console.log('getTutor', tutor);
         if (tutor) {
           return of(tutor);
         } else {
