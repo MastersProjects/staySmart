@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {AuthService} from '../../auth/auth.service';
@@ -30,6 +30,8 @@ export class TutorPortalService {
               // @ts-ignore
               .where(firebase.firestore.FieldPath.documentId(), 'in', tutor.matchingTutorSearchRequests)
           ).valueChanges({idField: 'id'});
+        } else {
+          return of(null);
         }
       })
     );
