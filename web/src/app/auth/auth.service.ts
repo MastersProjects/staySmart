@@ -24,8 +24,7 @@ export class AuthService {
 
   private loadAuthState() {
     this.authState$ = this.angularFireAuth.authState.pipe(
-      tap(() => console.log('authState Subscribed')),
-      shareReplay(1)
+      tap(() => console.log('authState Subscribed'))
     );
   }
 
@@ -44,7 +43,9 @@ export class AuthService {
           return of(null);
         }
       }),
-      shareReplay(2)
+      shareReplay(
+        {bufferSize: 1, refCount: true}
+      )
     );
   }
 
