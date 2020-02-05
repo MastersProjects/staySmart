@@ -88,7 +88,11 @@ export class StaySmartService {
               .collection<TutorSearchRequestOffer>(
                 'TutorSearchRequestOffers',
                 ref => ref
-                  .where('status', '==', tutorSearchRequest.status === 'new' ? 'new' : 'accepted')
+                  .where(
+                    'status',
+                    '==',
+                    tutorSearchRequest.tutorSearchRequestData.status === 'new' ? 'new' : 'accepted'
+                  )
                 /* TODO also status with 'accepted'? Operation 'in' is not in AngularFire yet
                  * https://firebase.googleblog.com/2019/11/cloud-firestore-now-supports-in-queries.html
                  */
