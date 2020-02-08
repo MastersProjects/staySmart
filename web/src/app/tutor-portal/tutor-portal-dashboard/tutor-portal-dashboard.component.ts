@@ -31,6 +31,10 @@ export class TutorPortalDashboardComponent implements OnInit {
   }
 
   hasSent(sentOffers: string[], id: string) {
-    return sentOffers.includes(id);
+    if (sentOffers) {
+      return sentOffers.includes(id);
+    } else {
+      return false;
+    }
   }
 }
