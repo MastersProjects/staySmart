@@ -64,6 +64,38 @@ export const emailOnSubmit = functions.region('europe-west1')
 
     });
 
+export const notifySearcherOnNewOffer = functions.region('europe-west1')
+    .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestOffers/{TutorSearchRequestOfferID}')
+    .onCreate(async snapshot => {
+        const createdTutorSearchRequestOffer: any = snapshot.data();
+        const parentRef = snapshot.ref.parent.parent;
+        if (parentRef) {
+            const contactDataSnap = await admin.firestore()
+                .doc(parentRef.path).collection('TutorSearchRequestContactData').get();
+
+            const contactData = contactDataSnap.docs[0].data();
+
+            // TODO mail message
+            const mailOptions: Mail.Options = {
+                from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
+                to: contactData.email,
+                subject: `new offer from ${createdTutorSearchRequestOffer.firstName} ${createdTutorSearchRequestOffer.lastName}`,
+                html: `<p style="font-size: 16px;">TEST https://staysmart-dev.web.app/anfragen/${contactData.linkRef}</p>
+                <br />`
+            };
+
+            return transporter.sendMail(mailOptions).then(() => {
+                console.log(`Sent to ${contactData.email}`);
+            }).catch(error => {
+                console.error(error);
+            });
+        } else {
+            console.warn('parentRef is null');
+            return null;
+        }
+
+    });
+
 // Notify Tutor on a new matching TutorSearchRequest
 export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}')
