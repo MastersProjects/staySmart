@@ -107,7 +107,8 @@ export class StaySmartService {
             return of(null);
           }
         }),
-        tap(console.log)
+        tap(console.log),
+        this.angularFirePerformance.trace('getTutorSearchRequest')
       );
   }
 
