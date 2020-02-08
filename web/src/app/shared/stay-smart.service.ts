@@ -10,6 +10,7 @@ import {TutorRegistration} from './model/tutor-registration.model';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {AuthService} from '../auth/auth.service';
 import {GeoLocation} from './model/geo-location.model';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ import {GeoLocation} from './model/geo-location.model';
 export class StaySmartService {
 
   constructor(private angularFirestore: AngularFirestore, private angularFireStorage: AngularFireStorage,
-              private authService: AuthService) {
+              private authService: AuthService, private angularFirePerformance: AngularFirePerformance) {
   }
 
   requestTutorSearch(tutorSearchRequest: TutorSearchRequest): Promise<void> {
@@ -56,7 +57,8 @@ export class StaySmartService {
           // TODO error handler
           return null;
         }
-      })
+      }),
+      this.angularFirePerformance.trace('registerNewTutor')
     );
   }
 
