@@ -5,11 +5,13 @@ import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/mode
 import * as firebase from 'firebase/app';
 import {AuthService} from '../../auth/auth.service';
 import {switchMap} from 'rxjs/operators';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Injectable() // provided in TutorPortalModule
 export class TutorPortalService {
 
-  constructor(private angularFirestore: AngularFirestore, private authService: AuthService) {
+  constructor(private angularFirestore: AngularFirestore, private authService: AuthService,
+              private angularFirePerformance: AngularFirePerformance) {
   }
 
   getTutorSearchRequests(): Observable<TutorSearchRequestData[]> {
@@ -33,7 +35,8 @@ export class TutorPortalService {
         } else {
           return of(null);
         }
-      })
+      }),
+      this.angularFirePerformance.trace('getMatchingTutorSearchRequests')
     );
   }
 
