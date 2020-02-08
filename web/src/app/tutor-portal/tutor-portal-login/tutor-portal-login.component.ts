@@ -30,9 +30,6 @@ export class TutorPortalLoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.user) {
-      this.authService.logout();
-    }
   }
 
   login() {
