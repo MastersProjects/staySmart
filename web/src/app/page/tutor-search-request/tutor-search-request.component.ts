@@ -8,6 +8,7 @@ import {locationDomainValidator} from '../../shared/validators/location.validato
 import {StaySmartService} from '../../shared/stay-smart.service';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import {GeoLocation} from '../../shared/model/geo-location.model';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Component({
   selector: 'app-tutor-search-request',
@@ -28,7 +29,8 @@ export class TutorSearchRequestComponent implements OnInit {
   /* Form */
   requestForm: FormGroup;
 
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
+  constructor(private locationService: LocationService, private staySmartService: StaySmartService,
+              private angularFirePerformance: AngularFirePerformance) {
   }
 
   ngOnInit() {
@@ -100,11 +102,17 @@ export class TutorSearchRequestComponent implements OnInit {
   submitForm() {
     if (this.isStep1Valid && this.isStep2Valid && this.isStep3Valid) {
       const tutorSearchRequest = this.mapFormToModel();
-      this.staySmartService.requestTutorSearch(tutorSearchRequest).then(() => {
-        this.submitted = true;
-      }).catch(reason => {
-        console.log(reason);
-      });
+      const trace = this.angularFirePerformance.trace$('requestTutorSearch').subscribe();
+      this.staySmartService.requestTutorSearch(tutorSearchRequest)
+        .then(() => {
+          this.submitted = true;
+        })
+        .catch(reason => {
+          console.log(reason);
+        })
+        .finally(() => {
+          trace.unsubscribe();
+        });
     } else {
       console.log('Error in Form');
     }
