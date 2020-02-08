@@ -18,7 +18,9 @@ export class TutorPortalService {
     return this.angularFirestore.collection<TutorSearchRequestData>(
       'TutorSearchRequests',
       ref => ref.where('status', '==', 'new').orderBy('timestamp', 'desc')
-    ).valueChanges({idField: 'id'});
+    ).valueChanges({idField: 'id'}).pipe(
+      this.angularFirePerformance.trace('getTutorSearchRequests')
+    );
   }
 
   getMatchingTutorSearchRequests(): Observable<TutorSearchRequestData[]> {
