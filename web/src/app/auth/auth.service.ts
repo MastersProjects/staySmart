@@ -45,7 +45,7 @@ export class AuthService {
           return of(null);
         }
       }),
-      this.angularFirePerformance.trace('loadTutorPortalUser'),
+      this.angularFirePerformance.trace('tutorPortalUser$'),
       shareReplay(
         {bufferSize: 1, refCount: true}
       )
@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   get isLoggedIn$(): Observable<boolean> {
-    return this.angularFireAuth.authState.pipe(
+    return this.authState$.pipe(
       switchMap(authState => {
         if (authState) {
           if (authState.emailVerified) {
