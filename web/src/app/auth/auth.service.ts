@@ -26,7 +26,8 @@ export class AuthService {
 
   private loadAuthState() {
     this.authState$ = this.angularFireAuth.authState.pipe(
-      tap(() => console.log('authState Subscribed'))
+      tap(() => console.log('authState Subscribed')),
+      this.angularFirePerformance.trace('authState$')
     );
   }
 
