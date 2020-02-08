@@ -114,7 +114,8 @@ export class AuthService {
           this.eventAuthError.next('Falsches E-mail oder Passwort');
           return from(this.logout()).pipe(map(() => null)); // mapping because we need Observable<null> instead of Observable<void>
         }
-      })
+      }),
+      this.angularFirePerformance.trace('getTutor')
     );
   }
 
