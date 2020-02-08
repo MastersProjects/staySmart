@@ -6,6 +6,10 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {User} from 'firebase';
 
+import * as firebase from 'firebase/app';
+
+const performance = firebase.performance();
+
 @Component({
   selector: 'app-tutor-portal-login',
   templateUrl: './tutor-portal-login.component.html',
@@ -36,19 +40,26 @@ export class TutorPortalLoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       console.log('login');
       this.isLoading = true;
+      const loginTrace = performance.trace('login');
+      loginTrace.start();
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
         .then(userCredential => {
+          loginTrace.putAttribute('emailVerified', `${userCredential.user.emailVerified}`);
           if (userCredential) {
             if (userCredential.user.emailVerified) {
+              loginTrace.putAttribute('loginSuccessful', 'true');
               this.router.navigate(['/tutor-portal']);
             } else {
               this.user = userCredential.user;
               this.emailVerifiedError = true;
             }
+          } else {
+            loginTrace.putAttribute('loginSuccessful', 'false');
           }
         })
         .finally(() => {
           this.isLoading = false;
+          loginTrace.stop();
         });
     }
   }
