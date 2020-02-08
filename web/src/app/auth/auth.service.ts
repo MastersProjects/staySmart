@@ -6,6 +6,7 @@ import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Tutor} from '../shared/model/tutor.model';
 import {User} from 'firebase';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthService {
   private authState$: Observable<User | null>;
   tutorPortalUser$: Observable<Tutor | null>;
 
-  constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore) {
+  constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore,
+              private angularFirePerformance: AngularFirePerformance) {
     this.loadAuthState();
     this.loadTutorPortalUser();
   }
@@ -43,6 +45,7 @@ export class AuthService {
           return of(null);
         }
       }),
+      this.angularFirePerformance.trace('loadTutorPortalUser'),
       shareReplay(
         {bufferSize: 1, refCount: true}
       )
