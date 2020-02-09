@@ -114,8 +114,17 @@ export class StaySmartService {
 
   acceptTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
                                 tutorSearchRequest: TutorSearchRequest): Promise<void[]> {
-    const updateOfferStatus = this.updateTutorSearchRequestOfferStatus(
-      {...tutorSearchRequestOffer, status: 'accepted'}, tutorSearchRequest.tutorSearchRequestData.id
+    const updatedOffer: TutorSearchRequestOffer  = {
+      ...tutorSearchRequestOffer,
+      status: 'accepted',
+      tutorSearchRequest: {
+        tutorSearchRequestData: tutorSearchRequest.tutorSearchRequestData,
+        tutorSearchRequestContactData: tutorSearchRequest.tutorSearchRequestContactData
+      }
+    };
+    const updateOffer = this.updateTutorSearchRequestOffer(
+      updatedOffer,
+      tutorSearchRequest.tutorSearchRequestData.id
     );
     const updateRequestStatus = this.angularFirestore
       .collection('TutorSearchRequests')
@@ -131,24 +140,24 @@ export class StaySmartService {
           this.declineTutorSearchRequestOffer(currentValue, tutorSearchRequest.tutorSearchRequestData.id)
         ];
       }, []);
-    return Promise.all([updateOfferStatus, updateRequestStatus, ...offersToDecline]);
+    return Promise.all([updateOffer, updateRequestStatus, ...offersToDecline]);
   }
 
   declineTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
                                  tutorSearchRequestDataId: string): Promise<void> {
-    return this.updateTutorSearchRequestOfferStatus(
+    return this.updateTutorSearchRequestOffer(
       {...tutorSearchRequestOffer, status: 'declined'}, tutorSearchRequestDataId
     );
   }
 
-  private updateTutorSearchRequestOfferStatus(tutorSearchRequestOffer: TutorSearchRequestOffer,
-                                              tutorSearchRequestDataId: string): Promise<void> {
+  private updateTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
+                                        tutorSearchRequestDataId: string): Promise<void> {
     return this.angularFirestore
       .collection('TutorSearchRequests')
       .doc(tutorSearchRequestDataId)
       .collection('TutorSearchRequestOffers')
       .doc(tutorSearchRequestOffer.id)
-      .update({status: tutorSearchRequestOffer.status});
+      .update(tutorSearchRequestOffer);
   }
 
   private uploadStudentCards(studentCardFront: File, studentCardBack: File): Observable<UploadTaskSnapshot[]> {

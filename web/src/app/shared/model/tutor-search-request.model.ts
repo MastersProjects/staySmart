@@ -44,5 +44,9 @@ export interface TutorSearchRequestOffer {
   price: number;
   timestamp: Timestamp;
   status: 'new' | 'accepted' | 'declined';
+  tutorSearchRequest?: {
+    tutorSearchRequestData?: TutorSearchRequestData;
+    tutorSearchRequestContactData?: TutorSearchRequestContactData;
+  };
 }
 
