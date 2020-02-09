@@ -119,7 +119,10 @@ export class StaySmartService {
       status: 'accepted',
       tutorSearchRequest: {
         tutorSearchRequestData: tutorSearchRequest.tutorSearchRequestData,
-        tutorSearchRequestContactData: tutorSearchRequest.tutorSearchRequestContactData
+        tutorSearchRequestContactData: {
+          email: tutorSearchRequest.tutorSearchRequestContactData.email,
+          phoneNumber: tutorSearchRequest.tutorSearchRequestContactData.phoneNumber
+        }
       }
     };
     const updateOffer = this.updateTutorSearchRequestOffer(

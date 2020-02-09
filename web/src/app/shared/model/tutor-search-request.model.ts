@@ -32,6 +32,7 @@ export interface TutorSearchRequestData {
 export interface TutorSearchRequestContactData {
   email: string;
   phoneNumber: string;
+  linkRef?: string;
 }
 
 export interface TutorSearchRequestOffer {
@@ -46,7 +47,10 @@ export interface TutorSearchRequestOffer {
   status: 'new' | 'accepted' | 'declined';
   tutorSearchRequest?: {
     tutorSearchRequestData?: TutorSearchRequestData;
-    tutorSearchRequestContactData?: TutorSearchRequestContactData;
+    tutorSearchRequestContactData?: {
+      email: string;
+      phoneNumber: string;
+    };
   };
 }
 
