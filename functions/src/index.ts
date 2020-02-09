@@ -96,6 +96,40 @@ export const notifySearcherOnNewOffer = functions.region('europe-west1')
 
     });
 
+export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
+    .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestOffers/{TutorSearchRequestOfferID}')
+    .onUpdate(async snapshot => {
+        const updatedTutorSearchRequestOffer: any = snapshot.after.data();
+
+        if (updatedTutorSearchRequestOffer.status === 'accepted') {
+            const tutorSnap = await admin.firestore()
+                .collection('Tutors').doc(updatedTutorSearchRequestOffer.uid).get();
+
+            const tutor: any = tutorSnap.data();
+
+            // TODO mail message
+            const mailOptions: Mail.Options = {
+                from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
+                to: tutor.email,
+                subject: `${updatedTutorSearchRequestOffer.firstName} ${updatedTutorSearchRequestOffer.lastName} accepted your offer`,
+                html: `<p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.email}</p>
+                <br />
+                <p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.phoneNumber}</p>
+                `
+            };
+
+            return transporter.sendMail(mailOptions).then(() => {
+                console.log(`Sent to ${tutor.email}`);
+            }).catch(error => {
+                console.error(error);
+            });
+
+        } else {
+            console.log('ignoring because it got declined');
+            return null;
+        }
+    });
+
 // Notify Tutor on a new matching TutorSearchRequest
 export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}')
