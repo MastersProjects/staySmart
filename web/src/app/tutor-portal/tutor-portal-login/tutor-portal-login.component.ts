@@ -8,7 +8,6 @@ import {User} from 'firebase';
 
 import * as firebase from 'firebase/app';
 
-const performance = firebase.performance();
 
 @Component({
   selector: 'app-tutor-portal-login',
@@ -24,6 +23,7 @@ export class TutorPortalLoginComponent implements OnInit, OnDestroy {
   emailVerificationSent: boolean;
   version = environment.version;
   private user: User;
+  private performance = firebase.performance();
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -40,7 +40,7 @@ export class TutorPortalLoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       console.log('login');
       this.isLoading = true;
-      const loginTrace = performance.trace('login');
+      const loginTrace = this.performance.trace('login');
       loginTrace.start();
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
         .then(userCredential => {

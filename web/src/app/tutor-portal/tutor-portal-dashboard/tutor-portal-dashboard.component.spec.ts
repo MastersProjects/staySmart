@@ -11,6 +11,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TutorPortalService} from '../shared/tutor-portal.service';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('TutorPortalDashboardComponent', () => {
   let component: TutorPortalDashboardComponent;
@@ -22,6 +23,7 @@ describe('TutorPortalDashboardComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireAuthModule,
+        AngularFirePerformanceModule,
         FontAwesomeModule,
         ReactiveFormsModule
       ],

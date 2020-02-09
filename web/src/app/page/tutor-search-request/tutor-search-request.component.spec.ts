@@ -12,6 +12,7 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {StepperComponent} from '../../shared/stepper/stepper.component';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
@@ -26,6 +27,7 @@ describe('TutorSearchRequestComponent', () => {
         AngularFirestoreModule,
         AngularFireStorageModule,
         AngularFireAuthModule,
+        AngularFirePerformanceModule,
         FontAwesomeModule,
         CdkStepperModule,
         ReactiveFormsModule

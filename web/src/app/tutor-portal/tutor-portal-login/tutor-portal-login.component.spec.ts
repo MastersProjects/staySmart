@@ -7,6 +7,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('PortalLoginComponent', () => {
   let component: TutorPortalLoginComponent;
@@ -19,6 +20,7 @@ describe('PortalLoginComponent', () => {
         AngularFireAuthModule,
         AngularFirestoreModule,
         RouterTestingModule,
+        AngularFirePerformanceModule,
         ReactiveFormsModule
       ],
       declarations: [TutorPortalLoginComponent]

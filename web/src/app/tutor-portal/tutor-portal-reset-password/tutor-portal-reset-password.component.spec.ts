@@ -7,6 +7,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('TutorPortalResetPasswordComponent', () => {
   let component: TutorPortalResetPasswordComponent;
@@ -18,6 +19,7 @@ describe('TutorPortalResetPasswordComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        AngularFirePerformanceModule,
         RouterTestingModule,
         ReactiveFormsModule
       ],

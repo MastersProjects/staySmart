@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {RouterTestingModule} from '@angular/router/testing';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('LoggedInGuard', () => {
   beforeEach(() => {
@@ -14,7 +15,8 @@ describe('LoggedInGuard', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
-        RouterTestingModule
+        RouterTestingModule,
+        AngularFirePerformanceModule
       ],
       providers: [LoggedInGuard]
     });

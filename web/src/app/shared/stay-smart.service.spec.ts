@@ -6,6 +6,7 @@ import {environment} from '../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('StaySmartService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -14,6 +15,7 @@ describe('StaySmartService', () => {
       AngularFirestoreModule,
       AngularFireStorageModule,
       AngularFireAuthModule,
+      AngularFirePerformanceModule
     ],
   }));
 

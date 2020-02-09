@@ -5,13 +5,15 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('TutorPortalService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       AngularFireModule.initializeApp(environment.firebase),
       AngularFirestoreModule,
-      AngularFireAuthModule
+      AngularFireAuthModule,
+      AngularFirePerformanceModule
     ],
     providers: [TutorPortalService]
   }));

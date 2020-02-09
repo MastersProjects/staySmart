@@ -13,6 +13,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {RouterTestingModule} from '@angular/router/testing';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('TutorRegistrationComponent', () => {
   let component: TutorRegistrationComponent;
@@ -30,6 +31,7 @@ describe('TutorRegistrationComponent', () => {
         AngularFirestoreModule,
         AngularFireStorageModule,
         AngularFireAuthModule,
+        AngularFirePerformanceModule,
         ReactiveFormsModule,
         CdkStepperModule,
         FontAwesomeModule,

@@ -8,6 +8,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-portal-navigation.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('TutorPortalComponent', () => {
   let component: TutorPortalComponent;
@@ -19,6 +20,7 @@ describe('TutorPortalComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        AngularFirePerformanceModule,
         RouterTestingModule,
         FontAwesomeModule
       ],

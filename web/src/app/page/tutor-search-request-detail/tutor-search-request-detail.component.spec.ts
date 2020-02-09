@@ -9,6 +9,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../../environments/environment';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
 describe('TutorSearchRequestDetailComponent', () => {
   let component: TutorSearchRequestDetailComponent;
@@ -21,6 +22,7 @@ describe('TutorSearchRequestDetailComponent', () => {
         AngularFirestoreModule,
         AngularFireStorageModule,
         AngularFireAuthModule,
+        AngularFirePerformanceModule,
         RouterTestingModule,
         FontAwesomeModule
       ],
