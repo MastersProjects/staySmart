@@ -31,7 +31,7 @@ export class TutorPortalRequestDetailComponent implements OnInit {
 
   @Output() declined = new EventEmitter<void>();
 
-  @ViewChild('card', {static: false}) private cardElement: ElementRef;
+  @ViewChild('card') private cardElement: ElementRef;
 
   requestAccepted: boolean;
   faCheck = faCheck;

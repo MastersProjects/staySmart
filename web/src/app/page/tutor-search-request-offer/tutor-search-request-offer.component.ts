@@ -27,7 +27,7 @@ export class TutorSearchRequestOfferComponent implements OnInit {
   @Input() tutorSearchRequestOffer: TutorSearchRequestOffer;
   @Output() accepted = new EventEmitter<void>();
   @Output() declined = new EventEmitter<void>();
-  @ViewChild('card', {static: false}) private cardElement: ElementRef;
+  @ViewChild('card') private cardElement: ElementRef;
 
   faCheck = faCheck;
   faTimes = faTimes;

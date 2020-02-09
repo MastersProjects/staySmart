@@ -12,13 +12,13 @@ The association stay smart is a non-profit organisation that actively supports t
 The frontEnd is an Angular web-project. Firebase is used for the backend and hosting of the application. 
 ## Technology-Stack
 * :fire: Firebase 
-* :a: Angular 8 (Bootstrap 4, TypeScript , HTML, CSS)
+* :a: Angular 9 (Bootstrap 4, TypeScript , HTML, CSS)
 * :octocat: [Git](https://git-scm.com/downloads)
 
 
 # Deployment
 ## Environment
-There are two environemnts for the application called `staySmart-dev` and `staySmart`. All commits made on the master branch are automaticaly deployed to dev environment. All releases made on the project are automaitcaly deployed to production staySmart.
+There are two environments for the application called `staySmart-dev` and `staySmart`. All commits made on the master branch are automatically deployed to dev environment. All releases made on the project are automatically deployed to production staySmart.
 
 ## URL
 * web: https://staysmart-dev.web.app
