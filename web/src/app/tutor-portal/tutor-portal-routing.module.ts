@@ -7,6 +7,7 @@ import {LoggedInGuard} from '../auth/guard/logged-in.guard';
 import {TutorPortalResetPasswordComponent} from './tutor-portal-reset-password/tutor-portal-reset-password.component';
 import {TutorPortalDashboardComponent} from './tutor-portal-dashboard/tutor-portal-dashboard.component';
 import {TutorPortalRequestListComponent} from './tutor-portal-request-list/tutor-portal-request-list.component';
+import {TutorPortalProfileComponent} from './tutor-portal-profile/tutor-portal-profile.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     children: [
       {path: 'dashboard', component: TutorPortalDashboardComponent},
       {path: 'request-list', component: TutorPortalRequestListComponent},
+      {path: 'profile', component: TutorPortalProfileComponent},
       {path: '', pathMatch: 'full', redirectTo: 'dashboard'}
     ],
     canActivate: [TutorPortalAuthGuard]

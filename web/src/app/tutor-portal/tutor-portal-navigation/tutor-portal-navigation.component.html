@@ -24,7 +24,7 @@
             </span>
         <div ngbDropdownMenu class="dropdown-menu-right" style="background: white">
           <div class="dropdown-header">{{tutor?.firstName}} {{tutor?.lastName}}</div>
-          <button ngbDropdownItem>Profil</button>
+          <button ngbDropdownItem routerLink="profile">Profil</button>
           <button ngbDropdownItem (click)="onLogout()">
             <fa-icon [icon]="faSignOutAlt"></fa-icon>
             Logout
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="nav-item d-md-none">
-        <a class="nav-link py-md-0" style="cursor: pointer">
+        <a class="nav-link py-md-0" style="cursor: pointer" routerLink="profile">
           <img src="assets/img/logo.png" width="32" height="32" class="rounded" alt="profile picture">
           <span class="ml-2">{{tutor?.firstName}} {{tutor?.lastName}}</span>
         </a>

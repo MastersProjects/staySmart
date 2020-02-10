@@ -14,6 +14,7 @@ import {TutorPortalRequestDetailComponent} from './tutor-portal-request-detail/t
 import {TutorPortalRequestOfferComponent} from './tutor-portal-request-offer/tutor-portal-request-offer.component';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-portal-navigation.component';
+import {TutorPortalProfileComponent} from './tutor-portal-profile/tutor-portal-profile.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-po
     TutorPortalRequestListComponent,
     TutorPortalRequestDetailComponent,
     TutorPortalRequestOfferComponent,
-    TutorPortalNavigationComponent
+    TutorPortalNavigationComponent,
+    TutorPortalProfileComponent
   ],
   imports: [
     CommonModule,
