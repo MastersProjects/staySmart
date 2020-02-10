@@ -12,8 +12,8 @@ export interface Tutor {
   postalCode: string;
   city: GeoLocation;
 
-  studentCardFront: string;
-  studentCardBack: string;
+  studentCardFront: string; // TODO same as profilePicture
+  studentCardBack: string; // TODO same as profilePicture
   studentCardExpireDate: Date;
   education: string;
 
@@ -39,4 +39,9 @@ export interface Tutor {
   sentOffers?: string[];
 
   tags?: any;
+
+  profilePicture?: {
+    downloadUrl?: string,
+    fullPath?: string,
+  }; // TODO create a new Model for reuse
 }

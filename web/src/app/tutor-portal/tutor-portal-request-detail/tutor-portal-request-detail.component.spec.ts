@@ -12,6 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 import Timestamp = firebase.firestore.Timestamp;
 
 describe('TutorPortalRequestDetailComponent', () => {
@@ -25,6 +26,7 @@ describe('TutorPortalRequestDetailComponent', () => {
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFirePerformanceModule,
+        AngularFireStorageModule,
         FontAwesomeModule,
         BrowserAnimationsModule,
         ReactiveFormsModule

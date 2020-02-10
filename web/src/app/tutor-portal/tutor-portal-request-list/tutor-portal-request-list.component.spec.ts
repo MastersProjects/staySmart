@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {TutorPortalRequestOfferComponent} from '../tutor-portal-request-offer/tutor-portal-request-offer.component';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 describe('TutorPortalRequestListComponent', () => {
   let component: TutorPortalRequestListComponent;
@@ -23,6 +24,7 @@ describe('TutorPortalRequestListComponent', () => {
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFirePerformanceModule,
+        AngularFireStorageModule,
         FontAwesomeModule,
         ReactiveFormsModule
       ],

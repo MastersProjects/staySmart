@@ -12,6 +12,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 describe('TutorPortalDashboardComponent', () => {
   let component: TutorPortalDashboardComponent;
@@ -24,6 +25,7 @@ describe('TutorPortalDashboardComponent', () => {
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFirePerformanceModule,
+        AngularFireStorageModule,
         FontAwesomeModule,
         ReactiveFormsModule
       ],

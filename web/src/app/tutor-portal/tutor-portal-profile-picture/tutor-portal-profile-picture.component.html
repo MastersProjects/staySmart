@@ -1,0 +1,29 @@
+<div class="text-center">
+  <div class="profile-picture-grid" *ngIf="showProfilePicture">
+    <img [src]="profilePicture?.downloadUrl ? profilePicture?.downloadUrl : 'assets/img/logo.png'" alt="Profilbild"
+         class="img-fluid rounded-circle border" width="250px" height="250px">
+    <input type="file" class="profile-picture-uploader" accept="image/*" (change)="fileChangeEvent($event)">
+  </div>
+  <div *ngIf="showPictureLoading" style="height: 300px">
+    <div class="spinner-border align-middle" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div [style.display]="isCropperImageLoaded ? 'inline-block' : 'none'">
+    <image-cropper style="max-height: 300px"
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1"
+      [roundCropper]="true"
+      [resizeToWidth]="500"
+      (imageLoaded)="cropperImageLoaded()"
+      (cropperReady)="cropperReady($event)"
+      (imageCropped)="imageCropped($event)"
+      (loadImageFailed)="loadImageFailed()">
+    </image-cropper>
+    <div class="px-2 py-2">
+      <button class="btn btn-outline-secondary float-left" (click)="cancelProfilePicture()">Abbrechen</button>
+      <button class="btn btn-success float-right" (click)="saveProfilePicture()">Speichern</button>
+    </div>
+  </div>
+</div>

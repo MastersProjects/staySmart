@@ -1,24 +1,71 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
-import {Observable} from 'rxjs';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {Tutor} from '../../shared/model/tutor.model';
-import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {TutorPortalService} from '../shared/tutor-portal.service';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Component({
   selector: 'app-tutor-portal-profile',
   templateUrl: './tutor-portal-profile.component.html',
   styleUrls: ['./tutor-portal-profile.component.scss']
 })
-export class TutorPortalProfileComponent implements OnInit {
+export class TutorPortalProfileComponent implements OnInit, OnDestroy {
 
-  tutorPortalUser$: Observable<Tutor>;
-  faUser = faUser;
+  private destroy$ = new Subject<void>();
+  tutorPortalUser: Tutor;
+  profileInfoForm: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private tutorPortalService: TutorPortalService,
+              private angularFirePerformance: AngularFirePerformance) {
   }
 
   ngOnInit(): void {
-    this.tutorPortalUser$ = this.authService.tutorPortalUser$;
+    this.profileInfoForm = this.createProfileInfoForm();
+    this.loadTutorPortalUser();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private loadTutorPortalUser() {
+    this.authService.tutorPortalUser$.pipe(takeUntil(this.destroy$)).subscribe(tutorPortalUser => {
+      this.tutorPortalUser = tutorPortalUser;
+      this.profileInfoForm.patchValue(tutorPortalUser);
+    });
+  }
+
+  saveProfileInfo() {
+    if (this.profileInfoForm.valid) {
+      console.log('save', this.profileInfoForm.value);
+    }
+  }
+
+  saveProfilePicture($event: string) {
+    const trace = this.angularFirePerformance.trace$('uploadProfilePicture').subscribe();
+    this.tutorPortalService.uploadProfilePicture($event, this.tutorPortalUser)
+      .then(() => {
+        console.log('uploaded');
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => {
+        trace.unsubscribe();
+      });
+  }
+
+  createProfileInfoForm(): FormGroup {
+    // TODO ProfileInfo
+    return new FormGroup({
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      email: new FormControl(''),
+      mobileNumber: new FormControl('')
+    });
+  }
 }

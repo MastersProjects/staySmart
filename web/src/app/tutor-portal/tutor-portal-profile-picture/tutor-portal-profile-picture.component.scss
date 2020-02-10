@@ -1,0 +1,37 @@
+.profile-picture-grid {
+  display: grid;
+  justify-items: center;
+  grid-gap: 1em;
+
+  .profile-picture-uploader {
+    color: transparent;
+    width: 145px;
+    height: 36px;
+    outline: none;
+
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    &::before {
+      content: 'Profilbild ändern';
+      cursor: pointer;
+      color: #fff;
+      background-color: #6c757d;
+      border-color: #6c757d;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 400;
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: .25rem;
+      transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+
+    &:hover::before {
+      background: #545b62;
+    }
+  }
+}

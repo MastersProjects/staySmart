@@ -6,12 +6,14 @@ import * as firebase from 'firebase/app';
 import {AuthService} from '../../auth/auth.service';
 import {switchMap} from 'rxjs/operators';
 import {AngularFirePerformance} from '@angular/fire/performance';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {Tutor} from '../../shared/model/tutor.model';
 
 @Injectable() // provided in TutorPortalModule
 export class TutorPortalService {
 
   constructor(private angularFirestore: AngularFirestore, private authService: AuthService,
-              private angularFirePerformance: AngularFirePerformance) {
+              private angularFirePerformance: AngularFirePerformance, private angularFireStorage: AngularFireStorage) {
   }
 
   getTutorSearchRequests(): Observable<TutorSearchRequestData[]> {
@@ -75,6 +77,22 @@ export class TutorPortalService {
     ).add(offer);
 
     return Promise.all([updatePortalUser, addOffer]);
+  }
+
+  async uploadProfilePicture(profilePicture: string, tutor: Tutor) {
+    const ref = this.angularFireStorage.ref(`profilePicture/${tutor.uid}`);
+    const task = await ref.putString(
+      profilePicture.replace('data:image/png;base64,', ''),
+      'base64',
+      {contentType: 'image/png'}
+    );
+    const downloadUrl = await task.ref.getDownloadURL();
+    return this.angularFirestore.collection('Tutors').doc(tutor.uid).update({
+      profilePicture: {
+        downloadUrl,
+        fullPath: task.ref.fullPath
+      }
+    });
   }
 
   private get serverTimestamp() {

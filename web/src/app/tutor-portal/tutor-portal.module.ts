@@ -15,6 +15,8 @@ import {TutorPortalRequestOfferComponent} from './tutor-portal-request-offer/tut
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-portal-navigation.component';
 import {TutorPortalProfileComponent} from './tutor-portal-profile/tutor-portal-profile.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {TutorPortalProfilePictureComponent} from './tutor-portal-profile-picture/tutor-portal-profile-picture.component';
 
 
 @NgModule({
@@ -27,14 +29,16 @@ import {TutorPortalProfileComponent} from './tutor-portal-profile/tutor-portal-p
     TutorPortalRequestDetailComponent,
     TutorPortalRequestOfferComponent,
     TutorPortalNavigationComponent,
-    TutorPortalProfileComponent
+    TutorPortalProfileComponent,
+    TutorPortalProfilePictureComponent
   ],
   imports: [
     CommonModule,
     TutorPortalRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    ImageCropperModule
   ],
   providers: [TutorPortalService] // Because TutorPortalService is only provided in this module which is lazy loaded
 })
