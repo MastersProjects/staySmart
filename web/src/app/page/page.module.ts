@@ -7,9 +7,6 @@ import {HomeComponent} from './home/home.component';
 import {TutorSearchRequestComponent} from './tutor-search-request/tutor-search-request.component';
 import {BannerComponent} from './banner/banner.component';
 import {TutorRegistrationComponent} from './tutor-registration/tutor-registration.component';
-import {OrganisationComponent} from './organisation/organisation.component';
-import {TeamComponent} from './team/team.component';
-import {PresseComponent} from './presse/presse.component';
 import {StepperComponent} from '../shared/stepper/stepper.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CdkStepperModule} from '@angular/cdk/stepper';
@@ -25,9 +22,6 @@ import {TutorSearchRequestOfferComponent} from './tutor-search-request-offer/tut
     TutorSearchRequestComponent,
     BannerComponent,
     TutorRegistrationComponent,
-    OrganisationComponent,
-    TeamComponent,
-    PresseComponent,
     StepperComponent,
     TutorSearchRequestDetailComponent,
     TutorSearchRequestOfferComponent
