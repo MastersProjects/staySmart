@@ -1,13 +1,13 @@
 <ng-container *ngIf="!hasAcceptedOffer">
   <ng-container *ngIf="tutorSearchRequest$ | async as tutorSearchRequest">
-    <div>
+    <!--<div>
       <h4>TutorSearchRequestContactData</h4>
       <pre>{{tutorSearchRequest.tutorSearchRequestContactData | json}}</pre>
     </div>
     <div>
       <h4>TutorSearchRequestData</h4>
       <pre>{{tutorSearchRequest.tutorSearchRequestData | json}}</pre>
-    </div>
+    </div>-->
     <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers" class="my-4">
       <app-tutor-search-request-offer [tutorSearchRequestOffer]="tutorSearchRequestOffer"
                                       (accepted)="acceptOffer(tutorSearchRequestOffer, tutorSearchRequest)"

@@ -5,6 +5,10 @@
   </div>
   <div [@collapse]="collapseState" (@collapse.done)="onCollapseAnimationDone($event)"
        class="card-body">
+    <div class="text-center">
+      <img [src]="getProfilePicture(tutorSearchRequestOffer?.profilePicture)" alt="Profilbild"
+           class="img-fluid rounded-circle border" width="400px" height="400px">
+    </div>
     <div class="form-group">
       <label class="w-100">
         Nachricht
