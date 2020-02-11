@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Dimensions, ImageCroppedEvent} from 'ngx-image-cropper';
+import {Image} from '../../shared/model/image.model';
 
 @Component({
   selector: 'app-tutor-portal-profile-picture',
@@ -9,10 +10,7 @@ import {Dimensions, ImageCroppedEvent} from 'ngx-image-cropper';
 })
 export class TutorPortalProfilePictureComponent implements OnInit {
 
-  @Input() profilePicture: {
-    downloadUrl?: string,
-    fullPath?: string,
-  };
+  @Input() profilePicture: Image;
   @Output() saveNewProfilePicture = new EventEmitter<string>();
 
   imageChangedEvent: Event;
