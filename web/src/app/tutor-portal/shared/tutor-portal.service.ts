@@ -56,14 +56,15 @@ export class TutorPortalService {
   async sendTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
                                     tutorSearchRequestId: string): Promise<[void, firebase.firestore.DocumentReference]> {
     const tutorPortalUser = await this.authService.tutorPortalUser;
-
+    const {uid, firstName, lastName, profilePicture} = tutorPortalUser;
     const offer = {
       ...tutorSearchRequestOffer,
-      uid: tutorPortalUser.uid,
-      firstName: tutorPortalUser.firstName,
-      lastName: tutorPortalUser.lastName,
+      uid,
+      firstName,
+      lastName,
       timestamp: this.serverTimestamp,
-      status: 'new'
+      status: 'new',
+      profilePicture
     }; // TODO Profile Picture
 
     const sentOffers = tutorPortalUser.sentOffers ?

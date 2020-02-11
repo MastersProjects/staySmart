@@ -1,5 +1,6 @@
 import {GeoLocation} from './geo-location.model';
 import {Timestamp} from '@firebase/firestore-types';
+import {Image} from './image.model';
 
 export interface TutorSearchRequest {
   tutorSearchRequestData: TutorSearchRequestData;
@@ -40,7 +41,7 @@ export interface TutorSearchRequestOffer {
   uid: string;
   firstName: string;
   lastName: string;
-  /* TODO profilePicture: string;*/
+  profilePicture?: Image;
   message: string;
   price: number;
   timestamp: Timestamp;

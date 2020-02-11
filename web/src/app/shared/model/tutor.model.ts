@@ -1,4 +1,5 @@
 import {GeoLocation} from './geo-location.model';
+import {Image} from './image.model';
 
 export interface Tutor {
   uid: string;
@@ -40,8 +41,5 @@ export interface Tutor {
 
   tags?: any;
 
-  profilePicture?: {
-    downloadUrl?: string,
-    fullPath?: string,
-  }; // TODO create a new Model for reuse
+  profilePicture?: Image;
 }
