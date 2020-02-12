@@ -13,8 +13,8 @@ export interface Tutor {
   postalCode: string;
   city: GeoLocation;
 
-  studentCardFront: string; // TODO same as profilePicture
-  studentCardBack: string; // TODO same as profilePicture
+  studentCardFront: Image;
+  studentCardBack: Image;
   studentCardExpireDate: Date;
   education: string;
 

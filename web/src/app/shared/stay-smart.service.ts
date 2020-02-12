@@ -6,11 +6,12 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import * as uuidv4 from 'uuid/v4';
 import {from, Observable, of} from 'rxjs';
 import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
-import {TutorRegistration} from './model/tutor-registration.model';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {AuthService} from '../auth/auth.service';
 import {GeoLocation} from './model/geo-location.model';
 import {AngularFirePerformance} from '@angular/fire/performance';
+import {Tutor} from './model/tutor.model';
+import {Image} from './model/image.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,19 +44,37 @@ export class StaySmartService {
           .pipe(map((uploadTaskSnapshots: UploadTaskSnapshot[]) => ({userCredential, uploadTaskSnapshots})));
       }),
       switchMap(result => {
-        const uploadTaskFrontSnap = result.uploadTaskSnapshots[0];
-        const uploadTaskBackSnap = result.uploadTaskSnapshots[1];
+        const {userCredential, uploadTaskSnapshots} = result;
+        const uploadTaskFrontSnap = uploadTaskSnapshots[0];
+        const uploadTaskBackSnap = uploadTaskSnapshots[1];
         if (uploadTaskFrontSnap.state === 'success' && uploadTaskBackSnap.state === 'success') {
-          const tutorRegistration = this.createTutorRegistration(
-            registrationForm, result.userCredential.user.uid,
-            uploadTaskFrontSnap.ref.fullPath, uploadTaskBackSnap.ref.fullPath
+          const downloadUrlsPromise = Promise.all(
+            [uploadTaskFrontSnap.ref.getDownloadURL(), uploadTaskBackSnap.ref.getDownloadURL()]
           );
-          return from(this.angularFirestore.collection('Tutors').doc(result.userCredential.user.uid)
-            .set({...tutorRegistration, registrationTimestamp: this.serverTimestamp}));
+          return from(downloadUrlsPromise).pipe(map(downloadUrls => {
+            return {
+              userCredential,
+              studentCardFront: {downloadUrl: downloadUrls[0], fullPath: uploadTaskFrontSnap.ref.fullPath} as Image,
+              studentCardBack: {downloadUrl: downloadUrls[1], fullPath: uploadTaskBackSnap.ref.fullPath} as Image,
+            };
+          }));
         } else {
           console.log('file upload not successful');
           // TODO error handler
-          return null;
+          return of(null);
+        }
+      }),
+      switchMap(result => {
+        if (result) {
+          const {userCredential, studentCardFront, studentCardBack} = result;
+          const tutorRegistration = this.createTutorRegistration(
+            registrationForm, result.userCredential.user.uid,
+            studentCardFront, studentCardBack
+          );
+          return from(this.angularFirestore.collection('Tutors').doc(userCredential.user.uid)
+            .set({...tutorRegistration, registrationTimestamp: this.serverTimestamp}));
+        } else {
+          return of(null);
         }
       }),
       this.angularFirePerformance.trace('registerNewTutor')
@@ -114,7 +133,7 @@ export class StaySmartService {
 
   acceptTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
                                 tutorSearchRequest: TutorSearchRequest): Promise<void[]> {
-    const updatedOffer: TutorSearchRequestOffer  = {
+    const updatedOffer: TutorSearchRequestOffer = {
       ...tutorSearchRequestOffer,
       status: 'accepted',
       tutorSearchRequest: {
@@ -169,14 +188,14 @@ export class StaySmartService {
     return from(Promise.all([frontRef.put(studentCardFront).then(), backRef.put(studentCardBack).then()]));
   }
 
-  private createTutorRegistration(registrationForm: RegistrationForm, uid: string,
-                                  studentCardFront: string, studentCardBack: string): TutorRegistration {
+  private createTutorRegistration(registrationForm: RegistrationForm, uid: string, studentCardFront: Image,
+                                  studentCardBack: Image): Tutor {
     const birthday = registrationForm.step1.birthday;
     const {firstName, lastName, email, mobileNumber} = registrationForm.step1;
     const {streetAddress, postalCode, city} = registrationForm.step2;
     const {studentCardExpireDate, education} = registrationForm.step3;
     const {subjects, gradeLevels, daysAvailable, price, attention} = registrationForm.step4;
-    const tutorRegistration = {
+    const tutorRegistration: Tutor = {
       uid,
       firstName,
       lastName,
