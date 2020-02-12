@@ -111,10 +111,10 @@ export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
             const mailOptions: Mail.Options = {
                 from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
                 to: tutor.email,
-                subject: `${updatedTutorSearchRequestOffer.firstName} ${updatedTutorSearchRequestOffer.lastName} accepted your offer`,
-                html: `<p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.email}</p>
+                subject: `${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestData.firstName} ${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestData.lastName} accepted your offer`,
+                html: `<p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.email}</p>
                 <br />
-                <p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.phoneNumber}</p>
+                <p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.phoneNumber}</p>
                 `
             };
 
