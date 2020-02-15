@@ -11,12 +11,13 @@ import {TutorPortalRequestListComponent} from './tutor-portal-request-list/tutor
 import {TutorPortalService} from './shared/tutor-portal.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TutorPortalRequestDetailComponent} from './tutor-portal-request-detail/tutor-portal-request-detail.component';
-import {TutorPortalRequestOfferComponent} from './tutor-portal-request-offer/tutor-portal-request-offer.component';
+import {TutorPortalRequestOfferFormComponent} from './tutor-portal-request-offer-form/tutor-portal-request-offer-form.component';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-portal-navigation.component';
 import {TutorPortalProfileComponent} from './tutor-portal-profile/tutor-portal-profile.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TutorPortalProfilePictureComponent} from './tutor-portal-profile-picture/tutor-portal-profile-picture.component';
+import {TutorPortalRequestOfferListComponent} from './tutor-portal-request-offer-list/tutor-portal-request-offer-list.component';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import {TutorPortalProfilePictureComponent} from './tutor-portal-profile-picture
     TutorPortalDashboardComponent,
     TutorPortalRequestListComponent,
     TutorPortalRequestDetailComponent,
-    TutorPortalRequestOfferComponent,
+    TutorPortalRequestOfferFormComponent,
     TutorPortalNavigationComponent,
     TutorPortalProfileComponent,
     TutorPortalProfilePictureComponent

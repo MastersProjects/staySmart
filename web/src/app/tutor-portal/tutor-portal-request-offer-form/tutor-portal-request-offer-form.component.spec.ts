@@ -1,14 +1,14 @@
 import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 
-import {TutorPortalRequestOfferComponent} from './tutor-portal-request-offer.component';
+import {TutorPortalRequestOfferFormComponent} from './tutor-portal-request-offer-form.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {ReactiveFormsModule} from '@angular/forms';
 
 describe('TutorPortalRequestAcceptComponent', () => {
-  let component: TutorPortalRequestOfferComponent;
-  let fixture: ComponentFixture<TutorPortalRequestOfferComponent>;
+  let component: TutorPortalRequestOfferFormComponent;
+  let fixture: ComponentFixture<TutorPortalRequestOfferFormComponent>;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
@@ -17,13 +17,13 @@ describe('TutorPortalRequestAcceptComponent', () => {
         AngularFirestoreModule,
         ReactiveFormsModule
       ],
-      declarations: [ TutorPortalRequestOfferComponent ]
+      declarations: [ TutorPortalRequestOfferFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TutorPortalRequestOfferComponent);
+    fixture = TestBed.createComponent(TutorPortalRequestOfferFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

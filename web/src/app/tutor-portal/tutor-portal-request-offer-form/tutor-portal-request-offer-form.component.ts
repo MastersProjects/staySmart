@@ -4,11 +4,11 @@ import {TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.m
 
 @Component({
   selector: 'app-tutor-portal-request-offer',
-  templateUrl: './tutor-portal-request-offer.component.html',
-  styleUrls: ['./tutor-portal-request-offer.component.scss'],
+  templateUrl: './tutor-portal-request-offer-form.component.html',
+  styleUrls: ['./tutor-portal-request-offer-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TutorPortalRequestOfferComponent implements OnInit {
+export class TutorPortalRequestOfferFormComponent implements OnInit {
 
   @Input() minPrice: number;
   @Output() canceled = new EventEmitter<void>();

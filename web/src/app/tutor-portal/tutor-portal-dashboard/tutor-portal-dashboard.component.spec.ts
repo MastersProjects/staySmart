@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {TutorPortalDashboardComponent} from './tutor-portal-dashboard.component';
 import {TutorPortalRequestListComponent} from '../tutor-portal-request-list/tutor-portal-request-list.component';
 import {TutorPortalRequestDetailComponent} from '../tutor-portal-request-detail/tutor-portal-request-detail.component';
-import {TutorPortalRequestOfferComponent} from '../tutor-portal-request-offer/tutor-portal-request-offer.component';
+import {TutorPortalRequestOfferFormComponent} from '../tutor-portal-request-offer-form/tutor-portal-request-offer-form.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -33,7 +33,7 @@ describe('TutorPortalDashboardComponent', () => {
         TutorPortalDashboardComponent,
         TutorPortalRequestListComponent,
         TutorPortalRequestDetailComponent,
-        TutorPortalRequestOfferComponent
+        TutorPortalRequestOfferFormComponent
       ],
       providers: [TutorPortalService]
     })

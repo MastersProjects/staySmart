@@ -7,7 +7,7 @@ import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TutorPortalRequestOfferComponent} from '../tutor-portal-request-offer/tutor-portal-request-offer.component';
+import {TutorPortalRequestOfferFormComponent} from '../tutor-portal-request-offer-form/tutor-portal-request-offer-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {AngularFireAuthModule} from '@angular/fire/auth';
@@ -33,7 +33,7 @@ describe('TutorPortalRequestDetailComponent', () => {
       ],
       declarations: [
         TutorPortalRequestDetailComponent,
-        TutorPortalRequestOfferComponent
+        TutorPortalRequestOfferFormComponent
       ],
       providers: [TutorPortalService]
     })
