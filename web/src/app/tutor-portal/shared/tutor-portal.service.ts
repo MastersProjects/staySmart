@@ -54,7 +54,9 @@ export class TutorPortalService {
   }
 
   async sendTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
-                                    tutorSearchRequestId: string): Promise<[void, firebase.firestore.DocumentReference]> {
+                                    tutorSearchRequestData: TutorSearchRequestData):
+    Promise<[void, firebase.firestore.DocumentReference]> {
+
     const tutorPortalUser = await this.authService.tutorPortalUser;
     const {uid, firstName, lastName, profilePicture} = tutorPortalUser;
     const offer = {
@@ -64,17 +66,20 @@ export class TutorPortalService {
       lastName,
       timestamp: this.serverTimestamp,
       status: 'new',
-      profilePicture
-    }; // TODO Profile Picture
+      profilePicture,
+      tutorSearchRequest: {
+        tutorSearchRequestData
+      }
+    };
 
     const sentOffers = tutorPortalUser.sentOffers ?
-      [...tutorPortalUser.sentOffers, tutorSearchRequestId] : [tutorSearchRequestId];
+      [...tutorPortalUser.sentOffers, tutorSearchRequestData.id] : [tutorSearchRequestData.id];
 
     const updatePortalUser = this.angularFirestore.collection('Tutors').doc(tutorPortalUser.uid)
       .update({sentOffers});
 
     const addOffer = this.angularFirestore.collection(
-      `TutorSearchRequests/${tutorSearchRequestId}/TutorSearchRequestOffers`
+      `TutorSearchRequests/${tutorSearchRequestData.id}/TutorSearchRequestOffers`
     ).add(offer);
 
     return Promise.all([updatePortalUser, addOffer]);
