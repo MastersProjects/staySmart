@@ -76,7 +76,7 @@ export class TutorPortalRequestDetailComponent implements OnInit {
   }
 
   sendOffer(tutorSearchRequestOffer: TutorSearchRequestOffer) {
-    this.tutorPortalService.sendTutorSearchRequestOffer(tutorSearchRequestOffer, this.tutorSearchRequest.id).then(response => {
+    this.tutorPortalService.sendTutorSearchRequestOffer(tutorSearchRequestOffer, this.tutorSearchRequest).then(response => {
       console.log('offer sent', response[1]);
       // TODO action after offerSent
     });
