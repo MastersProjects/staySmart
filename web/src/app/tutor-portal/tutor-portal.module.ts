@@ -17,6 +17,8 @@ import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-po
 import {TutorPortalProfileComponent} from './tutor-portal-profile/tutor-portal-profile.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {TutorPortalProfilePictureComponent} from './tutor-portal-profile-picture/tutor-portal-profile-picture.component';
+import {TutorPortalRequestOfferListComponent} from './tutor-portal-request-offer-list/tutor-portal-request-offer-list.component';
+import {TutorPortalRequestOfferDetailComponent} from './tutor-portal-request-offer-detail/tutor-portal-request-offer-detail.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import {TutorPortalProfilePictureComponent} from './tutor-portal-profile-picture
     TutorPortalRequestOfferFormComponent,
     TutorPortalNavigationComponent,
     TutorPortalProfileComponent,
-    TutorPortalProfilePictureComponent
+    TutorPortalProfilePictureComponent,
+    TutorPortalRequestOfferListComponent,
+    TutorPortalRequestOfferDetailComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,35 @@
+
+<div #card class="card">
+  <div class="card-header text-center" (click)="collapseToggle()">
+    {{tutorPortalOffer ? 'Offerte für' : null}}
+    {{tutorPortalOffer?.tutorSearchRequest?.tutorSearchRequestData.firstName}}
+    {{tutorPortalOffer?.tutorSearchRequest?.tutorSearchRequestData.lastName}}
+    <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="isCollapsed ? '180' : ''"></fa-icon>
+  </div>
+  <div [@collapse]="collapseState" (@collapse.done)="onCollapseAnimationDone($event)"
+       class="card-body">
+    <div class="form-group">
+      <label class="w-100">
+        Nachricht
+        <textarea class="form-control" disabled rows="7" [value]="tutorPortalOffer?.message"></textarea>
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="w-100">
+        Preis pro Stunde (Fr.)
+        <input class="form-control" disabled type="number" [value]="tutorPortalOffer?.price">
+      </label>
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    <div class="row">
+      <div class="col-sm-6">
+        Status: {{tutorPortalOffer?.status}}
+      </div>
+      <div class="col-sm-6 text-sm-right">
+        <small>Erstellt am: {{tutorPortalOffer?.timestamp.toDate() | date: 'medium'}}</small>
+      </div>
+    </div>
+  </div>
+</div>
+

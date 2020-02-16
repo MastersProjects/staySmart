@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {AuthService} from '../../auth/auth.service';
-import {switchMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {AngularFirePerformance} from '@angular/fire/performance';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Tutor} from '../../shared/model/tutor.model';
@@ -99,6 +99,21 @@ export class TutorPortalService {
         fullPath: task.ref.fullPath
       }
     });
+  }
+
+  getTutorPortalSentOffers(): Observable<TutorSearchRequestOffer[]> {
+    return this.authService.tutorPortalUser$.pipe(
+      switchMap(tutorPortalUser => {
+        return this.angularFirestore.collectionGroup<TutorSearchRequestOffer>(
+          'TutorSearchRequestOffers',
+          query => query.where('uid', '==', tutorPortalUser.uid)
+        ).snapshotChanges();
+      }),
+      map(snapshots => {
+        return snapshots.map(snapshot => ({...snapshot.payload.doc.data(), id: snapshot.payload.doc.id}));
+      }),
+      this.angularFirePerformance.trace('getTutorPortalSentOffers')
+    );
   }
 
   private get serverTimestamp() {

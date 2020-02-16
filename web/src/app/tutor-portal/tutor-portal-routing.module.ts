@@ -8,6 +8,7 @@ import {TutorPortalResetPasswordComponent} from './tutor-portal-reset-password/t
 import {TutorPortalDashboardComponent} from './tutor-portal-dashboard/tutor-portal-dashboard.component';
 import {TutorPortalRequestListComponent} from './tutor-portal-request-list/tutor-portal-request-list.component';
 import {TutorPortalProfileComponent} from './tutor-portal-profile/tutor-portal-profile.component';
+import {TutorPortalRequestOfferListComponent} from './tutor-portal-request-offer-list/tutor-portal-request-offer-list.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     children: [
       {path: 'dashboard', component: TutorPortalDashboardComponent},
       {path: 'request-list', component: TutorPortalRequestListComponent},
+      {path: 'offer-list', component: TutorPortalRequestOfferListComponent},
       {path: 'profile', component: TutorPortalProfileComponent},
       {path: '', pathMatch: 'full', redirectTo: 'dashboard'}
     ],
