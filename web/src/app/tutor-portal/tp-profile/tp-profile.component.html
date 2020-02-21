@@ -1,0 +1,42 @@
+<h2>Profil</h2>
+<div *ngIf="tutorPortalUser">
+  <app-tp-profile-picture [profilePicture]="tutorPortalUser.profilePicture"
+                          (saveNewProfilePicture)="saveProfilePicture($event)" style="height: 300px">
+  </app-tp-profile-picture>
+  <hr>
+  <form class="mt-5" [formGroup]="profileInfoForm" (ngSubmit)="saveProfileInfo()">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="firstName">Vorname</label>
+        <input type="text" id="firstName" name="firstName" class="form-control" formControlName="firstName">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="lastName">Name</label>
+        <input type="text" id="lastName" name="lastName" class="form-control" formControlName="lastName">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="email">E-Mail</label>
+        <input type="text" id="email" name="email" class="form-control" formControlName="email">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="mobileNumber">Mobiltelefon</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">+41</div>
+          </div>
+          <input type="text" id="mobileNumber" name="mobileNumber" class="form-control"
+                 formControlName="mobileNumber">
+        </div>
+      </div>
+    </div>
+    <!--TODO Profile Infos (can copy mostly from TutorRegistration)-->
+    TODO Profile Infos (can copy mostly from TutorRegistration)
+    <button type="submit" class="btn btn-success float-right">Speichern</button>
+  </form>
+</div>
+
+
+
+

@@ -1,18 +1,17 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TutorPortalComponent} from './tutor-portal.component';
-import {RouterTestingModule} from '@angular/router/testing';
+import {TpLoginComponent} from './tp-login.component';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {TpNavigationComponent} from './tp-navigation/tp-navigation.component';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ReactiveFormsModule} from '@angular/forms';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
 
-describe('TutorPortalComponent', () => {
-  let component: TutorPortalComponent;
-  let fixture: ComponentFixture<TutorPortalComponent>;
+describe('TpLoginComponent', () => {
+  let component: TpLoginComponent;
+  let fixture: ComponentFixture<TpLoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,20 +19,17 @@ describe('TutorPortalComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
-        AngularFirePerformanceModule,
         RouterTestingModule,
-        FontAwesomeModule
+        AngularFirePerformanceModule,
+        ReactiveFormsModule
       ],
-      declarations: [
-        TutorPortalComponent,
-        TpNavigationComponent
-      ]
+      declarations: [TpLoginComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TutorPortalComponent);
+    fixture = TestBed.createComponent(TpLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div>
-    <app-tutor-portal-navigation [tutor]="tutor$ | async" (logout)="logout()"></app-tutor-portal-navigation>
+    <app-tp-navigation [tutor]="tutor$ | async" (logout)="logout()"></app-tp-navigation>
     <div class="container py-4">
       <router-outlet></router-outlet>
     </div>

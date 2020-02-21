@@ -3,38 +3,38 @@ import {CommonModule} from '@angular/common';
 
 import {TutorPortalRoutingModule} from './tutor-portal-routing.module';
 import {TutorPortalComponent} from './tutor-portal.component';
-import {TutorPortalLoginComponent} from './tutor-portal-login/tutor-portal-login.component';
+import {TpLoginComponent} from './tp-authentication/tp-login/tp-login.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {TutorPortalResetPasswordComponent} from './tutor-portal-reset-password/tutor-portal-reset-password.component';
-import {TutorPortalDashboardComponent} from './tutor-portal-dashboard/tutor-portal-dashboard.component';
-import {TutorPortalRequestListComponent} from './tutor-portal-request-list/tutor-portal-request-list.component';
+import {TpResetPasswordComponent} from './tp-authentication/tp-reset-password/tp-reset-password.component';
+import {TpDashboardComponent} from './tp-dashboard/tp-dashboard.component';
+import {TpRequestListComponent} from './tp-request-list/tp-request-list.component';
 import {TutorPortalService} from './shared/tutor-portal.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {TutorPortalRequestDetailComponent} from './tutor-portal-request-detail/tutor-portal-request-detail.component';
-import {TutorPortalRequestOfferFormComponent} from './tutor-portal-request-offer-form/tutor-portal-request-offer-form.component';
+import {TpRequestDetailComponent} from './tp-request-detail/tp-request-detail.component';
+import {TpRequestOfferFormComponent} from './tp-request-offer-form/tp-request-offer-form.component';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
-import {TutorPortalNavigationComponent} from './tutor-portal-navigation/tutor-portal-navigation.component';
-import {TutorPortalProfileComponent} from './tutor-portal-profile/tutor-portal-profile.component';
+import {TpNavigationComponent} from './tp-navigation/tp-navigation.component';
+import {TpProfileComponent} from './tp-profile/tp-profile.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
-import {TutorPortalProfilePictureComponent} from './tutor-portal-profile-picture/tutor-portal-profile-picture.component';
-import {TutorPortalRequestOfferListComponent} from './tutor-portal-request-offer-list/tutor-portal-request-offer-list.component';
-import {TutorPortalRequestOfferDetailComponent} from './tutor-portal-request-offer-detail/tutor-portal-request-offer-detail.component';
+import {TpProfilePictureComponent} from './tp-profile-picture/tp-profile-picture.component';
+import {TpRequestOfferListComponent} from './tp-request-offer-list/tp-request-offer-list.component';
+import {TpRequestOfferDetailComponent} from './tp-request-offer-detail/tp-request-offer-detail.component';
 
 
 @NgModule({
   declarations: [
     TutorPortalComponent,
-    TutorPortalLoginComponent,
-    TutorPortalResetPasswordComponent,
-    TutorPortalDashboardComponent,
-    TutorPortalRequestListComponent,
-    TutorPortalRequestDetailComponent,
-    TutorPortalRequestOfferFormComponent,
-    TutorPortalNavigationComponent,
-    TutorPortalProfileComponent,
-    TutorPortalProfilePictureComponent,
-    TutorPortalRequestOfferListComponent,
-    TutorPortalRequestOfferDetailComponent
+    TpLoginComponent,
+    TpResetPasswordComponent,
+    TpDashboardComponent,
+    TpRequestListComponent,
+    TpRequestDetailComponent,
+    TpRequestOfferFormComponent,
+    TpNavigationComponent,
+    TpProfileComponent,
+    TpProfilePictureComponent,
+    TpRequestOfferListComponent,
+    TpRequestOfferDetailComponent
   ],
   imports: [
     CommonModule,
