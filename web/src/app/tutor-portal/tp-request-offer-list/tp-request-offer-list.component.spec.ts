@@ -8,6 +8,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
 import {AngularFireStorageModule} from '@angular/fire/storage';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('TpRequestOfferListComponent', () => {
   let component: TpRequestOfferListComponent;
@@ -20,7 +21,8 @@ describe('TpRequestOfferListComponent', () => {
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireStorageModule,
-        AngularFirePerformanceModule
+        AngularFirePerformanceModule,
+        RouterTestingModule
       ],
       declarations: [TpRequestOfferListComponent],
       providers: [TutorPortalService]

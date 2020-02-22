@@ -82,6 +82,10 @@
         </ng-container>
         <div *ngIf="hasSent" class="col text-center">
           <h6>Offerte gesendet</h6>
+          <a class="btn btn-secondary" [routerLink]="['/tutor-portal', 'offer-list']"
+             [queryParams]="{selectedRequestId: tutorSearchRequest.id}">
+            Offerte ansehen
+          </a>
         </div>
       </div>
     </ng-container>

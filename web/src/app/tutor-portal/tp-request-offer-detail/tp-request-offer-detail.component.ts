@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import {AnimationEvent} from '@angular/animations';
@@ -8,11 +8,13 @@ import {collapse} from '../../shared/collapse.animation';
   selector: 'app-tp-request-offer-detail',
   templateUrl: './tp-request-offer-detail.component.html',
   styleUrls: ['./tp-request-offer-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [collapse]
 })
-export class TpRequestOfferDetailComponent implements OnInit {
+export class TpRequestOfferDetailComponent implements OnInit, AfterViewInit {
 
   @Input() tutorPortalOffer: TutorSearchRequestOffer;
+  @Input() selectedRequestId: string;
 
   @ViewChild('card') private cardElement: ElementRef;
 
@@ -23,6 +25,13 @@ export class TpRequestOfferDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    if (this.tutorPortalOffer &&
+      this.selectedRequestId === this.tutorPortalOffer.tutorSearchRequest.tutorSearchRequestData.id) {
+      this.isCollapsed = false;
+    }
   }
 
   collapseToggle() {
@@ -42,5 +51,18 @@ export class TpRequestOfferDetailComponent implements OnInit {
   private scrollToCardElement() {
     this.cardElement.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
+
+  getBadgeClassByStatus(status: 'new' | 'accepted' | 'declined') {
+    if (status === 'new') {
+      return 'badge-primary';
+    } else if (status === 'accepted') {
+      return 'badge-success';
+    } else if (status === 'declined') {
+      return 'badge-danger';
+    } else {
+      return null;
+    }
+  }
+
 
 }

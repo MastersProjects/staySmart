@@ -1,6 +1,8 @@
 <h3>Deine Offerten</h3>
 
 <div *ngFor="let tutorPortalOffer of tutorPortalSentOffers$ | async" class="my-4">
-  <app-tp-request-offer-detail [tutorPortalOffer]="tutorPortalOffer"></app-tp-request-offer-detail>
+  <app-tp-request-offer-detail [tutorPortalOffer]="tutorPortalOffer" [selectedRequestId]="selectedRequestId$ | async">
+  </app-tp-request-offer-detail>
 </div>
+
 

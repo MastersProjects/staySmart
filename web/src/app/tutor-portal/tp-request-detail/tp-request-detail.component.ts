@@ -15,6 +15,7 @@ import {AnimationEvent} from '@angular/animations';
 import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {collapse} from '../../shared/collapse.animation';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-tp-request-detail',
@@ -39,7 +40,7 @@ export class TpRequestDetailComponent implements OnInit {
   faChevronUp = faChevronUp;
   isCollapsed = true;
 
-  constructor(private tutorPortalService: TutorPortalService) {
+  constructor(private tutorPortalService: TutorPortalService, private router: Router) {
   }
 
   ngOnInit() {
@@ -78,7 +79,10 @@ export class TpRequestDetailComponent implements OnInit {
   sendOffer(tutorSearchRequestOffer: TutorSearchRequestOffer) {
     this.tutorPortalService.sendTutorSearchRequestOffer(tutorSearchRequestOffer, this.tutorSearchRequest).then(response => {
       console.log('offer sent', response[1]);
-      // TODO action after offerSent
+      this.router.navigate(
+        ['/tutor-portal', 'offer-list'],
+        {queryParams: {selectedRequestId: this.tutorSearchRequest.id}}
+      );
     });
   }
 

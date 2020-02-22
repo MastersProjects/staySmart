@@ -28,7 +28,7 @@ export class TutorPortalService {
   getMatchingTutorSearchRequests(): Observable<TutorSearchRequestData[]> {
     return this.authService.tutorPortalUser$.pipe(
       switchMap(tutor => {
-        if (tutor) {
+        if (tutor && tutor.matchingTutorSearchRequests && tutor.matchingTutorSearchRequests.length !== 0) {
           return this.angularFirestore.collection<TutorSearchRequestData>(
             'TutorSearchRequests',
             ref => ref
@@ -75,8 +75,11 @@ export class TutorPortalService {
     const sentOffers = tutorPortalUser.sentOffers ?
       [...tutorPortalUser.sentOffers, tutorSearchRequestData.id] : [tutorSearchRequestData.id];
 
+    const matchingTutorSearchRequests = tutorPortalUser.matchingTutorSearchRequests
+      .filter(request => request !== tutorSearchRequestData.id);
+
     const updatePortalUser = this.angularFirestore.collection('Tutors').doc(tutorPortalUser.uid)
-      .update({sentOffers});
+      .update({sentOffers, matchingTutorSearchRequests});
 
     const addOffer = this.angularFirestore.collection(
       `TutorSearchRequests/${tutorSearchRequestData.id}/TutorSearchRequestOffers`

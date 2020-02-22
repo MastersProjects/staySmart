@@ -25,9 +25,8 @@ export class TpDashboardComponent implements OnInit {
 
   onDecline(tutorSearchRequest: TutorSearchRequestData) {
     this.tutorPortalService.declineMatchingTutorSearchRequest(tutorSearchRequest.id).then(() => {
-        console.log('declined', tutorSearchRequest);
-      }
-    );
+      console.log('declined', tutorSearchRequest);
+    });
   }
 
   hasSent(sentOffers: string[], id: string) {

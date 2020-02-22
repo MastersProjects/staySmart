@@ -13,6 +13,7 @@ import {TutorPortalService} from '../shared/tutor-portal.service';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
 import {AngularFireStorageModule} from '@angular/fire/storage';
+import {RouterTestingModule} from '@angular/router/testing';
 import Timestamp = firebase.firestore.Timestamp;
 
 describe('TpRequestDetailComponent', () => {
@@ -29,7 +30,8 @@ describe('TpRequestDetailComponent', () => {
         AngularFireStorageModule,
         FontAwesomeModule,
         BrowserAnimationsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterTestingModule
       ],
       declarations: [
         TpRequestDetailComponent,

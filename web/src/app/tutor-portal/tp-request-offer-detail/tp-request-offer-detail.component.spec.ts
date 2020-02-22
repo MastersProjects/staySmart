@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpRequestOfferDetailComponent} from './tp-request-offer-detail.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
 
 describe('TpRequestOfferDetailComponent', () => {
   let component: TpRequestOfferDetailComponent;
@@ -10,11 +11,12 @@ describe('TpRequestOfferDetailComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgbNavModule
       ],
-      declarations: [ TpRequestOfferDetailComponent ]
+      declarations: [TpRequestOfferDetailComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
