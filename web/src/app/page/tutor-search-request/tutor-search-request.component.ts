@@ -9,7 +9,6 @@ import {StaySmartService} from '../../shared/stay-smart.service';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import {GeoLocation} from '../../shared/model/geo-location.model';
 import {AngularFirePerformance} from '@angular/fire/performance';
-import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-tutor-search-request',
@@ -31,7 +30,7 @@ export class TutorSearchRequestComponent implements OnInit {
   requestForm: FormGroup;
 
   constructor(private locationService: LocationService, private staySmartService: StaySmartService,
-              private angularFirePerformance: AngularFirePerformance, private spinner: NgxSpinnerService) {
+              private angularFirePerformance: AngularFirePerformance) {
   }
 
   ngOnInit() {
@@ -102,7 +101,6 @@ export class TutorSearchRequestComponent implements OnInit {
 
   submitForm() {
     if (this.isStep1Valid && this.isStep2Valid && this.isStep3Valid) {
-      this.spinner.show();
       const tutorSearchRequest = this.mapFormToModel();
       const trace = this.angularFirePerformance.trace$('requestTutorSearch').subscribe();
       this.staySmartService.requestTutorSearch(tutorSearchRequest)
@@ -114,7 +112,6 @@ export class TutorSearchRequestComponent implements OnInit {
         })
         .finally(() => {
           trace.unsubscribe();
-          this.spinner.hide();
         });
     } else {
       console.log('Error in Form');

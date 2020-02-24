@@ -6,12 +6,13 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import * as uuidv4 from 'uuid/v4';
 import {from, Observable, of} from 'rxjs';
 import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {finalize, map, switchMap, tap} from 'rxjs/operators';
 import {AuthService} from '../auth/auth.service';
 import {GeoLocation} from './model/geo-location.model';
 import {AngularFirePerformance} from '@angular/fire/performance';
 import {Tutor} from './model/tutor.model';
 import {Image} from './model/image.model';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,12 @@ import {Image} from './model/image.model';
 export class StaySmartService {
 
   constructor(private angularFirestore: AngularFirestore, private angularFireStorage: AngularFireStorage,
-              private authService: AuthService, private angularFirePerformance: AngularFirePerformance) {
+              private authService: AuthService, private angularFirePerformance: AngularFirePerformance,
+              private ngxSpinnerService: NgxSpinnerService) {
   }
 
   requestTutorSearch(tutorSearchRequest: TutorSearchRequest): Promise<void> {
+    this.ngxSpinnerService.show();
     const batch = this.angularFirestore.firestore.batch();
     const tutorSearchRequestId = this.angularFirestore.createId();
     batch.set(
@@ -34,10 +37,11 @@ export class StaySmartService {
         .collection('TutorSearchRequestContactData').doc(this.angularFirestore.createId()).ref,
       tutorSearchRequest.tutorSearchRequestContactData
     );
-    return batch.commit();
+    return batch.commit().finally(() => this.ngxSpinnerService.hide());
   }
 
   registerNewTutor(registrationForm: RegistrationForm): Observable<void> {
+    this.ngxSpinnerService.show();
     return this.authService.registerUser(registrationForm.step1.email, registrationForm.step1.password).pipe(
       switchMap(userCredential => {
         return this.uploadStudentCards(registrationForm.step3.studentCardFront, registrationForm.step3.studentCardBack)
@@ -77,6 +81,7 @@ export class StaySmartService {
           return of(null);
         }
       }),
+      finalize(() => this.ngxSpinnerService.hide()),
       this.angularFirePerformance.trace('registerNewTutor')
     );
   }
