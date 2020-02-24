@@ -12,6 +12,7 @@ import {NgbDateAdapter, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import 'moment/locale/de-ch';
 import {StaySmartService} from '../../shared/stay-smart.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-tutor-registration',
@@ -41,7 +42,8 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   studentCardFrontFileName: string;
   studentCardBackFileName: string;
 
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
+  constructor(private locationService: LocationService, private staySmartService: StaySmartService,
+              private spinner: NgxSpinnerService) {
   }
 
   ngOnInit() {
@@ -55,17 +57,19 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
 
   submitForm() {
     if (this.registrationForm.valid) {
-
       // TODO start loading circle
 
       /* this.registrationForm.value has to be StaySmartService.RegistrationForm
       *  TODO refactoring: make that it checks on runtime (maybe use class instead of interface?)
       */
-      this.staySmartService.registerNewTutor(this.registrationForm.value).pipe(takeUntil(this.destroy$))
+     this.spinner.show();
+
+     this.staySmartService.registerNewTutor(this.registrationForm.value).pipe(takeUntil(this.destroy$))
         .subscribe(() => {
           console.log('Registered');
           this.submitted = true;
           // TODO end loading circle
+          this.spinner.hide();
         });
     }
   }

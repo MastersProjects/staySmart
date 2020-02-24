@@ -14,6 +14,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail/tutor-search-request-detail.component';
 import {TutorSearchRequestOfferComponent} from './tutor-search-request-offer/tutor-search-request-offer.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {TutorSearchRequestOfferComponent} from './tutor-search-request-offer/tut
     NgbModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    CdkStepperModule
+    CdkStepperModule,
+    NgxSpinnerModule
   ]
 })
 export class PageModule {
