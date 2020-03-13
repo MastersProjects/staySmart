@@ -13,6 +13,14 @@ const routes: Routes = [
   {
     path: 'admin-portal',
     loadChildren: () => import('./admin-portal/admin-portal.module').then(m => m.AdminPortalModule)
+  },
+  {
+    path: 'tutor',
+    redirectTo: 'tutor-portal'
+  },
+  {
+    path: 'admin',
+    redirectTo: 'admin-portal'
   }
 ];
 
