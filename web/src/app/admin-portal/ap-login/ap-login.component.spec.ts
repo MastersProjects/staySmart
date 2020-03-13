@@ -1,16 +1,17 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AdminPortalComponent} from './admin-portal.component';
-import {RouterTestingModule} from '@angular/router/testing';
+import {ApLoginComponent} from './ap-login.component';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {RouterTestingModule} from '@angular/router/testing';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {ReactiveFormsModule} from '@angular/forms';
 
-describe('AdminPortalComponent', () => {
-  let component: AdminPortalComponent;
-  let fixture: ComponentFixture<AdminPortalComponent>;
+describe('ApLoginComponent', () => {
+  let component: ApLoginComponent;
+  let fixture: ComponentFixture<ApLoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -18,15 +19,17 @@ describe('AdminPortalComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        RouterTestingModule,
         AngularFirePerformanceModule,
-        RouterTestingModule
+        ReactiveFormsModule
       ],
-      declarations: [AdminPortalComponent]
-    }).compileComponents();
+      declarations: [ApLoginComponent]
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminPortalComponent);
+    fixture = TestBed.createComponent(ApLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

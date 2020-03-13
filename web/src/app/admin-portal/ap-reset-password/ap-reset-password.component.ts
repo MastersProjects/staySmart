@@ -1,19 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TutorAuthService} from '../../../auth/tutor-auth.service';
+import {AdminAuthService} from '../../auth/admin-auth.service';
 
 @Component({
-  selector: 'app-tp-reset-password',
-  templateUrl: './tp-reset-password.component.html',
-  styleUrls: ['./tp-reset-password.component.scss']
+  selector: 'app-ap-reset-password',
+  templateUrl: './ap-reset-password.component.html',
+  styleUrls: ['./ap-reset-password.component.scss']
 })
-export class TpResetPasswordComponent implements OnInit {
+export class ApResetPasswordComponent implements OnInit {
 
   resetPasswordForm: FormGroup;
   isLoading: boolean;
   submitted: boolean;
 
-  constructor(private authService: TutorAuthService) {
+  constructor(private authService: AdminAuthService) {
   }
 
   ngOnInit() {
@@ -37,4 +37,5 @@ export class TpResetPasswordComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email])
     });
   }
+
 }

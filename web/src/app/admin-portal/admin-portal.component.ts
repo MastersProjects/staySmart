@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {AdminAuthService} from '../auth/admin-auth.service';
+import {Observable} from 'rxjs';
+import {Admin} from '../shared/model/admin.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-admin-portal',
@@ -7,9 +11,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AdminPortalComponent implements OnInit {
 
-  constructor() { }
+  adminPortalUser$: Observable<Admin>;
+
+  constructor(private adminAuthService: AdminAuthService, private router: Router) { }
 
   ngOnInit() {
+    this.adminPortalUser$ = this.adminAuthService.adminPortalUser$;
   }
 
+  async logout() {
+    await this.adminAuthService.logout();
+    await this.router.navigate(['/tutor-portal/login']);
+  }
 }

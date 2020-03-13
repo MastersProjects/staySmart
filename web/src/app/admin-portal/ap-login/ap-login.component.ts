@@ -1,20 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TutorAuthService} from '../../../auth/tutor-auth.service';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {environment} from '../../../../environments/environment';
-import {User} from 'firebase';
+import {environment} from '../../../environments/environment';
 
 import * as firebase from 'firebase/app';
-
+import {User} from 'firebase/app';
+import {AdminAuthService} from '../../auth/admin-auth.service';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-tp-login',
-  templateUrl: './tp-login.component.html',
-  styleUrls: ['./tp-login.component.scss']
+  selector: 'app-ap-login',
+  templateUrl: './ap-login.component.html',
+  styleUrls: ['./ap-login.component.scss']
 })
-export class TpLoginComponent implements OnInit, OnDestroy {
+export class ApLoginComponent implements OnInit {
 
   loginForm: FormGroup;
   isLoading: boolean;
@@ -23,32 +22,30 @@ export class TpLoginComponent implements OnInit, OnDestroy {
   emailVerificationSent: boolean;
   version = environment.version;
   private user: User;
+
   private performance = firebase.performance();
 
-  constructor(private tutorAuthService: TutorAuthService, private router: Router) {
+  constructor(private adminAuthService: AdminAuthService, private router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loginForm = this.createLoginForm();
-    this.eventAuthError$ = this.tutorAuthService.eventAuthError$;
-  }
-
-  ngOnDestroy() {
+    this.eventAuthError$ = this.adminAuthService.eventAuthError$;
   }
 
   login() {
     if (this.loginForm.valid) {
-      console.log('tutor login');
+      console.log('admin login');
       this.isLoading = true;
-      const loginTrace = this.performance.trace('tutor-login');
+      const loginTrace = this.performance.trace('admin-login');
       loginTrace.start();
-      this.tutorAuthService.login(this.loginForm.value.email, this.loginForm.value.password)
+      this.adminAuthService.login(this.loginForm.value.email, this.loginForm.value.password)
         .then(userCredential => {
           loginTrace.putAttribute('emailVerified', `${userCredential.user.emailVerified}`);
           if (userCredential) {
             if (userCredential.user.emailVerified) {
               loginTrace.putAttribute('loginSuccessful', 'true');
-              this.router.navigate(['/tutor-portal']);
+              this.router.navigate(['/admin-portal']);
             } else {
               this.user = userCredential.user;
               this.emailVerifiedError = true;
@@ -66,7 +63,7 @@ export class TpLoginComponent implements OnInit, OnDestroy {
 
   sendEmailVerification() {
     this.user.sendEmailVerification().then(async () => {
-      await this.tutorAuthService.logout();
+      await this.adminAuthService.logout();
       this.emailVerifiedError = false;
       this.emailVerificationSent = true;
     });
@@ -74,6 +71,14 @@ export class TpLoginComponent implements OnInit, OnDestroy {
 
   get userEmail() {
     return this.user.email;
+  }
+
+  get email() {
+    return this.loginForm.controls.email;
+  }
+
+  get password() {
+    return this.loginForm.controls.password;
   }
 
   private createLoginForm() {

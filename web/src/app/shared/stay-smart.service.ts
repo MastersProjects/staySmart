@@ -7,7 +7,7 @@ import * as uuidv4 from 'uuid/v4';
 import {from, Observable, of} from 'rxjs';
 import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 import {finalize, map, switchMap, tap} from 'rxjs/operators';
-import {AuthService} from '../auth/auth.service';
+import {TutorAuthService} from '../auth/tutor-auth.service';
 import {GeoLocation} from './model/geo-location.model';
 import {AngularFirePerformance} from '@angular/fire/performance';
 import {Tutor} from './model/tutor.model';
@@ -20,7 +20,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class StaySmartService {
 
   constructor(private angularFirestore: AngularFirestore, private angularFireStorage: AngularFireStorage,
-              private authService: AuthService, private angularFirePerformance: AngularFirePerformance,
+              private authService: TutorAuthService, private angularFirePerformance: AngularFirePerformance,
               private ngxSpinnerService: NgxSpinnerService) {
   }
 

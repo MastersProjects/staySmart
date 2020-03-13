@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth/auth.service';
+import {TutorAuthService} from '../auth/tutor-auth.service';
 import {Observable} from 'rxjs';
 import {Tutor} from '../shared/model/tutor.model';
 import {Router} from '@angular/router';
@@ -13,7 +13,7 @@ export class TutorPortalComponent implements OnInit {
 
   tutor$: Observable<Tutor> | Observable<null>;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: TutorAuthService, private router: Router) {
   }
 
   ngOnInit() {

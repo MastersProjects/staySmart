@@ -3,7 +3,7 @@ import {TutorPortalService} from '../shared/tutor-portal.service';
 import {Observable} from 'rxjs';
 import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.model';
 import {Tutor} from '../../shared/model/tutor.model';
-import {AuthService} from '../../auth/auth.service';
+import {TutorAuthService} from '../../auth/tutor-auth.service';
 
 @Component({
   selector: 'app-tp-request-list',
@@ -15,7 +15,7 @@ export class TpRequestListComponent implements OnInit {
   tutorSearchRequests$: Observable<TutorSearchRequestData[]>;
   tutorPortalUser$: Observable<Tutor | null>;
 
-  constructor(private tutorPortalService: TutorPortalService, private authService: AuthService) {
+  constructor(private tutorPortalService: TutorPortalService, private authService: TutorAuthService) {
   }
 
   ngOnInit() {

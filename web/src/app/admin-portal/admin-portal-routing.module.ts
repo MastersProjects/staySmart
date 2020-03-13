@@ -2,6 +2,10 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AdminPortalComponent} from './admin-portal.component';
+import {ApLoginComponent} from './ap-login/ap-login.component';
+import {AdminPortalAuthGuard} from '../auth/guard/admin-portal-auth.guard';
+import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.component';
+import {LoggedInGuard} from '../auth/guard/logged-in.guard';
 
 const routes: Routes = [
   {
@@ -10,13 +14,19 @@ const routes: Routes = [
     children: [
       /*{path: 'child', component: PortalChildComponent},
       {path: '', pathMatch: 'full', redirectTo: 'child'}*/
-    ]/*,
-    canActivate: [AdminPortalAuthGuard]*/
-  }/*,
+    ],
+    canActivate: [AdminPortalAuthGuard]
+  },
   {
     path: 'login',
-    component: AdminPortalLoginComponent
-  }*/
+    component: ApLoginComponent,
+    canActivate: [LoggedInGuard],
+    data: {navigate: '/admin-portal'}
+  },
+  {
+    path: 'reset-password',
+    component: ApResetPasswordComponent
+  }
 ];
 
 @NgModule({

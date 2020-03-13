@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../../auth/auth.service';
+import {TutorAuthService} from '../../auth/tutor-auth.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -18,7 +18,7 @@ export class TpProfileComponent implements OnInit, OnDestroy {
   tutorPortalUser: Tutor;
   profileInfoForm: FormGroup;
 
-  constructor(private authService: AuthService, private tutorPortalService: TutorPortalService,
+  constructor(private authService: TutorAuthService, private tutorPortalService: TutorPortalService,
               private angularFirePerformance: AngularFirePerformance) {
   }
 

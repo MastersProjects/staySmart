@@ -1,32 +1,31 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {TutorAuthService} from '../tutor-auth.service';
 import {map, take, tap} from 'rxjs/operators';
+import {AdminAuthService} from '../admin-auth.service';
 import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TutorPortalAuthGuard implements CanActivate {
+export class AdminPortalAuthGuard implements CanActivate {
 
-
-  constructor(private authService: TutorAuthService, private angularFirePerformance: AngularFirePerformance,
+  constructor(private adminAuthService: AdminAuthService, private angularFirePerformance: AngularFirePerformance,
               private router: Router) {
   }
 
   canActivate(): Observable<boolean> {
-    console.log('TutorPortalAuthGuard');
-    return this.authService.tutorPortalUser$.pipe(
+    console.log('AdminPortalAuthGuard');
+    return this.adminAuthService.adminPortalUser$.pipe(
       take(1),
-      map(tutor => !!tutor),
+      map(admin => !!admin),
       tap(loggedIn => {
         if (!loggedIn) {
           console.log('not logged in');
-          this.router.navigate(['tutor-portal/login']);
+          this.router.navigate(['admin-portal/login']);
         }
       }),
-      this.angularFirePerformance.trace('TutorPortalAuthGuard')
+      this.angularFirePerformance.trace('AdminPortalAuthGuard')
     );
   }
 

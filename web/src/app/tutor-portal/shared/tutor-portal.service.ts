@@ -3,7 +3,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, of} from 'rxjs';
 import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
-import {AuthService} from '../../auth/auth.service';
+import {TutorAuthService} from '../../auth/tutor-auth.service';
 import {map, switchMap} from 'rxjs/operators';
 import {AngularFirePerformance} from '@angular/fire/performance';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -12,7 +12,7 @@ import {Tutor} from '../../shared/model/tutor.model';
 @Injectable() // provided in TutorPortalModule
 export class TutorPortalService {
 
-  constructor(private angularFirestore: AngularFirestore, private authService: AuthService,
+  constructor(private angularFirestore: AngularFirestore, private authService: TutorAuthService,
               private angularFirePerformance: AngularFirePerformance, private angularFireStorage: AngularFireStorage) {
   }
 

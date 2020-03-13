@@ -1,16 +1,17 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AdminPortalComponent} from './admin-portal.component';
-import {RouterTestingModule} from '@angular/router/testing';
+import {ApResetPasswordComponent} from './ap-reset-password.component';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ReactiveFormsModule} from '@angular/forms';
 
-describe('AdminPortalComponent', () => {
-  let component: AdminPortalComponent;
-  let fixture: ComponentFixture<AdminPortalComponent>;
+describe('ApResetPasswordComponent', () => {
+  let component: ApResetPasswordComponent;
+  let fixture: ComponentFixture<ApResetPasswordComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,14 +20,16 @@ describe('AdminPortalComponent', () => {
         AngularFireAuthModule,
         AngularFirestoreModule,
         AngularFirePerformanceModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveFormsModule
       ],
-      declarations: [AdminPortalComponent]
-    }).compileComponents();
+      declarations: [ApResetPasswordComponent]
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminPortalComponent);
+    fixture = TestBed.createComponent(ApResetPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

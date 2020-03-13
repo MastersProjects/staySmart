@@ -1,27 +1,26 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
 import {from, Observable, of, Subject} from 'rxjs';
-import * as firebase from 'firebase/app';
-import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
+import {User} from 'firebase/app';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Tutor} from '../shared/model/tutor.model';
-import {User} from 'firebase';
 import {AngularFirePerformance} from '@angular/fire/performance';
+import {map, shareReplay, switchMap, tap} from 'rxjs/operators';
+import {Admin} from '../shared/model/admin.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AdminAuthService {
 
   private eventAuthError = new Subject<string>(); // subject is private so it can only be written inside the service
   eventAuthError$ = this.eventAuthError.asObservable(); // public accessible subject as a observable so it can be subscribed
   private authState$: Observable<User | null>;
-  tutorPortalUser$: Observable<Tutor | null>;
+  adminPortalUser$: Observable<Admin | null>;
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore,
               private angularFirePerformance: AngularFirePerformance) {
     this.loadAuthState();
-    this.loadTutorPortalUser();
+    this.loadAdminPortalUser();
   }
 
   private loadAuthState() {
@@ -31,13 +30,13 @@ export class AuthService {
     );
   }
 
-  private loadTutorPortalUser() {
-    this.tutorPortalUser$ = this.authState$.pipe(
-      tap(() => console.log('tutorPortalUser$ Subscribed')),
+  private loadAdminPortalUser() {
+    this.adminPortalUser$ = this.authState$.pipe(
+      tap(() => console.log('adminPortalUser$ Subscribed')),
       switchMap(user => {
         if (user) {
           if (user.emailVerified) {
-            return this.getTutor(user.uid);
+            return this.getAdmin(user.uid);
           } else {
             console.log('E-Mail not verified');
             return from(this.logout()).pipe(map(() => null));
@@ -46,16 +45,8 @@ export class AuthService {
           return of(null);
         }
       }),
-      this.angularFirePerformance.trace('tutorPortalUser$'),
-      shareReplay(
-        {bufferSize: 1, refCount: true}
-      )
-    );
-  }
-
-  registerUser(email: string, password: string): Observable<firebase.auth.UserCredential> {
-    return from(this.angularFireAuth.auth.createUserWithEmailAndPassword(email, password)).pipe(
-      tap(userCredential => userCredential.user.sendEmailVerification())
+      this.angularFirePerformance.trace('adminPortalUser$'),
+      shareReplay({bufferSize: 1, refCount: true})
     );
   }
 
@@ -82,43 +73,19 @@ export class AuthService {
     return this.angularFireAuth.auth.sendPasswordResetEmail(email);
   }
 
-  get tutorPortalUser(): Promise<Tutor | null> {
-    return this.tutorPortalUser$.pipe(take(1)).toPromise();
-  }
-
-  get isLoggedIn$(): Observable<boolean> {
-    return this.authState$.pipe(
-      switchMap(authState => {
-        if (authState) {
-          if (authState.emailVerified) {
-            return of(true);
-          } else {
-            console.log('E-Mail not verified');
-            return from(this.logout()).pipe(map(() => false));
-          }
+  private getAdmin(uid: string): Observable<Admin | null> {
+    return this.angularFirestore.collection('Admins').doc(uid).valueChanges().pipe(
+      switchMap(admin => {
+        console.log('getAdmin', admin);
+        if (admin) {
+          return of(admin);
         } else {
-          return of(false);
-        }
-      })
-    );
-  }
-
-  private getTutor(uid: string): Observable<Tutor | null> {
-    return this.angularFirestore.collection('Tutors').doc(uid).valueChanges().pipe(
-      switchMap(tutor => {
-        console.log('getTutor', tutor);
-        if (tutor) {
-          return of(tutor);
-        } else {
-          console.log(`Tutor ${uid} doesn't exist in Firestore`);
+          console.log(`Admin ${uid} doesn't exist in Firestore`);
           this.eventAuthError.next('Falsches E-mail oder Passwort');
           return from(this.logout()).pipe(map(() => null)); // mapping because we need Observable<null> instead of Observable<void>
         }
       }),
-      this.angularFirePerformance.trace('getTutor')
+      this.angularFirePerformance.trace('getAdmin')
     );
   }
-
-  // TODO get adminPortalUser$()
-
 }
