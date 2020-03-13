@@ -1,18 +1,19 @@
 <ng-container *ngIf="!hasAcceptedOffer">
+  <h2 class="mt-4">Offerten</h2>
   <ng-container *ngIf="tutorSearchRequest$ | async as tutorSearchRequest">
-    <!--<div>
-      <h4>TutorSearchRequestContactData</h4>
-      <pre>{{tutorSearchRequest.tutorSearchRequestContactData | json}}</pre>
-    </div>
-    <div>
-      <h4>TutorSearchRequestData</h4>
-      <pre>{{tutorSearchRequest.tutorSearchRequestData | json}}</pre>
-    </div>-->
     <div *ngFor="let tutorSearchRequestOffer of tutorSearchRequest.tutorSearchRequestOffers" class="my-4">
       <app-tutor-search-request-offer [tutorSearchRequestOffer]="tutorSearchRequestOffer"
                                       (accepted)="acceptOffer(tutorSearchRequestOffer, tutorSearchRequest)"
                                       (declined)="declineOffer(tutorSearchRequestOffer, tutorSearchRequest.tutorSearchRequestData.id)">
       </app-tutor-search-request-offer>
+    </div>
+
+    <div *ngIf="tutorSearchRequest.tutorSearchRequestOffers?.length === 0" class="row mt-4">
+      <div class="col-8 offset-2 text-center mt-4">
+        <h4>Du hast noch keine Offerte erhalten.</h4>
+        <!--TODO Graphic-->
+        <p class="mt-4">Wir senden dir ein E-Mail sobald du eine neue Offerte erhalten hast.</p>
+      </div>
     </div>
   </ng-container>
 </ng-container>
