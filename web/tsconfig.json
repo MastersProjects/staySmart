@@ -20,5 +20,6 @@
       "es2018",
       "dom"
     ]
-  }
+  },
+  "strictTemplates": true
 }
