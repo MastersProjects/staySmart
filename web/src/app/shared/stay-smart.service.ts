@@ -3,7 +3,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {TutorSearchRequest, TutorSearchRequestData, TutorSearchRequestOffer} from './model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {AngularFireStorage} from '@angular/fire/storage';
-import * as uuidv4 from 'uuid/v4';
+import {v4 as uuidv4} from 'uuid';
 import {from, Observable, of} from 'rxjs';
 import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 import {finalize, map, switchMap, tap} from 'rxjs/operators';
