@@ -1,8 +1,8 @@
-import versions from '../_versions';
+import {versionLong} from '../_versions';
 
 export const environment = {
   production: false,
-  version: versions.versionLong,
+  version: versionLong,
   firebase: {
     apiKey: 'AIzaSyB0mb8Nwo4HG7aV7sYOdKnOoYDONhbIKes',
     authDomain: 'staysmart-dev.firebaseapp.com',

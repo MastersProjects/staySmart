@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "prebuild": "ts-appversion --git ../",
+    "prebuild": "node ./node_modules/@saithodev/ts-appversion/index.js --git ../ --root ../../../",
     "build": "ng build",
     "build.prod": "ng build --prod",
     "build.dev": "ng build --configuration dev",
@@ -31,7 +31,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@ng-bootstrap/ng-bootstrap": "^6.0.0",
-    "@saithodev/ts-appversion": "^2.0.0",
+    "@saithodev/ts-appversion": "^1.3.0",
     "bootstrap": "^4.3.1",
     "core-js": "^3.6.4",
     "firebase": "^7.8.1",
