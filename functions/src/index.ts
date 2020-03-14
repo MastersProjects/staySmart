@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as nodemailer from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
-import * as uuidv4 from 'uuid/v4';
+import {v4 as uuidv4} from 'uuid';
 import * as https from 'https';
 import FieldPath = admin.firestore.FieldPath;
 
