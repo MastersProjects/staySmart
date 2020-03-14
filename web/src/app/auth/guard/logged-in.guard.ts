@@ -29,8 +29,9 @@ export class LoggedInGuard implements CanActivate {
           return of(false);
         }
       }),
-      tap(isLoggedIn => {
-        if (isLoggedIn) {
+      map(isLoggedIn => !isLoggedIn),
+      tap(notLoggedIn => {
+        if (!notLoggedIn) {
           console.log('is already logged in');
           console.log('navigate to', route.data.navigate ? route.data.navigate : '/staysmart');
           this.router.navigate([route.data.navigate ? route.data.navigate : '/staysmart']);
