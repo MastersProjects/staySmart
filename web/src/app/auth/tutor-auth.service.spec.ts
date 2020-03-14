@@ -18,7 +18,7 @@ describe('TutorAuthService', () => {
   }));
 
   it('should be created', () => {
-    const service: TutorAuthService = TestBed.get(TutorAuthService);
+    const service: TutorAuthService = TestBed.inject(TutorAuthService);
     expect(service).toBeTruthy();
   });
 });

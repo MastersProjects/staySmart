@@ -1,5 +1,16 @@
-export const version = '0.0.1';
-export const gitCommitHash = 'f0b0cfe';
-export const versionLong = '0.0.1-f0b0cfe';
-export const gitTag = 'null';
-export const versionDate = '2020-01-19T18:46:15.209Z';
+interface TsAppVersion {
+    version: string;
+    versionLong?: string;
+    versionDate: string;
+    gitCommitHash?: string;
+    gitCommitDate?: string;
+    gitTag?: string;
+}
+const obj: TsAppVersion = {
+    version: '0.0.1',
+    versionDate: '2020-03-14T02:40:19.754Z'
+};
+obj.gitCommitHash = '2750e87';
+obj.versionLong = '0.0.1-2750e87';
+obj.gitTag = 'null';
+export default obj;

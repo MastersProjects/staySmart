@@ -20,7 +20,7 @@ describe('StaySmartService', () => {
   }));
 
   it('should be created', () => {
-    const service: StaySmartService = TestBed.get(StaySmartService);
+    const service: StaySmartService = TestBed.inject(StaySmartService);
     expect(service).toBeTruthy();
   });
 });

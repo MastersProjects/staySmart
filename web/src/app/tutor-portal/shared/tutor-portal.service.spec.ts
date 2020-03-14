@@ -21,7 +21,7 @@ describe('TutorPortalService', () => {
   }));
 
   it('should be created', () => {
-    const service: TutorPortalService = TestBed.get(TutorPortalService);
+    const service: TutorPortalService = TestBed.inject(TutorPortalService);
     expect(service).toBeTruthy();
   });
 });
