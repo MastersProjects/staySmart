@@ -21,6 +21,6 @@ export class AdminPortalComponent implements OnInit {
 
   async logout() {
     await this.adminAuthService.logout();
-    await this.router.navigate(['/tutor-portal/login']);
+    await this.router.navigate(['/admin-portal/login']);
   }
 }
