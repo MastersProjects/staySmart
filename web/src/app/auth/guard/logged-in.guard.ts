@@ -3,15 +3,14 @@ import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
 import {from, Observable, of} from 'rxjs';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFirePerformance} from '@angular/fire/performance';
+import {trace} from '@angular/fire/performance';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoggedInGuard implements CanActivate {
 
-  constructor(private angularFireAuth: AngularFireAuth, private angularFirePerformance: AngularFirePerformance,
-              private router: Router) {
+  constructor(private angularFireAuth: AngularFireAuth, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
@@ -23,7 +22,7 @@ export class LoggedInGuard implements CanActivate {
             return of(true);
           } else {
             console.log('E-Mail not verified');
-            return from(this.angularFireAuth.auth.signOut()).pipe(map(() => false));
+            return from(this.angularFireAuth.signOut()).pipe(map(() => false));
           }
         } else {
           return of(false);
@@ -37,7 +36,7 @@ export class LoggedInGuard implements CanActivate {
           this.router.navigate([route.data.navigate ? route.data.navigate : '/staysmart']);
         }
       }),
-      this.angularFirePerformance.trace('LoggedInGuard')
+      trace('LoggedInGuard')
     );
   }
 

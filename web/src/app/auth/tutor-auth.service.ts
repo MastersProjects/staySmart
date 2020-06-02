@@ -6,7 +6,7 @@ import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Tutor} from '../shared/model/tutor.model';
 import {User} from 'firebase';
-import {AngularFirePerformance} from '@angular/fire/performance';
+import {trace} from '@angular/fire/performance';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,7 @@ export class TutorAuthService {
   private authState$: Observable<User | null>;
   tutorPortalUser$: Observable<Tutor | null>;
 
-  constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore,
-              private angularFirePerformance: AngularFirePerformance) {
+  constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore) {
     this.loadAuthState();
     this.loadTutorPortalUser();
   }
@@ -27,7 +26,7 @@ export class TutorAuthService {
   private loadAuthState() {
     this.authState$ = this.angularFireAuth.authState.pipe(
       tap(() => console.log('authState Subscribed')),
-      this.angularFirePerformance.trace('authState$')
+      trace('authState$')
     );
   }
 
@@ -46,7 +45,7 @@ export class TutorAuthService {
           return of(null);
         }
       }),
-      this.angularFirePerformance.trace('tutorPortalUser$'),
+      trace('tutorPortalUser$'),
       shareReplay(
         {bufferSize: 1, refCount: true}
       )
@@ -54,13 +53,13 @@ export class TutorAuthService {
   }
 
   registerUser(email: string, password: string): Observable<firebase.auth.UserCredential> {
-    return from(this.angularFireAuth.auth.createUserWithEmailAndPassword(email, password)).pipe(
+    return from(this.angularFireAuth.createUserWithEmailAndPassword(email, password)).pipe(
       tap(userCredential => userCredential.user.sendEmailVerification())
     );
   }
 
   login(email: string, password: string): Promise<firebase.auth.UserCredential | null> {
-    return this.angularFireAuth.auth.signInWithEmailAndPassword(email, password)
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password)
       .catch(error => {
         console.log('login error', error);
         if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
@@ -75,11 +74,11 @@ export class TutorAuthService {
   }
 
   logout(): Promise<void> {
-    return this.angularFireAuth.auth.signOut();
+    return this.angularFireAuth.signOut();
   }
 
   resetPassword(email: string): Promise<void> {
-    return this.angularFireAuth.auth.sendPasswordResetEmail(email);
+    return this.angularFireAuth.sendPasswordResetEmail(email);
   }
 
   get tutorPortalUser(): Promise<Tutor | null> {
@@ -98,7 +97,7 @@ export class TutorAuthService {
           return from(this.logout()).pipe(map(() => null)); // mapping because we need Observable<null> instead of Observable<void>
         }
       }),
-      this.angularFirePerformance.trace('getTutor')
+      trace('getTutor')
     );
   }
 

@@ -3,15 +3,14 @@ import {CanActivate, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map, take, tap} from 'rxjs/operators';
 import {AdminAuthService} from '../admin-auth.service';
-import {AngularFirePerformance} from '@angular/fire/performance';
+import {trace} from '@angular/fire/performance';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminPortalAuthGuard implements CanActivate {
 
-  constructor(private adminAuthService: AdminAuthService, private angularFirePerformance: AngularFirePerformance,
-              private router: Router) {
+  constructor(private adminAuthService: AdminAuthService, private router: Router) {
   }
 
   canActivate(): Observable<boolean> {
@@ -25,7 +24,7 @@ export class AdminPortalAuthGuard implements CanActivate {
           this.router.navigate(['admin-portal/login']);
         }
       }),
-      this.angularFirePerformance.trace('AdminPortalAuthGuard')
+      trace('AdminPortalAuthGuard')
     );
   }
 

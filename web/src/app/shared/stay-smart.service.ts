@@ -9,7 +9,7 @@ import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 import {finalize, map, switchMap, tap} from 'rxjs/operators';
 import {TutorAuthService} from '../auth/tutor-auth.service';
 import {GeoLocation} from './model/geo-location.model';
-import {AngularFirePerformance} from '@angular/fire/performance';
+import {trace} from '@angular/fire/performance';
 import {Tutor} from './model/tutor.model';
 import {Image} from './model/image.model';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -20,8 +20,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class StaySmartService {
 
   constructor(private angularFirestore: AngularFirestore, private angularFireStorage: AngularFireStorage,
-              private authService: TutorAuthService, private angularFirePerformance: AngularFirePerformance,
-              private ngxSpinnerService: NgxSpinnerService) {
+              private authService: TutorAuthService, private ngxSpinnerService: NgxSpinnerService) {
   }
 
   requestTutorSearch(tutorSearchRequest: TutorSearchRequest): Promise<void> {
@@ -82,7 +81,7 @@ export class StaySmartService {
         }
       }),
       finalize(() => this.ngxSpinnerService.hide()),
-      this.angularFirePerformance.trace('registerNewTutor')
+      trace('registerNewTutor')
     );
   }
 
@@ -132,7 +131,7 @@ export class StaySmartService {
           }
         }),
         tap(console.log),
-        this.angularFirePerformance.trace('getTutorSearchRequest')
+        trace('getTutorSearchRequest')
       );
   }
 

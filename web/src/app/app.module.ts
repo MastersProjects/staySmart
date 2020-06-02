@@ -12,7 +12,7 @@ import {registerLocaleData} from '@angular/common';
 import localeDECH from '@angular/common/locales/de-CH';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {AngularFirePerformanceModule, PerformanceMonitoringService} from '@angular/fire/performance';
 
 registerLocaleData(localeDECH);
 
@@ -31,7 +31,10 @@ registerLocaleData(localeDECH);
     AngularFirePerformanceModule,
     HttpClientModule
   ],
-  providers: [{provide: LOCALE_ID, useValue: 'de-ch'}],
+  providers: [
+    {provide: LOCALE_ID, useValue: 'de-ch'},
+    PerformanceMonitoringService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

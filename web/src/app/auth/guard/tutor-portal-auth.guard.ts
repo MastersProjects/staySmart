@@ -3,7 +3,7 @@ import {CanActivate, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {TutorAuthService} from '../tutor-auth.service';
 import {map, take, tap} from 'rxjs/operators';
-import {AngularFirePerformance} from '@angular/fire/performance';
+import {trace} from '@angular/fire/performance';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,7 @@ import {AngularFirePerformance} from '@angular/fire/performance';
 export class TutorPortalAuthGuard implements CanActivate {
 
 
-  constructor(private authService: TutorAuthService, private angularFirePerformance: AngularFirePerformance,
-              private router: Router) {
+  constructor(private authService: TutorAuthService, private router: Router) {
   }
 
   canActivate(): Observable<boolean> {
@@ -26,7 +25,7 @@ export class TutorPortalAuthGuard implements CanActivate {
           this.router.navigate(['tutor-portal/login']);
         }
       }),
-      this.angularFirePerformance.trace('TutorPortalAuthGuard')
+      trace('TutorPortalAuthGuard')
     );
   }
 

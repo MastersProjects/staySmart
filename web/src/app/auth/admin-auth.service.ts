@@ -3,7 +3,7 @@ import {from, Observable, of, Subject} from 'rxjs';
 import {User} from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {AngularFirePerformance} from '@angular/fire/performance';
+import {trace} from '@angular/fire/performance';
 import {map, shareReplay, switchMap, tap} from 'rxjs/operators';
 import {Admin} from '../shared/model/admin.model';
 
@@ -17,8 +17,7 @@ export class AdminAuthService {
   private authState$: Observable<User | null>;
   adminPortalUser$: Observable<Admin | null>;
 
-  constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore,
-              private angularFirePerformance: AngularFirePerformance) {
+  constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore) {
     this.loadAuthState();
     this.loadAdminPortalUser();
   }
@@ -26,7 +25,7 @@ export class AdminAuthService {
   private loadAuthState() {
     this.authState$ = this.angularFireAuth.authState.pipe(
       tap(() => console.log('authState Subscribed')),
-      this.angularFirePerformance.trace('authState$')
+      trace('authState$')
     );
   }
 
@@ -45,13 +44,13 @@ export class AdminAuthService {
           return of(null);
         }
       }),
-      this.angularFirePerformance.trace('adminPortalUser$'),
+      trace('adminPortalUser$'),
       shareReplay({bufferSize: 1, refCount: true})
     );
   }
 
   login(email: string, password: string): Promise<firebase.auth.UserCredential | null> {
-    return this.angularFireAuth.auth.signInWithEmailAndPassword(email, password)
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password)
       .catch(error => {
         console.log('login error', error);
         if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
@@ -66,11 +65,11 @@ export class AdminAuthService {
   }
 
   logout(): Promise<void> {
-    return this.angularFireAuth.auth.signOut();
+    return this.angularFireAuth.signOut();
   }
 
   resetPassword(email: string): Promise<void> {
-    return this.angularFireAuth.auth.sendPasswordResetEmail(email);
+    return this.angularFireAuth.sendPasswordResetEmail(email);
   }
 
   private getAdmin(uid: string): Observable<Admin | null> {
@@ -85,7 +84,7 @@ export class AdminAuthService {
           return from(this.logout()).pipe(map(() => null)); // mapping because we need Observable<null> instead of Observable<void>
         }
       }),
-      this.angularFirePerformance.trace('getAdmin')
+      trace('getAdmin')
     );
   }
 }

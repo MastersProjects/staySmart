@@ -5,7 +5,7 @@ import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/mode
 import * as firebase from 'firebase/app';
 import {TutorAuthService} from '../../auth/tutor-auth.service';
 import {map, switchMap} from 'rxjs/operators';
-import {AngularFirePerformance} from '@angular/fire/performance';
+import {trace} from '@angular/fire/performance';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Tutor} from '../../shared/model/tutor.model';
 
@@ -13,7 +13,7 @@ import {Tutor} from '../../shared/model/tutor.model';
 export class TutorPortalService {
 
   constructor(private angularFirestore: AngularFirestore, private authService: TutorAuthService,
-              private angularFirePerformance: AngularFirePerformance, private angularFireStorage: AngularFireStorage) {
+              private angularFireStorage: AngularFireStorage) {
   }
 
   getTutorSearchRequests(): Observable<TutorSearchRequestData[]> {
@@ -21,7 +21,7 @@ export class TutorPortalService {
       'TutorSearchRequests',
       ref => ref.where('status', '==', 'new').orderBy('timestamp', 'desc')
     ).valueChanges({idField: 'id'}).pipe(
-      this.angularFirePerformance.trace('getTutorSearchRequests')
+      trace('getTutorSearchRequests')
     );
   }
 
@@ -39,7 +39,7 @@ export class TutorPortalService {
           return of(null);
         }
       }),
-      this.angularFirePerformance.trace('getMatchingTutorSearchRequests')
+      trace('getMatchingTutorSearchRequests')
     );
   }
 
@@ -114,7 +114,7 @@ export class TutorPortalService {
       map(snapshots => {
         return snapshots.map(snapshot => ({...snapshot.payload.doc.data(), id: snapshot.payload.doc.id}));
       }),
-      this.angularFirePerformance.trace('getTutorPortalSentOffers')
+      trace('getTutorPortalSentOffers')
     );
   }
 
