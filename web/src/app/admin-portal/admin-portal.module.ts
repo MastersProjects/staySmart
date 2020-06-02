@@ -7,15 +7,22 @@ import {ApLoginComponent} from './ap-login/ap-login.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [AdminPortalComponent, ApLoginComponent, ApResetPasswordComponent],
+  declarations: [
+    AdminPortalComponent,
+    ApLoginComponent,
+    ApResetPasswordComponent,
+  ],
   imports: [
     CommonModule,
     AdminPortalRoutingModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule,
   ]
 })
-export class AdminPortalModule { }
+export class AdminPortalModule {
+}

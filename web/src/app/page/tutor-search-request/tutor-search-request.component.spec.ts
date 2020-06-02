@@ -9,7 +9,7 @@ import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {CdkStepperModule} from '@angular/cdk/stepper';
-import {StepperComponent} from '../../shared/stepper/stepper.component';
+import {StepperComponent} from '../stepper/stepper.component';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';

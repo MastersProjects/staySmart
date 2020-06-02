@@ -19,6 +19,7 @@ import {ImageCropperModule} from 'ngx-image-cropper';
 import {TpProfilePictureComponent} from './tp-profile-picture/tp-profile-picture.component';
 import {TpRequestOfferListComponent} from './tp-request-offer-list/tp-request-offer-list.component';
 import {TpRequestOfferDetailComponent} from './tp-request-offer-detail/tp-request-offer-detail.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {TpRequestOfferDetailComponent} from './tp-request-offer-detail/tp-reques
   ],
   imports: [
     CommonModule,
+    SharedModule,
     TutorPortalRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,

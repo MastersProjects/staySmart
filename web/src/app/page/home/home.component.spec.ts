@@ -7,7 +7,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TutorRegistrationComponent} from '../tutor-registration/tutor-registration.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {StepperComponent} from '../../shared/stepper/stepper.component';
+import {StepperComponent} from '../stepper/stepper.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 
 describe('HomeComponent', () => {
