@@ -8,6 +8,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.component';
 import {SharedModule} from '../shared/shared.module';
+import {ApNavigationComponent} from './ap-navigation/ap-navigation.component';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -15,13 +17,15 @@ import {SharedModule} from '../shared/shared.module';
     AdminPortalComponent,
     ApLoginComponent,
     ApResetPasswordComponent,
+    ApNavigationComponent,
   ],
   imports: [
     CommonModule,
+    SharedModule,
     AdminPortalRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    SharedModule,
+    NgbDropdownModule,
   ]
 })
 export class AdminPortalModule {

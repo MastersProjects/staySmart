@@ -1,7 +1,10 @@
-<p>admin-portal works!</p>
-
-<pre>{{adminPortalUser$ | async | json}}</pre>
-
-<button class="btn btn-primary" (click)="logout()">Logout</button>
-
-<app-footer></app-footer>
+<div class="wrapper">
+  <div>
+    <app-ap-navigation [admin]="adminPortalUser$ | async" (logout)="logout()"></app-ap-navigation>
+    <div class="container py-4">
+      <pre>{{adminPortalUser$ | async | json}}</pre>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
