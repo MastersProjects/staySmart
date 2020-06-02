@@ -33,7 +33,6 @@ export class TutorPortalService {
             'TutorSearchRequests',
             ref => ref
               .where('status', '==', 'new')
-              // @ts-ignore
               .where(firebase.firestore.FieldPath.documentId(), 'in', tutor.matchingTutorSearchRequests)
           ).valueChanges({idField: 'id'});
         } else {
