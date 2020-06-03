@@ -22,7 +22,7 @@
     <hr class="d-md-none">
     <div class="navbar-nav">
       <div ngbDropdown class="d-none d-md-block">
-        <span class="text-white" style="cursor: pointer" ngbDropdownToggle>
+        <span class="text-white cursor-pointer" ngbDropdownToggle>
           <img src="assets/img/logo.png" width="32" height="32" class="rounded" alt="profile picture">
         </span>
         <div ngbDropdownMenu class="dropdown-menu-right" style="background: white">
@@ -37,13 +37,13 @@
         </div>
       </div>
       <div class="nav-item d-md-none">
-        <a class="nav-link py-md-0" style="cursor: pointer" routerLink="profile" routerLinkActive="active">
+        <a class="nav-link py-md-0 cursor-pointer" routerLink="profile" routerLinkActive="active">
           <img src="assets/img/logo.png" width="32" height="32" class="rounded" alt="profile picture">
           <span class="ml-2">{{tutor?.firstName}} {{tutor?.lastName}}</span>
         </a>
       </div>
       <div class="nav-item d-md-none">
-        <a class="nav-link" style="cursor: pointer" (click)="onLogout()">
+        <a class="nav-link cursor-pointer" (click)="onLogout()">
           <fa-icon [icon]="faSignOutAlt"></fa-icon>
           Logout
         </a>

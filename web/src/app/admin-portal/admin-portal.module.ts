@@ -10,6 +10,9 @@ import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.co
 import {SharedModule} from '../shared/shared.module';
 import {ApNavigationComponent} from './ap-navigation/ap-navigation.component';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {ApTutorListComponent} from './ap-tutor-list/ap-tutor-list.component';
+import {AdminPortalService} from './shared/admin-portal.service';
+import {ApTutorListCardComponent} from './ap-tutor-list-card/ap-tutor-list-card.component';
 
 
 @NgModule({
@@ -18,6 +21,8 @@ import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
     ApLoginComponent,
     ApResetPasswordComponent,
     ApNavigationComponent,
+    ApTutorListComponent,
+    ApTutorListCardComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +31,8 @@ import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     FontAwesomeModule,
     NgbDropdownModule,
-  ]
+  ],
+  providers: [AdminPortalService]
 })
 export class AdminPortalModule {
 }

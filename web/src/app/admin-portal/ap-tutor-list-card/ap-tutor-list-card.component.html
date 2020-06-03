@@ -1,0 +1,17 @@
+<div class="card cursor-pointer">
+  <div class="row no-gutters px-3 px-md-4 px-xl-5">
+    <div class="col-3 d-flex align-items-center">
+      <img [src]="getProfilePicture(tutor.profilePicture)" alt="Profilbild"
+           class="img-fluid rounded-circle border" width="70px" height="70px">
+    </div>
+    <div class="col-8">
+      <div class="card-body">
+        <h5 class="card-title">{{tutor.firstName}} {{tutor.lastName}}</h5>
+        <h6 class="card-subtitle">{{tutor.education}}</h6>
+      </div>
+    </div>
+    <div class="col-1 d-flex align-items-center justify-content-end">
+      <span class="badge badge-primary">{{tutor.status}}</span>
+    </div>
+  </div>
+</div>

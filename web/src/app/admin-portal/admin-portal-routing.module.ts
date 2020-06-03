@@ -6,14 +6,15 @@ import {ApLoginComponent} from './ap-login/ap-login.component';
 import {AdminPortalAuthGuard} from '../auth/guard/admin-portal-auth.guard';
 import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.component';
 import {LoggedInGuard} from '../auth/guard/logged-in.guard';
+import {ApTutorListComponent} from './ap-tutor-list/ap-tutor-list.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminPortalComponent,
     children: [
-      /*{path: 'child', component: PortalChildComponent},
-      {path: '', pathMatch: 'full', redirectTo: 'child'}*/
+      {path: 'tutors', component: ApTutorListComponent},
+      /*{path: '', pathMatch: 'full', redirectTo: 'child'}*/
     ],
     canActivate: [AdminPortalAuthGuard]
   },

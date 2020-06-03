@@ -1,5 +1,5 @@
 <div #card class="card">
-  <div class="card-header text-center" (click)="collapseToggle()">
+  <div class="card-header text-center cursor-pointer" (click)="collapseToggle()">
     {{tutorSearchRequestOffer ? 'Offerte von' : null}} {{tutorSearchRequestOffer?.firstName}} {{tutorSearchRequestOffer?.lastName}}
     <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="isCollapsed ? '180' : ''"></fa-icon>
   </div>
