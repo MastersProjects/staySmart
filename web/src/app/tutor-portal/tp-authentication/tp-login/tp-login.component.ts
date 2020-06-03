@@ -5,8 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {User} from 'firebase';
-
-import * as firebase from 'firebase/app';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 
 @Component({
@@ -23,9 +22,9 @@ export class TpLoginComponent implements OnInit, OnDestroy {
   emailVerificationSent: boolean;
   version = environment.version;
   private user: User;
-  private performance = firebase.performance();
 
-  constructor(private tutorAuthService: TutorAuthService, private router: Router) {
+  constructor(private tutorAuthService: TutorAuthService, private router: Router,
+              private angularFirePerformance: AngularFirePerformance) {
   }
 
   ngOnInit() {
@@ -36,11 +35,11 @@ export class TpLoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  login() {
+  async login() {
     if (this.loginForm.valid) {
       console.log('tutor login');
       this.isLoading = true;
-      const loginTrace = this.performance.trace('tutor-login');
+      const loginTrace = await this.angularFirePerformance.trace('TP: login');
       loginTrace.start();
       this.tutorAuthService.login(this.loginForm.value.email, this.loginForm.value.password)
         .then(userCredential => {

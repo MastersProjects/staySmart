@@ -5,6 +5,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {Tutor} from '../../shared/model/tutor.model';
 import {TutorPortalService} from '../shared/tutor-portal.service';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Component({
   selector: 'app-tp-profile',
@@ -17,7 +18,8 @@ export class TpProfileComponent implements OnInit, OnDestroy {
   tutorPortalUser: Tutor;
   profileInfoForm: FormGroup;
 
-  constructor(private authService: TutorAuthService, private tutorPortalService: TutorPortalService) {
+  constructor(private authService: TutorAuthService, private tutorPortalService: TutorPortalService,
+              private angularFirePerformance: AngularFirePerformance) {
   }
 
   ngOnInit(): void {
@@ -43,20 +45,20 @@ export class TpProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  saveProfilePicture($event: string) {
-    /*
-    FIXME #43 not working https://github.com/angular/angularfire/blob/master/docs/performance/getting-started.md#manual-traces
-    const trace = this.angularFirePerformance.trace('uploadProfilePicture');
-    trace.start();*/
+  async saveProfilePicture($event: string) {
+    const trace = await this.angularFirePerformance.trace('TP: uploadProfilePicture');
+    trace.start();
     this.tutorPortalService.uploadProfilePicture($event, this.tutorPortalUser)
       .then(() => {
         console.log('uploaded');
+        trace.putAttribute('uploadProfilePictureSuccessful', 'true');
       })
       .catch(error => {
         console.error(error);
+        trace.putAttribute('uploadProfilePictureSuccessful', 'false');
       })
       .finally(() => {
-        /*trace.stop();*/
+        trace.stop();
       });
   }
 

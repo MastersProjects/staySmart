@@ -3,10 +3,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
-import * as firebase from 'firebase/app';
 import {User} from 'firebase/app';
 import {AdminAuthService} from '../../auth/admin-auth.service';
 import {Router} from '@angular/router';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Component({
   selector: 'app-ap-login',
@@ -23,9 +23,9 @@ export class ApLoginComponent implements OnInit {
   version = environment.version;
   private user: User;
 
-  private performance = firebase.performance();
 
-  constructor(private adminAuthService: AdminAuthService, private router: Router) {
+  constructor(private adminAuthService: AdminAuthService, private router: Router,
+              private angularFirePerformance: AngularFirePerformance) {
   }
 
   ngOnInit(): void {
@@ -33,11 +33,11 @@ export class ApLoginComponent implements OnInit {
     this.eventAuthError$ = this.adminAuthService.eventAuthError$;
   }
 
-  login() {
+  async login() {
     if (this.loginForm.valid) {
       console.log('admin login');
       this.isLoading = true;
-      const loginTrace = this.performance.trace('admin-login');
+      const loginTrace = await this.angularFirePerformance.trace('AP: login');
       loginTrace.start();
       this.adminAuthService.login(this.loginForm.value.email, this.loginForm.value.password)
         .then(userCredential => {

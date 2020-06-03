@@ -8,6 +8,7 @@ import {locationDomainValidator} from '../../shared/validators/location.validato
 import {StaySmartService} from '../../shared/stay-smart.service';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import {GeoLocation} from '../../shared/model/geo-location.model';
+import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Component({
   selector: 'app-tutor-search-request',
@@ -28,7 +29,8 @@ export class TutorSearchRequestComponent implements OnInit {
   /* Form */
   requestForm: FormGroup;
 
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
+  constructor(private locationService: LocationService, private staySmartService: StaySmartService,
+              private angularFirePerformance: AngularFirePerformance) {
   }
 
   ngOnInit() {
@@ -97,22 +99,22 @@ export class TutorSearchRequestComponent implements OnInit {
     return element;
   }
 
-  submitForm() {
+  async submitForm() {
     if (this.isStep1Valid && this.isStep2Valid && this.isStep3Valid) {
       const tutorSearchRequest = this.mapFormToModel();
-      /*
-      FIXME #43 not working https://github.com/angular/angularfire/blob/master/docs/performance/getting-started.md#manual-traces
-      const trace = this.angularFirePerformance.trace('requestTutorSearch');
-      trace.start();*/
+      const trace = await this.angularFirePerformance.trace('requestTutorSearch');
+      trace.start();
       this.staySmartService.requestTutorSearch(tutorSearchRequest)
         .then(() => {
           this.submitted = true;
+          trace.putAttribute('requestTutorSearchSuccessful', 'true');
         })
         .catch(reason => {
           console.log(reason);
+          trace.putAttribute('requestTutorSearchSuccessful', 'false');
         })
         .finally(() => {
-          /*trace.stop();*/
+          trace.stop();
         });
     } else {
       console.log('Error in Form');
