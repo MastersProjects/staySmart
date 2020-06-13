@@ -1,12 +1,7 @@
 <h3>Nachhilf Anfragen</h3>
 
 <ng-container *ngIf="tutorPortalUser$ | async as tutorPortalUser">
-  <div *ngFor="let tutorSearchRequest of tutorSearchRequests$ | async" class="row">
-    <div class="col-12 my-4">
-      <app-tp-request-detail [tutorSearchRequest]="tutorSearchRequest"
-                             [hasSent]="hasSent(tutorPortalUser.sentOffers, tutorSearchRequest.id)">
-      </app-tp-request-detail>
-    </div>
-  </div>
+  <app-tp-request-detail *ngFor="let tutorSearchRequest of tutorSearchRequests$ | async" class="d-block my-4"
+                         [tutorSearchRequest]="tutorSearchRequest"
+                         [hasSent]="hasSent(tutorPortalUser.sentOffers, tutorSearchRequest.id)"></app-tp-request-detail>
 </ng-container>
-
