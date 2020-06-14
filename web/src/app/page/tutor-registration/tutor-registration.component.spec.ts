@@ -14,6 +14,9 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import * as firebase from 'firebase/app';
+import {SharedModule} from '../../shared/shared.module';
+import Timestamp = firebase.firestore.Timestamp;
 
 describe('TutorRegistrationComponent', () => {
   let component: TutorRegistrationComponent;
@@ -36,7 +39,8 @@ describe('TutorRegistrationComponent', () => {
         CdkStepperModule,
         FontAwesomeModule,
         NgbModule,
-        RouterTestingModule
+        RouterTestingModule,
+        SharedModule
       ]
     })
       .compileComponents();
@@ -152,9 +156,9 @@ describe('TutorRegistrationComponent', () => {
     component.registrationForm.get('step1').get('lastName').setValue('noetig');
     component.registrationForm.get('step1').get('email').setValue('test@example.com');
     component.registrationForm.get('step1').get('mobileNumber').setValue('111111111');
-    component.registrationForm.get('step1').get('birthday').setValue({
-      day: 6, month: 6, year: 1998
-    });
+    component.registrationForm.get('step1').get('birthday').setValue(
+      Timestamp.fromDate(new Date(1998, 6, 6))
+    );
     component.registrationForm.get('step1').get('password').setValue('1234567890');
     component.registrationForm.get('step1').get('repeatPassword').setValue('1234567890');
   }

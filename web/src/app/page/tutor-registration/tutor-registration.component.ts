@@ -66,41 +66,6 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
-  get years() {
-    const startYear = 1900;
-    let currentYear = new Date().getFullYear();
-    const years = [];
-    while (startYear <= currentYear) {
-      years.push(currentYear--);
-    }
-    return years;
-  }
-
-  get days() {
-    const days = [];
-    const formMonth = this.registrationForm.get('step1').get('birthday').get('month').value;
-    const formYear = this.registrationForm.get('step1').get('birthday').get('year').value;
-    const selectedMonth = formMonth ? formMonth : new Date().getMonth() + 1;
-    const selectedYear = formYear ? formYear : new Date().getFullYear();
-    const daysCount = moment(`${selectedMonth} ${selectedYear}`, 'MM YYYY').daysInMonth();
-    for (let i = 1; i <= daysCount; i++) {
-      days.push(i);
-    }
-    return days;
-  }
-
-  checkMonthDays() {
-    const formDay = this.registrationForm.get('step1').get('birthday').get('day').value;
-    const formMonth = this.registrationForm.get('step1').get('birthday').get('month').value;
-    const formYear = this.registrationForm.get('step1').get('birthday').get('year').value;
-    const selectedMonth = formMonth ? formMonth : new Date().getMonth() + 1;
-    const selectedYear = formYear ? formYear : new Date().getFullYear();
-    const daysCount = moment(`${selectedMonth} ${selectedYear}`, 'MM YYYY').daysInMonth();
-    if (formDay > daysCount) {
-      this.registrationForm.get('step1').get('birthday').get('day').setValue(1);
-    }
-  }
-
   onFrontFileChange(event) {
     const file: File = event.target.files[0];
     this.studentCardFrontFileName = file.name;
@@ -154,11 +119,7 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
         mobileNumber: new FormControl(
           '', [Validators.required, Validators.pattern(/^\d{9}$/)]
         ),
-        birthday: new FormGroup({
-          day: new FormControl('', Validators.required),
-          month: new FormControl('', Validators.required),
-          year: new FormControl('', Validators.required)
-        }), // TODO min. age validator?
+        birthday: new FormControl('', Validators.required), // TODO min. age validator?
         password: new FormControl('', [Validators.required, Validators.minLength(6)]),
         repeatPassword: new FormControl('', Validators.required)
       }, {validators: repeatPasswordValidator}),

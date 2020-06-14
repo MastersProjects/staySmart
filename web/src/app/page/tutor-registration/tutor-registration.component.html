@@ -39,30 +39,8 @@
                   Die Telefonnummer ohne führende 0 eingeben
                 </small>
               </div>
-              <div class="form-group col-lg-6" formGroupName="birthday">
-                <label>Geburtsdatum</label>
-                <div class="form-row">
-                  <div class="form-group col-4">
-                    <select id="day" name="day" class="form-control" formControlName="day">
-                      <option value="" [selected]="true">Tag</option>
-                      <option *ngFor="let day of days" [value]="day">{{day}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-4">
-                    <select id="month" name="month" class="form-control" formControlName="month"
-                            (change)="checkMonthDays()">
-                      <option value="" [selected]="true">Monat</option>
-                      <option *ngFor="let month of months; let i = index" [value]="i+1">{{month}}</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-4">
-                    <select id="year" name="year" class="form-control" formControlName="year">
-                      <option value="" [selected]="true">Jahr</option>
-                      <option *ngFor="let year of years" [value]="year">{{year}}</option>
-                    </select>
-                  </div>
-                </div>
+              <div class="form-group col-lg-6">
+                <app-birthday-input formControlName="birthday"></app-birthday-input>
               </div>
 
               <div class="form-group col-lg-6"></div>

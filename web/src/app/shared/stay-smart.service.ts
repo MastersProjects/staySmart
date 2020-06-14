@@ -13,6 +13,7 @@ import {trace} from '@angular/fire/performance';
 import {Tutor} from './model/tutor.model';
 import {Image} from './model/image.model';
 import {NgxSpinnerService} from 'ngx-spinner';
+import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable({
   providedIn: 'root'
@@ -194,8 +195,7 @@ export class StaySmartService {
 
   private createTutorRegistration(registrationForm: RegistrationForm, uid: string, studentCardFront: Image,
                                   studentCardBack: Image): Tutor {
-    const birthday = registrationForm.step1.birthday;
-    const {firstName, lastName, email, mobileNumber} = registrationForm.step1;
+    const {firstName, lastName, email, mobileNumber, birthday} = registrationForm.step1;
     const {streetAddress, postalCode, city} = registrationForm.step2;
     const {studentCardExpireDate, education} = registrationForm.step3;
     const {subjects, gradeLevels, daysAvailable, price, attention} = registrationForm.step4;
@@ -205,7 +205,7 @@ export class StaySmartService {
       lastName,
       email,
       mobileNumber,
-      birthday: new Date(birthday.year, birthday.month - 1, birthday.day),
+      birthday,
 
       streetAddress,
       postalCode,
@@ -261,11 +261,7 @@ interface RegistrationForm {
     lastName: string;
     email: string;
     mobileNumber: string;
-    birthday: {
-      day: number;
-      month: number;
-      year: number;
-    };
+    birthday: Timestamp;
     password: string;
     repeatPassword: string;
   };

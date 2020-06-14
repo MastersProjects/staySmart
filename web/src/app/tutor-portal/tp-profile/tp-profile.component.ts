@@ -62,13 +62,14 @@ export class TpProfileComponent implements OnInit, OnDestroy {
       });
   }
 
-  createProfileInfoForm(): FormGroup {
+  private createProfileInfoForm(): FormGroup {
     // TODO ProfileInfo
     return new FormGroup({
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       email: new FormControl(''),
-      mobileNumber: new FormControl('')
+      mobileNumber: new FormControl(''),
+      birthday: new FormControl(''), // TODO min. age validator?
     });
   }
 }

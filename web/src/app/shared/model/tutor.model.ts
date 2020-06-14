@@ -1,5 +1,7 @@
 import {GeoLocation} from './geo-location.model';
 import {Image} from './image.model';
+import * as firebase from 'firebase/app';
+import Timestamp = firebase.firestore.Timestamp;
 
 export interface Tutor {
   uid: string;
@@ -7,7 +9,7 @@ export interface Tutor {
   lastName: string;
   email: string;
   mobileNumber: string;
-  birthday: Date;
+  birthday: Date | Timestamp;
 
   streetAddress: string;
   postalCode: string;
