@@ -27,14 +27,15 @@ jobs:
 
       - name: Run npm-check
         run: |
-          npm-check functions -s -p -i @saithodev/ts-appversion
+          npm-check functions
 
       - name: Send Slack Notification
-        if: always()
+        if: failure()
         uses: 8398a7/action-slack@v2
         with:
           status: ${{ job.status }}
           author_name: Functions Dependency Check
+          text: Dependencies are out of date
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
