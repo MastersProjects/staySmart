@@ -1,0 +1,22 @@
+<label>Geburtsdatum</label>
+<div class="form-row">
+  <div class="form-group col-4">
+    <select id="day" name="day" class="form-control" [formControl]="day">
+      <option value="" [selected]="true">Tag</option>
+      <option *ngFor="let day of dayOptions" [value]="day">{{day}}</option>
+    </select>
+  </div>
+  <div class="form-group col-4">
+    <select id="month" name="month" class="form-control" [formControl]="month" (change)="checkMonthDays()">
+      <option value="" [selected]="true">Monat</option>
+      <option *ngFor="let month of monthOptions; let i = index" [value]="i">{{month}}</option>
+    </select>
+  </div>
+
+  <div class="form-group col-4">
+    <select id="year" name="year" class="form-control" [formControl]="year">
+      <option value="" [selected]="true">Jahr</option>
+      <option *ngFor="let year of yearOptions" [value]="year">{{year}}</option>
+    </select>
+  </div>
+</div>
