@@ -94,7 +94,7 @@ describe('BirthdayInputComponent', () => {
   });
 
   it('should writeValue', () => {
-    component.writeValue(new Timestamp(897084000, 0));
+    component.writeValue(Timestamp.fromDate(new Date(1998, 5, 6)));
 
     expect(component.day.value).toBe(6);
     expect(component.month.value).toBe(5);
