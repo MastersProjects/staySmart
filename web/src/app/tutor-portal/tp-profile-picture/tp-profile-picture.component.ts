@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Dimensions, ImageCroppedEvent} from 'ngx-image-cropper';
 import {Image} from '../../shared/model/image.model';
+import {getProfilePicture} from 'src/app/shared/utils.functions';
 
 @Component({
   selector: 'app-tp-profile-picture',
@@ -17,6 +18,8 @@ export class TpProfilePictureComponent implements OnInit {
   isCropperImageLoaded: boolean;
   private croppedImage: string;
   private isCropperReady: boolean;
+
+  getProfilePicture = getProfilePicture;
 
   constructor() {
   }

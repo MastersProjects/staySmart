@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {Image} from '../../shared/model/image.model';
 import {Tutor} from '../../shared/model/tutor.model';
+import {getProfilePicture} from 'src/app/shared/utils.functions';
 
 @Component({
   selector: 'app-ap-tutor-list-card',
@@ -12,14 +12,12 @@ export class ApTutorListCardComponent implements OnInit {
 
   @Input() tutor: Tutor;
 
+  getProfilePicture = getProfilePicture;
+
   constructor() {
   }
 
   ngOnInit(): void {
-  }
-
-  getProfilePicture(profilePicture: Image): string {
-    return (profilePicture && profilePicture.downloadUrl) ? profilePicture.downloadUrl : 'assets/img/logo.png';
   }
 
 }

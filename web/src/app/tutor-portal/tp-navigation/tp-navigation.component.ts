@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {Tutor} from '../../shared/model/tutor.model';
 import {faSignOutAlt} from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import {environment} from '../../../environments/environment';
+import {getProfilePicture} from 'src/app/shared/utils.functions';
 
 @Component({
   selector: 'app-tp-navigation',
@@ -16,6 +17,8 @@ export class TpNavigationComponent implements OnInit {
 
   faSignOutAlt = faSignOutAlt;
   version = environment.version;
+
+  getProfilePicture = getProfilePicture;
 
   constructor() {
   }

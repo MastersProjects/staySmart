@@ -14,7 +14,7 @@ import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
 import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import {collapse} from '../../shared/collapse.animation';
 import {AnimationEvent} from '@angular/animations';
-import {Image} from '../../shared/model/image.model';
+import {getProfilePicture} from 'src/app/shared/utils.functions';
 
 @Component({
   selector: 'app-tutor-search-request-offer',
@@ -35,6 +35,8 @@ export class TutorSearchRequestOfferComponent implements OnInit {
   faChevronUp = faChevronUp;
 
   isCollapsed = true;
+
+  getProfilePicture = getProfilePicture;
 
   constructor() {
   }
@@ -71,7 +73,4 @@ export class TutorSearchRequestOfferComponent implements OnInit {
     this.cardElement.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 
-  getProfilePicture(profilePicture: Image): string {
-    return (profilePicture && profilePicture.downloadUrl) ? profilePicture.downloadUrl : 'assets/img/logo.png';
-  }
 }

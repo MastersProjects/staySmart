@@ -1,6 +1,6 @@
 <div class="text-center">
   <div class="profile-picture-grid" *ngIf="showProfilePicture">
-    <img [src]="profilePicture?.downloadUrl ? profilePicture?.downloadUrl : 'assets/img/logo.png'" alt="Profilbild"
+    <img [src]="getProfilePicture(profilePicture)" alt="Profilbild"
          class="img-fluid rounded-circle border" width="250px" height="250px">
     <input type="file" class="profile-picture-uploader" accept="image/*" (change)="fileChangeEvent($event)">
   </div>
