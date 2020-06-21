@@ -27,7 +27,7 @@ jobs:
 
       - name: Run npm-check
         run: |
-          npm-check functions
+          npm-check -s functions
 
       - name: Send Slack Notification
         if: failure()
