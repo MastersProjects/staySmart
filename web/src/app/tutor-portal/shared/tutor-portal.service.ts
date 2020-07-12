@@ -118,6 +118,10 @@ export class TutorPortalService {
     );
   }
 
+  async saveProfileInfo(editedProfileInfo: Tutor): Promise<void> {
+    return this.angularFirestore.collection('Tutors').doc(editedProfileInfo.uid).update(editedProfileInfo);
+  }
+
   private get serverTimestamp() {
     return firebase.firestore.FieldValue.serverTimestamp();
   }

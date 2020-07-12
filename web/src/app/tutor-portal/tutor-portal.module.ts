@@ -12,7 +12,7 @@ import {TutorPortalService} from './shared/tutor-portal.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TpRequestDetailComponent} from './tp-request-detail/tp-request-detail.component';
 import {TpRequestOfferFormComponent} from './tp-request-offer-form/tp-request-offer-form.component';
-import {NgbDropdownModule, NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbButtonsModule, NgbDropdownModule, NgbNavModule, NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 import {TpNavigationComponent} from './tp-navigation/tp-navigation.component';
 import {TpProfileComponent} from './tp-profile/tp-profile.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
@@ -45,6 +45,8 @@ import {SharedModule} from '../shared/shared.module';
     ReactiveFormsModule,
     NgbDropdownModule,
     NgbNavModule,
+    NgbTypeaheadModule,
+    NgbButtonsModule,
     ImageCropperModule
   ],
   providers: [TutorPortalService] // Because TutorPortalService is only provided in this module which is lazy loaded
