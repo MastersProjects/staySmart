@@ -9,6 +9,8 @@ import {AngularFirePerformanceModule} from '@angular/fire/performance';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {TpProfilePictureComponent} from '../tp-profile-picture/tp-profile-picture.component';
+import {LocationService} from '../../shared/location.service';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('TpProfileComponent', () => {
   let component: TpProfileComponent;
@@ -22,12 +24,16 @@ describe('TpProfileComponent', () => {
         AngularFireAuthModule,
         AngularFirePerformanceModule,
         AngularFireStorageModule,
+        HttpClientModule,
       ],
       declarations: [
         TpProfileComponent,
         TpProfilePictureComponent
       ],
-      providers: [TutorPortalService]
+      providers: [
+        TutorPortalService,
+        LocationService,
+      ]
     })
       .compileComponents();
   }));
