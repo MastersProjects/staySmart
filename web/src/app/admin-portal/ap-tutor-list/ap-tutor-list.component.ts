@@ -16,10 +16,7 @@ export class ApTutorListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tutors$ = this.adminPortalService.getTutors();
+    this.tutors$ = this.adminPortalService.tutors$;
   }
 
-  onClick(tutor: Tutor) {
-    console.log(tutor.firstName);
-  }
 }

@@ -10,7 +10,7 @@ import {finalize, map, switchMap, tap} from 'rxjs/operators';
 import {TutorAuthService} from '../auth/tutor-auth.service';
 import {GeoLocation} from './model/geo-location.model';
 import {trace} from '@angular/fire/performance';
-import {Tutor} from './model/tutor.model';
+import {Tutor, TutorStatus} from './model/tutor.model';
 import {Image} from './model/image.model';
 import {NgxSpinnerService} from 'ngx-spinner';
 import Timestamp = firebase.firestore.Timestamp;
@@ -222,7 +222,7 @@ export class StaySmartService {
       price,
       attention,
 
-      status: 'new' as const,
+      status: TutorStatus.NEW,
 
       registrationTimestamp: null,
 

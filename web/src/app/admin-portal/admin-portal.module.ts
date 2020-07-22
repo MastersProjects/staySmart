@@ -9,10 +9,12 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.component';
 import {SharedModule} from '../shared/shared.module';
 import {ApNavigationComponent} from './ap-navigation/ap-navigation.component';
-import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbButtonsModule, NgbDropdownModule, NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 import {ApTutorListComponent} from './ap-tutor-list/ap-tutor-list.component';
 import {AdminPortalService} from './shared/admin-portal.service';
 import {ApTutorListCardComponent} from './ap-tutor-list-card/ap-tutor-list-card.component';
+import {ApTutorDetailComponent} from './ap-tutor-detail/ap-tutor-detail.component';
+import {ApTutorStatusComponent} from './ap-tutor-status/ap-tutor-status.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import {ApTutorListCardComponent} from './ap-tutor-list-card/ap-tutor-list-card.
     ApNavigationComponent,
     ApTutorListComponent,
     ApTutorListCardComponent,
+    ApTutorDetailComponent,
+    ApTutorStatusComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +35,8 @@ import {ApTutorListCardComponent} from './ap-tutor-list-card/ap-tutor-list-card.
     ReactiveFormsModule,
     FontAwesomeModule,
     NgbDropdownModule,
+    NgbTypeaheadModule,
+    NgbButtonsModule,
   ],
   providers: [AdminPortalService]
 })

@@ -34,7 +34,7 @@ export interface Tutor {
   price: number;
   attention: string;
 
-  status: 'new' | 'activated' | 'deactivated';
+  status: TutorStatus;
 
   registrationTimestamp: Date;
 
@@ -44,4 +44,10 @@ export interface Tutor {
   tags?: any;
 
   profilePicture?: Image;
+}
+
+export enum TutorStatus {
+  NEW = 'new',
+  ACTIVATED = 'activated',
+  DEACTIVATED = 'deactivated'
 }

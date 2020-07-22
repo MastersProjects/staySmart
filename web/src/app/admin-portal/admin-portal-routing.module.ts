@@ -7,6 +7,7 @@ import {AdminPortalAuthGuard} from '../auth/guard/admin-portal-auth.guard';
 import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.component';
 import {LoggedInGuard} from '../auth/guard/logged-in.guard';
 import {ApTutorListComponent} from './ap-tutor-list/ap-tutor-list.component';
+import {ApTutorDetailComponent} from './ap-tutor-detail/ap-tutor-detail.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
     component: AdminPortalComponent,
     children: [
       {path: 'tutors', component: ApTutorListComponent},
+      {path: 'tutor/:uid', component: ApTutorDetailComponent},
       /*{path: '', pathMatch: 'full', redirectTo: 'child'}*/
     ],
     canActivate: [AdminPortalAuthGuard]

@@ -1,3 +1,3 @@
 <h3>Nachhilflehrer</h3>
 <app-ap-tutor-list-card *ngFor="let tutor of tutors$ | async" class="d-block my-4" [tutor]="tutor"
-                        [routerLink]="['details', tutor.uid]" (click)="onClick(tutor)"></app-ap-tutor-list-card>
+                        [routerLink]="['../tutor', tutor.uid]"></app-ap-tutor-list-card>

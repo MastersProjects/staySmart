@@ -3,20 +3,24 @@ import {CommonModule} from '@angular/common';
 import {FooterComponent} from './footer/footer.component';
 import {BirthdayInputComponent} from './birthday-input/birthday-input.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {StatusPipe} from './status.pipe';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
     BirthdayInputComponent,
+    StatusPipe,
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     FooterComponent,
-    BirthdayInputComponent
+    BirthdayInputComponent,
+    StatusPipe,
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}
