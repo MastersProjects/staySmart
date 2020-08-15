@@ -3,7 +3,7 @@
     {{tutorPortalOffer ? 'Offerte für' : null}}
     {{tutorPortalOffer?.tutorSearchRequest?.tutorSearchRequestData.firstName}}
     {{tutorPortalOffer?.tutorSearchRequest?.tutorSearchRequestData.lastName}}
-    <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="isCollapsed ? '180' : ''"></fa-icon>
+    <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="chevronRotation"></fa-icon>
   </div>
   <div [@collapse]="collapseState" (@collapse.done)="onCollapseAnimationDone($event)" class="card-body">
     <ul ngbNav #nav="ngbNav" class="nav-tabs">

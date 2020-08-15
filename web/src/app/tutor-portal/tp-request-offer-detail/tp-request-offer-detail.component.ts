@@ -3,6 +3,7 @@ import {TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.m
 import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import {AnimationEvent} from '@angular/animations';
 import {collapse} from '../../shared/collapse.animation';
+import {RotateProp} from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-tp-request-offer-detail',
@@ -64,5 +65,8 @@ export class TpRequestOfferDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
+  get chevronRotation(): RotateProp {
+    return this.isCollapsed ? '180' : '' as any;
+  }
 
 }

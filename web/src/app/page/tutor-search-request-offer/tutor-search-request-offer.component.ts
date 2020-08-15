@@ -15,6 +15,7 @@ import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import {collapse} from '../../shared/collapse.animation';
 import {AnimationEvent} from '@angular/animations';
 import {getProfilePicture} from 'src/app/shared/utils.functions';
+import {RotateProp} from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-tutor-search-request-offer',
@@ -71,6 +72,10 @@ export class TutorSearchRequestOfferComponent implements OnInit {
 
   private scrollToCardElement() {
     this.cardElement.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
+  get chevronRotation(): RotateProp {
+    return this.isCollapsed ? '180' : '' as any;
   }
 
 }

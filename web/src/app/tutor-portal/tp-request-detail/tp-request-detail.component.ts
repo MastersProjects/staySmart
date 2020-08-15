@@ -16,6 +16,7 @@ import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {collapse} from '../../shared/collapse.animation';
 import {Router} from '@angular/router';
+import {RotateProp} from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-tp-request-detail',
@@ -88,6 +89,10 @@ export class TpRequestDetailComponent implements OnInit {
 
   private scrollToCardElement() {
     this.cardElement.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
+  get chevronRotation(): RotateProp {
+    return this.isCollapsed ? '180' : '' as any;
   }
 
 }

@@ -73,12 +73,12 @@ export class ApLoginComponent implements OnInit {
     return this.user.email;
   }
 
-  get email() {
-    return this.loginForm.controls.email;
+  get email(): FormControl {
+    return this.loginForm.controls.email as FormControl;
   }
 
-  get password() {
-    return this.loginForm.controls.password;
+  get password(): FormControl {
+    return this.loginForm.controls.password as FormControl;
   }
 
   private createLoginForm() {
