@@ -22,6 +22,7 @@ export class AdminPortalService {
     );
   }
 
+  // FIXME when on List View and at that time a new Tutor register and want to view the new Tutor Detail it fails.
   getTutor(uid: string): Observable<Tutor> {
     return this.tutors$.pipe(
       tap(() => console.log('getTutor Subscribed')),
