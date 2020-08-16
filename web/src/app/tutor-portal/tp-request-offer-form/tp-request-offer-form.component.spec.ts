@@ -1,10 +1,7 @@
 import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 
 import {TpRequestOfferFormComponent} from './tp-request-offer-form.component';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {ReactiveFormsModule} from '@angular/forms';
+import {TestingModule} from '../../testing/testing.module';
 
 describe('TpRequestOfferFormComponent', () => {
   let component: TpRequestOfferFormComponent;
@@ -13,9 +10,7 @@ describe('TpRequestOfferFormComponent', () => {
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        ReactiveFormsModule
+        TestingModule,
       ],
       declarations: [ TpRequestOfferFormComponent ]
     })

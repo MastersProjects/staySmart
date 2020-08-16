@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {from, Observable, of, Subject} from 'rxjs';
 import * as firebase from 'firebase/app';
+import {User} from 'firebase/app';
 import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Tutor} from '../shared/model/tutor.model';
-import {User} from 'firebase';
 import {trace} from '@angular/fire/performance';
 
 @Injectable({

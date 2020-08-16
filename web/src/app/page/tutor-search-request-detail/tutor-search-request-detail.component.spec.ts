@@ -1,15 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail.component';
-import {RouterTestingModule} from '@angular/router/testing';
 import {TutorSearchRequestOfferComponent} from '../tutor-search-request-offer/tutor-search-request-offer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {TestingModule} from '../../testing/testing.module';
 
 describe('TutorSearchRequestDetailComponent', () => {
   let component: TutorSearchRequestDetailComponent;
@@ -18,20 +12,14 @@ describe('TutorSearchRequestDetailComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        AngularFireAuthModule,
-        AngularFirePerformanceModule,
-        RouterTestingModule,
-        FontAwesomeModule
+        TestingModule,
+        FontAwesomeModule,
       ],
       declarations: [
         TutorSearchRequestDetailComponent,
         TutorSearchRequestOfferComponent
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

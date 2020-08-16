@@ -1,11 +1,11 @@
 import {async, TestBed} from '@angular/core/testing';
 
 import {LocationService} from './location.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('LocationService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [HttpClientModule],
+    imports: [HttpClientTestingModule],
     providers: [LocationService]
   }));
 

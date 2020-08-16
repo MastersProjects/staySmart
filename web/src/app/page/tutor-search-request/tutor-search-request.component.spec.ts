@@ -2,17 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TutorSearchRequestComponent} from './tutor-search-request.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {StepperComponent} from '../stepper/stepper.component';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {TestingModule} from '../../testing/testing.module';
 
 describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
@@ -22,22 +15,15 @@ describe('TutorSearchRequestComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        HttpClientModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        AngularFireAuthModule,
-        AngularFirePerformanceModule,
+        TestingModule,
         FontAwesomeModule,
         CdkStepperModule,
-        ReactiveFormsModule
       ],
       declarations: [
         TutorSearchRequestComponent,
         StepperComponent
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

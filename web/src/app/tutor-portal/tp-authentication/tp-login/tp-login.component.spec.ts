@@ -1,13 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpLoginComponent} from './tp-login.component';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../../environments/environment';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {RouterTestingModule} from '@angular/router/testing';
-import {ReactiveFormsModule} from '@angular/forms';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {TestingModule} from '../../../testing/testing.module';
 
 describe('TpLoginComponent', () => {
   let component: TpLoginComponent;
@@ -16,12 +10,7 @@ describe('TpLoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireAuthModule,
-        AngularFirestoreModule,
-        RouterTestingModule,
-        AngularFirePerformanceModule,
-        ReactiveFormsModule
+        TestingModule,
       ],
       declarations: [TpLoginComponent]
     })

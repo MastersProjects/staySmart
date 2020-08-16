@@ -49,7 +49,7 @@ export class TpProfileComponent implements OnInit, OnDestroy {
   private loadTutorPortalUser() {
     this.authService.tutorPortalUser$.pipe(takeUntil(this.destroy$)).subscribe(tutorPortalUser => {
       this.tutorPortalUser = tutorPortalUser;
-      this.profileInfoForm.patchValue(tutorPortalUser);
+      this.profileInfoForm.patchValue(tutorPortalUser || {});
     });
   }
 

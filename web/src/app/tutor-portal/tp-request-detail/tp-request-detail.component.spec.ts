@@ -2,18 +2,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpRequestDetailComponent} from './tp-request-detail.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TpRequestOfferFormComponent} from '../tp-request-offer-form/tp-request-offer-form.component';
-import {ReactiveFormsModule} from '@angular/forms';
 import {TutorPortalService} from '../shared/tutor-portal.service';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {RouterTestingModule} from '@angular/router/testing';
+import {TestingModule} from '../../testing/testing.module';
 import Timestamp = firebase.firestore.Timestamp;
 
 describe('TpRequestDetailComponent', () => {
@@ -23,15 +16,9 @@ describe('TpRequestDetailComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireAuthModule,
-        AngularFirePerformanceModule,
-        AngularFireStorageModule,
+        TestingModule,
         FontAwesomeModule,
         BrowserAnimationsModule,
-        ReactiveFormsModule,
-        RouterTestingModule
       ],
       declarations: [
         TpRequestDetailComponent,

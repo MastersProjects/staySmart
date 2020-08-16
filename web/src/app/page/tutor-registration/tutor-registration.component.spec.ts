@@ -1,21 +1,13 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TutorRegistrationComponent} from './tutor-registration.component';
-import {ReactiveFormsModule} from '@angular/forms';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {StepperComponent} from '../stepper/stepper.component';
-import {HttpClientModule} from '@angular/common/http';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {RouterTestingModule} from '@angular/router/testing';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
 import * as firebase from 'firebase/app';
 import {SharedModule} from '../../shared/shared.module';
+import {TestingModule} from '../../testing/testing.module';
 import Timestamp = firebase.firestore.Timestamp;
 
 describe('TutorRegistrationComponent', () => {
@@ -29,21 +21,13 @@ describe('TutorRegistrationComponent', () => {
         StepperComponent
       ],
       imports: [
-        HttpClientModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        AngularFireAuthModule,
-        AngularFirePerformanceModule,
-        ReactiveFormsModule,
+        TestingModule,
         CdkStepperModule,
         FontAwesomeModule,
         NgbModule,
-        RouterTestingModule,
-        SharedModule
+        SharedModule,
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

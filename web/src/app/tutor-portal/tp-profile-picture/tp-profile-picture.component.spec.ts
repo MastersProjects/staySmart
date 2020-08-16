@@ -1,6 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpProfilePictureComponent} from './tp-profile-picture.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
 
 describe('TutorPortalProfilePictureComponent', () => {
   let component: TpProfilePictureComponent;
@@ -8,6 +9,9 @@ describe('TutorPortalProfilePictureComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ImageCropperModule
+      ],
       declarations: [ TpProfilePictureComponent ]
     })
     .compileComponents();

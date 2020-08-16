@@ -1,14 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TutorPortalComponent} from './tutor-portal.component';
-import {RouterTestingModule} from '@angular/router/testing';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../environments/environment';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {TpNavigationComponent} from './tp-navigation/tp-navigation.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
+import {TestingModule} from '../testing/testing.module';
 
 describe('TutorPortalComponent', () => {
   let component: TutorPortalComponent;
@@ -17,11 +12,7 @@ describe('TutorPortalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireAuthModule,
-        AngularFirestoreModule,
-        AngularFirePerformanceModule,
-        RouterTestingModule,
+        TestingModule,
         FontAwesomeModule
       ],
       declarations: [

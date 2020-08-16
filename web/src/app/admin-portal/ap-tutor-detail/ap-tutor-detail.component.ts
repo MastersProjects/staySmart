@@ -48,7 +48,7 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
     ).subscribe(tutor => {
       console.log(tutor);
       this.tutorDetail = tutor;
-      this.tutorDetailForm.patchValue(tutor);
+      this.tutorDetailForm.patchValue(tutor || {});
     });
   }
 

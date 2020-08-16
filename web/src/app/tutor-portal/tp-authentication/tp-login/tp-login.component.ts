@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
-import {User} from 'firebase';
+import {User} from 'firebase/app';
 import {AngularFirePerformance} from '@angular/fire/performance';
 
 

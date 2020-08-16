@@ -1,16 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpProfileComponent} from './tp-profile.component';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFirePerformanceModule} from '@angular/fire/performance';
-import {AngularFireStorageModule} from '@angular/fire/storage';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {TpProfilePictureComponent} from '../tp-profile-picture/tp-profile-picture.component';
 import {LocationService} from '../../shared/location.service';
-import {HttpClientModule} from '@angular/common/http';
+import {TestingModule} from '../../testing/testing.module';
+import {SharedModule} from '../../shared/shared.module';
 
 describe('TpProfileComponent', () => {
   let component: TpProfileComponent;
@@ -19,16 +14,12 @@ describe('TpProfileComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireAuthModule,
-        AngularFirePerformanceModule,
-        AngularFireStorageModule,
-        HttpClientModule,
+        TestingModule,
+        SharedModule,
       ],
       declarations: [
         TpProfileComponent,
-        TpProfilePictureComponent
+        TpProfilePictureComponent,
       ],
       providers: [
         TutorPortalService,
