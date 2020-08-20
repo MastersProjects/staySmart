@@ -13,26 +13,22 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
-const MODULES = [
-  CommonModule,
-  AngularFireAuthModule,
-  AngularFirestoreModule,
-  AngularFirePerformanceModule,
-  AngularFireStorageModule,
-  ReactiveFormsModule,
-  RouterTestingModule,
-  HttpClientTestingModule,
-  FontAwesomeModule,
-];
 
 @NgModule({
   declarations: [],
   imports: [
-    ...MODULES,
     AngularFireModule.initializeApp(environment.firebase),
   ],
   exports: [
-    ...MODULES,
+    CommonModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFirePerformanceModule,
+    AngularFireStorageModule,
+    ReactiveFormsModule,
+    RouterTestingModule,
+    HttpClientTestingModule,
+    FontAwesomeModule,
     AngularFireModule,
   ],
   providers: [

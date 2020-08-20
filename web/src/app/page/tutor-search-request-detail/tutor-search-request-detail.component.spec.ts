@@ -4,6 +4,8 @@ import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail.c
 import {TutorSearchRequestOfferComponent} from '../tutor-search-request-offer/tutor-search-request-offer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TestingModule} from '../../testing/testing.module';
+import {RouterTestingModule} from '@angular/router/testing';
+import {TutorSearchRequestComponent} from '../tutor-search-request/tutor-search-request.component';
 
 describe('TutorSearchRequestDetailComponent', () => {
   let component: TutorSearchRequestDetailComponent;
@@ -14,6 +16,7 @@ describe('TutorSearchRequestDetailComponent', () => {
       imports: [
         TestingModule,
         FontAwesomeModule,
+        RouterTestingModule.withRoutes([{path: 'anfragen', component: TutorSearchRequestComponent}])
       ],
       declarations: [
         TutorSearchRequestDetailComponent,
