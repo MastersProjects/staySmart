@@ -6,3 +6,6 @@
 typings/
 
 node_modules/
+
+# functions config variable for emulator
+/.runtimeconfig.json
