@@ -8,6 +8,8 @@ import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.co
 import {LoggedInGuard} from '../auth/guard/logged-in.guard';
 import {ApTutorListComponent} from './ap-tutor-list/ap-tutor-list.component';
 import {ApTutorDetailComponent} from './ap-tutor-detail/ap-tutor-detail.component';
+import {ApRequestListComponent} from './ap-request/ap-request-list/ap-request-list.component';
+import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-request-detail.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,8 @@ const routes: Routes = [
     children: [
       {path: 'tutors', component: ApTutorListComponent},
       {path: 'tutor/:uid', component: ApTutorDetailComponent},
+      {path: 'requests', component: ApRequestListComponent},
+      {path: 'request/:tutorSearchRequestID', component: ApRequestDetailComponent},
       /*{path: '', pathMatch: 'full', redirectTo: 'child'}*/
     ],
     canActivate: [AdminPortalAuthGuard]

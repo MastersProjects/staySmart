@@ -1,0 +1,67 @@
+<ng-container *ngIf="tutorSearchRequest$ | async as tutorSearchRequest">
+  <h2>
+    Anfrage von {{tutorSearchRequest.firstName}} {{tutorSearchRequest.lastName}}
+    <app-ap-request-status [status]="tutorSearchRequest.status"></app-ap-request-status>
+  </h2>
+  <div class="form-group">
+    <label class="w-100">
+      Ort
+      <input disabled name="location" type="text" class="form-control"
+             [value]="tutorSearchRequest.location.label">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="w-100">
+      Zeitpunkt
+    </label>
+    <button *ngIf="tutorSearchRequest.daysAvailable.monday" disabled class="btn btn-outline-success mr-1 mb-1">
+      Montag
+    </button>
+    <button *ngIf="tutorSearchRequest.daysAvailable.tuesday" disabled class="btn btn-outline-success mr-1 mb-1">
+      Dienstag
+    </button>
+    <button *ngIf="tutorSearchRequest.daysAvailable.wednesday" disabled class="btn btn-outline-success mr-1 mb-1">
+      Mittwoch
+    </button>
+    <button *ngIf="tutorSearchRequest.daysAvailable.thursday" disabled class="btn btn-outline-success mr-1 mb-1">
+      Donnerstag
+    </button>
+    <button *ngIf="tutorSearchRequest.daysAvailable.friday" disabled class="btn btn-outline-success mr-1 mb-1">
+      Freitag
+    </button>
+    <button *ngIf="tutorSearchRequest.daysAvailable.saturday" disabled class="btn btn-outline-success mr-1 mb-1">
+      Samstag
+    </button>
+    <button *ngIf="tutorSearchRequest.daysAvailable.sunday" disabled class="btn btn-outline-success mr-1 mb-1">
+      Sonntag
+    </button>
+  </div>
+  <div class="form-group">
+    <label class="w-100">
+      Budget maximal (pro Stunde)
+      <input disabled type="range" name="budget" class="custom-range" min="0" max="20"
+             [value]="tutorSearchRequest.budget">
+      <small class="form-text text-muted h6 font-weight-light">Budget: {{tutorSearchRequest.budget * 5}}.-</small>
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="w-100">
+      Problem
+      <textarea disabled class="form-control" rows="7" [value]="tutorSearchRequest.problem"></textarea>
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="w-100">
+      Fach
+      <input disabled name="lecture" type="text" class="form-control"
+             [value]="tutorSearchRequest.subject">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="w-100">
+      Klasse
+      <input disabled name="class" type="text" class="form-control"
+             [value]="tutorSearchRequest.gradeLevel">
+    </label>
+  </div>
+</ng-container>

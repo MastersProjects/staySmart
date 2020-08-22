@@ -4,14 +4,17 @@ import {Observable} from 'rxjs';
 import {Tutor, TutorStatus} from '../../shared/model/tutor.model';
 import {trace} from '@angular/fire/performance';
 import {map, shareReplay, tap} from 'rxjs/operators';
+import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.model';
 
 @Injectable() // provided in AdminPortalModule
 export class AdminPortalService {
 
   tutors$: Observable<Tutor[]>;
+  tutorSearchRequests$: Observable<TutorSearchRequestData[]>;
 
   constructor(private angularFirestore: AngularFirestore) {
     this.loadTutors();
+    this.initTutorSearchRequestsObservable();
   }
 
   private loadTutors() {
@@ -22,12 +25,29 @@ export class AdminPortalService {
     );
   }
 
+  private initTutorSearchRequestsObservable(): void {
+    this.tutorSearchRequests$ = this.angularFirestore.collection<TutorSearchRequestData>('TutorSearchRequests')
+      .valueChanges({idField: 'id'}).pipe(
+        tap(() => console.log('tutorSearchRequests$ Subscribed')),
+        trace('AP: tutorSearchRequests$'),
+        shareReplay(),
+      );
+  }
+
   // FIXME when on List View and at that time a new Tutor register and want to view the new Tutor Detail it fails.
   getTutor(uid: string): Observable<Tutor> {
     return this.tutors$.pipe(
       tap(() => console.log('getTutor Subscribed')),
       map(tutors => tutors.find(tutor => tutor.uid === uid)),
       trace('AP: getTutor'),
+    );
+  }
+
+  getTutorSearchRequest(tutorSearchRequestID: string): Observable<TutorSearchRequestData> {
+    return this.tutorSearchRequests$.pipe(
+      tap(() => console.log('getTutorSearchRequest Subscribed')),
+      map(tutorsSearchRequests => tutorsSearchRequests.find(request => request.id === tutorSearchRequestID)),
+      trace('AP: getTutorSearchRequest'),
     );
   }
 

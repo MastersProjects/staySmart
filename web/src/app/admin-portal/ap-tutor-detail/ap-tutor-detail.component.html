@@ -17,7 +17,7 @@
                id="status-switch"
                [checked]="tutorDetail.status === tutorStatus.ACTIVATED"
                (change)="changeStatus($event)">
-        <label class="custom-control-label" for="status-switch">{{tutorDetail.status | status}}</label>
+        <label class="custom-control-label" for="status-switch">{{tutorDetail.status | tutorStatus}}</label>
       </span>
     </div>
     <hr>

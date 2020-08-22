@@ -1,10 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {TutorStatus} from './model/tutor.model';
+import {TutorStatus} from '../model/tutor.model';
 
 @Pipe({
-  name: 'status'
+  name: 'tutorStatus'
 })
-export class StatusPipe implements PipeTransform {
+export class TutorStatusPipe implements PipeTransform {
 
   transform(value: TutorStatus): string {
 

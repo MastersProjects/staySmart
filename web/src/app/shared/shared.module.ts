@@ -3,14 +3,16 @@ import {CommonModule} from '@angular/common';
 import {FooterComponent} from './footer/footer.component';
 import {BirthdayInputComponent} from './birthday-input/birthday-input.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {StatusPipe} from './status.pipe';
+import {TutorStatusPipe} from './pipes/tutor-status.pipe';
+import {TutorSearchRequestStatusPipe} from './pipes/tutor-search-request-status.pipe';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
     BirthdayInputComponent,
-    StatusPipe,
+    TutorStatusPipe,
+    TutorSearchRequestStatusPipe,
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import {StatusPipe} from './status.pipe';
   exports: [
     FooterComponent,
     BirthdayInputComponent,
-    StatusPipe,
+    TutorStatusPipe,
+    TutorSearchRequestStatusPipe,
   ]
 })
 export class SharedModule {

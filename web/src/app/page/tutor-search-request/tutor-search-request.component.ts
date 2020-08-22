@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TutorSearchRequest} from 'src/app/shared/model/tutor-search-request.model';
+import {TutorSearchRequest, TutorSearchRequestStatus} from 'src/app/shared/model/tutor-search-request.model';
 import {Observable, of} from 'rxjs';
 import {LocationService} from 'src/app/shared/location.service';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
@@ -136,7 +136,7 @@ export class TutorSearchRequestComponent implements OnInit {
         daysAvailable,
         problem,
         timestamp: null,
-        status: 'new'
+        status: TutorSearchRequestStatus.NEW
       },
       tutorSearchRequestContactData: {
         email,

@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TpRequestOfferFormComponent} from '../tp-request-offer-form/tp-request-offer-form.component';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {TestingModule} from '../../testing/testing.module';
+import {TutorSearchRequestStatus} from '../../shared/model/tutor-search-request.model';
 import Timestamp = firebase.firestore.Timestamp;
 
 describe('TpRequestDetailComponent', () => {
@@ -58,7 +59,7 @@ describe('TpRequestDetailComponent', () => {
       problem: 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
       subject: 'Physik',
       timestamp: new Timestamp(1578106112, 229000000),
-      status: 'new'
+      status: TutorSearchRequestStatus.NEW
     };
     fixture.detectChanges();
   });

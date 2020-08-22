@@ -27,7 +27,12 @@ export interface TutorSearchRequestData {
   budget: number;
   problem: string;
   timestamp: Timestamp;
-  status: 'new' | 'mediated';
+  status: TutorSearchRequestStatus;
+}
+
+export enum TutorSearchRequestStatus {
+  NEW = 'new',
+  MEDIATED = 'mediated',
 }
 
 export interface TutorSearchRequestContactData {

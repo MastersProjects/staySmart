@@ -15,6 +15,10 @@ import {AdminPortalService} from './shared/admin-portal.service';
 import {ApTutorListCardComponent} from './ap-tutor-list-card/ap-tutor-list-card.component';
 import {ApTutorDetailComponent} from './ap-tutor-detail/ap-tutor-detail.component';
 import {ApTutorStatusComponent} from './ap-tutor-status/ap-tutor-status.component';
+import {ApRequestListComponent} from './ap-request/ap-request-list/ap-request-list.component';
+import {ApRequestListCardComponent} from './ap-request/ap-request-list-card/ap-request-list-card.component';
+import {ApRequestStatusComponent} from './ap-request/ap-request-status/ap-request-status.component';
+import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-request-detail.component';
 
 
 @NgModule({
@@ -27,6 +31,10 @@ import {ApTutorStatusComponent} from './ap-tutor-status/ap-tutor-status.componen
     ApTutorListCardComponent,
     ApTutorDetailComponent,
     ApTutorStatusComponent,
+    ApRequestListComponent,
+    ApRequestListCardComponent,
+    ApRequestStatusComponent,
+    ApRequestDetailComponent,
   ],
   imports: [
     CommonModule,

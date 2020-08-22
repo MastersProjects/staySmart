@@ -1,0 +1,4 @@
+<h3>Nachhilf Anfragen</h3>
+<app-ap-request-list-card *ngFor="let tutorSearchRequest of tutorSearchRequests$ | async" class="d-block my-4"
+                          [tutorSearchRequestData]="tutorSearchRequest"
+                          [routerLink]="['../request', tutorSearchRequest.id]"></app-ap-request-list-card>
