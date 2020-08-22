@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {TutorStatus} from '../../shared/model/tutor.model';
+import {TutorStatus} from '../../../shared/model/tutor.model';
 
 @Component({
   selector: 'app-ap-tutor-status',

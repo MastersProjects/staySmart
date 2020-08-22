@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../../../environments/environment';
 
 import {User} from 'firebase/app';
-import {AdminAuthService} from '../../auth/admin-auth.service';
+import {AdminAuthService} from '../../../auth/admin-auth.service';
 import {Router} from '@angular/router';
 import {AngularFirePerformance} from '@angular/fire/performance';
 

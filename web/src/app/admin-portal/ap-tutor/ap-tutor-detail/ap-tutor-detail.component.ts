@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {AdminPortalService} from '../shared/admin-portal.service';
+import {AdminPortalService} from '../../shared/admin-portal.service';
 import {of, Subject} from 'rxjs';
-import {Tutor, TutorStatus} from '../../shared/model/tutor.model';
+import {Tutor, TutorStatus} from '../../../shared/model/tutor.model';
 import {switchMap, takeUntil} from 'rxjs/operators';
 import {FormControl, FormGroup} from '@angular/forms';
 import {getProfilePicture} from 'src/app/shared/utils.functions';
-import {GeoLocation} from '../../shared/model/geo-location.model';
+import {GeoLocation} from '../../../shared/model/geo-location.model';
 import {AngularFirePerformance} from '@angular/fire/performance';
 
 @Component({

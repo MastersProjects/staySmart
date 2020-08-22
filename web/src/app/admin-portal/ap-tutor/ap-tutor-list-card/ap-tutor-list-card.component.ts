@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {Tutor} from '../../shared/model/tutor.model';
+import {Tutor} from '../../../shared/model/tutor.model';
 import {getProfilePicture} from 'src/app/shared/utils.functions';
 
 @Component({

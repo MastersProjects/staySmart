@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminPortalService} from '../shared/admin-portal.service';
-import {Tutor} from '../../shared/model/tutor.model';
+import {AdminPortalService} from '../../shared/admin-portal.service';
+import {Tutor} from '../../../shared/model/tutor.model';
 import {Observable} from 'rxjs';
 
 @Component({

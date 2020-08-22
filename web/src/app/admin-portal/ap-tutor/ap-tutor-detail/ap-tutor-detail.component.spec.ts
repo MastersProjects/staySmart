@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ApTutorDetailComponent} from './ap-tutor-detail.component';
-import {AdminPortalService} from '../shared/admin-portal.service';
-import {TestingModule} from '../../testing/testing.module';
+import {AdminPortalService} from '../../shared/admin-portal.service';
+import {TestingModule} from '../../../testing/testing.module';
 
 describe('ApTutorDetailComponent', () => {
   let component: ApTutorDetailComponent;

@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ApLoginComponent} from './ap-login.component';
-import {TestingModule} from '../../testing/testing.module';
+import {TestingModule} from '../../../testing/testing.module';
 
 describe('ApLoginComponent', () => {
   let component: ApLoginComponent;

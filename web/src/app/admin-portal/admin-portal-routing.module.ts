@@ -2,12 +2,12 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AdminPortalComponent} from './admin-portal.component';
-import {ApLoginComponent} from './ap-login/ap-login.component';
+import {ApLoginComponent} from './ap-authentication/ap-login/ap-login.component';
 import {AdminPortalAuthGuard} from '../auth/guard/admin-portal-auth.guard';
-import {ApResetPasswordComponent} from './ap-reset-password/ap-reset-password.component';
+import {ApResetPasswordComponent} from './ap-authentication/ap-reset-password/ap-reset-password.component';
 import {LoggedInGuard} from '../auth/guard/logged-in.guard';
-import {ApTutorListComponent} from './ap-tutor-list/ap-tutor-list.component';
-import {ApTutorDetailComponent} from './ap-tutor-detail/ap-tutor-detail.component';
+import {ApTutorListComponent} from './ap-tutor/ap-tutor-list/ap-tutor-list.component';
+import {ApTutorDetailComponent} from './ap-tutor/ap-tutor-detail/ap-tutor-detail.component';
 import {ApRequestListComponent} from './ap-request/ap-request-list/ap-request-list.component';
 import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-request-detail.component';
 

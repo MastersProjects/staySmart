@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AdminAuthService} from '../../auth/admin-auth.service';
+import {AdminAuthService} from '../../../auth/admin-auth.service';
 
 @Component({
   selector: 'app-ap-reset-password',
