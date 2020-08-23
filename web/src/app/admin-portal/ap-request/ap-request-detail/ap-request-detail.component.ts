@@ -3,7 +3,7 @@ import {Observable, Subject} from 'rxjs';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {AdminPortalService} from '../../shared/admin-portal.service';
 import {switchMap, takeUntil} from 'rxjs/operators';
-import {TutorSearchRequestData} from '../../../shared/model/tutor-search-request.model';
+import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../../shared/model/tutor-search-request.model';
 
 @Component({
   selector: 'app-ap-request-detail',
@@ -15,6 +15,7 @@ export class ApRequestDetailComponent implements OnInit {
   private destroy$ = new Subject<void>();
 
   tutorSearchRequest$: Observable<TutorSearchRequestData>;
+  tutorSearchRequestOffers$: Observable<TutorSearchRequestOffer[]>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private adminPortalService: AdminPortalService) {
@@ -29,5 +30,9 @@ export class ApRequestDetailComponent implements OnInit {
       takeUntil(this.destroy$),
       switchMap((params: ParamMap) => this.adminPortalService.getTutorSearchRequest(params.get('tutorSearchRequestID'))),
     );
+  }
+
+  loadOffers(tutorSearchRequestID: string) {
+    this.tutorSearchRequestOffers$ = this.adminPortalService.getTutorSearchRequestOffers(tutorSearchRequestID);
   }
 }

@@ -1,0 +1,34 @@
+<div #card class="card">
+  <div class="card-header text-center cursor-pointer" (click)="collapseToggle()">
+    {{tutorSearchRequestOffer ? 'Offerte von' : ''}}
+    {{tutorSearchRequestOffer?.firstName}}
+    {{tutorSearchRequestOffer?.lastName}}
+    <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="chevronRotation"></fa-icon>
+  </div>
+  <div [@collapse]="collapseState" (@collapse.done)="onCollapseAnimationDone($event)" class="card-body">
+    <div class="form-group">
+      <label class="w-100">
+        Nachricht
+        <textarea class="form-control" disabled rows="7" [value]="tutorSearchRequestOffer?.message"></textarea>
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="w-100">
+        Preis pro Stunde (Fr.)
+        <input class="form-control" disabled type="number" [value]="tutorSearchRequestOffer?.price">
+      </label>
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    <div class="row">
+      <div class="col-sm-6">
+        Status:
+        <app-offer-status [status]="tutorSearchRequestOffer?.status"></app-offer-status>
+      </div>
+      <div class="col-sm-6 text-sm-right">
+        <small>Gesendet am: {{tutorSearchRequestOffer?.timestamp.toDate() | date: 'medium'}}</small>
+      </div>
+    </div>
+  </div>
+</div>
+

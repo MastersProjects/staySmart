@@ -64,4 +64,27 @@
              [value]="tutorSearchRequest.gradeLevel">
     </label>
   </div>
+  <div class="text-sm-right">
+    <small>Erstellt am: {{tutorSearchRequest?.timestamp.toDate() | date: 'medium'}}</small>
+  </div>
+  <div *ngIf="!tutorSearchRequestOffers$" class="row mx-2 mt-5">
+    <div class="col text-center">
+      <button class="btn btn-secondary" (click)="loadOffers(tutorSearchRequest.id)">
+        Offerte Laden
+      </button>
+    </div>
+  </div>
+  <div *ngIf="tutorSearchRequestOffers$" class="mt-5">
+    <hr>
+    <h3 class="mt-5">Offerten</h3>
+    <ng-container *ngIf="tutorSearchRequestOffers$ | async as tutorSearchRequestOffers">
+      <app-tp-request-offer-detail *ngFor="let tutorSearchRequestOffer of tutorSearchRequestOffers"
+                                   class="d-block my-4"
+                                   [tutorSearchRequestOffer]="tutorSearchRequestOffer">
+      </app-tp-request-offer-detail>
+      <div *ngIf="tutorSearchRequestOffers?.length === 0" class="text-center mt-5">
+        <h4>Keine Offerte vorhanden</h4>
+      </div>
+    </ng-container>
+  </div>
 </ng-container>

@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Tutor, TutorStatus} from '../../shared/model/tutor.model';
 import {trace} from '@angular/fire/performance';
 import {map, shareReplay, tap} from 'rxjs/operators';
-import {TutorSearchRequestData} from '../../shared/model/tutor-search-request.model';
+import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 
 @Injectable() // provided in AdminPortalModule
 export class AdminPortalService {
@@ -49,6 +49,18 @@ export class AdminPortalService {
       map(tutorsSearchRequests => tutorsSearchRequests.find(request => request.id === tutorSearchRequestID)),
       trace('AP: getTutorSearchRequest'),
     );
+  }
+
+  getTutorSearchRequestOffers(tutorSearchRequestID: string): Observable<TutorSearchRequestOffer[]> {
+    return this.angularFirestore
+      .collection('TutorSearchRequests')
+      .doc(tutorSearchRequestID)
+      .collection<TutorSearchRequestOffer>(
+        'TutorSearchRequestOffers',
+        ref => ref.orderBy('status')
+      ).valueChanges({idField: 'id'}).pipe(
+        trace('AP: getTutorSearchRequestOffers')
+      );
   }
 
   verifyTutor(uid: string): Promise<void> {

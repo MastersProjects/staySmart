@@ -19,6 +19,7 @@ import {ApRequestListComponent} from './ap-request/ap-request-list/ap-request-li
 import {ApRequestListCardComponent} from './ap-request/ap-request-list-card/ap-request-list-card.component';
 import {ApRequestStatusComponent} from './ap-request/ap-request-status/ap-request-status.component';
 import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-request-detail.component';
+import {ApRequestOfferDetailComponent} from './ap-request/ap-request-offer-detail/ap-request-offer-detail.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-reques
     ApRequestListCardComponent,
     ApRequestStatusComponent,
     ApRequestDetailComponent,
+    ApRequestOfferDetailComponent,
   ],
   imports: [
     CommonModule,

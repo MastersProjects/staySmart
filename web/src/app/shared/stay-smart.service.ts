@@ -1,6 +1,11 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {TutorSearchRequest, TutorSearchRequestData, TutorSearchRequestOffer} from './model/tutor-search-request.model';
+import {
+  TutorSearchRequest,
+  TutorSearchRequestData,
+  TutorSearchRequestOffer,
+  TutorSearchRequestOfferStatus
+} from './model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {v4 as uuidv4} from 'uuid';
@@ -140,7 +145,7 @@ export class StaySmartService {
                                 tutorSearchRequest: TutorSearchRequest): Promise<void[]> {
     const updatedOffer: TutorSearchRequestOffer = {
       ...tutorSearchRequestOffer,
-      status: 'accepted',
+      status: TutorSearchRequestOfferStatus.ACCEPTED,
       tutorSearchRequest: {
         tutorSearchRequestData: tutorSearchRequest.tutorSearchRequestData,
         tutorSearchRequestContactData: {
@@ -173,7 +178,8 @@ export class StaySmartService {
   declineTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
                                  tutorSearchRequestDataId: string): Promise<void> {
     return this.updateTutorSearchRequestOffer(
-      {...tutorSearchRequestOffer, status: 'declined'}, tutorSearchRequestDataId
+      {...tutorSearchRequestOffer, status: TutorSearchRequestOfferStatus.DECLINED},
+      tutorSearchRequestDataId
     );
   }
 

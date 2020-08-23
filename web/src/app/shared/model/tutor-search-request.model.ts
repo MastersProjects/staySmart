@@ -50,7 +50,7 @@ export interface TutorSearchRequestOffer {
   message: string;
   price: number;
   timestamp: Timestamp;
-  status: 'new' | 'accepted' | 'declined';
+  status: TutorSearchRequestOfferStatus;
   tutorSearchRequest?: {
     tutorSearchRequestData?: TutorSearchRequestData;
     tutorSearchRequestContactData?: {
@@ -58,5 +58,11 @@ export interface TutorSearchRequestOffer {
       phoneNumber: string;
     };
   };
+}
+
+export enum TutorSearchRequestOfferStatus {
+  NEW = 'new',
+  ACCEPTED = 'accepted',
+  DECLINED = 'declined',
 }
 
