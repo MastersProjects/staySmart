@@ -7,6 +7,7 @@ import * as https from 'https';
 import * as handlebars from 'handlebars';
 import {requestReceivedTemplate} from './email-templates/request-received';
 import {newOfferTemplate} from './email-templates/new-offer';
+import {offerAcceptedTemplate} from './email-templates/offer-accepted';
 import FieldPath = admin.firestore.FieldPath;
 
 admin.initializeApp();
@@ -69,6 +70,9 @@ export const notifySearcherOnRequestReceived = functions.region('europe-west1')
 
     });
 
+/**
+ * Notify Searcher by E-Mail on new SearchTutorRequestOffer for their SearchTutorRequest
+ */
 export const notifySearcherOnNewOffer = functions.region('europe-west1')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestOffers/{TutorSearchRequestOfferID}')
     .onCreate(async snapshot => {
@@ -107,6 +111,9 @@ export const notifySearcherOnNewOffer = functions.region('europe-west1')
 
     });
 
+/**
+ * Notify Tutor by E-Mail on Searcher accepting their SearchTutorRequestOffer
+ */
 export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestOffers/{TutorSearchRequestOfferID}')
     .onUpdate(async snapshot => {
@@ -118,15 +125,17 @@ export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
 
             const tutor: any = tutorSnap.data();
 
-            // TODO mail message
+            const templatedEmail = handlebars.compile(offerAcceptedTemplate)({
+                tutorName: tutor.firstName,
+                searcherEmail: updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.email,
+                searcherMobileNumber: updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.phoneNumber
+            });
+
             const mailOptions: Mail.Options = {
                 from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
                 to: tutor.email,
-                subject: `${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestData.firstName} ${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestData.lastName} accepted your offer`,
-                html: `<p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.email}</p>
-                <br />
-                <p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.phoneNumber}</p>
-                `
+                subject: 'Deine Offerte wurde angenommen.',
+                html: templatedEmail
             };
 
             return transporter.sendMail(mailOptions).then(() => {
