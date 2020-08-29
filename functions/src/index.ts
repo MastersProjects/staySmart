@@ -4,6 +4,8 @@ import * as nodemailer from 'nodemailer';
 import * as Mail from 'nodemailer/lib/mailer';
 import {v4 as uuidv4} from 'uuid';
 import * as https from 'https';
+import * as handlebars from 'handlebars';
+import {requestReceivedTemplate} from './email-templates/request-received';
 import FieldPath = admin.firestore.FieldPath;
 
 admin.initializeApp();
@@ -29,10 +31,12 @@ export const helloWorld = functions.region('europe-west1').https.onRequest((_req
     response.send("Hello from Firebase!");
 });
 
-export const emailOnSubmit = functions.region('europe-west1')
+/**
+ * Notify Requester by E-Mail on receiving their SearchTutorRequest
+ */
+export const notifyRequesterOnRequestReceived = functions.region('europe-west1')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestContactData/{contactDataID}')
     .onCreate(async (snap, context) => {
-        console.log('emailOnSubmit');
 
         const tutorSearchRequestSnap = await admin.firestore().collection('TutorSearchRequests')
             .doc(context.params['tutorSearchRequestID']).get();
@@ -40,20 +44,20 @@ export const emailOnSubmit = functions.region('europe-west1')
         const createdTutorSearchRequest: any = tutorSearchRequestSnap.data();
         const createdTutorSearchRequestContactData: any = snap.data();
 
-        console.log('createdTutorSearchRequest', createdTutorSearchRequest);
-        console.log('createdTutorSearchRequestContactData', createdTutorSearchRequestContactData);
-
         const linkRef = uuidv4();
 
         await snap.ref.update({linkRef: linkRef});
 
+        const templatedEmail = handlebars.compile(requestReceivedTemplate)({
+            requesterName: `${createdTutorSearchRequest.firstName} ${createdTutorSearchRequest.lastName}`,
+            requestLink: `https://staysmart-dev.web.app/anfragen/${linkRef}`
+        });
+
         const mailOptions: Mail.Options = {
             from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
             to: createdTutorSearchRequestContactData.email,
-            subject: createdTutorSearchRequest.subject,
-            html: `<p style="font-size: 16px;">TEST https://staysmart-dev.web.app/anfragen/${linkRef}</p>
-                <br />
-                ${createdTutorSearchRequest.problem}`
+            subject: 'Wir haben Ihre Nachhilfeanfrage erhalten.',
+            html: templatedEmail
         };
 
         return transporter.sendMail(mailOptions).then(() => {
