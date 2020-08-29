@@ -1,6 +1,6 @@
 /**
- * E-Mail Template for Cloud Function notifyRequesterOnRequestReceived
- * Notify Requester by E-Mail on receiving their SearchTutorRequest
+ * E-Mail Template for Cloud Function notifySearcherOnRequestReceived
+ * Notify Searcher by E-Mail on receiving their SearchTutorRequest
  */
 export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -291,7 +291,7 @@ export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, sans-serif"><![endif]-->
 <div style="color:#555555;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="line-height: 1.2; font-size: 12px; color: #555555; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
-<p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;">Sehr geehrte {{requesterName}}</span></p>
+<p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;">Sehr geehrte {{searcherName}}</span></p>
 <p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"> </p>
 <p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;">Wir haben Ihre Anfrage erhalten. Unter diesem Link finden Sie die Offerten der Nachhilfeanbieter/innen.</span></p>
 <p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"> </p>

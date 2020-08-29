@@ -32,9 +32,9 @@ export const helloWorld = functions.region('europe-west1').https.onRequest((_req
 });
 
 /**
- * Notify Requester by E-Mail on receiving their SearchTutorRequest
+ * Notify Searcher by E-Mail on receiving their SearchTutorRequest
  */
-export const notifyRequesterOnRequestReceived = functions.region('europe-west1')
+export const notifySearcherOnRequestReceived = functions.region('europe-west1')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestContactData/{contactDataID}')
     .onCreate(async (snap, context) => {
 
@@ -49,7 +49,7 @@ export const notifyRequesterOnRequestReceived = functions.region('europe-west1')
         await snap.ref.update({linkRef: linkRef});
 
         const templatedEmail = handlebars.compile(requestReceivedTemplate)({
-            requesterName: `${createdTutorSearchRequest.firstName} ${createdTutorSearchRequest.lastName}`,
+            searcherName: `${createdTutorSearchRequest.firstName} ${createdTutorSearchRequest.lastName}`,
             requestLink: `https://staysmart-dev.web.app/anfragen/${linkRef}`
         });
 
