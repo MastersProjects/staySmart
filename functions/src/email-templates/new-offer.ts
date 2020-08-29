@@ -1,8 +1,4 @@
-/**
- * E-Mail Template for Cloud Function notifySearcherOnRequestReceived
- * Notify Searcher by E-Mail on receiving their SearchTutorRequest
- */
-export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+export const newOfferTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
@@ -150,19 +146,19 @@ export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML
 \t\t\t\tdisplay: none !important;
 \t\t\t}
 
-\t\t\t#menujmxa9i~div label {
+\t\t\t#menuvpn92p~div label {
 \t\t\t\tborder-radius: 0% !important;
 \t\t\t}
 
-\t\t\t#menujmxa9i:checked~.menu-links {
+\t\t\t#menuvpn92p:checked~.menu-links {
 \t\t\t\tbackground-color: #000000 !important;
 \t\t\t}
 
-\t\t\t#menujmxa9i:checked~.menu-links a {
+\t\t\t#menuvpn92p:checked~.menu-links a {
 \t\t\t\tcolor: #ffffff !important;
 \t\t\t}
 
-\t\t\t#menujmxa9i:checked~.menu-links span {
+\t\t\t#menuvpn92p:checked~.menu-links span {
 \t\t\t\tcolor: #ffffff !important;
 \t\t\t}
 \t\t}
@@ -187,7 +183,7 @@ export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML
 <!--<![endif]-->
 <div align="center" class="img-container center fixedwidth" style="padding-right: 0px;padding-left: 0px;">
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]-->
-<div style="font-size:1px;line-height:25px"> </div><img align="center" alt="Your Logo" border="0" class="center fixedwidth" src="https://firebasestorage.googleapis.com/v0/b/staysmart-dev.appspot.com/o/email%2Fstaysmart_logo.png?alt=media&token=aea31173-f43f-4d1b-907d-901e2b8bdbf0" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 150px; display: block;" title="Your Logo" width="150"/>
+<div style="font-size:1px;line-height:25px"> </div><img align="center" alt="Your Logo" border="0" class="center fixedwidth" src="images/Logo_Stay_Smart_blauer_Hintergrund.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 150px; display: block;" title="Your Logo" width="150"/>
 <div style="font-size:1px;line-height:25px"> </div>
 <!--[if mso]></td></tr></table><![endif]-->
 </div>
@@ -230,10 +226,10 @@ export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML
 <tbody>
 <tr style="vertical-align: top;" valign="top">
 <td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;" valign="top">
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" height="15" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid transparent; height: 15px; width: 100%;" valign="top" width="100%">
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" height="10" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid transparent; height: 10px; width: 100%;" valign="top" width="100%">
 <tbody>
 <tr style="vertical-align: top;" valign="top">
-<td height="15" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
+<td height="10" style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top"><span></span></td>
 </tr>
 </tbody>
 </table>
@@ -264,7 +260,7 @@ export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, sans-serif"><![endif]-->
 <div style="color:#555555;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="line-height: 1.2; font-size: 12px; color: #555555; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
-<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><strong><span style="font-size: 18px;">Wir haben Ihre Nachhilfeanfrage erhalten. </span></strong></p>
+<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><strong><span style="font-size: 18px;">Sie haben eine neue Offerte erhalten. </span></strong></p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
@@ -293,13 +289,8 @@ export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML
 <div style="line-height: 1.2; font-size: 12px; color: #555555; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14px;">
 <p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;">Sehr geehrte/r {{searcherName}}</span></p>
 <p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"> </p>
-<p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;">Wir haben Ihre Anfrage erhalten. Unter diesem Link finden Sie die Offerten der Nachhilfeanbieter/innen.</span></p>
 <p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"> </p>
-<p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"><a href="{{requestLink}}" rel="noopener" style="text-decoration: underline; color: #0068A5;" target="_blank">{{requestLink}}</a></p>
-<p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"> </p>
-<p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;">Die Anfragen der Nachhilfeanbieter/innen sollten in den nächsten Tagen eintreffen.</span></p>
-<p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"> </p>
-<p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;"> Falls Sie nach einer Woche noch keine Anfragen erhalten haben, melden Sie sich bitte bei <a href="mailto:nachhilfe@staysmart.ch" style="text-decoration: underline; color: #0068A5;" title="nachhilfe@staysmart.ch">nachhilfe@staysmart.ch</a>.</span></p>
+<p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;">{{tutorName}} hat Ihnen eine Offerte gemacht. Schauen Sie diese <a href="{{requestLink}}" rel="noopener" style="text-decoration: underline; color: #0068A5;" target="_blank">hier</a> an.</span></p>
 <p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"> </p>
 <p style="line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin: 0;"> </p>
 <p style="line-height: 1.2; word-break: break-word; font-size: 14px; mso-line-height-alt: 17px; margin: 0;"><span style="font-size: 14px;">Mit freundlichen Grüssen</span></p>
@@ -402,9 +393,9 @@ export const requestReceivedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML
 <table align="center" cellpadding="0" cellspacing="0" class="social_table" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;" valign="top">
 <tbody>
 <tr align="center" style="vertical-align: top; display: inline-block; text-align: center;" valign="top">
-<td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.facebook.com/staysmartCH/" target="_blank"><img alt="Facebook" height="32" src="https://firebasestorage.googleapis.com/v0/b/staysmart-dev.appspot.com/o/email%2Ffacebook.png?alt=media&token=2e0b6d12-1102-40df-b943-39216ecd4a6e" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Facebook" width="32"/></a></td>
-<td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.instagram.com/staysmartCH/" target="_blank"><img alt="Instagram" height="32" src="https://firebasestorage.googleapis.com/v0/b/staysmart-dev.appspot.com/o/email%2Finstagram.png?alt=media&token=654f8d51-8583-480f-a3db-d5ad843bbf29" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Instagram" width="32"/></a></td>
-<td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.linkedin.com/company/verein-stay-smart" target="_blank"><img alt="LinkedIn" height="32" src="https://firebasestorage.googleapis.com/v0/b/staysmart-dev.appspot.com/o/email%2Flinkedin.png?alt=media&token=5649f567-1cd1-4d7c-bc6a-8dc17a383387" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="LinkedIn" width="32"/></a></td>
+<td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.facebook.com/staysmartCH/" target="_blank"><img alt="Facebook" height="32" src="images/facebook2x.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Facebook" width="32"/></a></td>
+<td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.instagram.com/staysmartCH/" target="_blank"><img alt="Instagram" height="32" src="images/instagram2x.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="Instagram" width="32"/></a></td>
+<td style="word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 5px; padding-left: 5px;" valign="top"><a href="https://www.linkedin.com/company/verein-stay-smart" target="_blank"><img alt="LinkedIn" height="32" src="images/linkedin2x.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;" title="LinkedIn" width="32"/></a></td>
 </tr>
 </tbody>
 </table>

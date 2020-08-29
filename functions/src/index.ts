@@ -6,6 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import * as https from 'https';
 import * as handlebars from 'handlebars';
 import {requestReceivedTemplate} from './email-templates/request-received';
+import {newOfferTemplate} from './email-templates/new-offer';
 import FieldPath = admin.firestore.FieldPath;
 
 admin.initializeApp();
@@ -50,11 +51,11 @@ export const notifySearcherOnRequestReceived = functions.region('europe-west1')
 
         const templatedEmail = handlebars.compile(requestReceivedTemplate)({
             searcherName: `${createdTutorSearchRequest.firstName} ${createdTutorSearchRequest.lastName}`,
-            requestLink: `https://staysmart-dev.web.app/anfragen/${linkRef}`
+            requestLink: `https://staysmart-dev.web.app/anfragen/${linkRef}` // TODO link as environment config
         });
 
         const mailOptions: Mail.Options = {
-            from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
+            from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`, // TODO from address as environment config
             to: createdTutorSearchRequestContactData.email,
             subject: 'Wir haben Ihre Nachhilfeanfrage erhalten.',
             html: templatedEmail
@@ -74,18 +75,24 @@ export const notifySearcherOnNewOffer = functions.region('europe-west1')
         const createdTutorSearchRequestOffer: any = snapshot.data();
         const parentRef = snapshot.ref.parent.parent;
         if (parentRef) {
-            const contactDataSnap = await admin.firestore()
-                .doc(parentRef.path).collection('TutorSearchRequestContactData').get();
+            const searchRequestSnap = await admin.firestore().doc(parentRef.path).get();
+            const contactDataSnap = await admin.firestore().doc(parentRef.path)
+                .collection('TutorSearchRequestContactData').get();
 
-            const contactData = contactDataSnap.docs[0].data();
+            const searchRequestData: any = searchRequestSnap.data();
+            const contactData: any = contactDataSnap.docs[0].data();
 
-            // TODO mail message
+            const templatedEmail = handlebars.compile(newOfferTemplate)({
+                searcherName: `${searchRequestData.firstName} ${searchRequestData.lastName}`,
+                requestLink: `https://staysmart-dev.web.app/anfragen/${contactData.linkRef}`, // TODO link as environment config
+                tutorName: `${createdTutorSearchRequestOffer.firstName} ${createdTutorSearchRequestOffer.lastName}`
+            });
+
             const mailOptions: Mail.Options = {
-                from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
+                from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`, // TODO from address as environment config
                 to: contactData.email,
-                subject: `new offer from ${createdTutorSearchRequestOffer.firstName} ${createdTutorSearchRequestOffer.lastName}`,
-                html: `<p style="font-size: 16px;">TEST https://staysmart-dev.web.app/anfragen/${contactData.linkRef}</p>
-                <br />`
+                subject: 'Sie haben eine neue Offerte erhalten.',
+                html: templatedEmail
             };
 
             return transporter.sendMail(mailOptions).then(() => {
