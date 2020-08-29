@@ -55,7 +55,7 @@ export const notifySearcherOnRequestReceived = functions.region('europe-west1')
         });
 
         const mailOptions: Mail.Options = {
-            from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`, // TODO from address as environment config
+            from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
             to: createdTutorSearchRequestContactData.email,
             subject: 'Wir haben Ihre Nachhilfeanfrage erhalten.',
             html: templatedEmail
@@ -89,7 +89,7 @@ export const notifySearcherOnNewOffer = functions.region('europe-west1')
             });
 
             const mailOptions: Mail.Options = {
-                from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`, // TODO from address as environment config
+                from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
                 to: contactData.email,
                 subject: 'Sie haben eine neue Offerte erhalten.',
                 html: templatedEmail
@@ -120,7 +120,7 @@ export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
 
             // TODO mail message
             const mailOptions: Mail.Options = {
-                from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
+                from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
                 to: tutor.email,
                 subject: `${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestData.firstName} ${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestData.lastName} accepted your offer`,
                 html: `<p style="font-size: 16px;">${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.email}</p>
@@ -190,7 +190,7 @@ export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
 
             // TODO mail message
             const mailOptions: Mail.Options = {
-                from: `StaySmart ${functions.config().env.code} <noreply-dev@staysmart.com>`,
+                from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
                 to: matchingTutor.email,
                 subject: tutorSearchRequestID,
                 html: `${createdTutorSearchRequest.toString()}`
