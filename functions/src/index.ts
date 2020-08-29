@@ -128,7 +128,7 @@ export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
             const templatedEmail = handlebars.compile(offerAcceptedTemplate)({
                 tutorName: tutor.firstName,
                 searcherEmail: updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.email,
-                searcherMobileNumber: updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.phoneNumber
+                searcherMobileNumber: `+41${updatedTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestContactData.phoneNumber}`
             });
 
             const mailOptions: Mail.Options = {
