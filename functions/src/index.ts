@@ -51,7 +51,7 @@ export const notifySearcherOnRequestReceived = functions.region('europe-west1')
 
         const templatedEmail = handlebars.compile(requestReceivedTemplate)({
             searcherName: `${createdTutorSearchRequest.firstName} ${createdTutorSearchRequest.lastName}`,
-            requestLink: `https://staysmart-dev.web.app/anfragen/${linkRef}` // TODO link as environment config
+            requestLink: `${functions.config().emailtemplate.requestlink}/${linkRef}`
         });
 
         const mailOptions: Mail.Options = {
@@ -84,7 +84,7 @@ export const notifySearcherOnNewOffer = functions.region('europe-west1')
 
             const templatedEmail = handlebars.compile(newOfferTemplate)({
                 searcherName: `${searchRequestData.firstName} ${searchRequestData.lastName}`,
-                requestLink: `https://staysmart-dev.web.app/anfragen/${contactData.linkRef}`, // TODO link as environment config
+                requestLink: `${functions.config().emailtemplate.requestlink}/${contactData.linkRef}`,
                 tutorName: `${createdTutorSearchRequestOffer.firstName} ${createdTutorSearchRequestOffer.lastName}`
             });
 
