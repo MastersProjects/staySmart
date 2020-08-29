@@ -8,6 +8,7 @@ import * as handlebars from 'handlebars';
 import {requestReceivedTemplate} from './email-templates/request-received';
 import {newOfferTemplate} from './email-templates/new-offer';
 import {offerAcceptedTemplate} from './email-templates/offer-accepted';
+import {newMatchingRequestTemplate} from './email-templates/new-matching-request';
 import FieldPath = admin.firestore.FieldPath;
 
 admin.initializeApp();
@@ -150,8 +151,10 @@ export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
         }
     });
 
-// Notify Tutor on a new matching TutorSearchRequest
-export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
+/**
+ * Notify Tutor by E-Mail on new matching TutorSearchRequest
+ */
+export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}')
     .onCreate(async (snap, context) => {
         const createdTutorSearchRequest: any = snap.data();
@@ -167,8 +170,6 @@ export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
             }
         });
 
-        console.log('requestDaysAvailableList', requestDaysAvailableList);
-
         // TODO where condition with location / city & status active
         const matchingQuery = admin.firestore().collection('Tutors')
             .where('price', '<=', createdTutorSearchRequest.budget)
@@ -179,8 +180,6 @@ export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
         ;
 
         const matchingQuerySnapshot = await matchingQuery.get();
-
-        console.log('matchingQuerySnapshot.docs', matchingQuerySnapshot.docs);
 
         const promises: Promise<any>[] = [];
 
@@ -197,12 +196,15 @@ export const notifyTutorOnNewSearchRequest = functions.region('europe-west1')
                 promises.push(matchingTutorDoc.ref.update({matchingTutorSearchRequests: [tutorSearchRequestID]}));
             }
 
-            // TODO mail message
+            const templatedEmail = handlebars.compile(newMatchingRequestTemplate)({
+                tutorName: matchingTutor.firstName
+            });
+
             const mailOptions: Mail.Options = {
                 from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
                 to: matchingTutor.email,
-                subject: tutorSearchRequestID,
-                html: `${createdTutorSearchRequest.toString()}`
+                subject: 'Neue Nachhilfeanfrage!',
+                html: templatedEmail
             };
 
             promises.push(transporter.sendMail(mailOptions)
