@@ -74,8 +74,9 @@ export class TutorPortalService {
     const sentOffers = tutorPortalUser.sentOffers ?
       [...tutorPortalUser.sentOffers, tutorSearchRequestData.id] : [tutorSearchRequestData.id];
 
-    const matchingTutorSearchRequests = tutorPortalUser.matchingTutorSearchRequests
-      .filter(request => request !== tutorSearchRequestData.id);
+    const matchingTutorSearchRequests = tutorPortalUser.matchingTutorSearchRequests?.filter(
+      request => request !== tutorSearchRequestData.id
+    ) || null;
 
     const updatePortalUser = this.angularFirestore.collection('Tutors').doc(tutorPortalUser.uid)
       .update({sentOffers, matchingTutorSearchRequests});
