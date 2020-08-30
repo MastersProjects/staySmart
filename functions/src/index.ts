@@ -80,15 +80,15 @@ export const notifySearcherOnNewOffer = functions.region('europe-west1')
         const createdTutorSearchRequestOffer: any = snapshot.data();
         const parentRef = snapshot.ref.parent.parent;
         if (parentRef) {
-            const searchRequestSnap = await admin.firestore().doc(parentRef.path).get();
             const contactDataSnap = await admin.firestore().doc(parentRef.path)
                 .collection('TutorSearchRequestContactData').get();
 
-            const searchRequestData: any = searchRequestSnap.data();
             const contactData: any = contactDataSnap.docs[0].data();
 
+            const {firstName, lastName} = createdTutorSearchRequestOffer.tutorSearchRequest.tutorSearchRequestData;
+
             const templatedEmail = handlebars.compile(newOfferTemplate)({
-                searcherName: `${searchRequestData.firstName} ${searchRequestData.lastName}`,
+                searcherName: `${firstName} ${lastName}`,
                 requestLink: `${functions.config().emailtemplate.requestlink}/${contactData.linkRef}`,
                 tutorName: `${createdTutorSearchRequestOffer.firstName} ${createdTutorSearchRequestOffer.lastName}`
             });
