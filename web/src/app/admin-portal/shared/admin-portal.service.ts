@@ -13,11 +13,11 @@ export class AdminPortalService {
   tutorSearchRequests$: Observable<TutorSearchRequestData[]>;
 
   constructor(private angularFirestore: AngularFirestore) {
-    this.loadTutors();
+    this.initTutorsObservable();
     this.initTutorSearchRequestsObservable();
   }
 
-  private loadTutors() {
+  private initTutorsObservable() {
     this.tutors$ = this.angularFirestore.collection<Tutor>('Tutors').valueChanges().pipe(
       tap(() => console.log('tutors$ Subscribed')),
       trace('AP: tutors$'),
