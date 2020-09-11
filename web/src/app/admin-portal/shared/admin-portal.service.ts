@@ -26,12 +26,14 @@ export class AdminPortalService {
   }
 
   private initTutorSearchRequestsObservable(): void {
-    this.tutorSearchRequests$ = this.angularFirestore.collection<TutorSearchRequestData>('TutorSearchRequests')
-      .valueChanges({idField: 'id'}).pipe(
-        tap(() => console.log('tutorSearchRequests$ Subscribed')),
-        trace('AP: tutorSearchRequests$'),
-        shareReplay(),
-      );
+    this.tutorSearchRequests$ = this.angularFirestore.collection<TutorSearchRequestData>(
+      'TutorSearchRequests',
+      ref => ref.orderBy('timestamp', 'desc')
+    ).valueChanges({idField: 'id'}).pipe(
+      tap(() => console.log('tutorSearchRequests$ Subscribed')),
+      trace('AP: tutorSearchRequests$'),
+      shareReplay(),
+    );
   }
 
   // FIXME when on List View and at that time a new Tutor register and want to view the new Tutor Detail it fails.
