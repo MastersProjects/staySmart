@@ -1,6 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ApRequestOfferListComponent} from './ap-request-offer-list.component';
+import {AdminPortalService} from '../../shared/admin-portal.service';
+import {TestingModule} from '../../../testing/testing.module';
 
 describe('ApRequestOfferListComponent', () => {
   let component: ApRequestOfferListComponent;
@@ -8,9 +10,13 @@ describe('ApRequestOfferListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApRequestOfferListComponent ]
+      imports: [
+        TestingModule,
+      ],
+      declarations: [ApRequestOfferListComponent],
+      providers: [AdminPortalService],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
