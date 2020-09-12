@@ -1,0 +1,5 @@
+<h1 class="h3">Offerten</h1>
+
+<app-ap-request-offer-detail *ngFor="let tutorSearchRequestOffer of tutorSearchRequestOffers$ | async"
+                             class="d-block my-4"
+                             [tutorSearchRequestOffer]="tutorSearchRequestOffer"></app-ap-request-offer-detail>

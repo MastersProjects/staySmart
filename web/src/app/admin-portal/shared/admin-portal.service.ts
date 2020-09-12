@@ -65,6 +65,19 @@ export class AdminPortalService {
       );
   }
 
+  getAllTutorSearchRequestOffers(): Observable<TutorSearchRequestOffer[]> {
+    return this.angularFirestore
+      .collectionGroup<TutorSearchRequestOffer>(
+        'TutorSearchRequestOffers',
+        ref => ref.orderBy('timestamp', 'desc')
+      ).snapshotChanges().pipe(
+        map(snapshots => {
+          return snapshots.map(snapshot => ({...snapshot.payload.doc.data(), id: snapshot.payload.doc.id}));
+        }),
+        trace('AP: getAllTutorSearchRequestOffers')
+      );
+  }
+
   verifyTutor(uid: string): Promise<void> {
     return this.angularFirestore.collection<Tutor>('Tutors').doc(uid).update({status: TutorStatus.ACTIVATED});
   }
