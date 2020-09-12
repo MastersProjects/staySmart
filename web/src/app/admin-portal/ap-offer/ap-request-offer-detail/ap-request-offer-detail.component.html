@@ -18,6 +18,15 @@
         <input class="form-control" disabled type="number" [value]="tutorSearchRequestOffer?.price">
       </label>
     </div>
+    <div class="row mx-2 mt-5">
+      <div *ngIf="showRequestLink" class="col text-center">
+        <a *ngIf="tutorSearchRequestOffer?.tutorSearchRequest?.tutorSearchRequestData?.id as requestId"
+           class="btn btn-secondary"
+           [routerLink]="['/admin-portal', 'request', requestId]">
+          Anfrage ansehen
+        </a>
+      </div>
+    </div>
   </div>
   <div class="card-footer text-muted">
     <div class="row">

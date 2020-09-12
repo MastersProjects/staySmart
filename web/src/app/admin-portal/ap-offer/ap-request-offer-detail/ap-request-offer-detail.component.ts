@@ -15,6 +15,7 @@ import {TutorSearchRequestOffer} from '../../../shared/model/tutor-search-reques
 export class ApRequestOfferDetailComponent {
 
   @Input() tutorSearchRequestOffer: TutorSearchRequestOffer;
+  @Input() showRequestLink: boolean;
 
   @ViewChild('card') private cardElement: ElementRef;
 
