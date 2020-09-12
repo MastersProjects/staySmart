@@ -4,7 +4,7 @@ import {ApRequestListComponent} from './ap-request-list.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TestingModule} from '../../../testing/testing.module';
 import {ApRequestListCardComponent} from '../ap-request-list-card/ap-request-list-card.component';
-import {ApRequestStatusComponent} from '../ap-request-status/ap-request-status.component';
+import {RequestStatusComponent} from '../../../shared/components/request-status/request-status.component';
 import {AdminPortalService} from '../../shared/admin-portal.service';
 
 describe('ApRequestListComponent', () => {
@@ -20,7 +20,7 @@ describe('ApRequestListComponent', () => {
       declarations: [
         ApRequestListComponent,
         ApRequestListCardComponent,
-        ApRequestStatusComponent,
+        RequestStatusComponent,
       ],
       providers: [AdminPortalService]
     }).compileComponents();

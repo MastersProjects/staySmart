@@ -1,7 +1,7 @@
 <ng-container *ngIf="tutorSearchRequest$ | async as tutorSearchRequest">
   <h2>
     Anfrage von {{tutorSearchRequest.firstName}} {{tutorSearchRequest.lastName}}
-    <app-ap-request-status [status]="tutorSearchRequest.status"></app-ap-request-status>
+    <app-request-status [status]="tutorSearchRequest.status"></app-request-status>
   </h2>
   <div class="form-group">
     <label class="w-100">

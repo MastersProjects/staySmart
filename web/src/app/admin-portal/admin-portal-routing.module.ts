@@ -10,7 +10,7 @@ import {ApTutorListComponent} from './ap-tutor/ap-tutor-list/ap-tutor-list.compo
 import {ApTutorDetailComponent} from './ap-tutor/ap-tutor-detail/ap-tutor-detail.component';
 import {ApRequestListComponent} from './ap-request/ap-request-list/ap-request-list.component';
 import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-request-detail.component';
-import {ApRequestOfferListComponent} from './ap-request/ap-request-offer-list/ap-request-offer-list.component';
+import {ApRequestOfferListComponent} from './ap-offer/ap-request-offer-list/ap-request-offer-list.component';
 
 const routes: Routes = [
   {

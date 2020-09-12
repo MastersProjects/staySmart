@@ -2,9 +2,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {TutorSearchRequestStatus} from '../model/tutor-search-request.model';
 
 @Pipe({
-  name: 'tutorSearchRequestStatus'
+  name: 'requestStatus'
 })
-export class TutorSearchRequestStatusPipe implements PipeTransform {
+export class RequestStatusPipe implements PipeTransform {
 
   transform(value: TutorSearchRequestStatus): string {
 

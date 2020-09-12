@@ -4,9 +4,10 @@ import {FooterComponent} from './components/footer/footer.component';
 import {BirthdayInputComponent} from './components/birthday-input/birthday-input.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TutorStatusPipe} from './pipes/tutor-status.pipe';
-import {TutorSearchRequestStatusPipe} from './pipes/tutor-search-request-status.pipe';
+import {RequestStatusPipe} from './pipes/request-status.pipe';
 import {OfferStatusComponent} from './components/offer-status/offer-status.component';
 import {OfferStatusPipe} from './pipes/offer-status.pipe';
+import {RequestStatusComponent} from './components/request-status/request-status.component';
 
 
 @NgModule({
@@ -14,8 +15,9 @@ import {OfferStatusPipe} from './pipes/offer-status.pipe';
     FooterComponent,
     BirthdayInputComponent,
     OfferStatusComponent,
+    RequestStatusComponent,
     TutorStatusPipe,
-    TutorSearchRequestStatusPipe,
+    RequestStatusPipe,
     OfferStatusPipe,
   ],
   imports: [
@@ -25,9 +27,10 @@ import {OfferStatusPipe} from './pipes/offer-status.pipe';
   exports: [
     FooterComponent,
     BirthdayInputComponent,
+    RequestStatusComponent,
     OfferStatusComponent,
     TutorStatusPipe,
-    TutorSearchRequestStatusPipe,
+    RequestStatusPipe,
     OfferStatusPipe,
   ]
 })

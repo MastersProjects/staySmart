@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ApRequestStatusComponent} from './ap-request-status.component';
+import {RequestStatusComponent} from './request-status.component';
 
-describe('ApRequestStatusComponent', () => {
-  let component: ApRequestStatusComponent;
-  let fixture: ComponentFixture<ApRequestStatusComponent>;
+describe('RequestStatusComponent', () => {
+  let component: RequestStatusComponent;
+  let fixture: ComponentFixture<RequestStatusComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ApRequestStatusComponent]
+      declarations: [RequestStatusComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApRequestStatusComponent);
+    fixture = TestBed.createComponent(RequestStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

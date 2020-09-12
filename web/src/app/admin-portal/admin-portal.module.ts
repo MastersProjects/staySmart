@@ -17,10 +17,9 @@ import {ApTutorDetailComponent} from './ap-tutor/ap-tutor-detail/ap-tutor-detail
 import {ApTutorStatusComponent} from './ap-tutor/ap-tutor-status/ap-tutor-status.component';
 import {ApRequestListComponent} from './ap-request/ap-request-list/ap-request-list.component';
 import {ApRequestListCardComponent} from './ap-request/ap-request-list-card/ap-request-list-card.component';
-import {ApRequestStatusComponent} from './ap-request/ap-request-status/ap-request-status.component';
 import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-request-detail.component';
-import {ApRequestOfferDetailComponent} from './ap-request/ap-request-offer-detail/ap-request-offer-detail.component';
-import {ApRequestOfferListComponent} from './ap-request/ap-request-offer-list/ap-request-offer-list.component';
+import {ApRequestOfferDetailComponent} from './ap-offer/ap-request-offer-detail/ap-request-offer-detail.component';
+import {ApRequestOfferListComponent} from './ap-offer/ap-request-offer-list/ap-request-offer-list.component';
 
 
 @NgModule({
@@ -35,7 +34,6 @@ import {ApRequestOfferListComponent} from './ap-request/ap-request-offer-list/ap
     ApTutorStatusComponent,
     ApRequestListComponent,
     ApRequestListCardComponent,
-    ApRequestStatusComponent,
     ApRequestDetailComponent,
     ApRequestOfferDetailComponent,
     ApRequestOfferListComponent,
