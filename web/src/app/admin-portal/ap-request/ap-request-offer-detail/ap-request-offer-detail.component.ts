@@ -6,7 +6,7 @@ import {collapse} from '../../../shared/collapse.animation';
 import {TutorSearchRequestOffer} from '../../../shared/model/tutor-search-request.model';
 
 @Component({
-  selector: 'app-tp-request-offer-detail',
+  selector: 'app-ap-request-offer-detail',
   templateUrl: './ap-request-offer-detail.component.html',
   styleUrls: ['./ap-request-offer-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

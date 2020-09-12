@@ -78,10 +78,10 @@
     <hr>
     <h3 class="mt-5">Offerten</h3>
     <ng-container *ngIf="tutorSearchRequestOffers$ | async as tutorSearchRequestOffers">
-      <app-tp-request-offer-detail *ngFor="let tutorSearchRequestOffer of tutorSearchRequestOffers"
+      <app-ap-request-offer-detail *ngFor="let tutorSearchRequestOffer of tutorSearchRequestOffers"
                                    class="d-block my-4"
                                    [tutorSearchRequestOffer]="tutorSearchRequestOffer">
-      </app-tp-request-offer-detail>
+      </app-ap-request-offer-detail>
       <div *ngIf="tutorSearchRequestOffers?.length === 0" class="text-center mt-5">
         <h4>Keine Offerte vorhanden</h4>
       </div>
