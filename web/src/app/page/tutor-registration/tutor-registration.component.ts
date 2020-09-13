@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {repeatPasswordValidator} from '../../shared/validators/repeat-password.validator';
 import {locationDomainValidator} from '../../shared/validators/location.validator';
@@ -12,6 +12,7 @@ import {NgbDateAdapter, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import 'moment/locale/de-ch';
 import {StaySmartService} from '../../shared/stay-smart.service';
+import {StepperComponent} from '../stepper/stepper.component';
 
 @Component({
   selector: 'app-tutor-registration',
@@ -20,6 +21,8 @@ import {StaySmartService} from '../../shared/stay-smart.service';
   providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}]
 })
 export class TutorRegistrationComponent implements OnInit, OnDestroy {
+
+  @ViewChild('stepper') stepper: StepperComponent;
 
   destroy$ = new Subject<void>();
 
@@ -41,6 +44,8 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   studentCardFrontFileName: string;
   studentCardBackFileName: string;
 
+  emailAlreadyInUse = '';
+
   constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
   }
 
@@ -59,10 +64,18 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
       *  TODO refactoring: make that it checks on runtime (maybe use class instead of interface?)
       */
       this.staySmartService.registerNewTutor(this.registrationForm.value).pipe(takeUntil(this.destroy$))
-        .subscribe(() => {
-          console.log('Registered');
-          this.submitted = true;
-        });
+        .subscribe(
+          () => {
+            console.log('Registered');
+            this.submitted = true;
+          },
+          error => {
+            if (error.code === 'auth/email-already-in-use') {
+              this.emailAlreadyInUse = this.registrationForm.get('step1').get('email').value;
+              this.stepper.selectedIndex = 0;
+            }
+          }
+        );
     }
   }
 

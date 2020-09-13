@@ -2,7 +2,7 @@
   <div class="row mt-md-4 mt-3">
     <div class="col-12 col-md-10 offset-md-1">
       <form [formGroup]="registrationForm" (ngSubmit)="submitForm()">
-        <app-stepper linear>
+        <app-stepper linear #stepper>
           <cdk-step [stepControl]="registrationForm.get('step1')">
             <div class="form-row" formGroupName="step1">
               <div class="form-group col-lg-6">
@@ -21,7 +21,10 @@
                   || registrationForm.get('step1').get('email').touched)" class="form-text text-danger">
                   Bitte eine gültige E-mail eingeben
                 </small>
-                <!--TODO email already in use Validation text-->
+                <small *ngIf="emailAlreadyInUse && emailAlreadyInUse === registrationForm.get('step1').get('email').value"
+                       class="form-text text-danger">
+                  Die E-mail wird bereits verwendet
+                </small>
               </div>
               <div class="form-group col-lg-6">
                 <label for="mobileNumber">Mobiltelefon</label>
