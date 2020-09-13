@@ -39,7 +39,6 @@ jobs:
         if: success()
         run: |
           npm run test.sonar --prefix web
-          npm run pree2e --prefix web # FIXME workaround for Issue #3 (chromedriver 74 error)
           npm run e2e --prefix web
 
       - name: SonarCloud Scan
