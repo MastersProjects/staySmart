@@ -2,13 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {TutorSearchRequest, TutorSearchRequestStatus} from 'src/app/shared/model/tutor-search-request.model';
 import {Observable, of} from 'rxjs';
 import {LocationService} from 'src/app/shared/services/location.service';
-import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, shareReplay, switchMap, tap} from 'rxjs/operators';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {locationDomainValidator} from '../../shared/validators/location.validator';
 import {StaySmartService} from '../../shared/services/stay-smart.service';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import {GeoLocation} from '../../shared/model/geo-location.model';
 import {AngularFirePerformance} from '@angular/fire/performance';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {Configuration} from '../../shared/model/configuration.model';
 
 @Component({
   selector: 'app-tutor-search-request',
@@ -19,22 +21,27 @@ export class TutorSearchRequestComponent implements OnInit {
   faCheck = faCheck; // Icon
   submitted = false;
 
-  gradeLevels = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // ToDo load dynamic not static
-  subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // ToDo load dynamic not static
 
   /* Variables location search */
   searching = false;
   searchFailed = false;
 
+  configuration$: Observable<Configuration>;
+
   /* Form */
   requestForm: FormGroup;
 
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService,
-              private angularFirePerformance: AngularFirePerformance) {
+  constructor(
+    private locationService: LocationService,
+    private staySmartService: StaySmartService,
+    private angularFirePerformance: AngularFirePerformance,
+    private configurationService: ConfigurationService,
+  ) {
   }
 
   ngOnInit() {
     this.requestForm = this.createForm();
+    this.configuration$ = this.configurationService.getConfiguration().pipe(shareReplay(1));
   }
 
   createForm(): FormGroup {

@@ -20,6 +20,7 @@ import {ApRequestListCardComponent} from './ap-request/ap-request-list-card/ap-r
 import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-request-detail.component';
 import {ApRequestOfferDetailComponent} from './ap-offer/ap-request-offer-detail/ap-request-offer-detail.component';
 import {ApRequestOfferListComponent} from './ap-offer/ap-request-offer-list/ap-request-offer-list.component';
+import {ApConfigurationComponent} from './ap-configuration/ap-configuration.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {ApRequestOfferListComponent} from './ap-offer/ap-request-offer-list/ap-r
     ApRequestDetailComponent,
     ApRequestOfferDetailComponent,
     ApRequestOfferListComponent,
+    ApConfigurationComponent,
   ],
   imports: [
     CommonModule,

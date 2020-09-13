@@ -2,13 +2,15 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TutorAuthService} from '../../auth/tutor-auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable, of, Subject} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, shareReplay, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {Tutor} from '../../shared/model/tutor.model';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {AngularFirePerformance} from '@angular/fire/performance';
 import {locationDomainValidator} from '../../shared/validators/location.validator';
 import {GeoLocation} from '../../shared/model/geo-location.model';
 import {LocationService} from '../../shared/services/location.service';
+import {Configuration} from '../../shared/model/configuration.model';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-tp-profile',
@@ -25,20 +27,21 @@ export class TpProfileComponent implements OnInit, OnDestroy {
   searching = false;
   searchFailed = false;
 
-  subjectOptions = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // TODO load dynamic not static
-  gradeLevelOptions = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // TODO load dynamic not static
+  configuration$: Observable<Configuration>;
 
   constructor(
     private authService: TutorAuthService,
     private tutorPortalService: TutorPortalService,
     private angularFirePerformance: AngularFirePerformance,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private configurationService: ConfigurationService,
   ) {
   }
 
   ngOnInit(): void {
     this.profileInfoForm = this.createProfileInfoForm();
     this.loadTutorPortalUser();
+    this.configuration$ = this.configurationService.getConfiguration().pipe(shareReplay(1));
   }
 
   ngOnDestroy(): void {

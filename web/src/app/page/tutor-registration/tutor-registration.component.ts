@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {repeatPasswordValidator} from '../../shared/validators/repeat-password.validator';
 import {locationDomainValidator} from '../../shared/validators/location.validator';
 import {Observable, of, Subject} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, shareReplay, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {GeoLocation} from '../../shared/model/geo-location.model';
 import {LocationService} from '../../shared/services/location.service';
 import {faCalendar} from '@fortawesome/free-solid-svg-icons/faCalendar';
@@ -13,6 +13,8 @@ import * as moment from 'moment';
 import 'moment/locale/de-ch';
 import {StaySmartService} from '../../shared/services/stay-smart.service';
 import {StepperComponent} from '../stepper/stepper.component';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {Configuration} from '../../shared/model/configuration.model';
 
 @Component({
   selector: 'app-tutor-registration',
@@ -33,8 +35,7 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   searching = false;
   searchFailed = false;
 
-  subjects = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // TODO load dynamic not static
-  gradeLevels = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // TODO load dynamic not static
+  configuration$: Observable<Configuration>;
 
   faCalendar = faCalendar;
   faCheck = faCheck;
@@ -46,11 +47,16 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
 
   emailAlreadyInUse = '';
 
-  constructor(private locationService: LocationService, private staySmartService: StaySmartService) {
+  constructor(
+    private locationService: LocationService,
+    private staySmartService: StaySmartService,
+    private configurationService: ConfigurationService,
+  ) {
   }
 
   ngOnInit() {
     this.registrationForm = this.createForm();
+    this.configuration$ = this.configurationService.getConfiguration().pipe(shareReplay(1));
   }
 
   ngOnDestroy() {

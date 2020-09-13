@@ -1,0 +1,72 @@
+<h1 class="h2">Konfigurationen</h1>
+<div *ngIf="configuration$ | async as configuration" class="mt-5">
+  <div class="card">
+    <h2 class="h5 card-header">Fächer</h2>
+    <div class="card-body">
+      <ul *ngIf="configuration?.subjects as subjects" class="list-group">
+        <li *ngFor="let subject of subjects" class="list-group-item">
+          <span class="align-middle">{{subject}}</span>
+          <button class="btn btn-outline-danger float-right" (click)="removeSubject(subject, subjects)">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </li>
+      </ul>
+      <div *ngIf="configuration?.subjects?.length < 1" class="text-center">
+        <h3 class="h6">Noch keine Fächer</h3>
+      </div>
+
+      <div class="form-group mt-4">
+        <div class="input-group">
+          <input type="text"
+                 class="form-control"
+                 aria-label="Neues Fach"
+                 placeholder="Neues Fach"
+                 [formControl]="newSubject">
+          <div class="input-group-append">
+            <button class="btn btn-success"
+                    type="button"
+                    [disabled]="newSubject.invalid || isDuplicatedInArray(newSubject.value, configuration.subjects)"
+                    (click)="submitNewSubject(configuration.subjects)">
+              Hinzufügen
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <h2 class="h5 card-header">Klassen</h2>
+    <div class="card-body">
+      <ul *ngIf="configuration?.gradeLevels as gradeLevels" class="list-group">
+        <li *ngFor="let gradeLevel of gradeLevels" class="list-group-item">
+          <span class="align-middle">{{gradeLevel}}</span>
+          <button class="btn btn-outline-danger float-right" (click)="removeGradeLevel(gradeLevel, gradeLevels)">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </li>
+      </ul>
+      <div *ngIf="configuration?.gradeLevels?.length < 1" class="text-center">
+        <h3 class="h6">Noch keine Klassen</h3>
+      </div>
+
+      <div class="form-group mt-4">
+        <div class="input-group">
+          <input type="text"
+                 class="form-control"
+                 aria-label="Neue Klasse"
+                 placeholder="Neue Klasse"
+                 [formControl]="newGradeLevel">
+          <div class="input-group-append">
+            <button class="btn btn-success"
+                    type="button"
+                    [disabled]="newGradeLevel.invalid || isDuplicatedInArray(newGradeLevel.value, configuration.gradeLevels)"
+                    (click)="submitNewGradeLevel(configuration.gradeLevels)">
+              Hinzufügen
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

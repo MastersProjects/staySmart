@@ -86,6 +86,10 @@ export class AngularFirestoreDocumentMock<T> {
     return of([]);
   }
 
+  get(): Observable<DocumentSnapshotMock<T>> {
+    return of(new DocumentSnapshotMock<T>());
+  }
+
   snapshotChanges(): Observable<DocumentSnapshotMock<T>> {
     return of(new DocumentSnapshotMock<T>());
   }
@@ -109,6 +113,9 @@ export class DocumentSnapshotMock<T> {
       return {} as T;
     }
   };
+  data() {
+    return {} as T;
+  }
 }
 
 export class QuerySnapshotMock<T> {

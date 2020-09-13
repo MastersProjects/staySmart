@@ -11,6 +11,7 @@ import {ApTutorDetailComponent} from './ap-tutor/ap-tutor-detail/ap-tutor-detail
 import {ApRequestListComponent} from './ap-request/ap-request-list/ap-request-list.component';
 import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-request-detail.component';
 import {ApRequestOfferListComponent} from './ap-offer/ap-request-offer-list/ap-request-offer-list.component';
+import {ApConfigurationComponent} from './ap-configuration/ap-configuration.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path: 'requests', component: ApRequestListComponent},
       {path: 'request/:tutorSearchRequestID', component: ApRequestDetailComponent},
       {path: 'offers', component: ApRequestOfferListComponent},
+      {path: 'configuration', component: ApConfigurationComponent},
       /*{path: '', pathMatch: 'full', redirectTo: 'child'}*/
     ],
     canActivate: [AdminPortalAuthGuard]

@@ -177,13 +177,13 @@
               <div class="form-group col-lg-6">
                 <label for="subjects">Fächer</label>
                 <select multiple id="subjects" name="subjects" class="form-control" formControlName="subjects">
-                  <option *ngFor="let sub of subjects">{{sub}}</option>
+                  <option *ngFor="let sub of (configuration$ | async)?.subjects">{{sub}}</option>
                 </select>
               </div>
               <div class="form-group col-lg-6">
                 <label for="gradeLevels">Klasse</label>
                 <select multiple id="gradeLevels" name="gradeLevel" class="form-control" formControlName="gradeLevels">
-                  <option *ngFor="let gradeLevel of gradeLevels">{{gradeLevel}}</option>
+                  <option *ngFor="let gradeLevel of (configuration$ | async)?.gradeLevels">{{gradeLevel}}</option>
                 </select>
               </div>
               <div class="form-group col-lg-6">
