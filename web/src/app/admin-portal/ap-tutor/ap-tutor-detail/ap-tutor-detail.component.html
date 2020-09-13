@@ -140,12 +140,26 @@
     </div>
   </form>
 
-<!--  TODO display image better-->
-  <div class="row">
-    <img [src]="tutorDetail.studentCardFront.downloadUrl" alt="Legi Vorderseite" height="250px">
-  </div>
-  <div class="row">
-    <img [src]="tutorDetail.studentCardBack.downloadUrl" alt="Legi Rückseite" height="250px">
+  <h6>Legi</h6>
+  <div class="form-row">
+    <div class="form-group col-lg-6 text-center">
+      <img class="cursor-pointer student-card-img"
+           [src]="tutorDetail.studentCardFront.downloadUrl"
+           title="Legi Vorderseite"
+           alt="Legi Vorderseite"
+           appImageView
+           [imageViewSrc]="tutorDetail.studentCardFront.downloadUrl"
+           imageViewTitle="Legi Vorderseite">
+    </div>
+    <div class="form-group col-lg-6 text-center">
+      <img class="cursor-pointer student-card-img"
+           [src]="tutorDetail.studentCardBack.downloadUrl"
+           title="Legi Rückseite"
+           alt="Legi Rückseite"
+           appImageView
+           [imageViewSrc]="tutorDetail.studentCardBack.downloadUrl"
+           imageViewTitle="Legi Rückseite">
+    </div>
   </div>
 
   <div *ngIf="tutorDetail.status === tutorStatus.NEW" class="clearfix text-center mt-4">

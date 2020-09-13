@@ -26,9 +26,11 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
 
   getProfilePicture = getProfilePicture;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private adminPortalService: AdminPortalService,
-              private angularFirePerformance: AngularFirePerformance) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private adminPortalService: AdminPortalService,
+    private angularFirePerformance: AngularFirePerformance,
+  ) {
   }
 
   ngOnInit(): void {

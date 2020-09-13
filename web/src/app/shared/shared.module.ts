@@ -8,6 +8,8 @@ import {RequestStatusPipe} from './pipes/request-status.pipe';
 import {OfferStatusComponent} from './components/offer-status/offer-status.component';
 import {OfferStatusPipe} from './pipes/offer-status.pipe';
 import {RequestStatusComponent} from './components/request-status/request-status.component';
+import {ImageViewDirective} from './directives/image-view.directive';
+import {ImageViewComponent} from './components/image-view/image-view.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import {RequestStatusComponent} from './components/request-status/request-status
     TutorStatusPipe,
     RequestStatusPipe,
     OfferStatusPipe,
+    ImageViewDirective,
+    ImageViewComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +36,7 @@ import {RequestStatusComponent} from './components/request-status/request-status
     TutorStatusPipe,
     RequestStatusPipe,
     OfferStatusPipe,
+    ImageViewDirective,
   ]
 })
 export class SharedModule {
