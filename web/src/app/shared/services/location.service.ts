@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {GeoLocation} from './model/geo-location.model';
+import {GeoLocation} from '../model/geo-location.model';
 
 const GEO_URL = 'https://api3.geo.admin.ch/rest/services/api/SearchServer';
 const PARAMS = {

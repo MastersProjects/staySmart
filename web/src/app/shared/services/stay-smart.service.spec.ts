@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {StaySmartService} from './stay-smart.service';
-import {TestingModule} from '../testing/testing.module';
+import {TestingModule} from '../../testing/testing.module';
 
 describe('StaySmartService', () => {
   beforeEach(() => TestBed.configureTestingModule({

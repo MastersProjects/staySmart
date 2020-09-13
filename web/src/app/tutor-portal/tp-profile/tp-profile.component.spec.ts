@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {TpProfileComponent} from './tp-profile.component';
 import {TutorPortalService} from '../shared/tutor-portal.service';
 import {TpProfilePictureComponent} from '../tp-profile-picture/tp-profile-picture.component';
-import {LocationService} from '../../shared/location.service';
+import {LocationService} from '../../shared/services/location.service';
 import {TestingModule} from '../../testing/testing.module';
 import {SharedModule} from '../../shared/shared.module';
 

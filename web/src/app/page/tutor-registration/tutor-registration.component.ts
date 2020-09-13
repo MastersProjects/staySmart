@@ -5,13 +5,13 @@ import {locationDomainValidator} from '../../shared/validators/location.validato
 import {Observable, of, Subject} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {GeoLocation} from '../../shared/model/geo-location.model';
-import {LocationService} from '../../shared/location.service';
+import {LocationService} from '../../shared/services/location.service';
 import {faCalendar} from '@fortawesome/free-solid-svg-icons/faCalendar';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {NgbDateAdapter, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import 'moment/locale/de-ch';
-import {StaySmartService} from '../../shared/stay-smart.service';
+import {StaySmartService} from '../../shared/services/stay-smart.service';
 import {StepperComponent} from '../stepper/stepper.component';
 
 @Component({

@@ -3,7 +3,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {TutorSearchRequest, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
 import {switchMap, tap} from 'rxjs/operators';
-import {StaySmartService} from '../../shared/stay-smart.service';
+import {StaySmartService} from '../../shared/services/stay-smart.service';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 
 @Component({

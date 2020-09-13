@@ -5,18 +5,18 @@ import {
   TutorSearchRequestData,
   TutorSearchRequestOffer,
   TutorSearchRequestOfferStatus
-} from './model/tutor-search-request.model';
+} from '../model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {v4 as uuidv4} from 'uuid';
 import {from, Observable, of} from 'rxjs';
 import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 import {finalize, map, switchMap, tap} from 'rxjs/operators';
-import {TutorAuthService} from '../auth/tutor-auth.service';
-import {GeoLocation} from './model/geo-location.model';
+import {TutorAuthService} from '../../auth/tutor-auth.service';
+import {GeoLocation} from '../model/geo-location.model';
 import {trace} from '@angular/fire/performance';
-import {Tutor, TutorStatus} from './model/tutor.model';
-import {Image} from './model/image.model';
+import {Tutor, TutorStatus} from '../model/tutor.model';
+import {Image} from '../model/image.model';
 import {NgxSpinnerService} from 'ngx-spinner';
 import Timestamp = firebase.firestore.Timestamp;
 

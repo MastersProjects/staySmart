@@ -8,7 +8,7 @@ import {TutorPortalService} from '../shared/tutor-portal.service';
 import {AngularFirePerformance} from '@angular/fire/performance';
 import {locationDomainValidator} from '../../shared/validators/location.validator';
 import {GeoLocation} from '../../shared/model/geo-location.model';
-import {LocationService} from '../../shared/location.service';
+import {LocationService} from '../../shared/services/location.service';
 
 @Component({
   selector: 'app-tp-profile',
