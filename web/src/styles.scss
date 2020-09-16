@@ -18,7 +18,7 @@ html, body {
   padding: 6rem 2rem !important
 }
 
-.custom-navbar, .btn-primary, footer {
+.custom-navbar, footer {
   background-color: #1a9dd9 !important
 }
 
@@ -29,3 +29,7 @@ html, body {
 .jumbotron {
   border-radius: 0 !important;
 }
+
+$primary: #1a9dd9;
+@import '~bootstrap/scss/bootstrap';
+
