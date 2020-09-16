@@ -18,10 +18,14 @@ html, body {
   padding: 6rem 2rem !important
 }
 
-.custom-navbar {
-  background-color: #777777
+.custom-navbar, .btn-primary, footer {
+  background-color: #1a9dd9 !important
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.jumbotron {
+  border-radius: 0 !important;
 }
