@@ -129,9 +129,7 @@
     <div class="row">
       <div class="col-sm-6">
         Status:
-        <span class="badge" [ngClass]="getBadgeClassByStatus(tutorPortalOffer?.status)">
-          {{tutorPortalOffer?.status}}
-        </span>
+        <app-offer-status [status]="tutorPortalOffer?.status"></app-offer-status>
       </div>
       <div class="col-sm-6 text-sm-right">
         <small>Gesendet am: {{tutorPortalOffer?.timestamp.toDate() | date: 'medium'}}</small>

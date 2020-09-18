@@ -53,18 +53,6 @@ export class TpRequestOfferDetailComponent implements OnInit, AfterViewInit {
     this.cardElement.nativeElement.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 
-  getBadgeClassByStatus(status: 'new' | 'accepted' | 'declined') {
-    if (status === 'new') {
-      return 'badge-primary';
-    } else if (status === 'accepted') {
-      return 'badge-success';
-    } else if (status === 'declined') {
-      return 'badge-danger';
-    } else {
-      return null;
-    }
-  }
-
   get chevronRotation(): RotateProp {
     return this.isCollapsed ? '180' : '' as any;
   }
