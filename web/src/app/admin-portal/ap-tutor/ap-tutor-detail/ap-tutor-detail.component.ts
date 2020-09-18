@@ -60,7 +60,7 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
   async activateTutor() {
     const trace = await this.angularFirePerformance.trace('AP: activateTutor');
     trace.start();
-    this.adminPortalService.activateTutor(this.tutorDetail.uid)
+    this.adminPortalService.activateTutor(this.tutorDetail)
       .then(() => {
         console.log('activated');
         trace.putAttribute('activateTutorSuccessful', 'true');

@@ -5,6 +5,7 @@ import {Tutor, TutorStatus} from '../../shared/model/tutor.model';
 import {trace} from '@angular/fire/performance';
 import {map, shareReplay, tap} from 'rxjs/operators';
 import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
+import {AngularFireFunctions} from '@angular/fire/functions';
 
 @Injectable() // provided in AdminPortalModule
 export class AdminPortalService {
@@ -12,7 +13,7 @@ export class AdminPortalService {
   tutors$: Observable<Tutor[]>;
   tutorSearchRequests$: Observable<TutorSearchRequestData[]>;
 
-  constructor(private angularFirestore: AngularFirestore) {
+  constructor(private angularFirestore: AngularFirestore, private angularFireFunctions: AngularFireFunctions) {
     this.initTutorsObservable();
     this.initTutorSearchRequestsObservable();
   }
@@ -78,8 +79,12 @@ export class AdminPortalService {
       );
   }
 
-  activateTutor(uid: string): Promise<void> {
-    return this.angularFirestore.collection<Tutor>('Tutors').doc(uid).update({status: TutorStatus.ACTIVATED});
+  async activateTutor(tutor: Tutor): Promise<void> {
+    await this.angularFirestore.collection<Tutor>('Tutors').doc(tutor.uid).update({status: TutorStatus.ACTIVATED});
+    return this.angularFireFunctions.httpsCallable('sendTutorActivatedEmail')({
+      tutorName: tutor.firstName,
+      tutorEmail: tutor.email,
+    }).toPromise();
   }
 
   changeTutorStatus(status: TutorStatus.ACTIVATED | TutorStatus.DEACTIVATED, uid: string): Promise<void> {

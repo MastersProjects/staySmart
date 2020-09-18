@@ -21,6 +21,7 @@ import {ApRequestDetailComponent} from './ap-request/ap-request-detail/ap-reques
 import {ApRequestOfferDetailComponent} from './ap-offer/ap-request-offer-detail/ap-request-offer-detail.component';
 import {ApRequestOfferListComponent} from './ap-offer/ap-request-offer-list/ap-request-offer-list.component';
 import {ApConfigurationComponent} from './ap-configuration/ap-configuration.component';
+import {AngularFireFunctionsModule, REGION} from '@angular/fire/functions';
 
 
 @NgModule({
@@ -49,8 +50,12 @@ import {ApConfigurationComponent} from './ap-configuration/ap-configuration.comp
     NgbDropdownModule,
     NgbTypeaheadModule,
     NgbButtonsModule,
+    AngularFireFunctionsModule,
   ],
-  providers: [AdminPortalService]
+  providers: [
+    AdminPortalService,
+    { provide: REGION, useValue: 'europe-west6' }
+  ]
 })
 export class AdminPortalModule {
 }

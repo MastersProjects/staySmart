@@ -9,6 +9,7 @@ import {requestReceivedTemplate} from './email-templates/request-received';
 import {newOfferTemplate} from './email-templates/new-offer';
 import {offerAcceptedTemplate} from './email-templates/offer-accepted';
 import {newMatchingRequestTemplate} from './email-templates/new-matching-request';
+import {tutorActivatedTemplate} from './email-templates/tutor-activated';
 import FieldPath = admin.firestore.FieldPath;
 
 admin.initializeApp();
@@ -220,6 +221,30 @@ export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
         return Promise.all(promises); // TODO if one of the promises fails, then all the rest of the promises fail.
 
     });
+
+/**
+ * Send Tutor Activated E-Mail
+ */
+export const sendTutorActivatedEmail = functions.region('europe-west6').https.onRequest((request, response) => {
+  const {tutorName, tutorEmail} = request.body;
+
+  const templatedEmail = handlebars.compile(tutorActivatedTemplate)({tutorName});
+
+  const mailOptions: Mail.Options = {
+    from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
+    to: tutorEmail,
+    subject: 'Dein Konto wurde aktiviert.',
+    html: templatedEmail
+  };
+
+  return transporter.sendMail(mailOptions).then(() => {
+    console.log(`Sent to ${tutorEmail}`);
+    response.status(200).send(`Sent to ${tutorEmail}`);
+  }).catch(error => {
+    console.error(error);
+    response.status(500).send(error);
+  });
+});
 
 
 export const sendWhatsApp = functions.region('europe-west1').https.onRequest((_request, response) => {

@@ -12,6 +12,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AngularFireFunctions, AngularFireFunctionsModule} from '@angular/fire/functions';
+import {AngularFireFunctionsMock} from './angular-fires-functions-mock';
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     AngularFirestoreModule,
     AngularFirePerformanceModule,
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     ReactiveFormsModule,
     RouterTestingModule,
     HttpClientTestingModule,
@@ -33,7 +36,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
   ],
   providers: [
     {provide: AngularFireAuth, useClass: AngularFireAuthMock},
-    {provide: AngularFirestore, useClass: AngularFirestoreMock}
+    {provide: AngularFirestore, useClass: AngularFirestoreMock},
+    {provide: AngularFireFunctions, useClass: AngularFireFunctionsMock}
   ]
 })
 export class TestingModule {
