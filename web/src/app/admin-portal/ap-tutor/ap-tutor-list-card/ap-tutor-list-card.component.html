@@ -8,7 +8,7 @@
       <div class="card-body">
         <h5 class="card-title">
           {{tutor?.firstName}} {{tutor?.lastName}}
-          <fa-icon class="ml-1 text-success" *ngIf="tutor.isVerified" [icon]="faCheckCircle"></fa-icon>
+          <fa-icon class="ml-1 text-success" *ngIf="tutor?.isVerified" [icon]="faCheckCircle"></fa-icon>
         </h5>
         <h6 class="card-subtitle">{{tutor?.education}}</h6>
       </div>
