@@ -58,6 +58,7 @@ export interface TutorSearchRequestOffer {
       phoneNumber: string;
     };
   };
+  isVerified: boolean;
 }
 
 export enum TutorSearchRequestOfferStatus {

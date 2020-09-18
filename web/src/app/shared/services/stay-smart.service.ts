@@ -236,7 +236,9 @@ export class StaySmartService {
         subjects: {},
         gradeLevels: {},
         daysAvailable: []
-      }
+      },
+
+      isVerified: false,
     };
 
     // Creating Tags for matching with Tutor Search Request

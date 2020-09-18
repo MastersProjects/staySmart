@@ -44,6 +44,8 @@ export interface Tutor {
   tags?: any;
 
   profilePicture?: Image;
+
+  isVerified: boolean;
 }
 
 export enum TutorStatus {

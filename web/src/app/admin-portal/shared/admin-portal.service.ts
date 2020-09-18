@@ -78,11 +78,15 @@ export class AdminPortalService {
       );
   }
 
-  verifyTutor(uid: string): Promise<void> {
+  activateTutor(uid: string): Promise<void> {
     return this.angularFirestore.collection<Tutor>('Tutors').doc(uid).update({status: TutorStatus.ACTIVATED});
   }
 
   changeTutorStatus(status: TutorStatus.ACTIVATED | TutorStatus.DEACTIVATED, uid: string): Promise<void> {
     return this.angularFirestore.collection<Tutor>('Tutors').doc(uid).update({status});
+  }
+
+  changeTutorVerification(isVerified: boolean, uid: string): Promise<void> {
+    return this.angularFirestore.collection<Tutor>('Tutors').doc(uid).update({isVerified});
   }
 }

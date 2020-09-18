@@ -4,6 +4,7 @@ import {AnimationEvent} from '@angular/animations';
 import {RotateProp} from '@fortawesome/fontawesome-svg-core';
 import {collapse} from '../../../shared/collapse.animation';
 import {TutorSearchRequestOffer} from '../../../shared/model/tutor-search-request.model';
+import {faCheckCircle} from '@fortawesome/free-solid-svg-icons/faCheckCircle';
 
 @Component({
   selector: 'app-ap-request-offer-detail',
@@ -21,6 +22,7 @@ export class ApRequestOfferDetailComponent {
 
   isCollapsed = true;
   faChevronUp = faChevronUp;
+  faCheckCircle = faCheckCircle;
 
   collapseToggle() {
     this.isCollapsed = !this.isCollapsed;

@@ -16,6 +16,7 @@ import {collapse} from '../../shared/collapse.animation';
 import {AnimationEvent} from '@angular/animations';
 import {getProfilePicture} from 'src/app/shared/utils.functions';
 import {RotateProp} from '@fortawesome/fontawesome-svg-core';
+import {faCheckCircle} from '@fortawesome/free-solid-svg-icons/faCheckCircle';
 
 @Component({
   selector: 'app-tutor-search-request-offer',
@@ -34,9 +35,9 @@ export class TutorSearchRequestOfferComponent implements OnInit {
   faCheck = faCheck;
   faTimes = faTimes;
   faChevronUp = faChevronUp;
+  faCheckCircle = faCheckCircle;
 
   isCollapsed = true;
-
   getProfilePicture = getProfilePicture;
 
   constructor() {

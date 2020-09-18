@@ -1,7 +1,8 @@
 <ng-container *ngIf="tutorDetail">
   <h2>
     {{tutorDetail.firstName}} {{tutorDetail.lastName}}
-    <app-ap-tutor-status [status]="tutorDetail.status"></app-ap-tutor-status>
+    <app-ap-tutor-status *ngIf="tutorDetail.status === 'new'" [status]="tutorDetail.status"></app-ap-tutor-status>
+    <fa-icon class="ml-2 text-success" *ngIf="tutorDetail.isVerified" [icon]="faCheckCircle"></fa-icon>
   </h2>
   <div class="text-center">
     <img [src]="getProfilePicture(tutorDetail.profilePicture)"
@@ -9,16 +10,35 @@
          class="img-fluid rounded-circle border"
          width="250px"
          height="250px">
-    <div *ngIf="tutorDetail.status !== tutorStatus.NEW" class="mt-3">
-      Status wechseln:
-      <span class="custom-control custom-switch">
+    <hr>
+    <div class="d-flex justify-content-around align-items-center">
+      <button *ngIf="tutorDetail.status === tutorStatus.NEW" class="btn btn-success" (click)="activateTutor()">
+        Freigeben
+      </button>
+      <div *ngIf="tutorDetail.status !== tutorStatus.NEW">
+        Status:
+        <span class="custom-control custom-switch">
         <input type="checkbox"
                class="custom-control-input"
                id="status-switch"
                [checked]="tutorDetail.status === tutorStatus.ACTIVATED"
                (change)="changeStatus($event)">
-        <label class="custom-control-label" for="status-switch">{{tutorDetail.status | tutorStatus}}</label>
-      </span>
+        <label class="custom-control-label cursor-pointer"
+               for="status-switch">{{tutorDetail.status | tutorStatus}}</label>
+        </span>
+      </div>
+      <div>
+        Verifiziert:
+        <span class="custom-control custom-switch">
+          <input type="checkbox"
+                 class="custom-control-input"
+                 id="verification-switch"
+                 [checked]="tutorDetail.isVerified"
+                 (change)="changeVerification($event)">
+          <label class="custom-control-label cursor-pointer"
+                 for="verification-switch">{{tutorDetail.isVerified ? 'Ja' : 'Nein'}}</label>
+          </span>
+      </div>
     </div>
     <hr>
   </div>
@@ -160,10 +180,6 @@
            [imageViewSrc]="tutorDetail.studentCardBack.downloadUrl"
            imageViewTitle="Legi Rückseite">
     </div>
-  </div>
-
-  <div *ngIf="tutorDetail.status === tutorStatus.NEW" class="clearfix text-center mt-4">
-    <button class="btn btn-success" (click)="verify()">Freigeben</button>
   </div>
 </ng-container>
 

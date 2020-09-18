@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, of} from 'rxjs';
-import {TutorSearchRequestData, TutorSearchRequestOffer} from '../../shared/model/tutor-search-request.model';
+import {
+  TutorSearchRequestData,
+  TutorSearchRequestOffer,
+  TutorSearchRequestOfferStatus
+} from '../../shared/model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {TutorAuthService} from '../../auth/tutor-auth.service';
 import {map, switchMap} from 'rxjs/operators';
@@ -57,18 +61,19 @@ export class TutorPortalService {
     Promise<[void, firebase.firestore.DocumentReference]> {
 
     const tutorPortalUser = await this.authService.tutorPortalUser;
-    const {uid, firstName, lastName, profilePicture} = tutorPortalUser;
-    const offer = {
+    const {uid, firstName, lastName, profilePicture, isVerified} = tutorPortalUser;
+    const offer: TutorSearchRequestOffer = {
       ...tutorSearchRequestOffer,
       uid,
       firstName,
       lastName,
-      timestamp: this.serverTimestamp,
-      status: 'new',
+      timestamp: this.serverTimestamp as any,
+      status: TutorSearchRequestOfferStatus.NEW,
       profilePicture,
       tutorSearchRequest: {
         tutorSearchRequestData
-      }
+      },
+      isVerified
     };
 
     const sentOffers = tutorPortalUser.sentOffers ?

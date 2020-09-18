@@ -131,6 +131,22 @@
         </small>
       </div>
     </div>
+
+    <hr>
+    <h5>Verifizierung</h5>
+    <div *ngIf="!tutorPortalUser.isVerified" class="verification-grid">
+      <!--        TODO Text-->
+      <p>TODO verification text</p>
+      <!--        TODO link-->
+      <a class="btn btn-primary" type="button" role="button" href="https://www.staysmart.ch/" target="_blank">
+        Verifizieren
+      </a>
+    </div>
+    <div *ngIf="tutorPortalUser.isVerified">
+      <!--        TODO Text-->
+      <p>Du bist verifiziert</p>
+    </div>
+    <hr>
     <div class="clearfix">
       <button type="submit"
               class="btn btn-success float-right"

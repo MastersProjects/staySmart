@@ -8,6 +8,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {getProfilePicture} from 'src/app/shared/utils.functions';
 import {GeoLocation} from '../../../shared/model/geo-location.model';
 import {AngularFirePerformance} from '@angular/fire/performance';
+import {faCheckCircle} from '@fortawesome/free-solid-svg-icons/faCheckCircle';
 
 @Component({
   selector: 'app-ap-tutor-detail',
@@ -25,6 +26,8 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
   gradeLevelOptions = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // TODO load dynamic not static
 
   getProfilePicture = getProfilePicture;
+
+  faCheckCircle = faCheckCircle;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -54,17 +57,17 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  async verify() {
-    const trace = await this.angularFirePerformance.trace('AP: verifyTutor');
+  async activateTutor() {
+    const trace = await this.angularFirePerformance.trace('AP: activateTutor');
     trace.start();
-    this.adminPortalService.verifyTutor(this.tutorDetail.uid)
+    this.adminPortalService.activateTutor(this.tutorDetail.uid)
       .then(() => {
-        console.log('verified');
-        trace.putAttribute('verifyTutorSuccessful', 'true');
+        console.log('activated');
+        trace.putAttribute('activateTutorSuccessful', 'true');
       })
       .catch(error => {
         console.error(error);
-        trace.putAttribute('verifyTutorSuccessful', 'false');
+        trace.putAttribute('activateTutorSuccessful', 'false');
       })
       .finally(() => {
         trace.stop();
@@ -83,6 +86,24 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
       .catch(error => {
         console.error(error);
         trace.putAttribute('changeTutorStatusSuccessful', 'false');
+      })
+      .finally(() => {
+        trace.stop();
+      });
+  }
+
+  async changeVerification($event: Event) {
+    const isVerified = ($event.target as HTMLInputElement).checked;
+    const trace = await this.angularFirePerformance.trace('AP: changeTutorVerification');
+    trace.putAttribute('isVerified', String(isVerified));
+    trace.start();
+    this.adminPortalService.changeTutorVerification(isVerified, this.tutorDetail.uid)
+      .then(() => {
+        trace.putAttribute('changeTutorVerificationSuccessful', 'true');
+      })
+      .catch(error => {
+        console.error(error);
+        trace.putAttribute('changeTutorVerificationSuccessful', 'false');
       })
       .finally(() => {
         trace.stop();

@@ -3,6 +3,7 @@
     {{tutorSearchRequestOffer ? 'Offerte von' : ''}}
     {{tutorSearchRequestOffer?.firstName}}
     {{tutorSearchRequestOffer?.lastName}}
+    <fa-icon class="ml-1 text-success" *ngIf="tutorSearchRequestOffer?.isVerified" [icon]="faCheckCircle"></fa-icon>
     <fa-icon [icon]="faChevronUp" class="float-right" [rotate]="chevronRotation"></fa-icon>
   </div>
   <div [@collapse]="collapseState" (@collapse.done)="onCollapseAnimationDone($event)" class="card-body">
