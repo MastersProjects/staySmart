@@ -5,156 +5,162 @@
                           style="height: 300px">
   </app-tp-profile-picture>
   <hr>
-  <form class="mt-5" [formGroup]="profileInfoForm" (ngSubmit)="saveProfileInfo()">
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="firstName">Vorname</label>
-        <input type="text" id="firstName" name="firstName" class="form-control" [formControl]="firstName">
+  <form class="mb-5" [formGroup]="profileInfoForm" (ngSubmit)="saveProfileInfo()">
+    <h5 class="mb-3">Persönliche Info</h5>
+    <div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="firstName">Vorname</label>
+          <input type="text" id="firstName" name="firstName" class="form-control" [formControl]="firstName">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lastName">Name</label>
+          <input type="text" id="lastName" name="lastName" class="form-control" [formControl]="lastName">
+        </div>
       </div>
-      <div class="form-group col-md-6">
-        <label for="lastName">Name</label>
-        <input type="text" id="lastName" name="lastName" class="form-control" [formControl]="lastName">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="email">E-Mail</label>
-        <input type="text" id="email" name="email" class="form-control" [formControl]="email">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="mobileNumber">Mobiltelefon</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">+41</div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="email">E-Mail</label>
+          <input type="text" id="email" name="email" class="form-control" [formControl]="email">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="mobileNumber">Mobiltelefon</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">+41</div>
+            </div>
+            <input type="text" id="mobileNumber" name="mobileNumber" class="form-control" [formControl]="mobileNumber">
           </div>
-          <input type="text" id="mobileNumber" name="mobileNumber" class="form-control" [formControl]="mobileNumber">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <app-birthday-input [formControl]="birthday"></app-birthday-input>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label for="street-address">Adresse und Hausnummer</label>
+          <input type="text" id="street-address" name="street-address" class="form-control"
+                 [formControl]="streetAddress">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-3">
+          <label for="postalCode">PLZ</label>
+          <input type="text" id="postalCode" name="postalCode" class="form-control" [formControl]="postalCode">
+        </div>
+        <div class="form-group col-9">
+          <label for="city">Ort</label>
+          <input type="text"
+                 id="city"
+                 name="city"
+                 class="form-control"
+                 autocomplete="autocomplete_disabled"
+                 [formControl]="city"
+                 [ngbTypeahead]="searchLocation"
+                 [inputFormatter]="locationFormatterForm"
+                 [resultFormatter]="locationFormatter">
+          <span *ngIf="searching">Suchen...</span>
+          <div class="invalid-feedback" *ngIf="searchFailed">
+            Entschuldigung, Ortschaft konnte nicht geladen werden.
+          </div>
+          <small *ngIf="city.invalid && (city.dirty || city.touched)" class="form-text text-danger">
+            Bitte gültige Ortschaft auswählen
+          </small>
         </div>
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <app-birthday-input [formControl]="birthday"></app-birthday-input>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-12">
-        <label for="street-address">Adresse und Hausnummer</label>
-        <input type="text" id="street-address" name="street-address" class="form-control" [formControl]="streetAddress">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-3">
-        <label for="postalCode">PLZ</label>
-        <input type="text" id="postalCode" name="postalCode" class="form-control" [formControl]="postalCode">
-      </div>
-      <div class="form-group col-9">
-        <label for="city">Ort</label>
-        <input type="text"
-               id="city"
-               name="city"
-               class="form-control"
-               autocomplete="autocomplete_disabled"
-               [formControl]="city"
-               [ngbTypeahead]="searchLocation"
-               [inputFormatter]="locationFormatterForm"
-               [resultFormatter]="locationFormatter">
-        <span *ngIf="searching">Suchen...</span>
-        <div class="invalid-feedback" *ngIf="searchFailed">
-          Entschuldigung, Ortschaft konnte nicht geladen werden.
+    <h5 class="mt-3 mb-3">Angebot Info</h5>
+    <div>
+      <div class="form-row">
+        <div class="form-group col-lg-6">
+          <label for="subjects">Fächer</label>
+          <select multiple id="subjects" name="subjects" class="form-control" [formControl]="subjects">
+            <option *ngFor="let sub of (configuration$ | async)?.subjects" [value]="sub">{{sub}}</option>
+          </select>
         </div>
-        <small *ngIf="city.invalid && (city.dirty || city.touched)" class="form-text text-danger">
-          Bitte gültige Ortschaft auswählen
-        </small>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-lg-6">
-        <label for="subjects">Fächer</label>
-        <select multiple id="subjects" name="subjects" class="form-control" [formControl]="subjects">
-          <option *ngFor="let sub of (configuration$ | async)?.subjects" [value]="sub">{{sub}}</option>
-        </select>
-      </div>
-      <div class="form-group col-lg-6">
-        <label for="gradeLevels">Klasse</label>
-        <select multiple id="gradeLevels" name="gradeLevel" class="form-control" [formControl]="gradeLevels">
-          <option *ngFor="let gradeLevel of (configuration$ | async)?.gradeLevels" [value]="gradeLevel">
-            {{gradeLevel}}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-lg-6">
-        <label>Tag</label><br>
-        <div class="btn-group btn-group-toggle mt-2 ml-n1">
-          <label class="btn-primary" ngbButtonLabel>
-            <input id="day-monday" name="day" type="checkbox" ngbButton [formControl]="monday">
-            Montag
-          </label>
-          <label class="btn-primary" ngbButtonLabel>
-            <input id="day-tuesday" name="day" type="checkbox" ngbButton [formControl]="tuesday">
-            Dienstag
-          </label>
-          <label class="btn-primary" ngbButtonLabel>
-            <input id="day-wednesday" name="day" type="checkbox" ngbButton [formControl]="wednesday">
-            Mittwoch
-          </label>
-        </div>
-        <div class="btn-group btn-group-toggle mt-2 ml-n1">
-          <label class="btn-primary" ngbButtonLabel>
-            <input id="day-thursday" name="day" type="checkbox" ngbButton [formControl]="thursday">
-            Donnerstag
-          </label>
-          <label class="btn-primary" ngbButtonLabel>
-            <input id="day-friday" name="day" type="checkbox" ngbButton [formControl]="friday">
-            Freitag
-          </label>
-        </div>
-        <div class="btn-group btn-group-toggle mt-2 ml-n1">
-          <label class="btn-primary" ngbButtonLabel>
-            <input id="day-saturday" name="day" type="checkbox" ngbButton [formControl]="saturday">
-            Samstag
-          </label>
-          <label class="btn-primary" ngbButtonLabel>
-            <input id="day-sunday" name="day" type="checkbox" ngbButton [formControl]="sunday">
-            Sonntag
-          </label>
+        <div class="form-group col-lg-6">
+          <label for="gradeLevels">Klasse</label>
+          <select multiple id="gradeLevels" name="gradeLevel" class="form-control" [formControl]="gradeLevels">
+            <option *ngFor="let gradeLevel of (configuration$ | async)?.gradeLevels" [value]="gradeLevel">
+              {{gradeLevel}}
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group col-lg-6 ml-n1">
-        <label for="price">Preis (pro Stunde)</label>
-        <input type="range" id="price" name="price" class="custom-range" [formControl]="price" min="0"
-               max="20">
-        <small class="form-text text-muted h6 font-weight-light"
-               *ngIf="price.value > 0">
-          Aktueller Preis: {{price.value * 5}}.-
-        </small>
+      <div class="form-row">
+        <div class="form-group col-lg-6">
+          <label>Tag</label><br>
+          <div class="btn-group btn-group-toggle mt-2 ml-n1">
+            <label class="btn-primary" ngbButtonLabel>
+              <input id="day-monday" name="day" type="checkbox" ngbButton [formControl]="monday">
+              Montag
+            </label>
+            <label class="btn-primary" ngbButtonLabel>
+              <input id="day-tuesday" name="day" type="checkbox" ngbButton [formControl]="tuesday">
+              Dienstag
+            </label>
+            <label class="btn-primary" ngbButtonLabel>
+              <input id="day-wednesday" name="day" type="checkbox" ngbButton [formControl]="wednesday">
+              Mittwoch
+            </label>
+          </div>
+          <div class="btn-group btn-group-toggle mt-2 ml-n1">
+            <label class="btn-primary" ngbButtonLabel>
+              <input id="day-thursday" name="day" type="checkbox" ngbButton [formControl]="thursday">
+              Donnerstag
+            </label>
+            <label class="btn-primary" ngbButtonLabel>
+              <input id="day-friday" name="day" type="checkbox" ngbButton [formControl]="friday">
+              Freitag
+            </label>
+          </div>
+          <div class="btn-group btn-group-toggle mt-2 ml-n1">
+            <label class="btn-primary" ngbButtonLabel>
+              <input id="day-saturday" name="day" type="checkbox" ngbButton [formControl]="saturday">
+              Samstag
+            </label>
+            <label class="btn-primary" ngbButtonLabel>
+              <input id="day-sunday" name="day" type="checkbox" ngbButton [formControl]="sunday">
+              Sonntag
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-lg-6 ml-n1">
+          <label for="price">Preis (pro Stunde)</label>
+          <input type="range" id="price" name="price" class="custom-range" [formControl]="price" min="0"
+                 max="20">
+          <small class="form-text text-muted h6 font-weight-light"
+                 *ngIf="price.value > 0">
+            Aktueller Preis: {{price.value * 5}}.-
+          </small>
+        </div>
       </div>
     </div>
-
-    <hr>
-    <h5>Verifizierung</h5>
-    <div *ngIf="!tutorPortalUser.isVerified" class="verification-grid">
-      <!--        TODO Text-->
-      <p>TODO verification text</p>
-      <!--        TODO link-->
-      <a class="btn btn-primary" type="button" role="button" href="https://www.staysmart.ch/" target="_blank">
-        Verifizieren
-      </a>
-    </div>
-    <div *ngIf="tutorPortalUser.isVerified">
-      <!--        TODO Text-->
-      <p>Du bist verifiziert</p>
-    </div>
-    <hr>
     <div class="clearfix">
       <button type="submit"
               class="btn btn-success float-right"
               [disabled]="profileInfoForm.pristine || profileInfoForm.invalid">
-        Speichern
+        Änderungen speichern
       </button>
     </div>
   </form>
+  <hr>
+  <h5 class="mb-3">Verifizierung</h5>
+  <div *ngIf="!tutorPortalUser.isVerified" class="verification-grid">
+    <!--        TODO Text-->
+    <p>TODO verification text</p>
+    <!--        TODO link-->
+    <a class="btn btn-primary" type="button" role="button" href="https://www.staysmart.ch/" target="_blank">
+      Verifizieren
+    </a>
+  </div>
+  <div *ngIf="tutorPortalUser.isVerified">
+    <!--        TODO Text-->
+    <p>Du bist verifiziert</p>
+  </div>
+  <hr>
 </div>
 
 
