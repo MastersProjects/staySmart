@@ -1,14 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {AdminPortalService} from '../../shared/admin-portal.service';
-import {of, Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {Tutor, TutorStatus} from '../../../shared/model/tutor.model';
-import {switchMap, takeUntil} from 'rxjs/operators';
+import {shareReplay, switchMap, takeUntil} from 'rxjs/operators';
 import {FormControl, FormGroup} from '@angular/forms';
 import {getProfilePicture} from 'src/app/shared/utils.functions';
 import {GeoLocation} from '../../../shared/model/geo-location.model';
 import {AngularFirePerformance} from '@angular/fire/performance';
 import {faCheckCircle} from '@fortawesome/free-solid-svg-icons/faCheckCircle';
+import {Configuration} from '../../../shared/model/configuration.model';
+import {ConfigurationService} from '../../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-ap-tutor-detail',
@@ -22,8 +24,7 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
   tutorDetailForm: FormGroup;
   tutorStatus = TutorStatus;
 
-  subjectOptions = ['Mathe', 'Physik', 'Deutsch', 'Englisch']; // TODO load dynamic not static
-  gradeLevelOptions = ['1. - 3. Klasse', '4. - 6. Klasse', 'Sekundarstufe']; // TODO load dynamic not static
+  configuration$: Observable<Configuration>;
 
   getProfilePicture = getProfilePicture;
 
@@ -33,12 +34,14 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private adminPortalService: AdminPortalService,
     private angularFirePerformance: AngularFirePerformance,
+    private configurationService: ConfigurationService,
   ) {
   }
 
   ngOnInit(): void {
     this.tutorDetailForm = this.createTutorDetailForm();
     this.loadTutor();
+    this.configuration$ = this.configurationService.getConfiguration().pipe(shareReplay(1));
   }
 
   ngOnDestroy(): void {
