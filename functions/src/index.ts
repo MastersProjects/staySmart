@@ -225,8 +225,8 @@ export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
 /**
  * Send Tutor Activated E-Mail
  */
-export const sendTutorActivatedEmail = functions.region('europe-west6').https.onRequest((request, response) => {
-  const {tutorName, tutorEmail} = request.body;
+export const sendTutorActivatedEmail = functions.region('europe-west6').https.onCall((data, _context) => {
+  const {tutorName, tutorEmail} = data;
 
   const templatedEmail = handlebars.compile(tutorActivatedTemplate)({tutorName});
 
@@ -239,10 +239,8 @@ export const sendTutorActivatedEmail = functions.region('europe-west6').https.on
 
   return transporter.sendMail(mailOptions).then(() => {
     console.log(`Sent to ${tutorEmail}`);
-    response.status(200).send(`Sent to ${tutorEmail}`);
   }).catch(error => {
     console.error(error);
-    response.status(500).send(error);
   });
 });
 
