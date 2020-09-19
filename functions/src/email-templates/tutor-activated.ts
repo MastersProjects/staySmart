@@ -150,19 +150,19 @@ export const tutorActivatedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 
 \t\t\t\tdisplay: none !important;
 \t\t\t}
 
-\t\t\t#menu6fu5sl~div label {
+\t\t\t#menu11pfyr~div label {
 \t\t\t\tborder-radius: 0% !important;
 \t\t\t}
 
-\t\t\t#menu6fu5sl:checked~.menu-links {
+\t\t\t#menu11pfyr:checked~.menu-links {
 \t\t\t\tbackground-color: #000000 !important;
 \t\t\t}
 
-\t\t\t#menu6fu5sl:checked~.menu-links a {
+\t\t\t#menu11pfyr:checked~.menu-links a {
 \t\t\t\tcolor: #ffffff !important;
 \t\t\t}
 
-\t\t\t#menu6fu5sl:checked~.menu-links span {
+\t\t\t#menu11pfyr:checked~.menu-links span {
 \t\t\t\tcolor: #ffffff !important;
 \t\t\t}
 \t\t}
@@ -295,6 +295,7 @@ export const tutorActivatedTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"> </p>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">Dein Profil als Nachhilfeanbieter/in wurde aktiviert. </p>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"> </p>
+<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">Falls du dein Profil verifizieren möchtest, kannst du <a href="http://www.staysmart.ch" rel="noopener" style="text-decoration: underline; color: #0068A5;" target="_blank">hier</a> klicken. Eine Verifizierung kostet einmalig 25 Franken. </p>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"> </p>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">Mit freundliche Grüssen</p>
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"> </p>
