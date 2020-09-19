@@ -438,4 +438,4 @@ export const newMatchingRequestTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XH
 </table>
 <!--[if (IE)]></div><![endif]-->
 </body>
-</html>`
+</html>`;

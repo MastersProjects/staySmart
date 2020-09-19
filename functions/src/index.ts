@@ -10,6 +10,7 @@ import {newOfferTemplate} from './email-templates/new-offer';
 import {offerAcceptedTemplate} from './email-templates/offer-accepted';
 import {newMatchingRequestTemplate} from './email-templates/new-matching-request';
 import {tutorActivatedTemplate} from './email-templates/tutor-activated';
+import {tutorVerifiedTemplate} from './email-templates/tutor-verified';
 import FieldPath = admin.firestore.FieldPath;
 
 admin.initializeApp();
@@ -234,6 +235,28 @@ export const sendTutorActivatedEmail = functions.region('europe-west6').https.on
     from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
     to: tutorEmail,
     subject: 'Dein Konto wurde aktiviert.',
+    html: templatedEmail
+  };
+
+  return transporter.sendMail(mailOptions).then(() => {
+    console.log(`Sent to ${tutorEmail}`);
+  }).catch(error => {
+    console.error(error);
+  });
+});
+
+/**
+ * Send Tutor Verified E-Mail
+ */
+export const sendTutorVerifiedEmail = functions.region('europe-west6').https.onCall((data, _context) => {
+  const {tutorName, tutorEmail} = data;
+
+  const templatedEmail = handlebars.compile(tutorVerifiedTemplate)({tutorName});
+
+  const mailOptions: Mail.Options = {
+    from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
+    to: tutorEmail,
+    subject: 'Dein Konto wurde verifiziert.',
     html: templatedEmail
   };
 

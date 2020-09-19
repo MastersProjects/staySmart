@@ -97,7 +97,7 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
     const trace = await this.angularFirePerformance.trace('AP: changeTutorVerification');
     trace.putAttribute('isVerified', String(isVerified));
     trace.start();
-    this.adminPortalService.changeTutorVerification(isVerified, this.tutorDetail.uid)
+    this.adminPortalService.changeTutorVerification(isVerified, this.tutorDetail)
       .then(() => {
         trace.putAttribute('changeTutorVerificationSuccessful', 'true');
       })

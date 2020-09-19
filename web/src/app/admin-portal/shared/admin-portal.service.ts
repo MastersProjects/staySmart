@@ -91,7 +91,16 @@ export class AdminPortalService {
     return this.angularFirestore.collection<Tutor>('Tutors').doc(uid).update({status});
   }
 
-  changeTutorVerification(isVerified: boolean, uid: string): Promise<void> {
-    return this.angularFirestore.collection<Tutor>('Tutors').doc(uid).update({isVerified});
+  async changeTutorVerification(isVerified: boolean, tutor: Tutor): Promise<void> {
+    const updatePromise = this.angularFirestore.collection<Tutor>('Tutors').doc(tutor.uid).update({isVerified});
+    if (isVerified) {
+      await updatePromise;
+      return this.angularFireFunctions.httpsCallable('sendTutorVerifiedEmail')({
+        tutorName: tutor.firstName,
+        tutorEmail: tutor.email,
+      }).toPromise();
+    } else {
+      return updatePromise;
+    }
   }
 }
