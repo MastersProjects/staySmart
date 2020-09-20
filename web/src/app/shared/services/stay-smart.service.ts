@@ -202,7 +202,7 @@ export class StaySmartService {
   private createTutorRegistration(registrationForm: RegistrationForm, uid: string, studentCardFront: Image,
                                   studentCardBack: Image): Tutor {
     const {firstName, lastName, email, mobileNumber, birthday} = registrationForm.step1;
-    const {streetAddress, postalCode, city} = registrationForm.step2;
+    const {streetAddress, postalCode, location} = registrationForm.step2;
     const {studentCardExpireDate, education} = registrationForm.step3;
     const {subjects, gradeLevels, daysAvailable, price, attention} = registrationForm.step4;
     const tutorRegistration: Tutor = {
@@ -215,7 +215,7 @@ export class StaySmartService {
 
       streetAddress,
       postalCode,
-      city,
+      location,
 
       studentCardFront,
       studentCardBack,
@@ -274,7 +274,7 @@ interface RegistrationForm {
   step2: {
     streetAddress: string;
     postalCode: string;
-    city: GeoLocation;
+    location: GeoLocation;
   };
   step3: {
     studentCardFront: File;

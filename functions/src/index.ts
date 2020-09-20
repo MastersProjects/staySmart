@@ -9,7 +9,7 @@ import {requestReceivedTemplate} from './email-templates/request-received';
 import {newOfferTemplate} from './email-templates/new-offer';
 import {offerAcceptedTemplate} from './email-templates/offer-accepted';
 import {newMatchingRequestTemplate} from './email-templates/new-matching-request';
-import FieldPath = admin.firestore.FieldPath;
+import {getDistanceFromLatLonInKm} from './location-helper';
 
 admin.initializeApp();
 
@@ -170,12 +170,9 @@ export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
             }
         });
 
-        // TODO where condition with location / city & status active
         const matchingQuery = admin.firestore().collection('Tutors')
             .where('price', '<=', createdTutorSearchRequest.budget)
-            .where(`tags.subjects.${createdTutorSearchRequest.subject}`, '==', true)
-            // using FieldPath because gradeLevel can contain period (.) and strings are escaped by periods
-            .where(new FieldPath('tags', 'gradeLevels', createdTutorSearchRequest.gradeLevel), '==', true)
+            .where('status', '==', 'active')
             .where('tags.daysAvailable', 'array-contains-any', requestDaysAvailableList)
         ;
 
@@ -183,39 +180,52 @@ export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
 
         const promises: Promise<any>[] = [];
 
-        matchingQuerySnapshot.docs.forEach(matchingTutorDoc => {
-            const matchingTutor = matchingTutorDoc.data();
+        matchingQuerySnapshot.docs
+            .filter(matchingTutorDoc => {
+                const matchingTutor = matchingTutorDoc.data();
+                const distance = getDistanceFromLatLonInKm(
+                    matchingTutor.location.lat,
+                    matchingTutor.location.lon,
+                    createdTutorSearchRequest.location.lat,
+                    createdTutorSearchRequest.location.lon,
+                );
+                return distance <= 10
+                    && matchingTutor.gradeLevels.includes(createdTutorSearchRequest.gradeLevel)
+                    && matchingTutor.subjects.includes(createdTutorSearchRequest.subject);
+            })
+            .forEach(matchingTutorDoc => {
+                const matchingTutor = matchingTutorDoc.data();
 
-            console.log('matchingTutor', matchingTutor);
+                console.log('matchingTutor', matchingTutor);
 
-            if (matchingTutor.matchingTutorSearchRequests) {
-                promises.push(matchingTutorDoc.ref.update({
-                    matchingTutorSearchRequests: [...matchingTutor.matchingTutorSearchRequests, tutorSearchRequestID]
-                }));
-            } else {
-                promises.push(matchingTutorDoc.ref.update({matchingTutorSearchRequests: [tutorSearchRequestID]}));
-            }
+                if (matchingTutor.matchingTutorSearchRequests) {
+                    promises.push(matchingTutorDoc.ref.update({
+                        matchingTutorSearchRequests: [...matchingTutor.matchingTutorSearchRequests, tutorSearchRequestID]
+                    }));
+                } else {
+                    promises.push(matchingTutorDoc.ref.update({matchingTutorSearchRequests: [tutorSearchRequestID]}));
+                }
 
-            const templatedEmail = handlebars.compile(newMatchingRequestTemplate)({
-                tutorName: matchingTutor.firstName
+                const templatedEmail = handlebars.compile(newMatchingRequestTemplate)({
+                    tutorName: matchingTutor.firstName
+                });
+
+                const mailOptions: Mail.Options = {
+                    from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
+                    to: matchingTutor.email,
+                    subject: 'Neue Nachhilfeanfrage!',
+                    html: templatedEmail
+                };
+
+                promises.push(transporter.sendMail(mailOptions)
+                    .then(() => {
+                        console.log(`Sent to ${matchingTutor.email}`);
+                    }).catch(error => {
+                        console.error(error);
+                    })
+                );
+
             });
-
-            const mailOptions: Mail.Options = {
-                from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
-                to: matchingTutor.email,
-                subject: 'Neue Nachhilfeanfrage!',
-                html: templatedEmail
-            };
-
-            promises.push(transporter.sendMail(mailOptions)
-                .then(() => {
-                    console.log(`Sent to ${matchingTutor.email}`);
-                }).catch(error => {
-                    console.error(error);
-                })
-            );
-
-        });
 
         return Promise.all(promises); // TODO if one of the promises fails, then all the rest of the promises fail.
 

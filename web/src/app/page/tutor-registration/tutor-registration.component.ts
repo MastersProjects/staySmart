@@ -145,7 +145,7 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
       step2: new FormGroup({
         streetAddress: new FormControl('', Validators.required),
         postalCode: new FormControl('', Validators.required),
-        city: new FormControl('', [Validators.required, locationDomainValidator]),
+        location: new FormControl('', [Validators.required, locationDomainValidator]),
       }),
       step3: new FormGroup({
         studentCardFront: new FormControl(null, Validators.required), // TODO image file validator

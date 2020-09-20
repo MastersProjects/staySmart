@@ -13,7 +13,7 @@ export interface Tutor {
 
   streetAddress: string;
   postalCode: string;
-  city: GeoLocation;
+  location: GeoLocation;
 
   studentCardFront: Image;
   studentCardBack: Image;
