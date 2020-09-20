@@ -1,6 +1,7 @@
 import {GeoLocation} from './geo-location.model';
 import {Timestamp} from '@firebase/firestore-types';
 import {Image} from './image.model';
+import {FirePoint} from 'geofirex/dist/client';
 
 export interface TutorSearchRequest {
   tutorSearchRequestData: TutorSearchRequestData;
@@ -28,6 +29,7 @@ export interface TutorSearchRequestData {
   problem: string;
   timestamp: Timestamp;
   status: TutorSearchRequestStatus;
+  point: FirePoint; // Future proofing for #61
 }
 
 export enum TutorSearchRequestStatus {

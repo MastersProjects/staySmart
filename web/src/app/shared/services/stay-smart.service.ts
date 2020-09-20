@@ -18,7 +18,10 @@ import {trace} from '@angular/fire/performance';
 import {Tutor, TutorStatus} from '../model/tutor.model';
 import {Image} from '../model/image.model';
 import {NgxSpinnerService} from 'ngx-spinner';
+import * as geofirex from 'geofirex';
 import Timestamp = firebase.firestore.Timestamp;
+
+const geo = geofirex.init(firebase);
 
 @Injectable({
   providedIn: 'root'
@@ -33,14 +36,16 @@ export class StaySmartService {
     this.ngxSpinnerService.show();
     const batch = this.angularFirestore.firestore.batch();
     const tutorSearchRequestId = this.angularFirestore.createId();
+    const {tutorSearchRequestData, tutorSearchRequestContactData} = tutorSearchRequest;
+    const point = geo.point(tutorSearchRequestData.location.lat, tutorSearchRequestData.location.lon);  // Future proofing for #61
     batch.set(
       this.angularFirestore.collection('TutorSearchRequests').doc(tutorSearchRequestId).ref,
-      {...tutorSearchRequest.tutorSearchRequestData, timestamp: this.serverTimestamp, status: 'new'}
+      {...tutorSearchRequest.tutorSearchRequestData, timestamp: this.serverTimestamp, status: 'new', point}
     );
     batch.set(
       this.angularFirestore.collection('TutorSearchRequests').doc(tutorSearchRequestId)
         .collection('TutorSearchRequestContactData').doc(this.angularFirestore.createId()).ref,
-      tutorSearchRequest.tutorSearchRequestContactData
+      tutorSearchRequestContactData
     );
     return batch.commit().finally(() => this.ngxSpinnerService.hide());
   }
@@ -205,6 +210,7 @@ export class StaySmartService {
     const {streetAddress, postalCode, location} = registrationForm.step2;
     const {studentCardExpireDate, education} = registrationForm.step3;
     const {subjects, gradeLevels, daysAvailable, price, attention} = registrationForm.step4;
+    const point = geo.point(location.lat, location.lon);  // Future proofing for #61
     const tutorRegistration: Tutor = {
       uid,
       firstName,
@@ -239,6 +245,8 @@ export class StaySmartService {
       },
 
       isVerified: false,
+
+      point,
     };
 
     // Creating Tags for matching with Tutor Search Request

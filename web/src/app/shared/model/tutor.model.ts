@@ -1,6 +1,7 @@
 import {GeoLocation} from './geo-location.model';
 import {Image} from './image.model';
 import * as firebase from 'firebase/app';
+import {FirePoint} from 'geofirex/dist/client';
 import Timestamp = firebase.firestore.Timestamp;
 
 export interface Tutor {
@@ -46,6 +47,8 @@ export interface Tutor {
   profilePicture?: Image;
 
   isVerified: boolean;
+
+  point: FirePoint; // Future proofing for #61
 }
 
 export enum TutorStatus {

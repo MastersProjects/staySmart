@@ -59,7 +59,8 @@ describe('TpRequestDetailComponent', () => {
       problem: 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
       subject: 'Physik',
       timestamp: new Timestamp(1578106112, 229000000),
-      status: TutorSearchRequestStatus.NEW
+      status: TutorSearchRequestStatus.NEW,
+      point: null
     };
     fixture.detectChanges();
   });
