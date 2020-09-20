@@ -162,19 +162,12 @@ export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
         const createdTutorSearchRequest: any = snap.data();
         const tutorSearchRequestID = context.params['tutorSearchRequestID'];
 
-        console.log('createdTutorSearchRequest', createdTutorSearchRequest);
-
-        const requestDaysAvailableList: string[] = [];
-
-        Object.keys(createdTutorSearchRequest.daysAvailable).forEach(key => {
-            if (createdTutorSearchRequest.daysAvailable[key]) {
-                requestDaysAvailableList.push(key);
-            }
-        });
+        const requestDaysAvailableList: string[] = Object.keys(createdTutorSearchRequest.daysAvailable)
+            .filter(key => createdTutorSearchRequest.daysAvailable[key]);
 
         const matchingQuery = admin.firestore().collection('Tutors')
             .where('price', '<=', createdTutorSearchRequest.budget)
-            .where('status', '==', 'active')
+            .where('status', '==', 'activated')
             .where('tags.daysAvailable', 'array-contains-any', requestDaysAvailableList)
         ;
 
@@ -197,8 +190,6 @@ export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
             })
             .forEach(matchingTutorDoc => {
                 const matchingTutor = matchingTutorDoc.data();
-
-                console.log('matchingTutor', matchingTutor);
 
                 if (matchingTutor.matchingTutorSearchRequests) {
                     promises.push(matchingTutorDoc.ref.update({
@@ -237,44 +228,44 @@ export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
  * Send Tutor Activated E-Mail
  */
 export const sendTutorActivatedEmail = functions.region('europe-west6').https.onCall((data, _context) => {
-  const {tutorName, tutorEmail} = data;
+    const {tutorName, tutorEmail} = data;
 
-  const templatedEmail = handlebars.compile(tutorActivatedTemplate)({tutorName});
+    const templatedEmail = handlebars.compile(tutorActivatedTemplate)({tutorName});
 
-  const mailOptions: Mail.Options = {
-    from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
-    to: tutorEmail,
-    subject: 'Dein Konto wurde aktiviert.',
-    html: templatedEmail
-  };
+    const mailOptions: Mail.Options = {
+        from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
+        to: tutorEmail,
+        subject: 'Dein Konto wurde aktiviert.',
+        html: templatedEmail
+    };
 
-  return transporter.sendMail(mailOptions).then(() => {
-    console.log(`Sent to ${tutorEmail}`);
-  }).catch(error => {
-    console.error(error);
-  });
+    return transporter.sendMail(mailOptions).then(() => {
+        console.log(`Sent to ${tutorEmail}`);
+    }).catch(error => {
+        console.error(error);
+    });
 });
 
 /**
  * Send Tutor Verified E-Mail
  */
 export const sendTutorVerifiedEmail = functions.region('europe-west6').https.onCall((data, _context) => {
-  const {tutorName, tutorEmail} = data;
+    const {tutorName, tutorEmail} = data;
 
-  const templatedEmail = handlebars.compile(tutorVerifiedTemplate)({tutorName});
+    const templatedEmail = handlebars.compile(tutorVerifiedTemplate)({tutorName});
 
-  const mailOptions: Mail.Options = {
-    from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
-    to: tutorEmail,
-    subject: 'Dein Konto wurde verifiziert.',
-    html: templatedEmail
-  };
+    const mailOptions: Mail.Options = {
+        from: `StaySmart ${functions.config().env.code} ${functions.config().smtp.user}`,
+        to: tutorEmail,
+        subject: 'Dein Konto wurde verifiziert.',
+        html: templatedEmail
+    };
 
-  return transporter.sendMail(mailOptions).then(() => {
-    console.log(`Sent to ${tutorEmail}`);
-  }).catch(error => {
-    console.error(error);
-  });
+    return transporter.sendMail(mailOptions).then(() => {
+        console.log(`Sent to ${tutorEmail}`);
+    }).catch(error => {
+        console.error(error);
+    });
 });
 
 
