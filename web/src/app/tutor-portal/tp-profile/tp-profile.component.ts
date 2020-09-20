@@ -102,7 +102,7 @@ export class TpProfileComponent implements OnInit, OnDestroy {
       birthday: new FormControl('', Validators.required), // TODO min. age validator?
       streetAddress: new FormControl('', Validators.required),
       postalCode: new FormControl('', Validators.required),
-      city: new FormControl('', [Validators.required, locationDomainValidator]),
+      location: new FormControl('', [Validators.required, locationDomainValidator]),
       subjects: new FormControl('', Validators.required),
       gradeLevels: new FormControl('', Validators.required),
       daysAvailable: new FormGroup({
@@ -150,8 +150,8 @@ export class TpProfileComponent implements OnInit, OnDestroy {
     return this.profileInfoForm.controls.postalCode as FormControl;
   }
 
-  get city(): FormControl {
-    return this.profileInfoForm.controls.city as FormControl;
+  get location(): FormControl {
+    return this.profileInfoForm.controls.location as FormControl;
   }
 
   get subjects(): FormControl {
