@@ -86,8 +86,8 @@
                 <input type="text" id="postalCode" name="postalCode" class="form-control" formControlName="postalCode">
               </div>
               <div class="form-group col-9">
-                <label for="city">Ort</label>
-                <input type="text" id="city" name="city" class="form-control" formControlName="city"
+                <label for="location">Ort</label>
+                <input type="text" id="location" name="location" class="form-control" formControlName="location"
                        [ngbTypeahead]="searchLocation" [inputFormatter]="locationFormatterForm"
                        [resultFormatter]="locationFormatter">
                 <span *ngIf="searching">Suchen...</span>
@@ -95,9 +95,9 @@
                   Entschuldigung, Ortschaft konnte nicht geladen werden.
                 </div>
                 <small
-                  *ngIf="registrationForm.get('step2').get('city').invalid
-                    && (registrationForm.get('step2').get('city').dirty
-                    || registrationForm.get('step2').get('city').touched)" class="form-text text-danger">
+                  *ngIf="registrationForm.get('step2').get('location').invalid
+                    && (registrationForm.get('step2').get('location').dirty
+                    || registrationForm.get('step2').get('location').touched)" class="form-text text-danger">
                   Bitte gültige Ortschaft auswählen
                 </small>
               </div>

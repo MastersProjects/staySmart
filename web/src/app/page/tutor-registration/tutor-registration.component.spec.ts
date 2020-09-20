@@ -150,7 +150,7 @@ describe('TutorRegistrationComponent', () => {
   function fillStep2() {
     component.registrationForm.get('step2').get('streetAddress').setValue('street 26');
     component.registrationForm.get('step2').get('postalCode').setValue('6969');
-    component.registrationForm.get('step2').get('city').setValue({
+    component.registrationForm.get('step2').get('location').setValue({
       label: '<b>Dübendorf (ZH)</b>',
       detail: 'duebendorf zh',
       lon: 8.616637229919434,
