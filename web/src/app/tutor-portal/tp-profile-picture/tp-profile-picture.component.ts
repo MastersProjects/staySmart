@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Dimensions, ImageCroppedEvent} from 'ngx-image-cropper';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {Image} from '../../shared/model/image.model';
 import {getProfilePicture} from 'src/app/shared/utils.functions';
 
@@ -41,9 +41,8 @@ export class TpProfilePictureComponent implements OnInit {
     console.log('Image loaded');
   }
 
-  cropperReady(sourceImageDimensions: Dimensions) {
+  cropperReady() {
     this.isCropperReady = true;
-    console.log('Cropper ready', sourceImageDimensions);
   }
 
   loadImageFailed() {
