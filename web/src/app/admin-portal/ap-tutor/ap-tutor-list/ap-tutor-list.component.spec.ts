@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ApTutorListComponent} from './ap-tutor-list.component';
 import {AdminPortalService} from '../../shared/admin-portal.service';
@@ -8,7 +8,7 @@ describe('ApTutorListComponent', () => {
   let component: ApTutorListComponent;
   let fixture: ComponentFixture<ApTutorListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TestingModule,

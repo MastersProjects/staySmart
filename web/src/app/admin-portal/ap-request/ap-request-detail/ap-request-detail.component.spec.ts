@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ApRequestDetailComponent} from './ap-request-detail.component';
 import {TestingModule} from '../../../testing/testing.module';
@@ -8,7 +8,7 @@ describe('ApRequestDetailComponent', () => {
   let component: ApRequestDetailComponent;
   let fixture: ComponentFixture<ApRequestDetailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ApRequestDetailComponent],
       imports: [

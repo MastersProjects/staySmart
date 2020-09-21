@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {TutorSearchRequestOfferComponent} from './tutor-search-request-offer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -8,7 +8,7 @@ describe('TutorSearchRequestOfferComponent', () => {
   let component: TutorSearchRequestOfferComponent;
   let fixture: ComponentFixture<TutorSearchRequestOfferComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FontAwesomeModule,

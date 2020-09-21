@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {TpNavigationComponent} from './tp-navigation.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -7,7 +7,7 @@ describe('TpNavigationComponent', () => {
   let component: TpNavigationComponent;
   let fixture: ComponentFixture<TpNavigationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [FontAwesomeModule],
       declarations: [TpNavigationComponent]

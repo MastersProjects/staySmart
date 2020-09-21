@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail.component';
 import {TutorSearchRequestOfferComponent} from '../tutor-search-request-offer/tutor-search-request-offer.component';
@@ -11,7 +11,7 @@ describe('TutorSearchRequestDetailComponent', () => {
   let component: TutorSearchRequestDetailComponent;
   let fixture: ComponentFixture<TutorSearchRequestDetailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TestingModule,

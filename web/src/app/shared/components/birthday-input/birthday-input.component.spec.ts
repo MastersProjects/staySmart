@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {BirthdayInputComponent} from './birthday-input.component';
 import * as firebase from 'firebase/app';
@@ -8,7 +8,7 @@ describe('BirthdayInputComponent', () => {
   let component: BirthdayInputComponent;
   let fixture: ComponentFixture<BirthdayInputComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [BirthdayInputComponent]
     })

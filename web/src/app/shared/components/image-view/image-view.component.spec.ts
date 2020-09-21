@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ImageViewComponent} from './image-view.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
@@ -7,7 +7,7 @@ describe('ImageViewComponent', () => {
   let component: ImageViewComponent;
   let fixture: ComponentFixture<ImageViewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ImageViewComponent],
       providers: [NgbActiveModal]

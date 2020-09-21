@@ -1,4 +1,4 @@
-import {async, TestBed} from '@angular/core/testing';
+import {TestBed, waitForAsync} from '@angular/core/testing';
 
 import {LocationService} from './location.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -14,21 +14,21 @@ describe('LocationService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return result list', async(() => {
+  it('should return result list', waitForAsync(() => {
     const service: LocationService = TestBed.inject(LocationService);
     service.searchLocation('dueben').subscribe(res =>
       expect(res.length).toBeGreaterThan(0)
     );
   }));
 
-  it('should return empty list', async(() => {
+  it('should return empty list', waitForAsync(() => {
     const service: LocationService = TestBed.inject(LocationService);
     service.searchLocation('').subscribe(res =>
       expect(res.length).toBe(0)
     );
   }));
 
-  it('should return parsed object list', async(() => {
+  it('should return parsed object list', waitForAsync(() => {
     const service: LocationService = TestBed.inject(LocationService);
     service.searchLocation('gr').subscribe(res => {
       expect(res[0].label).toBeDefined();

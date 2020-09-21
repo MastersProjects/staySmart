@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ApRequestListCardComponent} from './ap-request-list-card.component';
 
@@ -6,7 +6,7 @@ describe('ApRequestListCardComponent', () => {
   let component: ApRequestListCardComponent;
   let fixture: ComponentFixture<ApRequestListCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ApRequestListCardComponent ]
     })

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {TutorSearchRequestComponent} from './tutor-search-request.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,7 @@ describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
   let fixture: ComponentFixture<TutorSearchRequestComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,

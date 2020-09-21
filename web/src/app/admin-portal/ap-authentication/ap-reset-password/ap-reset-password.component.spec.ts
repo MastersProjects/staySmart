@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ApResetPasswordComponent} from './ap-reset-password.component';
 import {TestingModule} from '../../../testing/testing.module';
@@ -7,7 +7,7 @@ describe('ApResetPasswordComponent', () => {
   let component: ApResetPasswordComponent;
   let fixture: ComponentFixture<ApResetPasswordComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TestingModule,
