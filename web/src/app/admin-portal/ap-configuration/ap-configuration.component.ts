@@ -96,7 +96,10 @@ export class ApConfigurationComponent implements OnInit, OnDestroy {
 
   private configurationDuplicateValidator = (configuration: 'subjects' | 'gradeLevels'): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-      const duplicate = this.configuration?.[configuration]
+      if (!this.configuration?.[configuration]) {
+        return null;
+      }
+      const duplicate = this.configuration[configuration]
         .find(item => item.toLocaleLowerCase() === control.value.toLocaleLowerCase());
       return duplicate ? {duplicate: true} : null;
     };
