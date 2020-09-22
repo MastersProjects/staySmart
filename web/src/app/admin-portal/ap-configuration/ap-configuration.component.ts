@@ -1,31 +1,51 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import {Observable} from 'rxjs';
+import {Subject} from 'rxjs';
 import {Configuration} from '../../shared/model/configuration.model';
-import {FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
 import {AngularFirePerformance} from '@angular/fire/performance';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-ap-configuration',
   templateUrl: './ap-configuration.component.html',
   styleUrls: ['./ap-configuration.component.scss']
 })
-export class ApConfigurationComponent implements OnInit {
-
-  configuration$: Observable<Configuration>;
+export class ApConfigurationComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
 
   newSubject: FormControl;
   newGradeLevel: FormControl;
   faTrash = faTrash;
 
+  configuration: Configuration;
+
   constructor(private configurationService: ConfigurationService, private angularFirePerformance: AngularFirePerformance) {
   }
 
   ngOnInit(): void {
-    this.configuration$ = this.configurationService.getConfigurationValueChanges();
-    this.newSubject = new FormControl('', Validators.required);
-    this.newGradeLevel = new FormControl('', Validators.required);
+    this.configurationService.getConfigurationValueChanges().pipe(takeUntil(this.destroy$))
+      .subscribe(configuration => {
+        this.configuration = configuration;
+      });
+    this.createFormControls();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private createFormControls(): void {
+    this.newSubject = new FormControl(
+      '',
+      [Validators.required, this.configurationDuplicateValidator('subjects')]
+    );
+    this.newGradeLevel = new FormControl(
+      '',
+      [Validators.required, this.configurationDuplicateValidator('gradeLevels')]
+    );
   }
 
   async submitNewSubject(subjects: string[] = []) {
@@ -74,7 +94,12 @@ export class ApConfigurationComponent implements OnInit {
       .finally(() => removeGradeLevelTrace.stop());
   }
 
-  isDuplicatedInArray(item: string, array: string[]) {
-    return array ? !!array.find(subject => subject.toLocaleLowerCase() === item.toLocaleLowerCase()) : false;
+  private configurationDuplicateValidator = (configuration: 'subjects' | 'gradeLevels'): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const duplicate = this.configuration?.[configuration]
+        .find(item => item.toLocaleLowerCase() === control.value.toLocaleLowerCase());
+      return duplicate ? {duplicate: true} : null;
+    };
   }
 }
+

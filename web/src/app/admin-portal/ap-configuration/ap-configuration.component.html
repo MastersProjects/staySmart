@@ -1,5 +1,5 @@
 <h1 class="h2">Konfigurationen</h1>
-<div *ngIf="configuration$ | async as configuration" class="mt-5">
+<div class="mt-5">
   <div class="card">
     <h2 class="h5 card-header">Fächer</h2>
     <div class="card-body">
@@ -25,7 +25,7 @@
           <div class="input-group-append">
             <button class="btn btn-success"
                     type="button"
-                    [disabled]="newSubject.invalid || isDuplicatedInArray(newSubject.value, configuration.subjects)"
+                    [disabled]="newSubject?.invalid"
                     (click)="submitNewSubject(configuration.subjects)">
               Hinzufügen
             </button>
@@ -60,7 +60,7 @@
           <div class="input-group-append">
             <button class="btn btn-success"
                     type="button"
-                    [disabled]="newGradeLevel.invalid || isDuplicatedInArray(newGradeLevel.value, configuration.gradeLevels)"
+                    [disabled]="newGradeLevel?.invalid"
                     (click)="submitNewGradeLevel(configuration.gradeLevels)">
               Hinzufügen
             </button>
