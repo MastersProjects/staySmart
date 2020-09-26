@@ -8,9 +8,9 @@ describe('ApNavigationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApNavigationComponent ]
+      declarations: [ApNavigationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +21,13 @@ describe('ApNavigationComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('onLogout', () => {
+    it('should emit logout event', () => {
+      spyOn(component.logout, 'emit');
+      component.onLogout();
+      expect(component.logout.emit).toHaveBeenCalled();
+    });
   });
 });
