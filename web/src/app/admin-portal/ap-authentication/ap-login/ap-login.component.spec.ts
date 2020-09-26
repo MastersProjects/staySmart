@@ -34,7 +34,7 @@ describe('ApLoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('login()', () => {
+  describe('login', () => {
     it('should login on valid', fakeAsync(() => {
       component.isLoading = false;
       component.loginForm.setValue({
@@ -134,7 +134,7 @@ describe('ApLoginComponent', () => {
     }));
   });
 
-  describe('sendEmailVerification()', () => {
+  describe('sendEmailVerification', () => {
     it('should send Email Verification Email and logout', fakeAsync(() => {
       (component as any).user = {
         emailVerified: false,
@@ -156,7 +156,7 @@ describe('ApLoginComponent', () => {
     }));
   });
 
-  describe('get userEmail()', () => {
+  describe('userEmail', () => {
     it('should return user email', fakeAsync(() => {
       (component as any).user = {
         email: 'Ben@Dover.ch',

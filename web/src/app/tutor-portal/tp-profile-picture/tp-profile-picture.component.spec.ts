@@ -29,7 +29,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('fileChangeEvent()', () => {
+  describe('fileChangeEvent', () => {
     it('should set imageChangedEvent', () => {
       component.imageChangedEvent = undefined;
       expect(component.imageChangedEvent).toBeFalsy();
@@ -40,7 +40,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     });
   });
 
-  describe('imageCropped()', () => {
+  describe('imageCropped', () => {
     it('should set imageCropped', () => {
       (component as any).croppedImage = undefined;
       expect((component as any).croppedImage).toBeFalsy();
@@ -51,7 +51,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     });
   });
 
-  describe('cropperImageLoaded()', () => {
+  describe('cropperImageLoaded', () => {
     it('should set cropperImageLoaded true', () => {
       component.isCropperImageLoaded = false;
       expect(component.isCropperImageLoaded).toBeFalsy();
@@ -74,7 +74,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     });
   });
 
-  describe('cropperReady()', () => {
+  describe('cropperReady', () => {
     it('should set isCropperReady true', () => {
       (component as any).isCropperReady = undefined;
       expect((component as any).isCropperReady).toBeFalsy();
@@ -85,7 +85,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     });
   });
 
-  describe('loadImageFailed()', () => {
+  describe('loadImageFailed', () => {
     it('should set call cancelProfilePicture', () => {
       spyOn(component, 'cancelProfilePicture');
 
@@ -95,7 +95,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     });
   });
 
-  describe('saveProfilePicture()', () => {
+  describe('saveProfilePicture', () => {
     it('should emit croppedImage and cancelProfilePicture', () => {
       spyOn(component.saveNewProfilePicture, 'emit');
       spyOn(component, 'cancelProfilePicture');
@@ -109,7 +109,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     });
   });
 
-  describe('cancelProfilePicture()', () => {
+  describe('cancelProfilePicture', () => {
     it('should emit croppedImage and cancelProfilePicture', () => {
       component.imageChangedEvent = {event: 'event'} as any;
       (component as any).croppedImage = 'croppedImage';
@@ -125,7 +125,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     });
   });
 
-  describe('getter showProfilePicture()', () => {
+  describe('showProfilePicture', () => {
     it('should return true on isCropperImageLoaded falsy and imageChangedEvent falsy', () => {
       component.isCropperImageLoaded = false;
       component.imageChangedEvent = undefined;
@@ -155,7 +155,7 @@ describe('TutorPortalProfilePictureComponent', () => {
     });
   });
 
-  describe('getter showPictureLoading()', () => {
+  describe('showPictureLoading', () => {
     it('should return true on imageChangedEvent truthy and isCropperReady falsy', () => {
       component.imageChangedEvent = {something: 'something'} as any;
       (component as any).isCropperReady = false;

@@ -28,7 +28,7 @@ describe('AdminPortalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('logout()', () => {
+  describe('logout', () => {
     it('should logout and navigate', fakeAsync(() => {
       const adminAuthService = TestBed.inject(AdminAuthService);
       const router = TestBed.inject(Router);

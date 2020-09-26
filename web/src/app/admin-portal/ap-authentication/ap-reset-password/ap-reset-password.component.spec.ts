@@ -31,7 +31,7 @@ describe('ApResetPasswordComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('sendPasswordResetEmail()', () => {
+  describe('sendPasswordResetEmail', () => {
     it('should send reset password email on form valid', fakeAsync(() => {
       component.resetPasswordForm.setValue({email: 'Ben@Dover.ch'});
       component.isLoading = false;

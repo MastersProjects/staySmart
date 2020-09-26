@@ -27,7 +27,7 @@ describe('TpRequestOfferFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('cancel()', () => {
+  describe('cancel', () => {
     it('should emit canceled event', () => {
       spyOn(component.canceled, 'emit');
 
@@ -37,7 +37,7 @@ describe('TpRequestOfferFormComponent', () => {
     });
   });
 
-  describe('submitOffer()', () => {
+  describe('submitOffer', () => {
     it('should emit submitted requestOfferForm event on valid', () => {
       spyOn(component.submitted, 'emit');
       component.minPrice = 5;
