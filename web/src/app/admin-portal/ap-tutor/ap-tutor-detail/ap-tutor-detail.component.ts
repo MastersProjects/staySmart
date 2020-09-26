@@ -217,6 +217,6 @@ export class ApTutorDetailComponent implements OnInit, OnDestroy {
 
   searchLocation = () => of([]);
 
-  locationFormatterForm = (result: GeoLocation) => result.label ? result.label : null;
+  locationFormatterForm = (result: GeoLocation) => result.label || null;
 
 }
