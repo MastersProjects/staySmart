@@ -1,0 +1,15 @@
+{
+  "name": "firebase-test",
+  "version": "1.0.0",
+  "description": "Unit testing for firebase",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --exit"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@firebase/testing": "^0.20.11",
+    "mocha": "^8.1.3"
+  }
+}
