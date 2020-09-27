@@ -4,7 +4,7 @@
   "description": "Unit testing for firebase",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "firebase emulators:exec --only firestore \"mocha --exit\""
   },
   "author": "",
   "license": "ISC",

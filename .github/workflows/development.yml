@@ -91,5 +91,5 @@ jobs:
 
       - name: Test
         if: success()
-        run: firebase emulators:exec --only firestore "npm run test --prefix firebase-test"
+        run: npm run test --prefix firebase-test
 
