@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {ApRequestDetailComponent} from './ap-request-detail.component';
 import {TestingModule} from '../../../testing/testing.module';
 import {AdminPortalService} from '../../shared/admin-portal.service';
+import {of} from 'rxjs';
 
 describe('ApRequestDetailComponent', () => {
   let component: ApRequestDetailComponent;
@@ -26,5 +27,18 @@ describe('ApRequestDetailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('loadOffers', () => {
+    it('should get tutorSearchRequestOffers', () => {
+      const adminPortalService = TestBed.inject(AdminPortalService);
+      spyOn(adminPortalService, 'getTutorSearchRequestOffers').and.returnValue(of({}));
+      component.tutorSearchRequestOffers$ = undefined;
+
+      component.loadOffers('tutorSearchRequestID');
+
+      expect(adminPortalService.getTutorSearchRequestOffers).toHaveBeenCalledWith('tutorSearchRequestID');
+      expect(component.tutorSearchRequestOffers$).toBeDefined();
+    });
   });
 });

@@ -31,7 +31,7 @@ describe('ApConfigurationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('submitNewSubject()', () => {
+  describe('submitNewSubject', () => {
     it('should submit new Subject on valid', fakeAsync(() => {
       spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
       spyOn(component.newSubject, 'reset');
@@ -105,7 +105,7 @@ describe('ApConfigurationComponent', () => {
     }));
   });
 
-  describe('submitNewGradeLevel()', () => {
+  describe('submitNewGradeLevel', () => {
     it('should submit new GradeLevel on valid', fakeAsync(() => {
       spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
       spyOn(component.newGradeLevel, 'reset');
@@ -179,7 +179,7 @@ describe('ApConfigurationComponent', () => {
     }));
   });
 
-  describe('removeSubject()', () => {
+  describe('removeSubject', () => {
     it('should remove Subject', fakeAsync(() => {
       spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
 
@@ -203,7 +203,7 @@ describe('ApConfigurationComponent', () => {
     }));
   });
 
-  describe('removeGradeLevel()', () => {
+  describe('removeGradeLevel', () => {
     it('should remove GradeLevel', fakeAsync(() => {
       spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
 
@@ -227,7 +227,7 @@ describe('ApConfigurationComponent', () => {
     }));
   });
 
-  describe('configurationDuplicateValidator()', () => {
+  describe('configurationDuplicateValidator', () => {
     it('should return ValidationErrors on duplication', () => {
       component.configuration = {
         subjects: ['Subject1', 'Subject2'],

@@ -43,7 +43,7 @@ export class ApRequestOfferDetailComponent {
   }
 
   get chevronRotation(): RotateProp {
-    return this.isCollapsed ? '180' : '' as any;
+    return this.isCollapsed ? 180 : '' as any;
   }
 
 }

@@ -1,7 +1,9 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
 
 import {AdminPortalComponent} from './admin-portal.component';
 import {TestingModule} from '../testing/testing.module';
+import {AdminAuthService} from '../auth/admin-auth.service';
+import {Router} from '@angular/router';
 
 describe('AdminPortalComponent', () => {
   let component: AdminPortalComponent;
@@ -24,5 +26,20 @@ describe('AdminPortalComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('logout', () => {
+    it('should logout and navigate', fakeAsync(() => {
+      const adminAuthService = TestBed.inject(AdminAuthService);
+      const router = TestBed.inject(Router);
+      spyOn(adminAuthService, 'logout');
+      spyOn(router, 'navigate');
+
+      component.logout();
+      tick(100);
+
+      expect(adminAuthService.logout).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(['/admin-portal/login']);
+    }));
   });
 });

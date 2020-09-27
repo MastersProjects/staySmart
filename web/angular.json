@@ -130,7 +130,10 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "codeCoverageExclude": ["src/app/testing/**"]
+            "codeCoverageExclude": [
+              "src/app/testing/**",
+              "src/app/**/*.module.ts"
+            ]
           }
         },
         "lint": {

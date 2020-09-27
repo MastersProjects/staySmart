@@ -24,4 +24,12 @@ describe('TpNavigationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onLogout', () => {
+    it('should emit logout event', () => {
+      spyOn(component.logout, 'emit');
+      component.onLogout();
+      expect(component.logout.emit).toHaveBeenCalled();
+    });
+  });
 });
