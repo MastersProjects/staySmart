@@ -268,6 +268,21 @@ export const sendTutorVerifiedEmail = functions.region('europe-west6').https.onC
     });
 });
 
+/**
+ * Grant Admin Role on create Admins Collection
+ */
+export const grantAdminRoleOnCreateAdmin = functions.region('europe-west6')
+    .firestore.document('Admins/{uid}')
+    .onCreate(async (_snap, context) => {
+        const user = await admin.auth().getUser(context.params['uid']);
+        if (!(user?.customClaims as any).isAdmin) {
+            console.log('grant admin to', user.email);
+            return admin.auth().setCustomUserClaims(user.uid, {isAdmin: true});
+        } else {
+            return null;
+        }
+    });
+
 
 export const sendWhatsApp = functions.region('europe-west1').https.onRequest((_request, response) => {
     const options = {
