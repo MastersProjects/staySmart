@@ -275,7 +275,7 @@ export const grantAdminRoleOnCreateAdmin = functions.region('europe-west6')
     .firestore.document('Admins/{uid}')
     .onCreate(async (_snap, context) => {
         const user = await admin.auth().getUser(context.params['uid']);
-        if (!(user?.customClaims as any).isAdmin) {
+        if (!(user?.customClaims as any)?.isAdmin) {
             console.log('grant admin to', user.email);
             return admin.auth().setCustomUserClaims(user.uid, {isAdmin: true});
         } else {
