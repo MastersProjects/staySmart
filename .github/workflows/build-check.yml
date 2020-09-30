@@ -6,28 +6,15 @@ on:
       - master
 
 jobs:
-  build:
-    name: Build Check
+  build-web:
+    name: Build Web Application
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12'
-
       - name: Install Dependencies
-        run: |
-          npm ci --prefix web
-          npm ci --prefix functions
-
-      - name: Lint
-        if: success()
-        run: |
-          npm run lint --prefix web
-          npm run lint --prefix functions
+        run: npm ci --prefix web
 
       - name: Build
         if: success()
@@ -35,8 +22,84 @@ jobs:
           npm run prebuild --prefix web
           npm run build.dev --prefix web
 
+
+  build-functions:
+    name: Build Firebase Cloud Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm ci --prefix functions
+
+      - name: Build
+        if: success()
+        run: |
+          npm run build --prefix functions
+
+
+  test-web:
+    name: Test Web Application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm ci --prefix web
+
       - name: Test
         if: success()
         run: |
           npm run test.sonar --prefix web
           npm run e2e --prefix web
+
+
+  test-rules:
+    name: Test Firestore Rules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm ci --prefix firebase-test
+
+      - name: Install Firebase Tools
+        if: success()
+        run: npm install -g firebase-tools
+
+      - name: Test
+        if: success()
+        run: npm run test --prefix firebase-test
+
+
+  lint-web:
+    name: Lint Web Aplication
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm ci --prefix web
+
+      - name: Lint
+        if: success()
+        run: npm run lint --prefix web
+
+
+  lint-functions:
+    name: Lint Firebase Cloud Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm ci --prefix web
+
+      - name: Lint
+        if: success()
+        run: npm run lint --prefix functions
