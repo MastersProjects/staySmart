@@ -1,17 +1,16 @@
-import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 
 describe('workspace-project App', () => {
-  let page: AppPage;
+  // let page: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+  // beforeEach(() => {
+  //   page = new AppPage();
+  // });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('Willkommen auf stay smart!');
-  });
+  // it('should display welcome message', () => {
+  //   page.navigateTo();
+  //   expect(page.getTitleText()).toEqual('Willkommen auf stay smart!');
+  // });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

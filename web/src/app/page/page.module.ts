@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 
 import {PageRoutingModule} from './page-routing.module';
 import {PageComponent} from './page.component';
-import {HomeComponent} from './home/home.component';
 import {TutorSearchRequestComponent} from './tutor-search-request/tutor-search-request.component';
 import {BannerComponent} from './banner/banner.component';
 import {TutorRegistrationComponent} from './tutor-registration/tutor-registration.component';
@@ -20,7 +19,6 @@ import {SharedModule} from '../shared/shared.module';
 @NgModule({
   declarations: [
     PageComponent,
-    HomeComponent,
     TutorSearchRequestComponent,
     BannerComponent,
     TutorRegistrationComponent,

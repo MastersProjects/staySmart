@@ -21,4 +21,13 @@ The frontEnd is an Angular web-project. Firebase is used for the backend and hos
 There are two environments for the application called `staySmart-dev` and `staySmart`. All commits made on the master branch are automatically deployed to dev environment. All releases made on the project are automatically deployed to production staySmart.
 
 ## URL
-* web: https://staysmart-dev.web.app
+* web:  [https://staysmart-dev.web.app](https://staysmart-dev.web.app)
+
+** Path
+* search tutor: [/anfragen](https://staysmart-dev.web.app/anfragen)
+* become tutor: [/anbieten](https://staysmart-dev.web.app/anbieten)
+
+* admin portal: [https://staysmart-dev.web.app/admin-portal](https://staysmart-dev.web.app/admin-portal)
+* tutor portal: [https://staysmart-dev.web.app/tutor-portal](https://staysmart-dev.web.app/tutor-portal)
+
+
