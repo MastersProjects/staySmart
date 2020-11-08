@@ -90,7 +90,7 @@ service cloud.firestore {
 
       match /TutorSearchRequestContactData/TutorSearchRequestContactData {
         allow create: if areFieldsValid(
-                        ['email', 'phoneNumber', 'linkRef'],
+                        ['email', 'phoneNumber'],
                         []
                       );  
       }

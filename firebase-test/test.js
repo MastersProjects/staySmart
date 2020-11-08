@@ -501,12 +501,12 @@ describe('Firebase Rules', () => {
         await adminFirestore
           .collection('TutorSearchRequests').doc('TutorSearchRequest')
           .collection('TutorSearchRequestContactData').doc('TutorSearchRequestContactData')
-          .set(tutorSearchRequestContactData.testDataCreate);
+          .set(tutorSearchRequestContactData.testData);
 
         const firestore = getFirestore();
         const testDoc = firestore
           .collectionGroup('TutorSearchRequestContactData')
-          .where('linkRef', '==', tutorSearchRequestContactData.testDataCreate.linkRef);
+          .where('linkRef', '==', tutorSearchRequestContactData.testData.linkRef);
 
         await firebase.assertSucceeds(testDoc.get());
       });
@@ -516,12 +516,12 @@ describe('Firebase Rules', () => {
         await adminFirestore
           .collection('TutorSearchRequests').doc('TutorSearchRequest')
           .collection('TutorSearchRequestContactData').doc('TutorSearchRequestContactData')
-          .set(tutorSearchRequestContactData.testDataCreate);
+          .set(tutorSearchRequestContactData.testData);
 
         const firestore = getFirestore();
         const testDoc = firestore
           .collectionGroup('TutorSearchRequestContactData')
-          .where('email', '==', tutorSearchRequestContactData.testDataCreate.email);
+          .where('email', '==', tutorSearchRequestContactData.testData.email);
 
         await firebase.assertFails(testDoc.get());
       });
@@ -531,7 +531,7 @@ describe('Firebase Rules', () => {
         await adminFirestore
           .collection('TutorSearchRequests').doc('TutorSearchRequest')
           .collection('TutorSearchRequestContactData').doc('TutorSearchRequestContactData')
-          .set(tutorSearchRequestContactData.testDataCreate);
+          .set(tutorSearchRequestContactData.testData);
 
         const firestore = getFirestore();
         const testDoc = firestore
