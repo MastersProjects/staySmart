@@ -44,7 +44,7 @@ export class StaySmartService {
     );
     batch.set(
       this.angularFirestore.collection('TutorSearchRequests').doc(tutorSearchRequestId)
-        .collection('TutorSearchRequestContactData').doc(this.angularFirestore.createId()).ref,
+        .collection('TutorSearchRequestContactData').doc('TutorSearchRequestContactData').ref,
       tutorSearchRequestContactData
     );
     return batch.commit().finally(() => this.ngxSpinnerService.hide());

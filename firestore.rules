@@ -1,7 +1,133 @@
+rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function isAdmin() {
+      return 'isAdmin' in request.auth.token 
+          && request.auth.token.isAdmin == true;
+    }
+
+    function areFieldsValid(requiredFields, optionalFields) {
+      let allFields = requiredFields.concat(optionalFields);
+      return request.resource.data.keys().hasAll(requiredFields) 
+          && request.resource.data.keys().hasOnly(allFields);
+    }
+
+    function areEditedFieldsValid(allowedFields) {
+      let affectedKeys = request.resource.data.diff(resource.data).affectedKeys();
+      return affectedKeys.hasOnly(allowedFields);
+    }
+
+    // Secure by default
     match /{document=**} {
-      allow read, write;
+      allow read: if false;
+      allow write: if false;
+    }
+
+    match /Admins/{adminDoc} {
+      allow get: if request.auth.uid == adminDoc;
+      allow update: if request.auth.uid == adminDoc;
+    }
+
+    match /Configurations/Configuration {
+      allow get: if true;
+      allow update: if isAdmin();
+      allow create: if isAdmin();
+    }
+
+    match /Tutors/{tutorDoc} {
+      // TODO deep field check
+      allow create: if request.auth.uid == tutorDoc
+                    && request.resource.data.uid == tutorDoc
+                    && request.resource.data.email == request.auth.token.email
+                    && (request.resource.data.price > 0 && request.resource.data.price < 21)
+                    && request.resource.data.isVerified == false
+                    && request.resource.data.status == 'new'
+                    && areFieldsValid(
+                      ['attention', 'birthday', 'daysAvailable', 'education', 'email', 'firstName', 'gradeLevels', 'isVerified', 'lastName', 'location', 'mobileNumber', 'point', 'postalCode', 'price', 'registrationTimestamp', 'status', 'streetAddress', 'studentCardBack', 'studentCardExpireDate','studentCardFront', 'subjects', 'tags', 'uid'],
+                      ['matchingTutorSearchRequests', 'profilePicture']
+                    );
+
+      // TODO deep field check
+      function updateAsTutorAllowed() {
+        return request.auth.uid == tutorDoc
+            && (request.resource.data.price > 0 && request.resource.data.price < 21)
+            && areEditedFieldsValid(
+              ['profilePicture', 'education', 'streetAddress', 'lastName', 'birthday', 'location', 'price', 'daysAvailable', 'tags', 'subjects', 'matchingTutorSearchRequests', 'postalCode', 'mobileNumber', 'point', 'firstName', 'gradeLevels']
+            );
+      }
+
+      function updateAsAdminAllowed() {
+        return isAdmin()
+            && request.resource.data.isVerified in [false, true]
+            && request.resource.data.status in ['activated', 'deactivated']
+            && areEditedFieldsValid(
+              ['isVerified', 'status']
+            );
+      }
+      
+      allow update: if updateAsTutorAllowed() || updateAsAdminAllowed();
+      allow get: if request.auth.uid == tutorDoc || isAdmin();
+      allow list: if isAdmin();
+    }
+
+    match /TutorSearchRequests/{tutorSearchRequestDoc} {
+      // TODO deep field check
+      allow create: if request.resource.data.status == 'new'
+                    && (request.resource.data.budget > 0 && request.resource.data.budget < 21)
+                    && areFieldsValid(
+                      ['problem', 'status', 'subject', 'point', 'budget', 'gradeLevel', 'lastName', 'daysAvailable', 'timestamp', 'firstName', 'location'],
+                      []
+                    );
+
+      allow update: if request.resource.data.status == 'mediated'
+                    && areEditedFieldsValid(
+                      ['status']
+                    );
+      
+      allow get: if true;
+      allow list: if request.auth != null;
+
+      match /TutorSearchRequestContactData/TutorSearchRequestContactData {
+        allow create: if areFieldsValid(
+                        ['email', 'phoneNumber', 'linkRef'],
+                        []
+                      );  
+      }
+      match /TutorSearchRequestOffers/{tutorSearchRequestOfferDoc} {
+
+        function areTutorDataValid() {
+          let tutor = get(/databases/$(database)/documents/Tutors/$(request.auth.uid)).data;
+          return tutor.status == 'activated'
+              && tutor.isVerified == request.resource.data.isVerified;
+        }
+
+        // TODO deep field check
+        allow create: if request.auth != null
+                      && request.resource.data.status == 'new'
+                      && request.auth.uid == request.resource.data.uid
+                      && areFieldsValid(
+                        ['uid', 'message', 'price', 'firstName', 'lastName', 'timestamp', 'status', 'profilePicture', 'tutorSearchRequest', 'isVerified'],
+                        []
+                      )
+                      && areTutorDataValid();
+
+        allow update: if (request.resource.data.status == 'accepted' && areEditedFieldsValid(['status', 'tutorSearchRequest']))
+                      || (request.resource.data.status == 'declined' && areEditedFieldsValid(['status']));
+
+        allow list: if isAdmin()
+                    || (resource.data.uid in ['new', 'accepted']);
+
+      }
+    }
+
+    match /{path=**}/TutorSearchRequestContactData/{TutorSearchRequestContactDataDoc} { // rule for collection group query         
+        allow list: if resource.data.linkRef != null;
+    }
+
+    match /{path=**}/TutorSearchRequestOffers/{TutorSearchRequestOfferDoc} { // rule for collection group query         
+        allow list: if isAdmin()
+                    || (request.auth != null && request.auth.uid == resource.data.uid);
     }
   }
 }
