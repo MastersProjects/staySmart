@@ -116,11 +116,11 @@ export class StaySmartService {
             return of(null);
           }
         }),
-        switchMap(tutorSearchRequest => {
+        switchMap((tutorSearchRequest: TutorSearchRequest) => {
           if (tutorSearchRequest) {
             return this.angularFirestore
               .collection('TutorSearchRequests')
-              .doc((tutorSearchRequest as TutorSearchRequest).tutorSearchRequestData.id)
+              .doc(tutorSearchRequest.tutorSearchRequestData.id)
               .collection<TutorSearchRequestOffer>(
                 'TutorSearchRequestOffers',
                 ref => ref
