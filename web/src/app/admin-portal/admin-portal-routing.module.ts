@@ -18,13 +18,13 @@ const routes: Routes = [
     path: '',
     component: AdminPortalComponent,
     children: [
-      {path: 'tutors', component: ApTutorListComponent},
-      {path: 'tutor/:uid', component: ApTutorDetailComponent},
       {path: 'requests', component: ApRequestListComponent},
       {path: 'request/:tutorSearchRequestID', component: ApRequestDetailComponent},
       {path: 'offers', component: ApRequestOfferListComponent},
+      {path: 'tutors', component: ApTutorListComponent},
+      {path: 'tutor/:uid', component: ApTutorDetailComponent},
       {path: 'configuration', component: ApConfigurationComponent},
-      /*{path: '', pathMatch: 'full', redirectTo: 'child'}*/
+      {path: '', pathMatch: 'full', redirectTo: 'requests'}
     ],
     canActivate: [AdminPortalAuthGuard]
   },
