@@ -80,9 +80,8 @@ jobs:
 
       - name: Test
         if: success()
-        run: |
+        run: | # TODO enable npm run e2e --prefix web
           npm run test.sonar --prefix web
-          npm run e2e --prefix web
 
       - name: SonarCloud Scan
         if: success()
