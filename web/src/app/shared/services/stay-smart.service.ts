@@ -133,9 +133,7 @@ export class StaySmartService {
                  * https://firebase.googleblog.com/2019/11/cloud-firestore-now-supports-in-queries.html
                  */
               ).valueChanges({idField: 'id'}).pipe(
-                map(tutorSearchRequestOffers => {
-                  return {...tutorSearchRequest, tutorSearchRequestOffers};
-                })
+                map(tutorSearchRequestOffers => ({...tutorSearchRequest, tutorSearchRequestOffers}))
               );
           } else {
             return of(null);
@@ -148,8 +146,7 @@ export class StaySmartService {
 
   acceptTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
                                 tutorSearchRequest: TutorSearchRequest): Promise<void[]> {
-    const updatedOffer: TutorSearchRequestOffer = {
-      ...tutorSearchRequestOffer,
+    const updatedOffer: Partial<TutorSearchRequestOffer> = {
       status: TutorSearchRequestOfferStatus.ACCEPTED,
       tutorSearchRequest: {
         tutorSearchRequestData: tutorSearchRequest.tutorSearchRequestData,
@@ -161,6 +158,7 @@ export class StaySmartService {
     };
     const updateOffer = this.updateTutorSearchRequestOffer(
       updatedOffer,
+      tutorSearchRequestOffer.id,
       tutorSearchRequest.tutorSearchRequestData.id
     );
     const updateRequestStatus = this.angularFirestore
@@ -174,27 +172,30 @@ export class StaySmartService {
         console.log('to decline', currentValue);
         return [
           ...previousValue,
-          this.declineTutorSearchRequestOffer(currentValue, tutorSearchRequest.tutorSearchRequestData.id)
+          this.declineTutorSearchRequestOffer(currentValue.id, tutorSearchRequest.tutorSearchRequestData.id)
         ];
       }, []);
     return Promise.all([updateOffer, updateRequestStatus, ...offersToDecline]);
   }
 
-  declineTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
-                                 tutorSearchRequestDataId: string): Promise<void> {
+  declineTutorSearchRequestOffer(tutorSearchRequestOfferId: string, tutorSearchRequestDataId: string): Promise<void> {
     return this.updateTutorSearchRequestOffer(
-      {...tutorSearchRequestOffer, status: TutorSearchRequestOfferStatus.DECLINED},
+      {status: TutorSearchRequestOfferStatus.DECLINED},
+      tutorSearchRequestOfferId,
       tutorSearchRequestDataId
     );
   }
 
-  private updateTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
-                                        tutorSearchRequestDataId: string): Promise<void> {
+  private updateTutorSearchRequestOffer(
+    tutorSearchRequestOffer: Partial<TutorSearchRequestOffer>,
+    tutorSearchRequestOfferId: string,
+    tutorSearchRequestDataId: string
+  ): Promise<void> {
     return this.angularFirestore
       .collection('TutorSearchRequests')
       .doc(tutorSearchRequestDataId)
       .collection('TutorSearchRequestOffers')
-      .doc(tutorSearchRequestOffer.id)
+      .doc(tutorSearchRequestOfferId)
       .update(tutorSearchRequestOffer);
   }
 

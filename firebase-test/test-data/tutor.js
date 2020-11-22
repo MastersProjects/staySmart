@@ -268,6 +268,9 @@ exports.testDataUpdateAllowedAsTutor = {
   "gradeLevels": [
     "1. - 3. Klasse",
     "4. - 6. Klasse"
+  ],
+  sentOffers: [
+    'ID', 'ID2'
   ]
 };
 
@@ -285,7 +288,7 @@ exports.testDataMissingFields = {
 };
 
 exports.createRequiredFields = ['attention', 'birthday', 'daysAvailable', 'education', 'email', 'firstName', 'gradeLevels', 'isVerified', 'lastName', 'location', 'mobileNumber', 'point', 'postalCode', 'price', 'registrationTimestamp', 'status', 'streetAddress', 'studentCardBack', 'studentCardExpireDate','studentCardFront', 'subjects', 'tags', 'uid'];
-exports.updateAllowedFieldsAsTutor = ['profilePicture', 'education', 'streetAddress', 'lastName', 'birthday', 'location', 'price', 'daysAvailable', 'tags', 'subjects', 'matchingTutorSearchRequests', 'postalCode', 'mobileNumber', 'point', 'firstName', 'gradeLevels'];
+exports.updateAllowedFieldsAsTutor = ['profilePicture', 'education', 'streetAddress', 'lastName', 'birthday', 'location', 'price', 'daysAvailable', 'tags', 'subjects', 'matchingTutorSearchRequests', 'postalCode', 'mobileNumber', 'point', 'firstName', 'gradeLevels', 'sentOffers'];
 exports.updateNotAllowedFieldsAsTutor = ['attention', 'email', 'isVerified', 'registrationTimestamp', 'studentCardBack', 'studentCardExpireDate', 'studentCardFront', 'uid', 'status'];
 
 exports.updateNotAllowedFieldsAsAdmin = ['profilePicture', 'education', 'streetAddress', 'lastName', 'birthday', 'location', 'price', 'daysAvailable', 'tags', 'subjects', 'matchingTutorSearchRequests', 'postalCode', 'mobileNumber', 'point', 'firstName', 'gradeLevels', 'attention', 'email', 'registrationTimestamp', 'studentCardBack', 'studentCardExpireDate', 'studentCardFront', 'uid'];

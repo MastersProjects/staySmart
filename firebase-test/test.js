@@ -720,32 +720,32 @@ describe('Firebase Rules', () => {
         await firebase.assertSucceeds(testDoc.get());
       });
 
-      it('should allow unauthenticated if query uid new', async () => {
+      it('should allow unauthenticated if query status new', async () => {
         const adminFirestore = getAdminFirestore();
         await adminFirestore
           .collection('TutorSearchRequests').doc('TutorSearchRequest')
           .collection('TutorSearchRequestOffers').doc('TutorSearchRequestOffer')
-          .set(tutorSearchRequestOffer.testDataCreate);
+          .set({...tutorSearchRequestOffer.testDataCreate, status: 'new'});
 
         const firestore = getFirestore();
         const testDoc = firestore
           .collection('TutorSearchRequests').doc('TutorSearchRequest')
-          .collection('TutorSearchRequestOffers').where('uid', '==', 'new');
+          .collection('TutorSearchRequestOffers').where('status', '==', 'new');
 
         await firebase.assertSucceeds(testDoc.get());
       });
 
-      it('should allow unauthenticated if query uid accepted', async () => {
+      it('should allow unauthenticated if query status accepted', async () => {
         const adminFirestore = getAdminFirestore();
         await adminFirestore
           .collection('TutorSearchRequests').doc('TutorSearchRequest')
           .collection('TutorSearchRequestOffers').doc('TutorSearchRequestOffer')
-          .set(tutorSearchRequestOffer.testDataCreate);
+          .set({...tutorSearchRequestOffer.testDataCreate, status: 'accepted'});
 
         const firestore = getFirestore();
         const testDoc = firestore
           .collection('TutorSearchRequests').doc('TutorSearchRequest')
-          .collection('TutorSearchRequestOffers').where('uid', '==', 'accepted');
+          .collection('TutorSearchRequestOffers').where('status', '==', 'accepted');
 
         await firebase.assertSucceeds(testDoc.get());
       });

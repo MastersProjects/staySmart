@@ -53,7 +53,7 @@ service cloud.firestore {
         return request.auth.uid == tutorDoc
             && (request.resource.data.price > 0 && request.resource.data.price < 21)
             && areEditedFieldsValid(
-              ['profilePicture', 'education', 'streetAddress', 'lastName', 'birthday', 'location', 'price', 'daysAvailable', 'tags', 'subjects', 'matchingTutorSearchRequests', 'postalCode', 'mobileNumber', 'point', 'firstName', 'gradeLevels']
+              ['profilePicture', 'education', 'streetAddress', 'lastName', 'birthday', 'location', 'price', 'daysAvailable', 'tags', 'subjects', 'matchingTutorSearchRequests', 'postalCode', 'mobileNumber', 'point', 'firstName', 'gradeLevels', 'sentOffers']
             );
       }
 
@@ -116,7 +116,7 @@ service cloud.firestore {
                       || (request.resource.data.status == 'declined' && areEditedFieldsValid(['status']));
 
         allow list: if isAdmin()
-                    || (resource.data.uid in ['new', 'accepted']);
+                    || (resource.data.status in ['new', 'accepted']);
 
       }
     }

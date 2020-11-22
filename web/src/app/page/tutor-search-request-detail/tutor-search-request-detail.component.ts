@@ -42,7 +42,7 @@ export class TutorSearchRequestDetailComponent implements OnInit {
   }
 
   declineOffer(tutorSearchRequestOffer: TutorSearchRequestOffer, tutorSearchRequestDataId: string) {
-    this.staySmartService.declineTutorSearchRequestOffer(tutorSearchRequestOffer, tutorSearchRequestDataId).then(() => {
+    this.staySmartService.declineTutorSearchRequestOffer(tutorSearchRequestOffer.id, tutorSearchRequestDataId).then(() => {
       console.log('declined offer', tutorSearchRequestOffer);
     });
   }
