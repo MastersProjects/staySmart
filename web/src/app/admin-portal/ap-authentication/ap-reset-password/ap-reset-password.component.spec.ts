@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ApResetPasswordComponent} from './ap-reset-password.component';
 import {TestingModule} from '../../../testing/testing.module';
@@ -10,15 +10,15 @@ describe('ApResetPasswordComponent', () => {
   let fixture: ComponentFixture<ApResetPasswordComponent>;
   let adminAuthService: AdminAuthService;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
       ],
       declarations: [ApResetPasswordComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ApResetPasswordComponent);
@@ -36,7 +36,7 @@ describe('ApResetPasswordComponent', () => {
       component.resetPasswordForm.setValue({email: 'Ben@Dover.ch'});
       component.isLoading = false;
       component.submitted = false;
-      spyOn(adminAuthService, 'resetPassword').and.returnValue(of({}).toPromise());
+      spyOn(adminAuthService, 'resetPassword').and.returnValue(of<void>().toPromise());
 
       component.sendPasswordResetEmail();
       expect(component.isLoading).toBeTruthy();
@@ -51,7 +51,7 @@ describe('ApResetPasswordComponent', () => {
       component.resetPasswordForm.setValue({email: ''});
       component.isLoading = false;
       component.submitted = false;
-      spyOn(adminAuthService, 'resetPassword').and.returnValue(of({}).toPromise());
+      spyOn(adminAuthService, 'resetPassword').and.returnValue(of<void>().toPromise());
 
       component.sendPasswordResetEmail();
       expect(component.isLoading).toBeFalsy();

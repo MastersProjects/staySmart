@@ -1,32 +1,38 @@
-import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ApLoginComponent} from './ap-login.component';
 import {TestingModule} from '../../../testing/testing.module';
 import {AdminAuthService} from '../../../auth/admin-auth.service';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
+import {AngularFirePerformance} from '@angular/fire/performance';
+import {TraceMock} from '../../../testing/angular-fire-performance-mock';
 
 describe('ApLoginComponent', () => {
   let component: ApLoginComponent;
   let fixture: ComponentFixture<ApLoginComponent>;
   let adminAuthService: AdminAuthService;
   let router: Router;
+  let angularFirePerformance: AngularFirePerformance;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule
       ],
       declarations: [ApLoginComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ApLoginComponent);
     component = fixture.componentInstance;
     adminAuthService = TestBed.inject(AdminAuthService);
     router = TestBed.inject(Router);
+    angularFirePerformance = TestBed.inject(AngularFirePerformance);
+    spyOn(angularFirePerformance, 'trace').and.returnValue(of(new TraceMock() as any).toPromise());
+
     fixture.detectChanges();
   });
 
@@ -49,7 +55,7 @@ describe('ApLoginComponent', () => {
             emailVerified: true,
             email: 'Ben@Dover.ch'
           }
-        }
+        } as any
       ).toPromise());
       spyOn(router, 'navigate');
 
@@ -78,7 +84,7 @@ describe('ApLoginComponent', () => {
             emailVerified: false,
             email: 'Ben@Dover.ch'
           }
-        }
+        } as any
       ).toPromise());
       spyOn(router, 'navigate');
 
@@ -130,7 +136,7 @@ describe('ApLoginComponent', () => {
       expect(component.isLoading).toBeFalsy();
       tick(100);
 
-      expect(adminAuthService.login).not.toHaveBeenCalledWith();
+      expect(adminAuthService.login).not.toHaveBeenCalled();
     }));
   });
 
@@ -144,7 +150,7 @@ describe('ApLoginComponent', () => {
       component.emailVerifiedError = true;
       component.emailVerificationSent = false;
       spyOn((component as any).user, 'sendEmailVerification').and.callThrough();
-      spyOn(adminAuthService, 'logout').and.returnValue(of({}).toPromise());
+      spyOn(adminAuthService, 'logout').and.returnValue(of<void>().toPromise());
 
       component.sendEmailVerification();
       tick(100);

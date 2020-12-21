@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TutorSearchRequestComponent} from './tutor-search-request.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -11,8 +11,8 @@ describe('TutorSearchRequestComponent', () => {
   let component: TutorSearchRequestComponent;
   let fixture: ComponentFixture<TutorSearchRequestComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         NgbModule,
         TestingModule,
@@ -24,7 +24,7 @@ describe('TutorSearchRequestComponent', () => {
         StepperComponent
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TutorSearchRequestComponent);
@@ -155,13 +155,17 @@ describe('TutorSearchRequestComponent', () => {
   });
 
   it('one day selected', () => {
-   let days = {monday: null, tuesday: false, wednesday: false, thursday: false, friday: false,
-    saturday: false, sunday: false};
-   expect(component.isOneDaySelected(days)).toBeFalsy();
+    let days = {
+      monday: null, tuesday: false, wednesday: false, thursday: false, friday: false,
+      saturday: false, sunday: false
+    };
+    expect(component.isOneDaySelected(days)).toBeFalsy();
 
-   days = {monday: true, tuesday: true, wednesday: false, thursday: false, friday: false,
-    saturday: false, sunday: false};
-   expect(component.isOneDaySelected(days)).toBeTruthy();
+    days = {
+      monday: true, tuesday: true, wednesday: false, thursday: false, friday: false,
+      saturday: false, sunday: false
+    };
+    expect(component.isOneDaySelected(days)).toBeTruthy();
   });
 
   it('step three validity', () => {

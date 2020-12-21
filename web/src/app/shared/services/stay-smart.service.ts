@@ -106,9 +106,9 @@ export class StaySmartService {
           if (!querySnapshot.empty) {
             return this.angularFirestore
               .doc<TutorSearchRequestData>(querySnapshot.docs[0].ref.parent.parent.path)
-              .snapshotChanges().pipe(
-                map(snap => ({
-                  tutorSearchRequestData: {...snap.payload.data(), id: snap.payload.id} as TutorSearchRequestData,
+              .valueChanges({idField: 'id'}).pipe(
+                map(tutorSearchRequestData => ({
+                  tutorSearchRequestData,
                   tutorSearchRequestContactData: querySnapshot.docs[0].data()
                 } as TutorSearchRequest))
               );

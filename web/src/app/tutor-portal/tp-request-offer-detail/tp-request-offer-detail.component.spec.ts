@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpRequestOfferDetailComponent} from './tp-request-offer-detail.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -8,8 +8,8 @@ describe('TpRequestOfferDetailComponent', () => {
   let component: TpRequestOfferDetailComponent;
   let fixture: ComponentFixture<TpRequestOfferDetailComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
         NgbNavModule
@@ -17,7 +17,7 @@ describe('TpRequestOfferDetailComponent', () => {
       declarations: [TpRequestOfferDetailComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TpRequestOfferDetailComponent);

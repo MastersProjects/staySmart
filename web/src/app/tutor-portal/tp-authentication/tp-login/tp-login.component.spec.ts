@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpLoginComponent} from './tp-login.component';
 import {TestingModule} from '../../../testing/testing.module';
@@ -7,15 +7,15 @@ describe('TpLoginComponent', () => {
   let component: TpLoginComponent;
   let fixture: ComponentFixture<TpLoginComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
       ],
       declarations: [TpLoginComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TpLoginComponent);

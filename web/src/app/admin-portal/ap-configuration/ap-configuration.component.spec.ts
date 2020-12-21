@@ -1,29 +1,34 @@
-import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ApConfigurationComponent} from './ap-configuration.component';
 import {TestingModule} from '../../testing/testing.module';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {of, throwError} from 'rxjs';
+import {AngularFirePerformance} from '@angular/fire/performance';
+import {TraceMock} from '../../testing/angular-fire-performance-mock';
 
 describe('ApConfigurationComponent', () => {
   let component: ApConfigurationComponent;
   let fixture: ComponentFixture<ApConfigurationComponent>;
   let configurationService: ConfigurationService;
+  let angularFirePerformance: AngularFirePerformance;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
       ],
       declarations: [ApConfigurationComponent]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ApConfigurationComponent);
     component = fixture.componentInstance;
     configurationService = TestBed.inject(ConfigurationService);
+    angularFirePerformance = TestBed.inject(AngularFirePerformance);
+    spyOn(angularFirePerformance, 'trace').and.returnValue(of(new TraceMock() as any).toPromise());
     fixture.detectChanges();
   });
 
@@ -33,7 +38,7 @@ describe('ApConfigurationComponent', () => {
 
   describe('submitNewSubject', () => {
     it('should submit new Subject on valid', fakeAsync(() => {
-      spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
+      spyOn(configurationService, 'saveConfiguration').and.returnValue(of<void>().toPromise());
       spyOn(component.newSubject, 'reset');
       component.configuration = {
         subjects: ['Subject1', 'Subject2'],
@@ -42,7 +47,7 @@ describe('ApConfigurationComponent', () => {
       component.newSubject.setValue('Subject3');
 
       component.submitNewSubject(component.configuration.subjects);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {subjects: ['Subject1', 'Subject2', 'Subject3']}
@@ -51,7 +56,7 @@ describe('ApConfigurationComponent', () => {
     }));
 
     it('should submit first new Subject on valid', fakeAsync(() => {
-      spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
+      spyOn(configurationService, 'saveConfiguration').and.returnValue(of<void>().toPromise());
       spyOn(component.newSubject, 'reset');
       component.configuration = {
         subjects: undefined,
@@ -60,7 +65,7 @@ describe('ApConfigurationComponent', () => {
       component.newSubject.setValue('Subject3');
 
       component.submitNewSubject(component.configuration.subjects);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {subjects: ['Subject3']}
@@ -78,7 +83,7 @@ describe('ApConfigurationComponent', () => {
       component.newSubject.setValue('Subject3');
 
       component.submitNewSubject(component.configuration.subjects);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {subjects: ['Subject1', 'Subject2', 'Subject3']}
@@ -87,7 +92,7 @@ describe('ApConfigurationComponent', () => {
     }));
 
     it('should not submit new Subject on invalid', fakeAsync(() => {
-      spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
+      spyOn(configurationService, 'saveConfiguration').and.returnValue(of<void>().toPromise());
       spyOn(component.newSubject, 'reset');
       component.configuration = {
         subjects: ['Subject1', 'Subject2'],
@@ -96,7 +101,7 @@ describe('ApConfigurationComponent', () => {
       component.newSubject.setValue('');
 
       component.submitNewSubject(component.configuration.subjects);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).not.toHaveBeenCalledWith(
         {subjects: ['Subject1', 'Subject2', 'Subject3']}
@@ -107,7 +112,7 @@ describe('ApConfigurationComponent', () => {
 
   describe('submitNewGradeLevel', () => {
     it('should submit new GradeLevel on valid', fakeAsync(() => {
-      spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
+      spyOn(configurationService, 'saveConfiguration').and.returnValue(of<void>().toPromise());
       spyOn(component.newGradeLevel, 'reset');
       component.configuration = {
         subjects: ['Subject1', 'Subject2'],
@@ -116,7 +121,7 @@ describe('ApConfigurationComponent', () => {
       component.newGradeLevel.setValue('GradeLevel3');
 
       component.submitNewGradeLevel(component.configuration.gradeLevels);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {gradeLevels: ['GradeLevel1', 'GradeLevel2', 'GradeLevel3']}
@@ -125,7 +130,7 @@ describe('ApConfigurationComponent', () => {
     }));
 
     it('should submit first new GradeLevel on valid', fakeAsync(() => {
-      spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
+      spyOn(configurationService, 'saveConfiguration').and.returnValue(of<void>().toPromise());
       spyOn(component.newGradeLevel, 'reset');
       component.configuration = {
         subjects: undefined,
@@ -134,7 +139,7 @@ describe('ApConfigurationComponent', () => {
       component.newGradeLevel.setValue('GradeLevel3');
 
       component.submitNewGradeLevel(component.configuration.gradeLevels);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {gradeLevels: ['GradeLevel3']}
@@ -152,7 +157,7 @@ describe('ApConfigurationComponent', () => {
       component.newGradeLevel.setValue('GradeLevel3');
 
       component.submitNewGradeLevel(component.configuration.gradeLevels);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {gradeLevels: ['GradeLevel1', 'GradeLevel2', 'GradeLevel3']}
@@ -161,7 +166,7 @@ describe('ApConfigurationComponent', () => {
     }));
 
     it('should not submit new GradeLevel on invalid', fakeAsync(() => {
-      spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
+      spyOn(configurationService, 'saveConfiguration').and.returnValue(of<void>().toPromise());
       spyOn(component.newGradeLevel, 'reset');
       component.configuration = {
         subjects: ['Subject1', 'Subject2'],
@@ -170,7 +175,7 @@ describe('ApConfigurationComponent', () => {
       component.newGradeLevel.setValue('');
 
       component.submitNewGradeLevel(component.configuration.gradeLevels);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).not.toHaveBeenCalledWith(
         {gradeLevels: ['GradeLevel1', 'GradeLevel2', 'GradeLevel3']}
@@ -181,10 +186,10 @@ describe('ApConfigurationComponent', () => {
 
   describe('removeSubject', () => {
     it('should remove Subject', fakeAsync(() => {
-      spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
+      spyOn(configurationService, 'saveConfiguration').and.returnValue(of<void>().toPromise());
 
       component.removeSubject('Subject2', ['Subject1', 'Subject2', 'Subject3']);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {subjects: ['Subject1', 'Subject3']}
@@ -195,7 +200,7 @@ describe('ApConfigurationComponent', () => {
       spyOn(configurationService, 'saveConfiguration').and.returnValue(throwError('error').toPromise());
 
       component.removeSubject('Subject2', ['Subject1', 'Subject2', 'Subject3']);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {subjects: ['Subject1', 'Subject3']}
@@ -205,10 +210,10 @@ describe('ApConfigurationComponent', () => {
 
   describe('removeGradeLevel', () => {
     it('should remove GradeLevel', fakeAsync(() => {
-      spyOn(configurationService, 'saveConfiguration').and.returnValue(of({}).toPromise());
+      spyOn(configurationService, 'saveConfiguration').and.returnValue(of<void>().toPromise());
 
       component.removeGradeLevel('GradeLevel2', ['GradeLevel1', 'GradeLevel2', 'GradeLevel3']);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {gradeLevels: ['GradeLevel1', 'GradeLevel3']}
@@ -219,7 +224,7 @@ describe('ApConfigurationComponent', () => {
       spyOn(configurationService, 'saveConfiguration').and.returnValue(throwError('error').toPromise());
 
       component.removeGradeLevel('GradeLevel2', ['GradeLevel1', 'GradeLevel2', 'GradeLevel3']);
-      tick(10);
+      tick();
 
       expect(configurationService.saveConfiguration).toHaveBeenCalledWith(
         {gradeLevels: ['GradeLevel1', 'GradeLevel3']}

@@ -71,10 +71,7 @@ export class AdminPortalService {
       .collectionGroup<TutorSearchRequestOffer>(
         'TutorSearchRequestOffers',
         ref => ref.orderBy('timestamp', 'desc')
-      ).snapshotChanges().pipe(
-        map(snapshots => {
-          return snapshots.map(snapshot => ({...snapshot.payload.doc.data(), id: snapshot.payload.doc.id}));
-        }),
+      ).valueChanges({idField: 'id'}).pipe(
         trace('AP: getAllTutorSearchRequestOffers')
       );
   }

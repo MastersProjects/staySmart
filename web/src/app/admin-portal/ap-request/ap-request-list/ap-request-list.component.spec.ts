@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ApRequestListComponent} from './ap-request-list.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -11,8 +11,8 @@ describe('ApRequestListComponent', () => {
   let component: ApRequestListComponent;
   let fixture: ComponentFixture<ApRequestListComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
         FontAwesomeModule,
@@ -24,7 +24,7 @@ describe('ApRequestListComponent', () => {
       ],
       providers: [AdminPortalService]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ApRequestListComponent);

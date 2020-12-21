@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TutorPortalComponent} from './tutor-portal.component';
 import {TpNavigationComponent} from './tp-navigation/tp-navigation.component';
@@ -9,8 +9,8 @@ describe('TutorPortalComponent', () => {
   let component: TutorPortalComponent;
   let fixture: ComponentFixture<TutorPortalComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
         FontAwesomeModule
@@ -21,7 +21,7 @@ describe('TutorPortalComponent', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TutorPortalComponent);

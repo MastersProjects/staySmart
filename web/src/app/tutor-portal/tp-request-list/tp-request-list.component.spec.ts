@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpRequestListComponent} from './tp-request-list.component';
 import {TutorPortalService} from '../shared/tutor-portal.service';
@@ -11,8 +11,8 @@ describe('TpRequestListComponent', () => {
   let component: TpRequestListComponent;
   let fixture: ComponentFixture<TpRequestListComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
         FontAwesomeModule,
@@ -25,7 +25,7 @@ describe('TpRequestListComponent', () => {
       providers: [TutorPortalService]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TpRequestListComponent);

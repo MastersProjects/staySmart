@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpDashboardComponent} from './tp-dashboard.component';
 import {TpRequestListComponent} from '../tp-request-list/tp-request-list.component';
@@ -12,8 +12,8 @@ describe('TpDashboardComponent', () => {
   let component: TpDashboardComponent;
   let fixture: ComponentFixture<TpDashboardComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
         FontAwesomeModule,
@@ -27,7 +27,7 @@ describe('TpDashboardComponent', () => {
       providers: [TutorPortalService]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TpDashboardComponent);

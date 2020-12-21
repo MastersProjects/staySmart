@@ -44,14 +44,14 @@ describe('TpRequestOfferFormComponent', () => {
       component.ngOnInit();
       component.requestOfferForm.setValue({
         message: 'some message',
-        price: '8'
+        price: 8
       });
       component.submitOffer();
 
       expect(component.submitted.emit).toHaveBeenCalledWith({
         message: 'some message',
-        price: '8'
-      });
+        price: 8
+      } as any);
     });
 
     it('should no emit submitted requestOfferForm event on invalid', () => {

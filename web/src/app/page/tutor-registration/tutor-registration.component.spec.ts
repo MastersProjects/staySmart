@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TutorRegistrationComponent} from './tutor-registration.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
@@ -14,8 +14,8 @@ describe('TutorRegistrationComponent', () => {
   let component: TutorRegistrationComponent;
   let fixture: ComponentFixture<TutorRegistrationComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [
         TutorRegistrationComponent,
         StepperComponent
@@ -28,7 +28,7 @@ describe('TutorRegistrationComponent', () => {
         SharedModule,
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TutorRegistrationComponent);

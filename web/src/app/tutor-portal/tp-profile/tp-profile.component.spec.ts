@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TpProfileComponent} from './tp-profile.component';
 import {TutorPortalService} from '../shared/tutor-portal.service';
@@ -11,8 +11,8 @@ describe('TpProfileComponent', () => {
   let component: TpProfileComponent;
   let fixture: ComponentFixture<TpProfileComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
         SharedModule,
@@ -27,7 +27,7 @@ describe('TpProfileComponent', () => {
       ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TpProfileComponent);

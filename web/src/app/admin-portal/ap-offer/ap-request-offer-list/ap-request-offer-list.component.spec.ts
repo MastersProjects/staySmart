@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ApRequestOfferListComponent} from './ap-request-offer-list.component';
 import {AdminPortalService} from '../../shared/admin-portal.service';
@@ -8,8 +8,8 @@ describe('ApRequestOfferListComponent', () => {
   let component: ApRequestOfferListComponent;
   let fixture: ComponentFixture<ApRequestOfferListComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TestingModule,
       ],
@@ -17,7 +17,7 @@ describe('ApRequestOfferListComponent', () => {
       providers: [AdminPortalService],
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ApRequestOfferListComponent);

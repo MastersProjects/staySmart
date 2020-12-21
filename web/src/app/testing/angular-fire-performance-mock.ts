@@ -5,7 +5,7 @@ export class AngularFirePerformanceMock {
   }
 }
 
-class TraceMock {
+export class TraceMock {
   start = () => {};
   // @ts-ignore
   putAttribute = (name: string, value: string) => {};

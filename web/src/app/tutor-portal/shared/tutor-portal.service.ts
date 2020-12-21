@@ -8,7 +8,7 @@ import {
 } from '../../shared/model/tutor-search-request.model';
 import * as firebase from 'firebase/app';
 import {TutorAuthService} from '../../auth/tutor-auth.service';
-import {map, switchMap} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
 import {trace} from '@angular/fire/performance';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Tutor} from '../../shared/model/tutor.model';
@@ -115,10 +115,7 @@ export class TutorPortalService {
         return this.angularFirestore.collectionGroup<TutorSearchRequestOffer>(
           'TutorSearchRequestOffers',
           query => query.where('uid', '==', tutorPortalUser.uid)
-        ).snapshotChanges();
-      }),
-      map(snapshots => {
-        return snapshots.map(snapshot => ({...snapshot.payload.doc.data(), id: snapshot.payload.doc.id}));
+        ).valueChanges({idField: 'id'});
       }),
       trace('getTutorPortalSentOffers')
     );
