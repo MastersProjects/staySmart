@@ -15,6 +15,7 @@ import {StaySmartService} from '../../shared/services/stay-smart.service';
 import {StepperComponent} from '../stepper/stepper.component';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {Configuration} from '../../shared/model/configuration.model';
+import {IDropdownSettings} from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-tutor-registration',
@@ -47,6 +48,17 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
 
   emailAlreadyInUse = '';
 
+  readonly DROPDOWN_SETTINGS: IDropdownSettings = {
+    singleSelection: false,
+    selectAllText: 'Alle selektieren',
+    unSelectAllText: 'Alle unselektieren',
+    searchPlaceholderText: 'Suchen',
+    noDataAvailablePlaceholderText: 'Keine Daten',
+    itemsShowLimit: 10,
+    allowSearchFilter: true,
+    clearSearchFilter: true
+  };
+
   constructor(
     private locationService: LocationService,
     private staySmartService: StaySmartService,
@@ -65,6 +77,7 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
+    console.log(this.registrationForm.value);
     if (this.registrationForm.valid) {
       /* this.registrationForm.value has to be StaySmartService.RegistrationForm
       *  TODO refactoring: make that it checks on runtime (maybe use class instead of interface?)
@@ -79,6 +92,8 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
             if (error.code === 'auth/email-already-in-use') {
               this.emailAlreadyInUse = this.registrationForm.get('step1').get('email').value;
               this.stepper.selectedIndex = 0;
+            } else {
+              console.error(error);
             }
           }
         );

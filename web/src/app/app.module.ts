@@ -13,6 +13,7 @@ import localeDECH from '@angular/common/locales/de-CH';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularFirePerformanceModule, PerformanceMonitoringService} from '@angular/fire/performance';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 registerLocaleData(localeDECH);
 
@@ -29,7 +30,8 @@ registerLocaleData(localeDECH);
     AngularFireStorageModule,
     AngularFireAuthModule,
     AngularFirePerformanceModule,
-    HttpClientModule
+    HttpClientModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'de-ch'},

@@ -10,6 +10,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AngularFireFunctionsModule} from '@angular/fire/functions';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {AngularFireFunctionsModule} from '@angular/fire/functions';
       messagingSenderId: '1026658607075',
       appId: '1:1026658607075:web:e2668fc32b302527'
     }),
+    NgMultiSelectDropDownModule.forRoot(),
   ],
   exports: [
     CommonModule,
@@ -37,6 +39,7 @@ import {AngularFireFunctionsModule} from '@angular/fire/functions';
     HttpClientTestingModule,
     FontAwesomeModule,
     AngularFireModule,
+    NgMultiSelectDropDownModule,
   ]
 })
 export class TestingModule {

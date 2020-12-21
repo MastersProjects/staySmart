@@ -20,6 +20,7 @@ import {TpProfilePictureComponent} from './tp-profile-picture/tp-profile-picture
 import {TpRequestOfferListComponent} from './tp-request-offer-list/tp-request-offer-list.component';
 import {TpRequestOfferDetailComponent} from './tp-request-offer-detail/tp-request-offer-detail.component';
 import {SharedModule} from '../shared/shared.module';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -37,18 +38,19 @@ import {SharedModule} from '../shared/shared.module';
     TpRequestOfferListComponent,
     TpRequestOfferDetailComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    TutorPortalRoutingModule,
-    FontAwesomeModule,
-    ReactiveFormsModule,
-    NgbDropdownModule,
-    NgbNavModule,
-    NgbTypeaheadModule,
-    NgbButtonsModule,
-    ImageCropperModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        TutorPortalRoutingModule,
+        FontAwesomeModule,
+        ReactiveFormsModule,
+        NgbDropdownModule,
+        NgbNavModule,
+        NgbTypeaheadModule,
+        NgbButtonsModule,
+        ImageCropperModule,
+        NgMultiSelectDropDownModule
+    ],
   providers: [TutorPortalService] // Because TutorPortalService is only provided in this module which is lazy loaded
 })
 export class TutorPortalModule {

@@ -30,6 +30,24 @@ html, body {
   border-radius: 0 !important;
 }
 
+.multiselect-dropdown {
+  .dropdown-btn {
+    span{
+      &:not(.selected-item) {
+        span:not(.dropdown-multiselect__caret) {
+          margin-right: 1em!important;
+        }
+      }
+    }
+    .selected-item {
+      background: #1a9dd9 !important;
+      border: 1px solid #1a9dd9 !important;
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+  }
+}
+
 $primary: #1a9dd9;
 @import '~bootstrap/scss/bootstrap';
 

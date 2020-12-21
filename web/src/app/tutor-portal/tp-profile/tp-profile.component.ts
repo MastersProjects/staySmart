@@ -11,6 +11,7 @@ import {GeoLocation} from '../../shared/model/geo-location.model';
 import {LocationService} from '../../shared/services/location.service';
 import {Configuration} from '../../shared/model/configuration.model';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {IDropdownSettings} from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-tp-profile',
@@ -28,6 +29,17 @@ export class TpProfileComponent implements OnInit, OnDestroy {
   searchFailed = false;
 
   configuration$: Observable<Configuration>;
+
+  readonly DROPDOWN_SETTINGS: IDropdownSettings = {
+    singleSelection: false,
+    selectAllText: 'Alle selektieren',
+    unSelectAllText: 'Alle unselektieren',
+    searchPlaceholderText: 'Suchen',
+    noDataAvailablePlaceholderText: 'Keine Daten',
+    itemsShowLimit: 10,
+    allowSearchFilter: true,
+    clearSearchFilter: true
+  };
 
   constructor(
     private authService: TutorAuthService,

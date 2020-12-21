@@ -176,15 +176,25 @@
             <div class="form-row" formGroupName="step4">
               <div class="form-group col-lg-6">
                 <label for="subjects">Fächer</label>
-                <select multiple id="subjects" name="subjects" class="form-control" formControlName="subjects">
-                  <option *ngFor="let sub of (configuration$ | async)?.subjects">{{sub}}</option>
-                </select>
+                <ng-multiselect-dropdown
+                  id="subjects"
+                  formControlName="subjects"
+                  [placeholder]="'Fächer auswählen'"
+                  [data]="(configuration$ | async)?.subjects"
+                  [settings]="DROPDOWN_SETTINGS"
+                >
+                </ng-multiselect-dropdown>
               </div>
               <div class="form-group col-lg-6">
                 <label for="gradeLevels">Klasse</label>
-                <select multiple id="gradeLevels" name="gradeLevel" class="form-control" formControlName="gradeLevels">
-                  <option *ngFor="let gradeLevel of (configuration$ | async)?.gradeLevels">{{gradeLevel}}</option>
-                </select>
+                <ng-multiselect-dropdown
+                  id="gradeLevels"
+                  formControlName="gradeLevels"
+                  [placeholder]="'Klassen auswählen'"
+                  [data]="(configuration$ | async)?.gradeLevels"
+                  [settings]="DROPDOWN_SETTINGS"
+                >
+                </ng-multiselect-dropdown>
               </div>
               <div class="form-group col-lg-6">
                 <label>Tag</label><br>

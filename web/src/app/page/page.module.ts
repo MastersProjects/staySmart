@@ -15,6 +15,7 @@ import {TutorSearchRequestDetailComponent} from './tutor-search-request-detail/t
 import {TutorSearchRequestOfferComponent} from './tutor-search-request-offer/tutor-search-request-offer.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {SharedModule} from '../shared/shared.module';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -26,16 +27,17 @@ import {SharedModule} from '../shared/shared.module';
     TutorSearchRequestDetailComponent,
     TutorSearchRequestOfferComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    PageRoutingModule,
-    NgbModule,
-    ReactiveFormsModule,
-    FontAwesomeModule,
-    CdkStepperModule,
-    NgxSpinnerModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        PageRoutingModule,
+        NgbModule,
+        ReactiveFormsModule,
+        FontAwesomeModule,
+        CdkStepperModule,
+        NgxSpinnerModule,
+        NgMultiSelectDropDownModule
+    ]
 })
 export class PageModule {
 }
