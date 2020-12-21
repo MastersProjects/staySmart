@@ -145,56 +145,50 @@ describe('Firebase Rules', () => {
   describe('Tutors', () => {
     describe('create', () => {
       it('should allow if Tutors doc', async () => {
-        const firestore = getFirestore(user.tutor);
+        const firestore = getFirestore();
         const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
         await firebase.assertSucceeds(testDoc.set(tutor.testDataCreate));
       });
 
       it('should not allow if not Tutors doc', async () => {
-        const firestore = getFirestore(user.tutor);
+        const firestore = getFirestore();
         const testDoc = firestore.collection('Tutors').doc('AnyTutor_UID');
         await firebase.assertFails(testDoc.set(tutor.testDataCreate));
       });
 
       it('should not allow if not Tutors uid', async () => {
-        const firestore = getFirestore(user.tutor);
+        const firestore = getFirestore();
         const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
         await firebase.assertFails(testDoc.set({...tutor.testDataCreate, uid: 'AnyTutor_UID'}));
       });
 
-      it('should not allow if not Tutors email', async () => {
-        const firestore = getFirestore(user.tutor);
-        const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
-        await firebase.assertFails(testDoc.set({...tutor.testDataCreate, email: 'any@email.ch'}));
-      });
-
       it('should not allow if price not valid', async () => {
-        const firestore = getFirestore(user.tutor);
+        const firestore = getFirestore();
         const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
         await firebase.assertFails(testDoc.set({...tutor.testDataCreate, price: 21}));
       });
 
       it('should not allow if isVerified true', async () => {
-        const firestore = getFirestore(user.tutor);
+        const firestore = getFirestore();
         const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
         await firebase.assertFails(testDoc.set({...tutor.testDataCreate, isVerified: true}));
       });
 
       it('should not allow if status not new', async () => {
-        const firestore = getFirestore(user.tutor);
+        const firestore = getFirestore();
         const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
         await firebase.assertFails(testDoc.set({...tutor.testDataCreate, status: 'activated'}));
       });
 
       it('should not allow if fields are missing', async () => {
-        const firestore = getFirestore(user.tutor);
+        const firestore = getFirestore();
         const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
         await firebase.assertFails(testDoc.set(tutor.testDataMissingFields));
       });
 
       tutor.createRequiredFields.forEach(field => {
         it(`should not allow if field ${field} is missing`, async () => {
-          const firestore = getFirestore(user.tutor);
+          const firestore = getFirestore();
           const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
           const testData = {...tutorSearchRequest.testDataCreate};
           delete testData[field];
@@ -203,7 +197,7 @@ describe('Firebase Rules', () => {
       });
 
       it('should not allow if not allowed field', async () => {
-        const firestore = getFirestore(user.tutor);
+        const firestore = getFirestore();
         const testDoc = firestore.collection('Tutors').doc('Tutor_UID');
         await firebase.assertFails(testDoc.set({...tutor.testDataCreate, notAllowedField: 'notAllowedField'}));
       });
