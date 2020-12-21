@@ -37,14 +37,12 @@ service cloud.firestore {
 
     match /Tutors/{tutorDoc} {
       // TODO deep field check
-      allow create: if request.auth.uid == tutorDoc
-                    && request.resource.data.uid == tutorDoc
-                    && request.resource.data.email == request.auth.token.email
+      allow create: if request.resource.data.uid == tutorDoc
                     && (request.resource.data.price > 0 && request.resource.data.price < 21)
                     && request.resource.data.isVerified == false
                     && request.resource.data.status == 'new'
                     && areFieldsValid(
-                      ['attention', 'birthday', 'daysAvailable', 'education', 'email', 'firstName', 'gradeLevels', 'isVerified', 'lastName', 'location', 'mobileNumber', 'point', 'postalCode', 'price', 'registrationTimestamp', 'status', 'streetAddress', 'studentCardBack', 'studentCardExpireDate','studentCardFront', 'subjects', 'tags', 'uid'],
+                      ['attention', 'birthday', 'daysAvailable', 'education', 'email', 'firstName', 'gradeLevels', 'isVerified', 'lastName', 'location', 'mobileNumber', 'point', 'postalCode', 'price', 'registrationTimestamp', 'status', 'streetAddress', 'studentCardBack', 'studentCardExpireDate', 'studentCardFront', 'subjects', 'tags', 'uid'],
                       ['matchingTutorSearchRequests', 'profilePicture']
                     );
 
