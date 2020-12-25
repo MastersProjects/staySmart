@@ -24,7 +24,6 @@ export class AdminAuthService {
 
   private loadAuthState() {
     this.authState$ = this.angularFireAuth.authState.pipe(
-      tap(() => console.log('authState Subscribed')),
       trace('authState$')
     );
   }
@@ -75,8 +74,8 @@ export class AdminAuthService {
   private getAdmin(uid: string): Observable<Admin | null> {
     return this.angularFirestore.collection('Admins').doc(uid).valueChanges().pipe(
       switchMap(admin => {
-        console.log('getAdmin', admin);
         if (admin) {
+          console.log('getAdmin', admin);
           return of(admin);
         } else {
           console.log(`Admin ${uid} doesn't exist in Firestore`);
