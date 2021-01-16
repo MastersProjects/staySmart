@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {TutorRegistrationComponent} from './tutor-registration.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
@@ -8,11 +8,16 @@ import {StepperComponent} from '../stepper/stepper.component';
 import * as firebase from 'firebase/app';
 import {SharedModule} from '../../shared/shared.module';
 import {TestingModule} from '../../testing/testing.module';
+import {StaySmartService} from '../../shared/services/stay-smart.service';
+import {of, throwError} from 'rxjs';
+import {LocationService} from '../../shared/services/location.service';
 import Timestamp = firebase.firestore.Timestamp;
 
 describe('TutorRegistrationComponent', () => {
   let component: TutorRegistrationComponent;
   let fixture: ComponentFixture<TutorRegistrationComponent>;
+  let staySmartService: StaySmartService;
+  let locationService: LocationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -33,6 +38,8 @@ describe('TutorRegistrationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TutorRegistrationComponent);
     component = fixture.componentInstance;
+    staySmartService = TestBed.inject(StaySmartService);
+    locationService = TestBed.inject(LocationService);
     fixture.detectChanges();
   });
 
@@ -133,6 +140,169 @@ describe('TutorRegistrationComponent', () => {
     fillStep3();
     fillStep4();
     expect(component.registrationForm.valid).toBeTruthy();
+  });
+
+  describe('submitForm', () => {
+    it('should submit form', fakeAsync(() => {
+      fillStep1();
+      fillStep2();
+      fillStep3();
+      fillStep4();
+      spyOn(staySmartService, 'registerNewTutor').and.returnValue(of(void 0));
+
+      component.submitForm();
+      tick();
+
+      expect(staySmartService.registerNewTutor).toHaveBeenCalled();
+      expect(component.submitted).toBeTrue();
+    }));
+
+    it('should submit form and handle email already in use', fakeAsync(() => {
+      fillStep1();
+      fillStep2();
+      fillStep3();
+      fillStep4();
+      spyOn(staySmartService, 'registerNewTutor').and.returnValue(throwError({code: 'auth/email-already-in-use'}));
+
+      component.submitForm();
+      tick();
+
+      expect(staySmartService.registerNewTutor).toHaveBeenCalled();
+      expect(component.submitted).toBeFalse();
+      expect(component.emailAlreadyInUse).toBe('test@example.com');
+      expect(component.stepper.selectedIndex).toBe(0);
+    }));
+
+    it('should submit form and handle', fakeAsync(() => {
+      fillStep1();
+      fillStep2();
+      fillStep3();
+      fillStep4();
+      spyOn(staySmartService, 'registerNewTutor').and.returnValue(throwError({code: 'code'}));
+      spyOn(console, 'error').and.stub();
+
+      component.submitForm();
+      tick();
+
+      expect(staySmartService.registerNewTutor).toHaveBeenCalled();
+      expect(component.submitted).toBeFalse();
+      expect(component.emailAlreadyInUse).not.toBe('test@example.com');
+      expect(console.error).toHaveBeenCalledWith({code: 'code'});
+    }));
+
+    it('should not submit on invalid', fakeAsync(() => {
+      fillStep1();
+      spyOn(staySmartService, 'registerNewTutor').and.returnValue(throwError({code: 'code'}));
+
+      component.submitForm();
+      tick();
+
+      expect(staySmartService.registerNewTutor).not.toHaveBeenCalled();
+    }));
+  });
+
+  describe('onFrontFileChange', () => {
+    it('should handle onFrontFileChange', fakeAsync(() => {
+      const event = {target: {files: [{name: 'fileName'}]}};
+
+      component.onFrontFileChange(event);
+
+      expect(component.studentCardFrontFileName).toBe('fileName');
+      expect(component.registrationForm.get('step3').get('studentCardFront').value).toEqual({name: 'fileName'});
+    }));
+  });
+
+  describe('onBackFileChange', () => {
+    it('should handle onBackFileChange', fakeAsync(() => {
+      const event = {target: {files: [{name: 'fileName'}]}};
+
+      component.onBackFileChange(event);
+
+      expect(component.studentCardBackFileName).toBe('fileName');
+      expect(component.registrationForm.get('step3').get('studentCardBack').value).toEqual({name: 'fileName'});
+    }));
+  });
+
+  describe('searchLocation', () => {
+    it('should searchLocation', (done) => {
+      const geoLocations = [{
+        label: 'label',
+        detail: 'detail',
+        lon: 1,
+        lat: 2,
+        y: 3,
+        x: 4,
+        geomStBox2d: 'geomStBox2d',
+      }];
+      spyOn(locationService, 'searchLocation').and.returnValue(of(geoLocations));
+
+      component.searchLocation(of('text')).subscribe(res => {
+        expect(res).toEqual(geoLocations);
+        expect(component.searching).toBeFalse();
+        done();
+      });
+    });
+
+    it('should searchLocation and handle error', (done) => {
+      spyOn(locationService, 'searchLocation').and.returnValue(throwError({error: 'error'}));
+
+      component.searchLocation(of('text')).subscribe(res => {
+        expect(res).toEqual([]);
+        expect(component.searchFailed).toBeTrue();
+        expect(component.searching).toBeFalse();
+        done();
+      });
+    });
+  });
+
+  describe('locationFormatter', () => {
+    it('should locationFormatter', () => {
+      expect(component.locationFormatter({
+        label: 'label',
+        detail: 'detail',
+        lon: 1,
+        lat: 2,
+        y: 3,
+        x: 4,
+        geomStBox2d: 'geomStBox2d',
+      })).toBe('label');
+    });
+
+    it('should locationFormatter on no label', () => {
+      expect(component.locationFormatter({
+        detail: 'detail',
+        lon: 1,
+        lat: 2,
+        y: 3,
+        x: 4,
+        geomStBox2d: 'geomStBox2d',
+      } as any)).toBeUndefined();
+    });
+  });
+
+  describe('locationFormatterForm', () => {
+    it('should locationFormatterForm', () => {
+      expect(component.locationFormatterForm({
+        label: 'label',
+        detail: 'detail',
+        lon: 1,
+        lat: 2,
+        y: 3,
+        x: 4,
+        geomStBox2d: 'geomStBox2d',
+      })).toBe('label');
+    });
+
+    it('should locationFormatterForm on no label', () => {
+      expect(component.locationFormatterForm({
+        detail: 'detail',
+        lon: 1,
+        lat: 2,
+        y: 3,
+        x: 4,
+        geomStBox2d: 'geomStBox2d',
+      } as any)).toBeUndefined();
+    });
   });
 
   function fillStep1() {

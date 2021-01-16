@@ -77,17 +77,13 @@ export class TutorRegistrationComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    console.log(this.registrationForm.value);
     if (this.registrationForm.valid) {
       /* this.registrationForm.value has to be StaySmartService.RegistrationForm
       *  TODO refactoring: make that it checks on runtime (maybe use class instead of interface?)
       */
       this.staySmartService.registerNewTutor(this.registrationForm.value).pipe(takeUntil(this.destroy$))
         .subscribe(
-          () => {
-            console.log('Registered');
-            this.submitted = true;
-          },
+          () => this.submitted = true,
           error => {
             if (error.code === 'auth/email-already-in-use') {
               this.emailAlreadyInUse = this.registrationForm.get('step1').get('email').value;
