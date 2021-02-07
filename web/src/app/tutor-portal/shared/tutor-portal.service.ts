@@ -56,9 +56,10 @@ export class TutorPortalService {
     );
   }
 
-  async sendTutorSearchRequestOffer(tutorSearchRequestOffer: TutorSearchRequestOffer,
-                                    tutorSearchRequestData: TutorSearchRequestData):
-    Promise<[void, firebase.firestore.DocumentReference]> {
+  async sendTutorSearchRequestOffer(
+    tutorSearchRequestOffer: TutorSearchRequestOffer,
+    tutorSearchRequestData: TutorSearchRequestData
+  ): Promise<[void, firebase.firestore.DocumentReference]> {
 
     const tutorPortalUser = await this.authService.tutorPortalUser;
     const {uid, firstName, lastName, profilePicture, isVerified} = tutorPortalUser;
@@ -90,7 +91,7 @@ export class TutorPortalService {
       `TutorSearchRequests/${tutorSearchRequestData.id}/TutorSearchRequestOffers`
     ).add(offer);
 
-    return Promise.all([updatePortalUser, addOffer]);
+    return Promise.all([updatePortalUser, addOffer]); // FIXME first addOffer and then updatePortalUser: addOffer could fail
   }
 
   async uploadProfilePicture(profilePicture: string, tutor: Tutor) {
