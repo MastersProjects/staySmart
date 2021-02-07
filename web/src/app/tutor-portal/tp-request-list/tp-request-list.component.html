@@ -1,7 +1,12 @@
 <h3>Nachhilf Anfragen</h3>
 
 <ng-container *ngIf="tutorPortalUser$ | async as tutorPortalUser">
+  <p *ngIf="!tutorPortalUser.profilePicture">
+    Um eine Offerte machen zu können, brauchst du noch ein Profil Bild.
+    <a [routerLink]="['../profile']">Lade jetzt ein Profil Bild hoch</a>
+  </p>
   <app-tp-request-detail *ngFor="let tutorSearchRequest of tutorSearchRequests$ | async" class="d-block my-4"
                          [tutorSearchRequest]="tutorSearchRequest"
-                         [hasSent]="hasSent(tutorPortalUser.sentOffers, tutorSearchRequest.id)"></app-tp-request-detail>
+                         [hasSent]="hasSent(tutorPortalUser.sentOffers, tutorSearchRequest.id)"
+                         [hasProfilePicture]="!!tutorPortalUser.profilePicture"></app-tp-request-detail>
 </ng-container>

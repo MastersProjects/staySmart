@@ -30,6 +30,7 @@ export class TpRequestDetailComponent implements OnInit {
   @Input() tutorSearchRequest: TutorSearchRequestData;
   @Input() isDeclinable: boolean;
   @Input() hasSent: boolean;
+  @Input() hasProfilePicture: boolean;
 
   @Output() declined = new EventEmitter<void>();
 
@@ -41,7 +42,10 @@ export class TpRequestDetailComponent implements OnInit {
   faChevronUp = faChevronUp;
   isCollapsed = true;
 
-  constructor(private tutorPortalService: TutorPortalService, private router: Router) {
+  constructor(
+    private tutorPortalService: TutorPortalService,
+    private router: Router,
+  ) {
   }
 
   ngOnInit() {
