@@ -32,14 +32,14 @@ const transporter = nodemailer.createTransport({
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
 
-export const helloWorld = functions.region('europe-west1').https.onRequest((_request, response) => {
+export const helloWorld = functions.region('europe-west6').https.onRequest((_request, response) => {
     response.send("Hello from Firebase!");
 });
 
 /**
  * Notify Searcher by E-Mail on receiving their SearchTutorRequest
  */
-export const notifySearcherOnRequestReceived = functions.region('europe-west1')
+export const notifySearcherOnRequestReceived = functions.region('europe-west6')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestContactData/{contactDataID}')
     .onCreate(async (snap, context) => {
 
@@ -76,7 +76,7 @@ export const notifySearcherOnRequestReceived = functions.region('europe-west1')
 /**
  * Notify Searcher by E-Mail on new SearchTutorRequestOffer for their SearchTutorRequest
  */
-export const notifySearcherOnNewOffer = functions.region('europe-west1')
+export const notifySearcherOnNewOffer = functions.region('europe-west6')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestOffers/{TutorSearchRequestOfferID}')
     .onCreate(async snapshot => {
         const createdTutorSearchRequestOffer: any = snapshot.data();
@@ -117,7 +117,7 @@ export const notifySearcherOnNewOffer = functions.region('europe-west1')
 /**
  * Notify Tutor by E-Mail on Searcher accepting their SearchTutorRequestOffer
  */
-export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
+export const notifyTutorOnAcceptedOffer = functions.region('europe-west6')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}/TutorSearchRequestOffers/{TutorSearchRequestOfferID}')
     .onUpdate(async snapshot => {
         const updatedTutorSearchRequestOffer: any = snapshot.after.data();
@@ -156,7 +156,7 @@ export const notifyTutorOnAcceptedOffer = functions.region('europe-west1')
 /**
  * Notify Tutor by E-Mail on new matching TutorSearchRequest
  */
-export const notifyTutorOnNewMatchingRequest = functions.region('europe-west1')
+export const notifyTutorOnNewMatchingRequest = functions.region('europe-west6')
     .firestore.document('TutorSearchRequests/{tutorSearchRequestID}')
     .onCreate(async (snap, context) => {
         const createdTutorSearchRequest: any = snap.data();
@@ -284,7 +284,7 @@ export const grantAdminRoleOnCreateAdmin = functions.region('europe-west6')
     });
 
 
-export const sendWhatsApp = functions.region('europe-west1').https.onRequest((_request, response) => {
+export const sendWhatsApp = functions.region('europe-west6').https.onRequest((_request, response) => {
     const options = {
         host: 'api.websms.com',
         path: '/rest/converged/whatsapp',
